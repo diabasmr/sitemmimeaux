@@ -205,6 +205,7 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                             <option value="0" selected>En attente</option>
                             <option value="1">Validée</option>
                             <option value="2">Refusée</option>
+                            <option value="3">Retourné</option>
                         </select>
                     </div>
                     <div class="modifPopupReservation_content_body_item">

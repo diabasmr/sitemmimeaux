@@ -122,7 +122,7 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                 <div class="modifPopupMateriel_content_body">
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="designation">Désignation du matériel</label>
-                        <input type="text" id="designation" placeholder="Matériel">
+                        <input type="text" id="designation" name="designation" placeholder="Matériel">
                     </div>
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="photo">Photo</label>
@@ -130,7 +130,7 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                     </div>
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="date_achat">Date d'achat</label>
-                        <input type="datetime-local" id="date_achat" name="date_achat" placeholder="Date d'achat" disabled>
+                        <input type="datetime-local" id="date_achat" name="date_achat" placeholder="Date d'achat">
                     </div>
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="quantite">Quantité</label>
@@ -143,21 +143,21 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="type">Type</label>
                         <select name="type" id="type">
-                            <option value="0" selected>Accessoire</option>
-                            <option value="1">Vidéo</option>
-                            <option value="2">Audio</option>
-                            <option value="3">Drone</option>
-                            <option value="4">AR/VR</option>
-                            <option value="5">Graphisme</option>
+                            <option value="Accessoire" selected>Accessoire</option>
+                            <option value="Vidéo">Vidéo</option>
+                            <option value="Audio">Audio</option>
+                            <option value="Drone">Drone</option>
+                            <option value="AR/VR">AR/VR</option>
+                            <option value="Graphisme">Graphisme</option>
                         </select>
                     </div>
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="etat">Etat</label>
                         <select name="etat" id="etat">
-                            <option value="0" selected>Très bon état</option>
-                            <option value="1">Bon état</option>
-                            <option value="2">Mauvais état</option>
-                            <option value="3">En panne</option>
+                            <option value="Très bon état" selected>Très bon état</option>
+                            <option value="Bon état">Bon état</option>
+                            <option value="Mauvais état">Mauvais état</option>
+                            <option value="En panne">En panne</option>
                         </select>
                     </div>
                     <div class="modifPopupMateriel_content_body_item">
@@ -166,7 +166,7 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                     </div>
                     <div class="button-container">
                         <button type="button" name="supprimer" class="supprimer">Supprimer</button>
-                        <button type="submit">Modifier</button>
+                        <button type="submit" name="submit">Modifier</button>
                     </div>
                 </div>
             </div>

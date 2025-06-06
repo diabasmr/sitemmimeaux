@@ -7,7 +7,9 @@
   padding: 4vh 2vw;
   border-radius: 0.5vw;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  width: 70vw;
+  width: 25vw;
+  height: 80%;
+  overflow-y: scroll;
   display: none;
 }
 
