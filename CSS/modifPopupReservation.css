@@ -1,0 +1,175 @@
+.modifPopupReservation {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 4vh 2vw;
+  border-radius: 0.5vw;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 25vw;
+  display: none;
+}
+
+.modifPopupReservation.active {
+  display: block;
+}
+
+.modifPopupReservation_content {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5vw;
+}
+
+.modifPopupReservation_content_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.modifPopupReservation_content_header button {
+  background-color: transparent;
+  border: none;
+}
+
+.modifPopupReservation_content_header h3 {
+  font-size: 1.5vw;
+  font-weight: 600;
+}
+
+.modifPopupReservation img {
+  width: 1.5vw;
+  height: 1.5vw;
+}
+
+.modifPopupReservation_content_body {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5vw;
+  width: 100%;
+}
+
+.modifPopupReservation_content_body_item {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5vw;
+  width: 100%;
+}
+
+.modifPopupReservation_content_body_item label {
+  font-size: 1vw;
+  font-weight: 600;
+}
+
+.modifPopupReservation_content_body_item input {
+  width: 100%;
+  padding: 0.5vw;
+  border-radius: 0.5vw;
+  border: 1px solid #000;
+}
+
+.modifPopupReservation_content_body_item select {
+  width: 100%;
+  padding: 0.5vw;
+  border-radius: 0.5vw;
+  border: 1px solid #000;
+}
+
+.avatar-container_img {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.user-avatar {
+  position: relative;
+}
+
+.user-avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-avatar:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.button-container {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.button-container button {
+  width: 100%;
+  padding: 0.5vw;
+  border-radius: 0.5vw;
+  border: 1px solid #000;
+}
+
+.button-container button:first-child {
+  background-color: #d31b4a;
+  color: #fff;
+  border: none;
+}
+
+.button-container button:first-child:hover {
+  background-color: #a3163c;
+  border: none;
+}
+
+.button-container button:last-child {
+  background-color: green;
+  color: #fff;
+  border: none;
+}
+
+.button-container button:last-child:hover {
+  background-color: #006400;
+  border: none;
+}
+
+@media screen and (max-width: 1100px) {
+  .close_modifPopupReservation img {
+    height: 30px;
+    width: auto;
+  }
+  .modifPopupReservation {
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 4vh 4vw;
+    border-radius: 3vw;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 70vw;
+    display: none;
+  }
+
+  .modifPopupReservation_content_header h3 {
+    font-size: 4.5vw;
+    font-weight: 600;
+  }
+
+  .modifPopupReservation_content_body_item label {
+    font-size: 3vw;
+    font-weight: 600;
+  }
+}

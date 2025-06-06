@@ -1,0 +1,686 @@
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  padding: 15vh 2vw 2vw 20vw;
+  width: 100%;
+  height: 100%;
+  gap: 5vh;
+}
+
+main .top {
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  width: 100%;
+  gap: 1vh;
+}
+
+main .top p:first-child {
+  font-size: 1vw;
+  font-weight: light;
+}
+
+main .top p:nth-child(2) {
+  font-size: 2vw;
+  font-weight: bold;
+}
+
+main .top .cards {
+  display: flex;
+  justify-content: start;
+  gap: 2vw;
+}
+
+main .top .cards .card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20vw;
+  height: 8vw;
+  background-color: white;
+  border-radius: 0.5vw;
+}
+
+main .reservation {
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  width: 100%;
+  gap: 1vh;
+}
+
+main .reservation h2 {
+  font-size: 1.5vw;
+  font-weight: bold;
+}
+
+main .reservation .search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+main .reservation .search p {
+  font-size: 1vw;
+}
+
+main .reservation .search .searchContainer {
+  display: flex;
+  justify-content: start;
+  gap: 0.5vw;
+}
+
+main .reservation .search .searchContainer input {
+  width: 13vw;
+  height: 3vw;
+  background-color: white;
+  border: none;
+  border-radius: 1cqi;
+  font-size: 1vw;
+  border: 0.15vw solid #edafbe;
+  padding: 0 1vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main .reservation div .searchContainer input::placeholder {
+  font-size: 1vw;
+  color: black;
+}
+
+main .reservation div .searchContainer button {
+  width: 3vw;
+  height: 3vw;
+  background-color: #ffdee4;
+  border: 0.15vw solid #edafbe;
+  border-radius: 1cqi;
+  font-size: 1vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main .reservation div .searchContainer button img {
+  width: 50%;
+  height: auto;
+  object-fit: contain;
+}
+
+.table {
+  width: 100%;
+  background-color: white;
+  border-radius: 1vw;
+  padding: 2vh 1.5vw;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1vh;
+}
+
+.table .header_Table {
+  background-color: #edafbe;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  align-items: center;
+  height: 6vh;
+  border-radius: 1vw;
+  width: 100%;
+  padding: 0 2vw;
+}
+
+.table .header_Table p {
+  font-size: 1vw;
+}
+
+.table .header_Table p:nth-child(2),
+.table .header_Table p:nth-child(3) {
+  margin: 0 auto;
+}
+
+.table .header_Table p:nth-child(4) {
+  margin: 0 2vw 0 auto;
+}
+
+.table .body_Table {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+  border-radius: 1vw;
+  padding: 0 2vw;
+  gap: 2vh;
+}
+
+.table .body_Table .line {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: 6vh;
+  width: 100%;
+  border-radius: 1vw;
+}
+.table .body_Table .line p:nth-child(1) {
+  margin: auto 0;
+}
+
+.table .body_Table .line p:nth-child(2),
+.table .body_Table .line p:nth-child(3) {
+  margin: auto;
+}
+
+.table .body_Table .line p {
+  font-size: 1vw;
+}
+
+.table .body_Table .line button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto 0 auto auto;
+  width: 6vw;
+  height: 2.7vw;
+  background-color: transparent;
+  border: 0.15vw solid #edafbe;
+  border-radius: 1vw;
+  font-size: 0.7vw;
+  transition: all 0.2s ease-in-out;
+}
+
+.statusButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1vw;
+}
+
+.table .body_Table .line button.attente {
+  color: #f9a308;
+  border: 0.15vw solid #f9a308;
+}
+
+.table .body_Table .line button.attente::after {
+  content: "En attente";
+}
+
+.table .body_Table .line button.accepté {
+  color: #356c25;
+  border: 0.15vw solid #356c25;
+}
+
+.table .body_Table .line button.accepté::after {
+  content: "Accepté";
+}
+
+.table .body_Table .line button.réfusé {
+  color: #f9080c;
+  border: 0.15vw solid #f9080c;
+}
+.table .body_Table .line button.réfusé::after {
+  content: "Réfusé";
+}
+
+.table .body_Table .line button.annulé {
+  color: #f9080c;
+  border: 0.15vw solid #f9080c;
+}
+.table .body_Table .line button.annulé::after {
+  content: "Annulé";
+}
+
+.table .body_Table .line button.terminé {
+  color: #707070;
+  border: 0.15vw solid #4b4b4b;
+}
+
+.table .body_Table .line button.terminé::after {
+  content: "Terminé";
+}
+
+.table .body_Table .line button.modifier {
+  color: #edafbe;
+  border: 0.15vw solid #edafbe;
+  font-size: 1vw;
+}
+
+.table .body_Table .line button.modifier::after {
+  content: "Modifier";
+}
+
+.table .body_Table .line button.modifier:hover {
+  background-color: #edafbe;
+  color: white;
+}
+
+.add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3vw;
+  height: 5vh;
+  border: none;
+  background-color: #d31b4a;
+  border-radius: 0.5vw;
+  margin: 2vh 2vw 0 auto;
+}
+
+.add img {
+  width: 50%;
+  height: auto;
+  object-fit: contain;
+}
+
+.modif,
+.ajouterUser {
+  display: none;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 40vw;
+  height: 75vh;
+  padding: 10vh 7vw 5vh 7vw;
+  background-color: white;
+  z-index: 3;
+  border: none;
+  border-radius: 3vw;
+  gap: 2vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Apfel Grotezk", sans-serif;
+}
+
+.modif.active,
+.ajouterUser.active {
+  display: flex;
+}
+
+.modif > button,
+.ajouterUser > button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  width: 2vw;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 4vh;
+  right: 7vh;
+}
+
+.modif > button img,
+.ajouterUser > button img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.modif h3 {
+  font-size: 2vw;
+  font-weight: bold;
+}
+
+.modif p {
+  font-size: 1vw;
+}
+
+.modif form {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 2vh;
+  width: 100%;
+  height: auto;
+}
+
+.modif form .name {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2vw;
+  width: 100%;
+}
+
+.modif form .name div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.5vw;
+  width: 100%;
+  flex-direction: column;
+}
+
+.modif form label {
+  font-size: 1.2vw;
+}
+
+.modif form input {
+  width: 100%;
+  height: 5vh;
+  border: 1px solid gray;
+  background-color: transparent;
+  font-size: 1vw;
+  color: gray;
+  border-radius: 0.5vw;
+  padding: 0 1vw;
+}
+
+.modif form .email,
+.modif form .tel,
+.modif form .role {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0.5vw;
+  width: 100%;
+}
+
+.modif form .role select {
+  width: 100%;
+  height: 5vh;
+  border: 1px solid gray;
+  background-color: transparent;
+  font-size: 1vw;
+  color: gray;
+  border-radius: 0.5vw;
+  padding: 0 1vw;
+}
+
+.modif form .buttonsSubmit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  gap: 2vw;
+}
+
+.modif form .buttonsSubmit button {
+  width: auto;
+  height: 5vh;
+  background-color: #d31b4a;
+  border: none;
+  border-radius: 0.5vw;
+  color: white;
+  font-size: 1vw;
+  padding: 0 1vw;
+}
+
+.modif form .buttonsSubmit button:last-child {
+  background-color: green;
+}
+
+#modifierUtilisateur {
+  display: none;
+}
+
+.ajouterUser h3 {
+  font-size: 2vw;
+  font-weight: bold;
+}
+
+.ajouterUser p {
+  font-size: 1vw;
+}
+
+.ajouterUser form {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 2vh;
+  width: 100%;
+  height: auto;
+}
+
+.ajouterUser form .name {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2vw;
+  width: 100%;
+}
+
+.ajouterUser form .name div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.5vw;
+  width: 100%;
+  flex-direction: column;
+}
+
+.ajouterUser form label {
+  font-size: 1vw;
+}
+
+.ajouterUser form input {
+  width: 100%;
+  height: 5vh;
+  border: 1px solid gray;
+  background-color: transparent;
+  font-size: 1vw;
+  color: gray;
+  border-radius: 0.5vw;
+  padding: 0 1vw;
+}
+
+.ajouterUser form .email,
+.ajouterUser form .tel,
+.ajouterUser form .role {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0.5vw;
+  width: 100%;
+}
+
+.ajouterUser form .role select {
+  width: 100%;
+  height: 5vh;
+  border: 1px solid gray;
+  background-color: transparent;
+  font-size: 1vw;
+  color: gray;
+  border-radius: 0.5vw;
+  padding: 0 1vw;
+}
+
+.ajouterUser form .buttonsSubmitContainer {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 2vw;
+}
+
+.ajouterUser form .buttonsSubmitContainer .buttonsSubmit {
+  width: auto;
+  height: 5vh;
+  background-color: #d31b4a;
+  border: none;
+  border-radius: 0.5vw;
+  color: white;
+  font-size: 1vw;
+  padding: 0 1vw;
+}
+
+/* responsive */
+
+@media screen and (max-width: 1150px) {
+  main {
+    padding: 10vh 4vw 0 4vw !important;
+  }
+
+  main .top {
+    gap: 1vh;
+  }
+
+  main .top p:first-child {
+    font-size: 4vw;
+    font-weight: light;
+  }
+
+  main .top p:nth-child(2) {
+    font-size: 5vw;
+    font-weight: bold;
+  }
+
+  main .top .cards {
+    gap: 1vh;
+  }
+
+  main .top .cards .card {
+    width: 40vw;
+    height: 20vw;
+  }
+
+  main .reservation h2 {
+    font-size: 5vw;
+    font-weight: bold;
+  }
+
+  main .reservation div p {
+    font-size: 4vw !important;
+  }
+
+  main .reservation div .searchContainer {
+    gap: 2vw;
+  }
+
+  main .reservation div .searchContainer input {
+    width: 35vw !important;
+    height: 7vw !important;
+    font-size: 4vw !important;
+  }
+
+  main .reservation div .searchContainer input::placeholder {
+    font-size: 4vw;
+  }
+
+  main .reservation div .searchContainer button {
+    width: 7vw;
+    height: 7vw;
+    font-size: 5vw;
+  }
+
+  .table {
+    width: 100%;
+    background-color: white;
+    border-radius: 1vw;
+    padding: 2vh 1.5vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1vh;
+  }
+
+  .table .header_Table {
+    background-color: #edafbe;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: space-between;
+    align-items: center;
+
+    height: 6vh;
+    border-radius: 1vw;
+    width: 100%;
+    padding: 0 4vw;
+  }
+
+  .table .header_Table p {
+    font-size: 3vw !important;
+  }
+
+  .table .body_Table {
+    gap: 2vh;
+  }
+
+  .table .body_Table .line {
+    height: 6vh;
+    width: 100%;
+    border-radius: 1vw;
+  }
+
+  .table .body_Table .line p {
+    font-size: 3vw !important;
+  }
+
+  .table .body_Table .line button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18vw;
+    height: 8vw;
+    background-color: transparent;
+    border: 0.15vw solid var(--tertiary-color);
+    border-radius: 1vw;
+    font-size: 4vw !important;
+  }
+
+  .add {
+    width: 8vw;
+    height: 5vh;
+    border: none;
+    background-color: #d31b4a;
+    border-radius: 1vw;
+    margin: 2vh 2vw 0 auto;
+  }
+
+  .modif form label {
+    font-size: 4.2vw;
+  }
+  .modif form input {
+    font-size: 4.2vw;
+  }
+  .modif {
+    width: 80vw;
+    top: 40%;
+  }
+  .modif form .buttonsSubmit button {
+    font-size: 3.2vw;
+  }
+  .modif form .role select {
+    font-size: 3vw;
+  }
+
+  .modif h3 {
+    font-size: 6vw;
+  }
+
+  .ajouterUser form label {
+    font-size: 4.2vw;
+  }
+  .ajouterUser form input {
+    font-size: 4.2vw;
+  }
+  .ajouterUser {
+    width: 80vw;
+    top: 70%;
+  }
+
+  .ajouterUser form .role select {
+    font-size: 3vw;
+  }
+
+  .ajouterUser h3 {
+    font-size: 6vw;
+  }
+
+  .modif > button img,
+  .ajouterUser > button img {
+    width: auto;
+    height: 30px;
+    object-fit: contain;
+  }
+}

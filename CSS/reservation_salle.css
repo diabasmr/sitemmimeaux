@@ -1,0 +1,398 @@
+.calendar {
+	background: #fdecee;
+	padding: 1rem;
+	border-radius: 12px;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.calendar header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-weight: bold;
+	margin-bottom: 1rem;
+}
+
+.calendar table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.calendar th,
+.calendar td {
+	padding: 8px;
+	cursor: pointer;
+}
+
+.calendar td:hover {
+	background: #f0cbd1;
+}
+
+.calendar td.selected {
+	background: #e4587d;
+	color: white;
+	border-radius: 6px;
+}
+
+.signature-box canvas {
+	border: 1px dashed #ccc;
+	background: #f9f9f9;
+	border-radius: 10px;
+	cursor: crosshair;
+}
+
+.salle-selector {
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.salle-selector button {
+	padding: 10px 20px;
+	margin: 0 10px;
+	border: none;
+	border-radius: 5px;
+	background-color: #f0cbd1;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.salle-selector button.active {
+	background-color: #e4587d;
+	color: white;
+}
+
+/* Conteneur principal */
+main .reservation-container {
+	max-width: calc(100% - 10px);
+	/* pour éviter le débordement */
+}
+
+/* Layout horizontal caméra + détails */
+.reservation-content {
+	display: flex;
+	justify-content: space-between;
+	gap: 1.5rem;
+	flex-wrap: wrap;
+}
+
+/* Bloc équipement */
+.equipment {
+	background: #fff;
+	padding: 1.2rem;
+	border-radius: 20px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+	width: 45%;
+	min-width: 320px;
+}
+
+.equipment img {
+	width: 100%;
+	border-radius: 10px;
+	margin-bottom: 1rem;
+}
+
+.equipment input,
+.equipment textarea {
+	width: 100%;
+	padding: 0.8rem;
+	margin-bottom: 1rem;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	font-size: 1rem;
+}
+
+/* Détails réservation */
+.reservation-details {
+	width: 50%;
+	min-width: 320px;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+/* Calendrier */
+.calendar {
+	background: #fbeaec;
+	border-radius: 20px;
+	padding: 1rem;
+}
+
+.calendar-box {
+	background: #fce8ea;
+	padding: 1rem;
+	border-radius: 15px;
+}
+
+.calendar table {
+	width: 100%;
+	text-align: center;
+	border-collapse: collapse;
+}
+
+.calendar th,
+.calendar td {
+	padding: 0.5rem;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.calendar td.active {
+	background-color: #e4587d;
+	color: white;
+	font-weight: bold;
+}
+
+.calendar button {
+	background-color: #cc617d;
+	border: none;
+	color: white;
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Qui réserve */
+.who {
+	background: #fff;
+	padding: 1rem;
+	border-radius: 20px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.avatars {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	object-fit: cover;
+	box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.add-avatar {
+	width: 40px;
+	height: 40px;
+	font-size: 1.5rem;
+	border: none;
+	border-radius: 50%;
+	background-color: #fbeaec;
+	color: var(--primary-color);
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Signature */
+.signature-section {
+	background: #fff;
+	padding: 1rem;
+	border-radius: 20px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.signature-box {
+	width: 100%;
+	height: 100px;
+	background: #f9f9f9;
+	border: 1px dashed #ccc;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 0.5rem;
+}
+
+#signature-canvas {
+	border: 1px dashed #ccc;
+	border-radius: 10px;
+	background-color: #f9f9f9;
+	width:500px;
+	height:100px;
+}
+
+.signature-box img {
+	max-height: 80px;
+}
+
+.signature-section label {
+	font-size: 0.9rem;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.clear-signature {
+	margin-top: 0.5rem;
+	background: transparent;
+	border: none;
+	color: var(--primary-color);
+	font-size: 0.9rem;
+	cursor: pointer;
+}
+
+/* Bouton soumettre */
+.submit-button {
+	margin-top: 1rem;
+	align-self: flex-end;
+	padding: 0.75rem 1.5rem;
+	font-size: 1rem;
+	border: none;
+	border-radius: 12px;
+	background-color: var(--primary-color);
+	color: var(--white-color);
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+	background-color: #cc3e65;
+}
+
+.who-list-user {
+	display: none;
+	align-items: start;
+	flex-direction: column;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 35%;
+	height: 55%;
+	filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.1));
+	background-color: #ffffff;
+	border-radius: 2vw;
+	padding: 4vh 2vw;
+	gap: 1vh;
+	z-index: 5;
+}
+
+.who-list-user.active {
+	display: flex;
+}
+
+.who-list-user .search-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0 auto;
+	width: 100%;
+	height: 5vh;
+	gap: 1vw;
+}
+
+.who-list-user .search-container #search {
+	width: 100%;
+	background-color: #fbeaec;
+	border-radius: 10px;
+	padding: 0.5rem;
+	border: 0.15vw solid var(--primary-color);
+	color: var(--primary-color);
+	height: 100%;
+}
+
+.who-list-user .search-container .search-button {
+	width: 4vw;
+	height: 100%;
+	background-color: #ffdee4;
+	border: 0.15vw solid var(--primary-color);
+	border-radius: 10px;
+}
+
+.who-list-user .search-container .search-button img {
+	width: 50%;
+	height: auto;
+	object-fit: contain;
+}
+
+.who-list-user .close-user-list {
+	margin: 0 0 0 auto;
+}
+
+.avatarAjouterEtudiant {
+	width: 4vw;
+	height: 4vw;
+	border-radius: 50%;
+}
+
+.etudiantInfo {
+	gap: 1vw;
+}
+
+.etudiantInfo p {
+	margin: 0;
+}
+
+.etudiantInfo p:nth-child(1) {
+	font-weight: bold;
+	font-size: 1.2vw;
+}
+
+.etudiantInfo p:last-child {
+	font-size: 1vw;
+}
+
+.ajouterUserButton {
+	width: 6vw;
+	height: 3vw;
+	border-radius: 0.5vw;
+	background-color: white;
+	border: 0.15vw solid var(--primary-color);
+	color: var(--primary-color);
+	cursor: pointer;
+}
+
+.who-list-user-container {
+	flex-direction: column;
+}
+
+.supprimer:hover {
+	content: url("../res/x.svg");
+	cursor: pointer;
+	z-index: 5;
+}
+
+@media screen and (max-width: 1100px) {
+	.who-list-user {
+		width: 95%;
+		height: 55%;
+	}
+
+	.who-list-user .search-container #search {
+		width: 85%;
+		height: 100%;
+	}
+
+	.who-list-user .search-container .search-button {
+		width: 15%;
+		height: 100%;
+	}
+
+	.ajouterUserButton {
+		width: 30vw;
+		height: 10vw;
+		border-radius: 0.5vw;
+		background-color: white;
+		border: 0.15vw solid var(--primary-color);
+		color: var(--primary-color);
+		cursor: pointer;
+	}
+
+	.avatarAjouterEtudiant {
+		width: 10vw;
+		height: 10vw;
+	}
+
+	#signature-canvas {
+	width:300px;
+	height:100px;
+}
+}

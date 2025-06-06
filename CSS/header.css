@@ -1,0 +1,383 @@
+.header {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 10vh;
+  min-height: 10vh;
+  max-height: 10vh;
+  width: 100%;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-width: 18vw;
+  max-width: 18vw;
+  border: 0.5px solid rgb(30, 30, 30, 0.29);
+  font-size: 1vw;
+}
+
+.logo img {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.logo p {
+  margin: 0;
+}
+.header_content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 2%;
+}
+
+.header_content h1 {
+  font-size: 2vw;
+  font-weight: lighter;
+  font-family: "Apfel Grotezk", sans-serif;
+}
+
+.profilXlogout {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 30%;
+  height: 100%;
+  gap: 10%;
+  font-family: "Absans", serif;
+}
+
+.profil {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  gap: 7%;
+}
+
+.nomRole {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+p {
+  margin: 0;
+}
+
+.nomRole p:nth-child(1) {
+  font-weight: bold;
+  font-size: 0.85vw;
+}
+
+.nomRole p:nth-child(2) {
+  font-size: 0.7vw;
+}
+
+.imgProfilContainer {
+  overflow: hidden;
+  width: 5vw;
+  height: 3vw;
+  border-radius: 50%;
+}
+
+.imgProfil {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profilXlogout .logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3vw;
+  height: 3vw;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 0.2vw solid #edafbe;
+  background-color: #ffdee4;
+  transition: all 0.2s ease-in-out;
+}
+
+.profilXlogout .logout img {
+  width: 50%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.profilXlogout .logout:hover {
+  background-color: #edafbe;
+  border: 0.2vw solid #edafbe;
+  transform: scale(1.1);
+  filter: drop-shadow(0.15vw 0.15vw 0 #00000018);
+}
+
+.profilXlogout .logout:active {
+  background-color: #ffdee4;
+  border: 0.2vw solid #edafbe;
+  transform: scale(1);
+}
+
+/* sidebar */
+
+aside {
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  width: auto;
+  min-width: 18vw;
+  max-width: 18vw;
+  padding: 5vh 1vw;
+  position: fixed;
+  bottom: 0;
+  height: 90vh;
+  gap: 15vh;
+  background-color: white;
+  transition: all 0.2s ease-in-out;
+  z-index: 9999;
+}
+
+aside.active {
+  display: flex;
+  transform: translateX(0);
+}
+
+aside .menu,
+aside .autre {
+  display: flex;
+
+  flex-direction: column;
+  width: 100%;
+  gap: 1vh;
+}
+
+aside .menu p,
+aside .autre p {
+  font-size: 1.2vw;
+  font-weight: bold;
+}
+
+aside .menu nav,
+aside .autre nav {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  width: 100% !important;
+  gap: 2vh;
+}
+
+aside .menu nav ul,
+aside .autre nav ul {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 1vh;
+  list-style: none;
+}
+
+aside .menu nav ul li a,
+aside .autre nav ul li a {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100% !important;
+  height: 6vh !important;
+  gap: 1vw;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  padding: 0 1vw;
+  border-radius: 0.9vw;
+  text-decoration: none;
+  font-size: 1vw;
+  color: black;
+  font-family: "Absans", sans-serif;
+}
+
+aside .menu nav ul li a.active,
+aside .autre nav ul li a.active {
+  background-color: #ffdee4;
+  border-radius: 0.9vw;
+  color: #d72f59;
+  border: 0.2vw solid #d31b4a;
+}
+
+aside .menu nav ul li a img,
+aside .autre nav ul li a img {
+  width: 1.7vw;
+  height: auto;
+  object-fit: contain;
+}
+
+aside .menu nav ul li a:hover,
+aside .autre nav ul li a:hover {
+  background-color: #ffdee4;
+  border-radius: 0.9vw;
+  color: #d72f59;
+  border: 0.2vw solid #d31b4a;
+}
+
+.tkt {
+  min-width: 18vw;
+  max-width: 18vw;
+  height: 100vh;
+}
+
+.menuButton {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 7vw;
+  height: auto;
+  background-color: transparent;
+  border: none;
+}
+
+.menuButton:hover {
+  cursor: pointer;
+}
+
+.menuButton img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.logoside {
+  display: none;
+  margin: 0 auto 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-width: 30vw;
+  max-width: 30vw;
+  font-size: 1vw;
+}
+
+.logoside img {
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* responsive */
+
+@media screen and (max-width: 1150px) {
+  header {
+    min-height: 10vh;
+    padding: 0 3vw;
+  }
+
+  aside {
+    display: flex;
+    transform: translateX(-100%);
+    top:80px;
+    height: 92vh;
+    width: 100vw !important;
+    min-width: 100vw !important;
+    padding: 2vh 4vw 0 4vw;
+    gap: 5vh;
+  }
+
+  aside .menu p,
+  aside .autre p {
+    font-size: 5vw;
+  }
+
+  aside .menu nav ul li a,
+  aside .autre nav ul li a {
+    font-size: 4vw;
+    gap: 4vw;
+  }
+
+  aside .menu nav ul li a img,
+  aside .autre nav ul li a img {
+    width: 8vw;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .logoside {
+    display: block;
+  }
+
+  .logoside img {
+    display: block;
+  }
+
+  main {
+    padding: 2vw 0 0 2vw;
+  }
+
+  .profilXlogout {
+    gap: 1vw;
+    width: 50%;
+  }
+
+  .profilXlogout .logout {
+    display: block;
+    width: 10vw;
+    height: 9vw;
+  }
+
+  .menuButton {
+    display: flex;
+  }
+
+  .profilXlogout .profil {
+    gap: 0.7vw;
+    width: 35vw;
+    justify-content: right;
+  }
+
+  .profilXlogout .profil p:nth-child(2) {
+    font-size: 2vw;
+  }
+
+  .imgProfilContainer {
+    overflow: hidden;
+    width: 10vw;
+    height: 7vw;
+    border-radius: 50%;
+  }
+
+  .imgProfil {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .profilXlogout .profil .nomRole {
+    gap: 0.5vw;
+    width: 100%;
+  }
+
+  .profilXlogout .profil .nomRole p:nth-child(1) {
+    font-size: 3vw;
+  }
+
+  .profilXlogout .profil .nomRole p:nth-child(2) {
+    font-size: 2.7vw;
+  }
+}

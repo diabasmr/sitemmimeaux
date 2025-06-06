@@ -1,0 +1,461 @@
+main {
+  padding-left: 30vw;
+}
+
+main .profil {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 90%;
+  height: 100%;
+  min-height: 90vh;
+  padding: 5vw 7vw;
+  border-radius: 3vw;
+  gap: 4vh;
+  margin-top: 100px;
+  background-color: white;
+}
+
+main .profil h3 {
+  font-size: 1.7vw;
+  font-weight: bold;
+}
+
+.profilimg {
+  margin: 0 auto;
+  width: 13vw;
+  height: 13vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #ffdee4; */
+  position: relative;
+}
+
+main .imgProfilContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  gap: 2vw;
+  width: 13vw !important;
+  height: 13vw !important;
+  border-radius: 50% !important;
+}
+
+main .imgProfilContainer .edit {
+  position: absolute;
+  width: 15%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+main .imgProfilContainer:hover > .edit {
+  display: flex;
+}
+
+.imgProfil {
+  object-fit: cover;
+}
+
+.upload-box {
+  border: 2px dashed #edafbe;
+  width: 13vw;
+  height: 13vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.upload-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1.5vw;
+  height: 1.5vw;
+}
+
+.upload-box.dragover {
+  border-color: #007bff;
+  background-color: #f0f8ff;
+}
+
+.upload-box #preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.upload-box #preview img {
+  width: 100%;
+  height: 100%;
+}
+
+.uploadForm {
+  display: none;
+}
+
+.upload-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+hr {
+  width: 100%;
+  background-color: black;
+  height: 0.17vw;
+  border: none;
+}
+
+.details {
+  display: flex;
+
+  flex-direction: column;
+  gap: 0.6vw;
+  width: 100%;
+}
+
+.details p {
+  font-size: 1.7vw;
+  font-weight: bold;
+  display: flex;
+
+  gap: 0.6vw;
+}
+
+.details .nomPrenom {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: column;
+  gap: 2vw;
+}
+
+.details .nomPrenom .nomPrenomInput {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 1vw;
+}
+
+.details .nomPrenom .nomPrenomInput div {
+  font-size: 1.4vw;
+  /* font-weight: bold; */
+  color: var(--gray-color);
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+}
+
+.details .nomPrenom .nomPrenomInput div input {
+  font-size: 1.2vw;
+  width: 100%;
+  height: 100%;
+  border: 0.15vw solid #979797;
+  border-radius: 0.6vw;
+  padding: 0.6vw;
+  color: var(--gray-color);
+}
+
+.details .nomPrenom button {
+  display: none;
+  background-color: var(--gray-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: 0.6vw;
+  padding: 0.6vw;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-left: auto;
+}
+
+.details .nomPrenom button.active {
+  display: flex;
+}
+
+.details .nomPrenom button:hover {
+  background-color: var(--tertiary-color);
+}
+
+.details .nomPrenom button:active {
+  background-color: var(--primary-color);
+}
+
+.details .email {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.6vw;
+}
+
+.details .email label {
+  font-size: 1.4vw;
+  /* font-weight: bold; */
+  color: var(--gray-color);
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+}
+
+.details .email input {
+  font-size: 1.2vw;
+  width: 100%;
+  height: 100%;
+  color: var(--gray-color);
+  border: 0.15vw solid #979797;
+  border-radius: 0.6vw;
+  padding: 0.6vw;
+}
+
+.details .email button {
+  display: none;
+  background-color: var(--gray-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: 0.6vw;
+  padding: 0.6vw;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-left: auto;
+}
+.details .email button.active {
+  display: flex;
+}
+
+.details .email button:hover {
+  background-color: var(--tertiary-color);
+}
+
+.details .email button:active {
+  background-color: var(--primary-color);
+}
+
+.details .tel {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.6vw;
+}
+
+.details .tel label {
+  font-size: 1.4vw;
+  /* font-weight: bold; */
+  color: var(--gray-color);
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+}
+
+.details .tel input {
+  font-size: 1.2vw;
+  width: 100%;
+  height: 100%;
+  color: var(--gray-color);
+  border: 0.15vw solid #979797;
+  border-radius: 0.6vw;
+  padding: 0.6vw;
+}
+
+.details .tel button {
+  display: none;
+  background-color: var(--gray-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: 0.6vw;
+  padding: 0.6vw;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.details .tel button.active {
+  display: flex;
+}
+
+.details .tel button:hover {
+  background-color: var(--tertiary-color);
+}
+
+.details .tel button:active {
+  background-color: var(--primary-color);
+}
+
+.password {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.6vw;
+}
+
+.password p {
+  font-size: 1.7vw;
+  font-weight: bold;
+  display: flex;
+
+  gap: 0.6vw;
+}
+
+.password p:nth-child(2) {
+  font-size: 0.7vw;
+  font-weight: normal;
+  margin-bottom: 0.5vw;
+}
+
+.password div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.password div label {
+  font-size: 1.4vw;
+  /* font-weight: bold; */
+  color: var(--gray-color);
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+}
+
+.password div input {
+  font-size: 1.2vw;
+  width: 100%;
+  height: 100%;
+  color: var(--gray-color);
+  border: 0.15vw solid #979797;
+  border-radius: 0.6vw;
+  padding: 0.6vw;
+}
+
+.password button {
+  display: none;
+  background-color: var(--gray-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: 0.6vw;
+  padding: 0.6vw;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.password button.active {
+  display: flex;
+}
+
+.other {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.6vw;
+}
+.other div {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+}
+
+.other div label {
+  font-size: 1.4vw;
+  /* font-weight: bold; */
+  color: var(--gray-color);
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+}
+
+.other div input {
+  font-size: 1.2vw;
+  width: 100%;
+  height: 100%;
+  color: var(--gray-color);
+  border: 0.15vw solid #979797;
+  border-radius: 0.6vw;
+  padding: 0.6vw;
+}
+.other button {
+  display: none;
+  background-color: var(--gray-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: 0.6vw;
+  padding: 0.6vw;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.other button.active {
+  display: flex;
+}
+
+@media screen and (max-width: 1100px) {
+  .profilimg {
+    width: 40vw;
+    height: 40vw;
+  }
+  main .imgProfilContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    gap: 2vw;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50% !important;
+  }
+
+  main .imgProfilContainer .edit {
+    position: absolute;
+    width: 40%;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+  }
+
+  .upload-box {
+    border: 2px dashed #edafbe;
+    width: 40vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .upload-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 7.5vw;
+    height: 7.5vw;
+  }
+}
