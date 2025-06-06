@@ -32,8 +32,9 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
         <h1>Réservations</h1>
         <section class="table mb-5">
             <article class="header_Table">
-                <p>Nom de la réservation</p>
-                <p>Date de la réservation</p>
+                <p>Matériel/Salle</p>
+                <p>Utilisateur</p>
+                <p>Date</p>
                 <p>Statut</p>
 
             </article>
@@ -141,7 +142,17 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                             }
 
                             echo '<div class="line mb-3">';
-                            echo '<p>' . htmlspecialchars($row['motif']) . '</p>';
+                            if (!empty($salles)) {
+                                $salle = $salles[0];
+                                echo '<p>' . htmlspecialchars($salle['nom']) . '</p>';
+                            } else {
+                                $mater = $materiels[0];
+                                echo '<p>' . htmlspecialchars($mater['designation']) . '</p>';
+                            }
+                            if (!empty($users)) {
+                                $firstUser = $users[0];
+                                echo '<p>' . htmlspecialchars($firstUser['nom']) . ' ' . htmlspecialchars($firstUser['prenom']) . '</p>';
+                            }
                             echo '<p class="text-center">' . date('d/m/Y H:i', strtotime($row['date_debut'])) . ' - ' .
                                 date('d/m/Y H:i', strtotime($row['date_fin'])) . '</p>';
                             echo '<p>' . $status . '</p>';

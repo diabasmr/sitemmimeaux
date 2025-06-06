@@ -35,4 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ../PHP/listeDesReservations.php');
         exit;
     }
+    header('Location: ../PHP/listeDesReservations.php');
+        exit;
 }

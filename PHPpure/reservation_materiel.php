@@ -21,15 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!isset($_POST['acceptation'])) {
         die("Veuillez accepter les conditions.");
     }
-    if ($horaireD < $horaireF) {
+    if ($horaireD >= $horaireF) {
         die("Veuillez entrer un créneau d'horaire valide.");
     } //JS
-    if (!isset($_POST['signature'])) {
-        die("Veuillez signer la réservation.");
-    }
 
     // Vérifie que les champs ne sont pas vides
-    if (empty($date) || empty($horaire) || empty($motif) || empty($signature)) {
+    if (empty($date) || empty($horaireD) || empty($horaireF)  || empty($motif) || empty($signature)) {
         die("Tous les champs sont requis.");
     }
 
