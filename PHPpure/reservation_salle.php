@@ -34,6 +34,8 @@ require_once("../PHPpure/connexion.php");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $date = $_POST['selected-date'];
+    $horaireD = $_POST['horaireD'];
+    $horaireF = $_POST['horaireF'];
     $horaire = strtolower($_POST['horaire']);
     $motif = $_POST['motif'];
     $signature = $_POST['signature'];
@@ -43,6 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $document = "rien";
     $salle = "Salle " . $_POST['salle'];
     print_r($salle);
+    print_r($horaireD);
+    print_r($horaireF);
 
     // recuperer dans salle le id ou le nom est egal a la salle selectionnée
     $requete = $pdo->prepare("SELECT idS FROM salle WHERE nom = ?");
@@ -51,14 +55,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $salle = $salle['idS'];
 
 
-    // transformer le horaire en format date heure donc 14h - 15h devient 14:00 15:00 et creer date debut = date + horaire debut et date fin = date + horaire fin
-    $horaire = explode("-", $horaire);
-    $horaire = str_replace("h", ":", $horaire);
-    $dateDebut = $date . " " . $horaire[0];
-    $dateFin = $date . " " . $horaire[1];
+    // creer date debut = date + horaire debut et date fin = date + horaire fin
+    $dateDebut = $date . " " . $horaireD;
+    $dateFin = $date . " " . $horaireF;
 
     if (!isset($_POST['acceptation'])) {
         die("Veuillez accepter les conditions.");
+    }
+    if ($horaireD < $horaireF) {
+        die("Veuillez entrer un créneau d'horaire valide.");
+    } //JS
+    if (!isset($_POST['signature'])) {
+        die("Veuillez signer la réservation.");
     }
 
     // Vérifie que les champs ne sont pas vides

@@ -44,14 +44,36 @@
                     <input type="hidden" name="materiel" value="<?php echo $materiel['idM']; ?>">
 
                     <label for="horaire">Choisir un créneau horaire:</label>
-                    <div class="d-flex justify-content-around">
+                    <div class="my-4 d-flex justify-content-around">
                         <div class="d-flex justify-content-between align-items-baseline">
-                        <span class="me-2"> De: </span>
-                        <input type="time" id="horaireD" name="horaireD" min="08:00" max="18:00" required>
+                        <label for="horaireD" class="form-label me-2"> De: </label>
+                        <select name="horaireD" class="form-select" id="horaireD" required>
+                            <option name="horaireD" value="08:00" selected>08:00</option>
+                            <option name="horaireD" value="09:00">09:00</option>
+                            <option name="horaireD" value="10:00">10:00</option>
+                            <option name="horaireD" value="11:00">11:00</option>
+                            <option name="horaireD" value="12:00">12:00</option>
+                            <option name="horaireD" value="13:00">13:00</option>
+                            <option name="horaireD" value="14:00">14:00</option>
+                            <option name="horaireD" value="15:00">15:00</option>
+                            <option name="horaireD" value="16:00">16:00</option>
+                            <option name="horaireD" value="17:00">17:00</option>
+                        </select>
                         </div>
                         <div class="d-flex justify-content-between align-items-baseline">
-                        <span class="me-2"> À: </span>
-                        <input type="time" id="horaireF" name="horaireF" min="08:00" max="18:00" required>
+                        <label for="horaireF" class="form-label me-2"> À: </label>
+                        <select name="horaireF" class="form-select" id="horaireF" required>
+                            <option name="horaireF" value="09:00" selected>09:00</option>
+                            <option name="horaireF" value="10:00">10:00</option>
+                            <option name="horaireF" value="11:00">11:00</option>
+                            <option name="horaireF" value="12:00">12:00</option>
+                            <option name="horaireF" value="13:00">13:00</option>
+                            <option name="horaireF" value="14:00">14:00</option>
+                            <option name="horaireF" value="15:00">15:00</option>
+                            <option name="horaireF" value="16:00">16:00</option>
+                            <option name="horaireF" value="17:00">17:00</option>
+                            <option name="horaireF" value="18:00">18:00</option>
+                        </select>
                         </div>
                     </div>
 
@@ -110,7 +132,7 @@
                             </button>
                             <h3>Chercher un étudiant</h3>
                             <div class="search-container">
-                                <input class="fs-3 fs-md-1" class="fs-3 fs-md-1" type="text" name="search" id="search" placeholder="Rechercher un étudiant">
+                                <input class="fs-3 fs-md-1" type="text" name="search" id="search" placeholder="Rechercher un étudiant">
                                 <button type="button" class="search-button" id="search-button">
                                     <img src="../res/search.svg" alt="">
                                 </button>

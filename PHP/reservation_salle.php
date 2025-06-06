@@ -38,8 +38,39 @@
                         id="salle-image">
                     <h2 id="salle-title">Salle 138</h2>
 
-                    <label for="horaire">Choisir un créneau horaire</label>
-                    <input type="time" id=horaire name="horaire" min="08:00" max="18:00" required>
+                    <label for="horaire">Choisir un créneau horaire:</label>
+                    <div class="my-4 d-flex justify-content-around">
+                        <div class="d-flex justify-content-between align-items-baseline">
+                        <label for="horaireD" class="form-label me-2"> De: </label>
+                        <select name="horaireD" class="form-select" id="horaireD" required>
+                            <option name="horaireD" value="08:00" selected>08:00</option>
+                            <option name="horaireD" value="09:00">09:00</option>
+                            <option name="horaireD" value="10:00">10:00</option>
+                            <option name="horaireD" value="11:00">11:00</option>
+                            <option name="horaireD" value="12:00">12:00</option>
+                            <option name="horaireD" value="13:00">13:00</option>
+                            <option name="horaireD" value="14:00">14:00</option>
+                            <option name="horaireD" value="15:00">15:00</option>
+                            <option name="horaireD" value="16:00">16:00</option>
+                            <option name="horaireD" value="17:00">17:00</option>
+                        </select>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-baseline">
+                        <label for="horaireF" class="form-label me-2"> À: </label>
+                        <select name="horaireF" class="form-select" id="horaireF" required>
+                            <option name="horaireF" value="09:00" selected>09:00</option>
+                            <option name="horaireF" value="10:00">10:00</option>
+                            <option name="horaireF" value="11:00">11:00</option>
+                            <option name="horaireF" value="12:00">12:00</option>
+                            <option name="horaireF" value="13:00">13:00</option>
+                            <option name="horaireF" value="14:00">14:00</option>
+                            <option name="horaireF" value="15:00">15:00</option>
+                            <option name="horaireF" value="16:00">16:00</option>
+                            <option name="horaireF" value="17:00">17:00</option>
+                            <option name="horaireF" value="18:00">18:00</option>
+                        </select>
+                        </div>
+                    </div>
 
                     <label for="motif">Motif de la réservation</label>
                     <textarea id="motif" name="motif" placeholder="Bonjour ,...."></textarea>
@@ -98,7 +129,7 @@
                             </button>
                             <h3>Chercher un étudiant</h3>
                             <div class="search-container">
-                                <input type="text" name="search" id="search" placeholder="Rechercher un étudiant">
+                                <input class="fs-3 fs-md-1" type="text" name="search" id="search" placeholder="Rechercher un étudiant">
                                 <button type="button" class="search-button" id="search-button">
                                     <img src="../res/search.svg" alt="">
                                 </button>
@@ -123,7 +154,7 @@
                                     $etudiants = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     foreach ($etudiants as $etudiant) {
                                 ?>
-                                        <div class="who-list-user-item col-12 d-flex justify-content-between align-items-center gap-2 w-100"
+                                        <div class="who-list-user-item mb-3 col-12 d-flex justify-content-between align-items-center gap-2 w-100"
                                             id="<?= $etudiant['id'] ?>">
                                             <div class="d-flex justify-content-between align-items-center w-100">
                                                 <div class="d-flex justify-content-between align-items-center gap-2">
@@ -131,12 +162,12 @@
                                                         alt="" class="avatarAjouterEtudiant " id="<?= $etudiant['id'] ?>">
                                                     <div
                                                         class="etudiantInfo d-flex justify-content-end align-items-start flex-column">
-                                                        <p><?= htmlspecialchars($etudiant['prenom']) . ' ' . htmlspecialchars($etudiant['nom']) ?>
+                                                        <p class="fs-3 fs-md-1"><?= htmlspecialchars($etudiant['prenom']) . ' ' . htmlspecialchars($etudiant['nom']) ?>
                                                         </p>
-                                                        <p><?= htmlspecialchars($etudiant['promotion']) ?></p>
+                                                        <p class="fs-3 fs-md-1"><?= htmlspecialchars($etudiant['promotion']) ?></p>
                                                     </div>
                                                 </div>
-                                                <p><?= htmlspecialchars($etudiant['td']) ?></p>
+                                                <p class="fs-3 fs-md-1"><?= htmlspecialchars($etudiant['td']) ?></p>
                                             </div>
                                             <button type="button" class="ajouterUserButton">Ajouter</button>
                                         </div>
