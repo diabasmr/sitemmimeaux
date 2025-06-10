@@ -146,7 +146,7 @@ if (isset($_GET['id'])) {
             ?>
 
             <!--boucle foreach-->
-                <div id="com1" class="row ms-5">
+                <div id="com1" class="row ms-0 m-5">
                     <div class="col-sm-10 mt-2 ms-5 border border-secondary rounded p-3">
                         <div class="row ms-5">
                             <div class="col-sm-1"><img src="../img/jinx.png" class='rounded' style="height: 50px; width:auto;" alt="boite mes emprunts"></div>
@@ -163,7 +163,7 @@ if (isset($_GET['id'])) {
                 </div>
             <!--fin boucle foreach-->
 
-            <form action="#" method="post" class="my-5 d-flex align-items-center ms-5">
+            <form action="#" method="post" class="my-5 d-flex align-items-center ms-md-5">
                 <textarea class="form-control me-3 p-2 rounded" id="exampleFormControlTextarea1" rows="1"
                     name="commentaire" placeholder="Ecrire un commentaire" style="resize: none; width: 70%;"></textarea>
                 <input class="p-2 rounded" type="number" name="reaction" value="5" min="1" max="5" style="width: 60px; margin-right: 5px;"> <span class="fs-3">☆</span>

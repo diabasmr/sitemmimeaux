@@ -38,6 +38,9 @@
             case 'materiels':
                 echo '<h1 class="fs-3 fs-md-1">Matériel</h1>';
                 break;
+            case 'produit':
+                echo '<h1 class="fs-3 fs-md-1">Produit</h1>';
+                break;
             case 'listeDesReservations':
                 echo '<h1 class="fs-3 fs-md-1">Liste des réservations</h1>';
                 break;
