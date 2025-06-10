@@ -80,7 +80,7 @@ include("../PHPpure/entete.php");
                         echo "</div>";
                         echo "<img src='https://glistening-sunburst-222dae.netlify.app/materiel/" . $row['photo'] . "' alt='materiel' class='w-100 rounded-5 materiel-image'>";
                         echo "<div class='d-flex justify-content-center align-items-center flex-column w-100'>";
-                        echo "<p class='text-center fs-auto fw-bold w-100'>" . $row['designation'] . "</p>";
+                        echo "<a class='text-center fs-auto fw-bold w-100' style='text-decoration:none; color:black;' href='produit.php?id=". $row['idM']. "'>" . $row['designation'] . "</a>";
                         echo "<button class='btn btn-danger text-white text-center w-80 w-md-50 p-3' onclick='reserverMateriel(" . $row['idM'] . ")'";
 
                         if ($row['quantité'] == 0) {
@@ -218,7 +218,7 @@ include("../PHPpure/entete.php");
                     // img meme taille que la div
                     echo "<img src='https://glistening-sunburst-222dae.netlify.app/materiel/" . $row['photo'] . "' alt='materiel' class='rounded-5 materiel-image'>";
                     echo "<div class='d-flex justify-content-center align-items-center flex-column w-100'>";
-                    echo "<p class='text-center fs-auto fw-bold w-100'>" . $row['designation'] . "</p>";
+                    echo "<a class='text-center fs-auto fw-bold w-100' style='text-decoration:none; color:black;' href='produit.php?id=". $row['idM']. "'>" . $row['designation'] . "</a>";
                     echo "<button class='btn btn-danger text-white text-center w-80 w-md-50 p-3' onclick='reserverMateriel(" . $row['idM'] . ")'";
 
                     if ($row['quantité'] == 0) {
