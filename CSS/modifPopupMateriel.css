@@ -99,15 +99,6 @@
   object-fit: contain;
 }
 
-.add {
-    width: 8vw;
-    height: 5vh;
-    border: none;
-    background-color: #d31b4a;
-    border-radius: 1vw;
-    margin: 2vh 2vw 0 auto;
-  }
-
 .button-container {
   display: flex;
   gap: 0.5rem;

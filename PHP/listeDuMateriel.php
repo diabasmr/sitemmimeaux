@@ -93,7 +93,7 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                             }
 
 
-                            echo '<div class="line">';
+                            echo '<div class="line mb-4">';
                             echo '<img src="https://glistening-sunburst-222dae.netlify.app/materiel/' . htmlspecialchars($row['photo']) . '" alt="Photo matériel" style="height:100px; width:100px;">';
                             echo '<p class="text-center">' . htmlspecialchars($row['designation']) . '</p>';
                             echo '<p>' . $status . '</p>';
@@ -118,7 +118,7 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                 $pdo = null;
                 ?>
             </article>
-            <button class="add" id="addUser"><img src="../res/add.svg" alt="plus"></button>
+            <button class="add" id="addMateriel"><img src="../res/add.svg" alt="plus"></button>
         </section>
         <form class="modifPopupMateriel" action="../PHPpure/materielValidation.php" method="POST">
             <div class="modifPopupMateriel_content">
@@ -181,7 +181,9 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                 </div>
             </div>
             </form>
-        <div class="ajouterUser.active h-30" id="ajouterUser">
+
+            <!-- AJOUT MATERIEL -->
+        <div class="ajouterMateriele h-30" id="ajouterMateriel">
         <form action="../PHPpure/addMateriel.php" method="POST">
             <div class="modifPopupMateriel_content">
                 <div class="modifPopupMateriel_content_header">
