@@ -123,7 +123,7 @@ main .reservation div .searchContainer button img {
 .table .header_Table {
   background-color: #edafbe;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 
   align-items: center;
   height: 6vh;
@@ -160,7 +160,7 @@ main .reservation div .searchContainer button img {
 
 .table .body_Table .line {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   height: 6vh;
   width: 100%;
   border-radius: 1vw;
@@ -590,7 +590,7 @@ main .reservation div .searchContainer button img {
   .table .header_Table {
     background-color: #edafbe;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     justify-content: space-between;
     align-items: center;
 

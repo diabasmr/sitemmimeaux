@@ -108,7 +108,13 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
 
                 $pdo = null;
                 ?>
+                <div class="ajouterUser h-30" id="ajouterUser">
+                    <button id="closeAjouterPopup"><img src="../res/x.svg" alt=""></button>
+                    <h3>Ajouter un utilisateur</h3>
+                    <p>Information</p>
+                </div>
             </article>
+            <button class="add" id="addUser"><img src="../res/add.svg" alt="plus"></button>
         </section>
         <form class="modifPopupMateriel" action="../PHPpure/materielValidation.php" method="POST">
             <div class="modifPopupMateriel_content">
@@ -171,6 +177,48 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                 </div>
             </div>
         </form>
+        <div class="ajouterUser h-30" id="ajouterUser">
+        <button id="closeAjouterPopup"><img src="../res/x.svg" alt=""></button>
+        <h3>Ajouter un utilisateur</h3>
+        <p>Information</p>
+        <form action="../PHPpure/addUser.php" method="POST">
+            <div class="name">
+                <input type="text" name="id" id="id" style="display: none;">
+                <div class="nom">
+                    <label for="nom">
+                        Nom
+                    </label>
+                    <input type="text" name="nom" id="nom" placeholder="Nom">
+                </div>
+                <div class="prenom">
+                    <label for="prenom">Prénom</label>
+                    <input type="text" name="prenom" id="prenom" placeholder="Prénom">
+                </div>
+            </div>
+            <div class="email">
+                <label for="email">Attribuer un email</label>
+                <input type="email" name="email" id="email" placeholder="Email">
+            </div>
+            <div class="motDePasse">
+                <label for="motDePasse">Attribuer un mot de passe</label>
+                <input type="password" name="motDePasse" id="motDePasse" placeholder="Mot de passe">
+            </div>
+
+            <div class="role">
+                <label for="role">Rôle</label>
+                <select name="role" id="role">
+                    <option value="etudiant">Etudiant</option>
+                    <option value="enseignant">Enseignant</option>
+                    <option value="administrateur">Administrateur</option>
+                    <option value="agent">Agent</option>
+                </select>
+            </div>
+            <div class="buttonsSubmitContainer">
+                <button type="submit" class="buttonsSubmit fs-6 fs-md-auto" name="ajouterUtilisateur">Ajouter l'utilisateur</button>
+            </div>
+        </form>
+    </div>
+
     </main>
     <script src="../JS/sideBarre.js"></script>
     <script src="../JS/listeDuMateriel.js"></script>

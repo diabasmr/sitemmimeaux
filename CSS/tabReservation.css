@@ -1,0 +1,32 @@
+.table .header_Table {
+  background-color: #edafbe;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+
+  align-items: center;
+  height: 6vh;
+  border-radius: 1vw;
+  width: 100%;
+  padding: 0 2vw;
+}
+
+.table .body_Table .line {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  height: 6vh;
+  width: 100%;
+  border-radius: 1vw;
+}
+
+  .table .header_Table {
+    background-color: #edafbe;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    justify-content: space-between;
+    align-items: center;
+
+    height: 6vh;
+    border-radius: 1vw;
+    width: 100%;
+    padding: 0 4vw;
+  }

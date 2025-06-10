@@ -18,6 +18,7 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
         integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <link rel="stylesheet" href="../CSS/style.css" />
     <link rel="stylesheet" href="../CSS/index.css" />
+    <link rel="stylesheet" href="../CSS/tabReservation.css" />
     <link rel="stylesheet" href="../CSS/header.css" />
     <link rel="stylesheet" href="../CSS/modifPopupReservation.css" />
     <title>Liste des réservations</title>
