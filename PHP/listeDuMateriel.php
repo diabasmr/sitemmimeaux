@@ -4,6 +4,47 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
     header('Location: ../PHP/index.php');
     exit();
 }
+
+/*if (isset($_POST['upload'])) {
+    // Récupérer le nom du matériel
+    $materiel = $_POST['materiel'] ?? '';
+
+    // Récupérer d'abord les anciens noms dans la BDD (exemple avec PDO)
+    $sql = "SELECT photo FROM materiel WHERE Nom = ? LIMIT 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$materiel]);
+    $oldImage = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Initialiser les noms à garder par défaut
+    $newImages = $oldImage;
+
+    // Dossier upload
+    $targetDir = "../materiel/";
+
+        $inputName = "image";
+
+        if (isset($_FILES[$inputName]) && $_FILES[$inputName]['error'] === UPLOAD_ERR_OK) {
+            // Nouveau fichier uploadé remplace
+            $originalName = $_FILES[$inputName];
+            $extension = pathinfo($originalName, PATHINFO_EXTENSION);
+            $newName = preg_replace('/[^a-zA-Z0-9_-]/', '', $materiel) . "_image" . '_' . uniqid() . "." . $extension;
+            $targetFile = $targetDir . $newName;
+            move_uploaded_file($_FILES[$inputName]['tmp_name'], $targetFile);
+
+            $newImage = $newName; // On remplace dans la variable
+        }
+
+    // Préparation de la requête UPDATE avec placeholders
+    $sqlUpdate = "UPDATE materiel SET photo = :img WHERE Nom = :nom";
+    $stmtUpdate = $pdo->prepare($sqlUpdate);
+
+    // Liaison des paramètres un par un avec bindParam
+    $stmtUpdate->bindParam(':img', $newImage, PDO::PARAM_STR);
+    $stmtUpdate->bindParam(':nom', $materiel, PDO::PARAM_STR);
+
+    // Exécution de la requête
+    $stmtUpdate->execute();
+}*/
 ?>
 
 <!DOCTYPE html>
@@ -93,7 +134,7 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                             }
 
 
-                            echo '<div class="line mb-4">';
+                            echo '<div class="line my-5">';
                             echo '<img src="https://glistening-sunburst-222dae.netlify.app/materiel/' . htmlspecialchars($row['photo']) . '" alt="Photo matériel" style="height:100px; width:100px;">';
                             echo '<p class="text-center">' . htmlspecialchars($row['designation']) . '</p>';
                             echo '<p>' . $status . '</p>';
@@ -118,7 +159,7 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                 $pdo = null;
                 ?>
             </article>
-            <button class="add" id="addMateriel"><img src="../res/add.svg" alt="plus"></button>
+            <button class="add" onclick="addmateriel()" id="addMateriel"><img src="../res/add.svg" alt="plus"></button>
         </section>
         <form class="modifPopupMateriel" action="../PHPpure/materielValidation.php" method="POST">
             <div class="modifPopupMateriel_content">
@@ -183,12 +224,12 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
             </form>
 
             <!-- AJOUT MATERIEL -->
-        <div class="ajouterMateriele h-30" id="ajouterMateriel">
+        <div class="modifPopupMateriel h-30" id="ajouterMateriel">
         <form action="../PHPpure/addMateriel.php" method="POST">
             <div class="modifPopupMateriel_content">
                 <div class="modifPopupMateriel_content_header">
                     <h3>Ajouter un matériel</h3>
-                    <button class="close_modifPopupMateriel">
+                    <button class="close_modifPopupMateriel" onclick="closePopup()">
                         <img src="../res/x.svg" alt="close">
                     </button>
                 </div>
@@ -202,6 +243,14 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                         <label for="photo">Photo</label>
                         <img src="https://glistening-sunburst-222dae.netlify.app/materiel/<?= htmlspecialchars($row['photo']); ?>" alt="Photo matériel" style="height:100px; width:100px;">
                     </div>
+                    <!-- FORM UPLOAD IMAGES 
+                    <form id="upload-form-<?= $index ?>" class="d-none mt-2" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="materiel" value="<?= htmlspecialchars($user['Nom']) ?>">
+                        <input type="file" name="image1" accept="image/*" required>
+                        <button type="submit" name="upload" class="btn btn-success btn-sm mt-2">Uploader</button>
+                    </form>
+                -->
+
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="date_achat">Date d'achat</label>
                         <input type="datetime-local" id="date_achat" name="date_achat" placeholder="Date d'achat">

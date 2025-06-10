@@ -3,9 +3,9 @@ require_once '../PHPpure/connexion.php';
 
 if (isset($_POST['ajouterMateriel'])) {
     // si les champs sont vides mettre un message d'erreur
-    if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['email']) || empty($_POST['motDePasse'])) {
+    if (empty($_POST['date_achat']) || empty($_POST['designation']) || empty($_POST['quantite']) || empty($_POST['descriptif']) || empty($_POST['type']) || empty($_POST['etat']) || empty($_POST['lien_demo'])) {
         echo "Veuillez remplir tous les champs";
-        echo "<script>setTimeout(function() { window.location.href = '../PHP/index.php'; }, 3000);</script>";
+        echo "<script>setTimeout(function() { window.location.href = '../PHP/listeDuMateriel.php'; }, 3000);</script>";
         exit();
     }
 
@@ -19,7 +19,7 @@ if (isset($_POST['ajouterMateriel'])) {
     $lien_demo  = $_POST['lien_demo'];
 
 
-    // si l'utilisateur existe déjà
+    // si le materiel existe déjà
     $sql = "SELECT * FROM materiel WHERE designation = :designation";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
@@ -38,7 +38,7 @@ if (isset($_POST['ajouterMateriel'])) {
         echo "Le matériel existe déjà";
         echo "<script>setTimeout(function() { window.location.href = '../PHP/index.php'; }, 3000);</script>";
     } else {
-        // Insertion dans user_
+        // Insertion dans materiel
         $sql = "INSERT INTO materiel (designation, photo, dateAchat, quantité, descriptif, typeM, etat, lien_demo)
             VALUES (:designation, :photo, :dateAchat, :quantité, :descriptif, :typeM, :etat, :lien_demo)";
         $stmt = $pdo->prepare($sql);
@@ -66,7 +66,7 @@ if (isset($_POST['ajouterMateriel'])) {
         $stmt3->execute([
             'id' => $ref
         ]);
-
-        header('Location: ../PHP/index.php');
+        header('Location: ../PHP/listeDuMateriel.php');
     }
 }
+header('Location: ../PHP/listeDuMateriel.php');

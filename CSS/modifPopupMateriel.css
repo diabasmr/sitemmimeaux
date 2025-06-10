@@ -1,4 +1,5 @@
-.modifPopupMateriel {
+.modifPopupMateriel,
+#ajouterMateriel {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -13,7 +14,8 @@
   display: none;
 }
 
-.modifPopupMateriel.active {
+.modifPopupMateriel.active,
+#ajouterMateriel.active {
   display: block;
 }
 
@@ -139,7 +141,8 @@
     height: 30px;
     width: auto;
   }
-  .modifPopupMateriel {
+  .modifPopupMateriel,
+  #ajouterMateriel {
     transform: translate(-50%, -50%);
     background-color: #fff;
     padding: 4vh 4vw;
@@ -158,5 +161,9 @@
   .modifPopupMateriel_content_body_item label {
     font-size: 3vw;
     font-weight: 600;
+  }
+  .add {
+    width: 6vw;
+    height: 5vh;
   }
 }
