@@ -137,44 +137,37 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <?php
-            $materielcomment = $produit['Nom'];
 
             // Préparation de la requête avec UNION
-            $sql = "SELECT Pseudo, date_comment, commentaire, reaction FROM commentaires_eleve WHERE materiel = :materiel
-        UNION 
-        SELECT Pseudo, date_comment, commentaire, reaction FROM commentaires_prof WHERE materiel = :materiel";
-
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':materiel', $materielcomment, PDO::PARAM_STR);
-            $stmt->execute();
+            
 
             // Récupération des résultats
-            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
             ?>
 
-            <?php foreach ($users as $user): ?>
+            <!--boucle foreach-->
                 <div id="com1" class="row ms-5">
                     <div class="col-sm-10 mt-2 ms-5 border border-secondary rounded p-3">
                         <div class="row ms-5">
-                            <div class="col-sm-1"><img src="../IMG/avatar-de-lutilisateur.png" alt="boite mes emprunts"></div>
-                            <div class="col-sm-4"><?= htmlspecialchars($user['Pseudo']) ?></div>
+                            <div class="col-sm-1"><img src="../img/jinx.png" class='rounded' style="height: 50px; width:auto;" alt="boite mes emprunts"></div>
+                            <div class="col-sm-4"> Clarou</div>
                         </div>
                         <div class="row ms-5">
-                            <div class="col-sm-2"><?= htmlspecialchars($user['reaction']) ?> ☆</div>
-                            <div class="col-sm-2"><?= htmlspecialchars($user['date_comment']) ?></div>
+                            <div class="col-sm-2">5 ☆</div>
+                            <div class="col-sm-2">10/06/2025</div>
                         </div>
                         <div class="row ms-2 mt-2">
-                            <div class="col-sm-10"><?= htmlspecialchars($user['commentaire']) ?></div>
+                            <div class="col-sm-10"> Super produit !!</div>
                         </div>
                     </div>
                 </div>
-            <?php endforeach ?>
+            <!--fin boucle foreach-->
 
             <form action="#" method="post" class="my-5 d-flex align-items-center ms-5">
-                <textarea class="form-control me-3" id="exampleFormControlTextarea1" rows="1"
+                <textarea class="form-control me-3 p-2 rounded" id="exampleFormControlTextarea1" rows="1"
                     name="commentaire" placeholder="Ecrire un commentaire" style="resize: none; width: 70%;"></textarea>
-                <input type="number" name="reaction" value="5" min="1" max="5" style="width: 60px; margin-right: 5px;"> ☆
-                <input type="submit" name="submit" class="btn btn-info ms-2" value="ENVOYER">
+                <input class="p-2 rounded" type="number" name="reaction" value="5" min="1" max="5" style="width: 60px; margin-right: 5px;"> <span class="fs-3">☆</span>
+                <input type="submit" name="submit" class="btn btn-danger ms-2" value="ENVOYER">
             </form>
         </div>
     </main>
