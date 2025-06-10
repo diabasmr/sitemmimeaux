@@ -65,3 +65,4 @@ if (isset($_POST['ajouterUtilisateur'])) {
         header('Location: ../PHP/index.php');
     }
 }
+?>

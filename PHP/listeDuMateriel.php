@@ -30,6 +30,15 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
     ?>
     <main>
         <h1 class="mt-3">Matériel</h1>
+        <div class="search">
+        <p>Consulter l'historique</p>
+        <div class="searchContainer">
+            <input type="search" name="search" id="inputSearch" placeholder="Chercher..." />
+            <button id="buttonSearch">
+                <img src="../res/search.svg" alt="" />
+            </button>
+        </div>
+    </div>
         <section class="table mb-5">
             <article class="header_Table">
                 <p>Matériel</p>
@@ -108,11 +117,6 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
 
                 $pdo = null;
                 ?>
-                <div class="ajouterUser h-30" id="ajouterUser">
-                    <button id="closeAjouterPopup"><img src="../res/x.svg" alt=""></button>
-                    <h3>Ajouter un utilisateur</h3>
-                    <p>Information</p>
-                </div>
             </article>
             <button class="add" id="addUser"><img src="../res/add.svg" alt="plus"></button>
         </section>
@@ -176,46 +180,66 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                     </div>
                 </div>
             </div>
-        </form>
-        <div class="ajouterUser h-30" id="ajouterUser">
-        <button id="closeAjouterPopup"><img src="../res/x.svg" alt=""></button>
-        <h3>Ajouter un utilisateur</h3>
-        <p>Information</p>
-        <form action="../PHPpure/addUser.php" method="POST">
-            <div class="name">
-                <input type="text" name="id" id="id" style="display: none;">
-                <div class="nom">
-                    <label for="nom">
-                        Nom
-                    </label>
-                    <input type="text" name="nom" id="nom" placeholder="Nom">
+            </form>
+        <div class="ajouterUser.active h-30" id="ajouterUser">
+        <form action="../PHPpure/addMateriel.php" method="POST">
+            <div class="modifPopupMateriel_content">
+                <div class="modifPopupMateriel_content_header">
+                    <h3>Ajouter un matériel</h3>
+                    <button class="close_modifPopupMateriel">
+                        <img src="../res/x.svg" alt="close">
+                    </button>
                 </div>
-                <div class="prenom">
-                    <label for="prenom">Prénom</label>
-                    <input type="text" name="prenom" id="prenom" placeholder="Prénom">
+                <input type="hidden" name="idM" id="idM">
+                <div class="modifPopupMateriel_content_body">
+                    <div class="modifPopupMateriel_content_body_item">
+                        <label for="designation">Désignation du matériel</label>
+                        <input type="text" id="designation" name="designation" placeholder="Matériel">
+                    </div>
+                    <div class="modifPopupMateriel_content_body_item">
+                        <label for="photo">Photo</label>
+                        <img src="https://glistening-sunburst-222dae.netlify.app/materiel/<?= htmlspecialchars($row['photo']); ?>" alt="Photo matériel" style="height:100px; width:100px;">
+                    </div>
+                    <div class="modifPopupMateriel_content_body_item">
+                        <label for="date_achat">Date d'achat</label>
+                        <input type="datetime-local" id="date_achat" name="date_achat" placeholder="Date d'achat">
+                    </div>
+                    <div class="modifPopupMateriel_content_body_item">
+                        <label for="quantite">Quantité</label>
+                        <input type="number" id="quantite" name="quantite" min="0" value="1">
+                    </div>
+                    <div class="modifPopupMateriel_content_body_item">
+                        <label for="descriptif">Descriptif</label>
+                        <input type="text" id="descriptif" name="descriptif" placeholder="Descriptif">
+                    </div>
+                    <div class="modifPopupMateriel_content_body_item">
+                        <label for="type">Type</label>
+                        <select name="type" id="type">
+                            <option value="Accessoire" selected>Accessoire</option>
+                            <option value="Vidéo">Vidéo</option>
+                            <option value="Audio">Audio</option>
+                            <option value="Drone">Drone</option>
+                            <option value="AR/VR">AR/VR</option>
+                            <option value="Graphisme">Graphisme</option>
+                        </select>
+                    </div>
+                    <div class="modifPopupMateriel_content_body_item">
+                        <label for="etat">Etat</label>
+                        <select name="etat" id="etat">
+                            <option value="Très bon état" selected>Très bon état</option>
+                            <option value="Bon état">Bon état</option>
+                            <option value="Mauvais état">Mauvais état</option>
+                            <option value="En panne">En panne</option>
+                        </select>
+                    </div>
+                    <div class="modifPopupMateriel_content_body_item">
+                        <label for="lien_demo">Lien Démonstration</label>
+                        <input type="text" id="lien_demo" name="lien_demo" placeholder="lien_demo">
+                    </div>
+                    <div class="button-container mt-3">
+                        <button type="submit" name="ajouterMateriel">Ajouter</button>
+                    </div>
                 </div>
-            </div>
-            <div class="email">
-                <label for="email">Attribuer un email</label>
-                <input type="email" name="email" id="email" placeholder="Email">
-            </div>
-            <div class="motDePasse">
-                <label for="motDePasse">Attribuer un mot de passe</label>
-                <input type="password" name="motDePasse" id="motDePasse" placeholder="Mot de passe">
-            </div>
-
-            <div class="role">
-                <label for="role">Rôle</label>
-                <select name="role" id="role">
-                    <option value="etudiant">Etudiant</option>
-                    <option value="enseignant">Enseignant</option>
-                    <option value="administrateur">Administrateur</option>
-                    <option value="agent">Agent</option>
-                </select>
-            </div>
-            <div class="buttonsSubmitContainer">
-                <button type="submit" class="buttonsSubmit fs-6 fs-md-auto" name="ajouterUtilisateur">Ajouter l'utilisateur</button>
-            </div>
         </form>
     </div>
 

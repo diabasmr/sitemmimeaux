@@ -70,10 +70,24 @@ include("../PHPpure/entete.php");
                         echo "<img src='../res/heartPlein.svg' alt='favory' onclick='retirerFavoris(" . $row['idM'] . ")'>";
                         echo "</button>";
                         echo "</div>";
+                        echo "<div class='position-absolute top-0 start-0 d-flex justify-content-between align-items-center gap-3 p-4'>";
+                        echo "<p id='other' class='text-white rounded p-2 border-0' style='background-color:#e4587d;'>";
+                        echo $row['quantité'] . " " . "disponibles";
+                        echo "</p>";
+                        echo "<p id='phone' class='text-white rounded p-2 border-0' style='background-color:#e4587d;'>";
+                        echo $row['quantité'];
+                        echo "</p>";
+                        echo "</div>";
                         echo "<img src='https://glistening-sunburst-222dae.netlify.app/materiel/" . $row['photo'] . "' alt='materiel' class='w-100 rounded-5 materiel-image'>";
                         echo "<div class='d-flex justify-content-center align-items-center flex-column w-100'>";
                         echo "<p class='text-center fs-auto fw-bold w-100'>" . $row['designation'] . "</p>";
-                        echo "<button class='btn btn-danger text-white text-center w-80 w-md-50 p-3' onclick='reserverMateriel(" . $row['idM'] . ")'>Réserver</button>";
+                        echo "<button class='btn btn-danger text-white text-center w-80 w-md-50 p-3' onclick='reserverMateriel(" . $row['idM'] . ")'";
+
+                        if ($row['quantité'] == 0) {
+                            echo " disabled";
+                        }
+
+                        echo ">Réserver</button>";
                         echo "</div>";
                         echo "</div>";
                     }
@@ -180,7 +194,7 @@ include("../PHPpure/entete.php");
                 $result = $pdo->query($sql);
                 while ($row = $result->fetch()) {
                     echo "<div class='col-6 col-md-4 d-flex justify-content-center align-items-center flex-column position-relative'>";
-                    echo "<div class='position-absolute top-0 end-0 d-flex justify-content-between align-items-center gap-3 p-4'>";
+                    echo "<div class='position-absolute top-0 end-0 d-flex justify-content-between align-items-center p-4'>";
                     echo "<button class='btn bg-transparent border-0'>";
                     $sql1 = "SELECT * FROM favori_materiel WHERE idM = ? AND id = ?";
                     // avec idM = $row['idM'] et id = $_SESSION['user']['id']
@@ -193,11 +207,25 @@ include("../PHPpure/entete.php");
                     }
                     echo "</button>";
                     echo "</div>";
+                    echo "<div class='position-absolute top-0 start-0 ms-3 d-flex justify-content-between align-items-center gap-3 p-4'>";
+                        echo "<p id='other' class='text-white rounded p-2 border-0' style='background-color:#e4587d;'>";
+                        echo $row['quantité'] . " " . "disponibles";
+                        echo "</p>";
+                        echo "<p id='phone' class='text-white rounded p-2 border-0' style='background-color:#e4587d;'>";
+                        echo $row['quantité'];
+                        echo "</p>";
+                        echo "</div>";
                     // img meme taille que la div
                     echo "<img src='https://glistening-sunburst-222dae.netlify.app/materiel/" . $row['photo'] . "' alt='materiel' class='rounded-5 materiel-image'>";
                     echo "<div class='d-flex justify-content-center align-items-center flex-column w-100'>";
                     echo "<p class='text-center fs-auto fw-bold w-100'>" . $row['designation'] . "</p>";
-                    echo "<button class='btn btn-danger text-white text-center w-80 w-md-50 p-3' onclick='reserverMateriel(" . $row['idM'] . ")'>Réserver</button>";
+                    echo "<button class='btn btn-danger text-white text-center w-80 w-md-50 p-3' onclick='reserverMateriel(" . $row['idM'] . ")'";
+
+                    if ($row['quantité'] == 0) {
+                        echo " disabled";
+                    }
+
+                    echo ">Réserver</button>";
                     echo "</div>";
                     echo "</div>";
                 }
