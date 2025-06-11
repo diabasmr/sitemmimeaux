@@ -77,6 +77,13 @@
                         </div>
                     </div>
 
+                    <div id="qtt" class="d-flex justify-content-center align-items-baseline gap-3">
+                        <p id='other' class='text-white rounded text-center justify-content-center p-2 border-0' style='background-color:#e4587d;'>
+                            <?php echo $materiel['quantité'] . " disponibles"; ?>
+                        </p>
+                        <input type="number" class="form-control w-75 text-center" value="1" min="1" id="quantite" name="quantite">
+                    </div>
+
 
                     <label for="motif">Motif de la réservation</label>
                     <textarea id="motif" name="motif" placeholder="Bonjour ,...."></textarea>

@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $commentaire = "rien";
     $document = "rien";
     $materiel_id = $_POST['materiel'];
+    $quantite = abs((int)$_POST['quantite']);
 
     // creer date debut = date + horaire debut et date fin = date + horaire fin
     $dateDebut = $date . " " . $horaireD;
@@ -32,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Insertion de la réservation
     $requete = $pdo->prepare("INSERT INTO reservations (date_debut, date_fin, valide, motif, commentaires, signatureElectronique, documentAdministrateur) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $requete->execute([$dateDebut, $dateFin, 0, $motif, $commentaire, $signature, $document]);
+    $requete->execute([$dateDebut, $dateFin, 0, $motif, $commentaire, $signature, $document]);//quantite
 
     // Récupérer l'ID de la réservation créée
     $idReservation = $pdo->lastInsertId();
@@ -46,6 +47,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Insérer le matériel dans la réservation
     $requete = $pdo->prepare("INSERT INTO concerne (idR, idM) VALUES (?, ?)");
     $requete->execute([$idReservation, $materiel_id]);
+
+    // Modifier la quantite
+    $requete = $pdo->prepare("UPDATE materiel SET quantite = quantite - ? WHERE idM = ?");
+    $requete->execute([$quantite, $materiel_id]);
 
     header("Location: ../PHP/reservation_materiel.php?success=1"); // page de succès
     exit();

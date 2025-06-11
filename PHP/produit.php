@@ -78,9 +78,6 @@ if (isset($_GET['id'])) {
 
                     <div class="row justify-content-center mt-5">
                         <div class="col-sm-5 col-4 justify-content-center align-items-center">
-                            <div class="row">
-                                <input type="number" class="form-control text-center" value="1" min="1" id="quantite">
-                            </div>
                             <div class="row mt-2">
                                 <?php
                                 echo "<button class='btn btn-danger text-white text-center p-3' onclick='reserverMateriel(" . $row['idM'] . ")'";
