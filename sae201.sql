@@ -74,6 +74,8 @@ CREATE TABLE `concerne` (
 
 INSERT INTO `concerne` (`idM`, `idR`) VALUES
 (1, 27),
+(1, 32),
+(2, 33),
 (5, 29),
 (8, 28);
 
@@ -95,6 +97,7 @@ CREATE TABLE `concerne_salle` (
 INSERT INTO `concerne_salle` (`idS`, `idR`) VALUES
 (1, 20),
 (1, 26),
+(1, 34),
 (2, 25);
 
 -- --------------------------------------------------------
@@ -138,7 +141,8 @@ INSERT INTO `etudiant` (`id`, `numeroEtudiant`, `grpTP_TD_Promo`, `promotion`, `
 (7, NULL, NULL, '', ''),
 (8, NULL, NULL, '', ''),
 (10, NULL, NULL, '', ''),
-(11, NULL, NULL, '', '');
+(11, NULL, NULL, '', ''),
+(20, NULL, NULL, '', '');
 
 -- --------------------------------------------------------
 
@@ -157,8 +161,7 @@ CREATE TABLE `favori_materiel` (
 
 INSERT INTO `favori_materiel` (`id`, `idM`) VALUES
 (1, 1),
-(3, 1),
-(3, 2);
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -184,23 +187,23 @@ CREATE TABLE `materiel` (
 --
 
 INSERT INTO `materiel` (`idM`, `refernceM`, `designation`, `photo`, `typeM`, `dateAchat`, `etat`, `quantité`, `descriptif`, `lien_demo`) VALUES
-(1, 'REF001', 'Trépied Benro Kit', 'BENRO Kit Trépied (full).jpg', 'Accessoire', '2023-01-10', 'Très bon état', 3, 'Trépied léger et stable pour prises de vue pro.', NULL),
-(2, 'REF002', 'Caméra 360° Ricoh Theta M15', 'Caméra - Ricoh Theta M15 caméra 360° (front).jpg', 'Vidéo', '2023-02-01', 'Bon état', 2, 'Caméra 360° compacte pour vidéo immersive.', NULL),
-(3, 'REF003', 'Casque SteelSeries Arctis Pro', 'Casque SteelSeries Artics Pro (front).jpg', 'Audio', '2023-03-05', 'Très bon état', 4, 'Casque gaming de haute qualité.', NULL),
-(4, 'REF004', 'Drone DJI Tello', 'Drône - DJI Tello (side).jpg', 'Drone', '2023-03-15', 'Très bon état', 2, 'Mini drone idéal pour débutants.', NULL),
-(5, 'REF005', 'GoPro Max', 'GoPro Max (front).jpg', 'Vidéo', '2023-04-01', 'Très bon état', 1, 'Caméra 360° GoPro pour captations immersives.', NULL),
-(6, 'REF006', 'HTC Vive Focus 3 - Casque + Manettes', 'HTC Vive Focus 3 - Casque + Manettes (front).jpg', 'VR', '2023-04-20', 'Excellent état', 2, 'Casque VR pro avec manettes incluses.', NULL),
-(7, 'REF007', 'Webcam Logitech BRIO 4K', 'Logitech BRIO 4K Webcam (front).jpg', 'Vidéo', '2023-05-01', 'Très bon état', 3, 'Webcam 4K pour streaming ou visio.', NULL),
-(8, 'REF008', 'Manette MSI Force GC30 V2', 'Manette MSI Force GC30 V2 (front).jpg', 'Accessoire', '2023-05-10', 'Bon état', 5, 'Manette sans fil pour gaming.', NULL),
-(9, 'REF009', 'Meta Quest 2 - Casque + Manettes + Câble', 'Meta Quest 2 - Casque VR + Manettes (top).jpg', 'VR', '2023-05-15', 'Très bon état', 2, 'Pack VR complet avec casque, manettes et câble Link.', NULL),
-(10, 'REF010', 'Micro HyperX QuadCast', 'Micro - HyperX HX-MICQC-BK QuadCast (full1).jpg', 'Audio', '2023-05-17', 'Très bon état', 3, 'Micro USB de qualité studio avec support intégré.', NULL),
-(11, 'REF011', 'Microsoft Hololens 2', 'Microsoft Hololens 2 - Casque VR (full).jpg', 'AR/VR', '2023-05-20', 'Très bon état', 1, 'Casque de réalité mixte autonome.', NULL),
-(12, 'REF012', 'Samsung Galaxy Tab A', 'Samsung Galaxy Tab A (front).jpg', 'Tablette', '2023-05-22', 'Bon état', 3, 'Tablette polyvalente pour navigation et app.', NULL),
-(13, 'REF013', 'Support Tablette', 'Support Tablette (front).jpg', 'Accessoire', '2023-05-23', 'Bon état', 4, 'Support ajustable compatible avec toutes tablettes.', NULL),
-(14, 'REF014', 'Tablette Graphique Wacom One', 'Tablette Graphique Wacom One (front).jpg', 'Graphisme', '2023-05-23', 'Très bon état', 2, 'Tablette graphique avec stylet pour illustration.', NULL),
-(15, 'REF015', 'Trépied Mantona SG-350', 'Trépied - Mantona SG-350 (full).jpg', 'Accessoire', '2023-05-24', 'Très bon état', 2, 'Trépied robuste pour photo/vidéo.', NULL),
-(16, 'REF016', 'Vidéoprojecteur EPSON EMP 6110 - XGA', 'Vidéoprojecteur - EPSON EMP 6110 - XGA (side).jpg', 'Vidéo', '2023-05-25', 'Bon état', 1, 'Vidéoprojecteur XGA performant pour présentations.', NULL),
-(17, 'REF017', 'Câble Vive Pro Link', 'Vive Pro - Câble (front).jpg', 'Accessoire', '2023-05-25', 'Très bon état', 2, 'Câble officiel pour casque Vive Pro.', NULL);
+(1, 'REF001', 'Trépied Benro Kit', '20230505_110146.jpg', 'Accessoire', '0000-00-00', 'Bon état', 3, 'Trépied léger et stable pour prises de vue pro.', 'rien'),
+(2, 'REF002', 'Caméra 360° Ricoh Theta M15', 'P1018481.JPG', 'Vidéo', '2023-02-01', 'Bon état', 2, 'Caméra 360° compacte pour vidéo immersive.', NULL),
+(3, 'REF003', 'Casque SteelSeries Arctis Pro', 'P1018474.JPG', 'Audio', '2023-03-05', 'Très bon état', 4, 'Casque gaming de haute qualité.', NULL),
+(4, 'REF004', 'Drone DJI Tello', 'P1018445.JPG', 'Drone', '2023-03-15', 'Très bon état', 2, 'Mini drone idéal pour débutants.', NULL),
+(5, 'REF005', 'GoPro Max', '20230505_105927.jpg', 'Vidéo', '2023-04-01', 'Très bon état', 1, 'Caméra 360° GoPro pour captations immersives.', NULL),
+(6, 'REF006', 'HTC Vive Focus 3 - Casque + Manettes', 'P1018553.JPG', 'VR', '2023-04-20', 'Excellent état', 2, 'Casque VR pro avec manettes incluses.', NULL),
+(7, 'REF007', 'Webcam Logitech BRIO 4K', 'P1018493.JPG', 'Vidéo', '2023-05-01', 'Très bon état', 3, 'Webcam 4K pour streaming ou visio.', NULL),
+(8, 'REF008', 'Manette MSI Force GC30 V2', 'P1018509.JPG', 'Accessoire', '2023-05-10', 'Bon état', 5, 'Manette sans fil pour gaming.', NULL),
+(9, 'REF009', 'Meta Quest 2 - Casque + Manettes + Câble', 'IMG_0007.JPG', '0', '2025-06-06', '1', 2, 'Pack VR complet avec casque, manettes et câble Link.', 'rien'),
+(10, 'REF010', 'Micro HyperX QuadCast', '20230505_100306.jpg', 'Audio', '2023-05-17', 'Très bon état', 3, 'Micro USB de qualité studio avec support intégré.', NULL),
+(11, 'REF011', 'Microsoft Hololens 2', 'P1018521.JPG', 'AR/VR', '2023-05-20', 'Très bon état', 1, 'Casque de réalité mixte autonome.', NULL),
+(12, 'REF012', 'Samsung Galaxy Tab A', 'P1018472.JPG', 'Tablette', '2023-05-22', 'Bon état', 3, 'Tablette polyvalente pour navigation et app.', NULL),
+(13, 'REF013', 'Support Tablette', 'P1018485.JPG', 'Accessoire', '2023-05-23', 'Bon état', 4, 'Support ajustable compatible avec toutes tablettes.', NULL),
+(14, 'REF014', 'Tablette Graphique Wacom One', 'P1018499.JPG', 'Graphisme', '2023-05-23', 'Très bon état', 2, 'Tablette graphique avec stylet pour illustration.', NULL),
+(15, 'REF015', 'Trépied Mantona SG-350', 'P1018449.JPG', 'Accessoire', '2023-05-24', 'Très bon état', 2, 'Trépied robuste pour photo/vidéo.', NULL),
+(16, 'REF016', 'Vidéoprojecteur EPSON EMP 6110 - XGA', '20230505_104109.jpg', 'Vidéo', '2023-05-25', 'Bon état', 1, 'Vidéoprojecteur XGA performant pour présentations.', NULL),
+(17, 'REF017', 'Câble Vive Pro Link', 'P1018496.JPG', 'Accessoire', '2023-05-25', 'Très bon état', 2, 'Câble officiel pour casque Vive Pro.', NULL);
 
 -- --------------------------------------------------------
 
@@ -229,7 +232,10 @@ INSERT INTO `reservations` (`idR`, `date_debut`, `date_fin`, `valide`, `motif`, 
 (26, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 1, 'essaie maison', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
 (27, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 1, ' sfsfddf', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
 (28, '2025-05-27 16:00:00', '2025-05-27 18:00:00', 1, 'manette pour une partie de FC pendant pause', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(29, '2025-06-05 16:00:00', '2025-06-05 18:00:00', 1, 'admin', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien');
+(29, '2025-06-05 16:00:00', '2025-06-05 18:00:00', 1, 'admin', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(32, '2025-06-03 12:00:00', '2025-06-03 14:00:00', 0, 'oùpùù', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(33, '2025-06-06 12:00:00', '2025-06-06 14:00:00', 1, 'diaba', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(34, '2025-06-17 08:00:00', '2025-06-17 12:00:00', 1, 'fgbghn', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien');
 
 -- --------------------------------------------------------
 
@@ -257,6 +263,7 @@ INSERT INTO `reservation_users` (`id`, `idR`) VALUES
 (2, 25),
 (2, 28),
 (2, 29),
+(2, 32),
 (7, 20),
 (7, 28),
 (8, 27),
@@ -268,7 +275,9 @@ INSERT INTO `reservation_users` (`id`, `idR`) VALUES
 (11, 25),
 (11, 27),
 (11, 28),
-(11, 29);
+(11, 29),
+(20, 33),
+(20, 34);
 
 -- --------------------------------------------------------
 
@@ -291,8 +300,8 @@ CREATE TABLE `salle` (
 --
 
 INSERT INTO `salle` (`idS`, `nom`, `type`, `capacite`, `photo`, `etat`, `description`) VALUES
-(1, 'Salle 138', 'Amphi', 100, 'https://glistening-sunburst-222dae.netlify.app/salle/salle138.png', 'Disponible', 'Grand amphithéâtre'),
-(2, 'Salle 212', 'Réunion', 20, 'https://glistening-sunburst-222dae.netlify.app/salle/salle212.jpg', 'Disponible', 'Salle de réunion équipée');
+(1, 'Salle 138', 'Amphi', 100, 'Salle138.JPG', 'Disponible', 'Grand amphithéâtre'),
+(2, 'Salle 212', 'Réunion', 20, 'Salle212.jpg', 'Disponible', 'Salle de réunion équipée');
 
 -- --------------------------------------------------------
 
@@ -322,7 +331,7 @@ CREATE TABLE `user_` (
 INSERT INTO `user_` (`id`, `email`, `pseudo`, `nom`, `prenom`, `Date_de_naissance`, `adresse`, `mot_de_passe`, `avatar`, `date_inscription`, `valable`, `telephone`) VALUES
 (1, 'alice@gmail.com', 'alice123', 'Durand', 'Alice', '2002-04-21', '10 rue des Lilas', '$2y$10$bISacBmroN12XLHhWX3UDuxVImF1Mq/vUSCYfnAoHkwn40mbc3qRG', '../uploads/avatars/1.png', '2025-04-26', 1, 123456788),
 (2, 'bob@gmail.com', 'bobby', 'Martin', 'Bob', '2001-09-15', '25 avenue Victor Hugo', '$2y$10$F6u4vWUFWO.K2Ocw8CbRAO9WS7vluMC2MGe6VHLgEBpYBuzChbUYO', '../uploads/avatars/2.jpg', '2025-04-26', 1, 123456789),
-(3, 'clara@gmail.com', 'clarou', 'Lemoine', 'Clara', '2003-01-30', '3 place de la République', '$2y$10$F6u4vWUFWO.K2Ocw8CbRAO9WS7vluMC2MGe6VHLgEBpYBuzChbUYO', '../uploads/avatars/3.jpg', '2025-04-26', 1, 123456789),
+(3, 'clara@gmail.com', 'clarou', 'Lemoines', 'Clara', '2003-01-30', '3 place de la République', '$2y$10$F6u4vWUFWO.K2Ocw8CbRAO9WS7vluMC2MGe6VHLgEBpYBuzChbUYO', '../uploads/avatars/3.jpg', '2025-04-26', 1, 123456789),
 (6, 'janviercharly@gmail.com', 'charly.janvier', 'janvier', 'charly', NULL, NULL, '$2y$10$F6u4vWUFWO.K2Ocw8CbRAO9WS7vluMC2MGe6VHLgEBpYBuzChbUYO', NULL, '2025-05-15', 1, NULL),
 (7, 'emma.tesla@gmail.com', 'emmat', 'Tesla', 'Emma', '2000-07-10', '42 boulevard Voltaire', '$2y$10$F6u4vWUFWO.K2Ocw8CbRAO9WS7vluMC2MGe6VHLgEBpYBuzChbUYO', NULL, '2025-05-22', 1, 612345678),
 (8, 'leo.dupont@yahoo.fr', 'leoleo', 'Dupont', 'Léo', '1999-02-20', '15 rue Lafayette', '$2y$10$F6u4vWUFWO.K2Ocw8CbRAO9WS7vluMC2MGe6VHLgEBpYBuzChbUYO', NULL, '2025-05-22', 1, 698765432),
@@ -331,7 +340,9 @@ INSERT INTO `user_` (`id`, `email`, `pseudo`, `nom`, `prenom`, `Date_de_naissanc
 (11, 'lina.rossi@gmail.com', 'lina_r', 'Rossi', 'Lina', '2004-09-09', '77 rue des Écoles', '$2y$10$F6u4vWUFWO.K2Ocw8CbRAO9WS7vluMC2MGe6VHLgEBpYBuzChbUYO', NULL, '2025-05-22', 1, 623456789),
 (15, 'ssdfsdf@gmail.com', 'sdfsdf.sdfqsdf', 'sdfqsdf', 'sdfsdf', '2025-05-10', '2, Allée de la Marne', '$2y$10$F6u4vWUFWO.K2Ocw8CbRAO9WS7vluMC2MGe6VHLgEBpYBuzChbUYO', NULL, '2025-05-24', 0, NULL),
 (16, 'janviercharlyAZEAZE@gmail.com', 'azeaze.azeaze', 'AZEAZE', 'AZEAZE', '2025-05-25', '2, Allée de la Marne', '$2y$10$KFwvK9AK91Z5s.7b2PkRoO7GHEKgdSStGiOyI/KksdcV8SAl50mw.', NULL, '2025-05-25', 0, NULL),
-(17, 'TEST@test.test', 'test.test', 'TEST', 'TEST', '2025-05-25', '', '$2y$10$GH0H1vsxF0GPxxKzjOgpD.vOnoF6yHQTgwJ9bO3WcQv7yi/Nava3W', NULL, '2025-05-25', 0, NULL);
+(17, 'TEST@test.test', 'test.test', 'TEST', 'TEST', '2025-05-25', '', '$2y$10$GH0H1vsxF0GPxxKzjOgpD.vOnoF6yHQTgwJ9bO3WcQv7yi/Nava3W', NULL, '2025-05-25', 0, NULL),
+(18, 'diabasamoura@gmail.cm', 'marta.stewart', 'Stewart', 'Marta', '2009-06-05', 'ggrr', '$2y$10$IZfJCgd9mjtb8YZT2MwJWeAa2yHiJrnM2ByFdDvwza19t/sHxjrT2', NULL, '2025-06-05', 0, NULL),
+(20, 'diabasamoura@gmail.com', 'diaba.samoura', 'Samoura', 'Diaba', '2009-06-04', 'ggrr', '$2y$10$FucRG6my7G4qmwDJibZZBuXEA.OjeEf84TUFtD8Vu5oIccmB8YjNW', NULL, '2025-06-05', 1, NULL);
 
 --
 -- Index pour les tables déchargées
@@ -421,13 +432,13 @@ ALTER TABLE `user_`
 -- AUTO_INCREMENT pour la table `materiel`
 --
 ALTER TABLE `materiel`
-  MODIFY `idM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT pour la table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `idR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `idR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT pour la table `salle`
@@ -439,7 +450,7 @@ ALTER TABLE `salle`
 -- AUTO_INCREMENT pour la table `user_`
 --
 ALTER TABLE `user_`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Contraintes pour les tables déchargées
