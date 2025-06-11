@@ -213,6 +213,7 @@ INSERT INTO `materiel` (`idM`, `refernceM`, `designation`, `photo`, `typeM`, `da
 
 CREATE TABLE `reservations` (
   `idR` int(11) NOT NULL,
+  `quantite` int(11) NOT NULL,
   `date_debut` datetime NOT NULL,
   `date_fin` datetime NOT NULL,
   `valide` int(11) DEFAULT NULL,
@@ -226,16 +227,16 @@ CREATE TABLE `reservations` (
 -- Déchargement des données de la table `reservations`
 --
 
-INSERT INTO `reservations` (`idR`, `date_debut`, `date_fin`, `valide`, `motif`, `commentaires`, `signatureElectronique`, `documentAdministrateur`) VALUES
-(20, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 1, 'charlytest', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(25, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 1, 'essaie de sale212', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(26, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 1, 'essaie maison', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(27, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 1, ' sfsfddf', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(28, '2025-05-27 16:00:00', '2025-05-27 18:00:00', 1, 'manette pour une partie de FC pendant pause', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(29, '2025-06-05 16:00:00', '2025-06-05 18:00:00', 1, 'admin', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(32, '2025-06-03 12:00:00', '2025-06-03 14:00:00', 0, 'oùpùù', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(33, '2025-06-06 12:00:00', '2025-06-06 14:00:00', 1, 'diaba', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(34, '2025-06-17 08:00:00', '2025-06-17 12:00:00', 1, 'fgbghn', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien');
+INSERT INTO `reservations` (`idR`, `quantite`, `date_debut`, `date_fin`, `valide`, `motif`, `commentaires`, `signatureElectronique`, `documentAdministrateur`) VALUES
+(20, 1, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 1, 'charlytest', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(25, 1, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 1, 'essaie de sale212', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(26, 1, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 1, 'essaie maison', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(27, 1, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 1, ' sfsfddf', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(28, 1, '2025-05-27 16:00:00', '2025-05-27 18:00:00', 1, 'manette pour une partie de FC pendant pause', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(29, 1, '2025-06-05 16:00:00', '2025-06-05 18:00:00', 1, 'admin', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(32, 1, '2025-06-03 12:00:00', '2025-06-03 14:00:00', 0, 'oùpùù', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(33, 1, '2025-06-06 12:00:00', '2025-06-06 14:00:00', 1, 'diaba', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(34, 1, '2025-06-17 08:00:00', '2025-06-17 12:00:00', 1, 'fgbghn', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien');
 
 -- --------------------------------------------------------
 

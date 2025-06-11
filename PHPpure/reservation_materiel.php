@@ -27,13 +27,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } //JS
 
     // Vérifie que les champs ne sont pas vides
-    if (empty($date) || empty($horaireD) || empty($horaireF)  || empty($motif) || empty($signature)) {
+    if (empty($quantite) || empty($date) || empty($horaireD) || empty($horaireF)  || empty($motif) || empty($signature)) {
         die("Tous les champs sont requis.");
     }
 
     // Insertion de la réservation
-    $requete = $pdo->prepare("INSERT INTO reservations (date_debut, date_fin, valide, motif, commentaires, signatureElectronique, documentAdministrateur) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $requete->execute([$dateDebut, $dateFin, 0, $motif, $commentaire, $signature, $document]);//quantite
+    $requete = $pdo->prepare("INSERT INTO reservations (quantite, date_debut, date_fin, valide, motif, commentaires, signatureElectronique, documentAdministrateur) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $requete->execute([$quantite, $dateDebut, $dateFin, 0, $motif, $commentaire, $signature, $document]);
 
     // Récupérer l'ID de la réservation créée
     $idReservation = $pdo->lastInsertId();

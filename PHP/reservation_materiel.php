@@ -78,10 +78,10 @@
                     </div>
 
                     <div id="qtt" class="d-flex justify-content-center align-items-baseline gap-3">
-                        <p id='other' class='text-white rounded text-center justify-content-center p-2 border-0' style='background-color:#e4587d;'>
-                            <?php echo $materiel['quantité'] . " disponibles"; ?>
+                        <p class='text-white rounded text-center justify-content-center p-2 border-0' style='background-color:#e4587d;'>
+                        <span id="dispo" data-stock="<?php echo $materiel['quantité']?>"><?php echo $materiel['quantité']?></span> disponibles
                         </p>
-                        <input type="number" class="form-control w-75 text-center" value="1" min="1" id="quantite" name="quantite">
+                        <input type="number" class="form-control w-75 text-center" value="1" min="1" max="<?php echo $materiel['quantité']; ?>" id="quantite" name="quantite">
                     </div>
 
 
@@ -209,6 +209,7 @@
     </main>
     <script src="../JS/sideBarre.js"></script>
     <script src="../JS/reservation_salle.js"></script>
+    <script src="../JS/reservation-qtt.js"></script>
 </body>
 
 </html>
