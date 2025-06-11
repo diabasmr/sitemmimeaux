@@ -8,8 +8,23 @@ if (isset($_POST['ajouterMateriel'])) {
         echo "<script>setTimeout(function() { window.location.href = '../PHP/listeDuMateriel.php'; }, 3000);</script>";
         exit();
     }
-
-    $photo = $_POST['photo'];
+    //AJOUT PHOTO
+    if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = '../materiel/';
+        $fileName = basename($_FILES['photo']['name']);
+        $fileName = preg_replace('/[^a-zA-Z0-9._-]/', '', $fileName); // sécuriser nom fichier
+        $targetFile = $uploadDir . uniqid() . '_' . $fileName;
+    
+        if (move_uploaded_file($_FILES['photo']['tmp_name'], $targetFile)) {
+            $photo = basename($targetFile); // nom fichier à stocker en BDD
+        } else {
+            // gestion erreur upload
+            $photo = null;
+        }
+    } else {
+        $photo = null;
+    }
+    
     $designation = $_POST['designation'];
     $date_achat = $_POST['date_achat'];
     $quantite  = $_POST['quantite'];
@@ -27,26 +42,19 @@ if (isset($_POST['ajouterMateriel'])) {
     ]);
     $mater = $stmt->fetch();
 
-    $sql2 = "SELECT * FROM materiel WHERE typeM = :typeM";
-    $stmt2 = $pdo->prepare($sql2);
-    $stmt2->execute([
-        'typeM' => $type
-    ]);
-    $mater2 = $stmt2->fetch();
-
-    if ($mater || $mater2) {
+    if ($mater) {
         echo "Le matériel existe déjà";
         echo "<script>setTimeout(function() { window.location.href = '../PHP/index.php'; }, 3000);</script>";
     } else {
         // Insertion dans materiel
         $sql = "INSERT INTO materiel (designation, photo, dateAchat, quantité, descriptif, typeM, etat, lien_demo)
-            VALUES (:designation, :photo, :dateAchat, :quantité, :descriptif, :typeM, :etat, :lien_demo)";
+            VALUES (:designation, :photo, :dateAchat, :quantite, :descriptif, :typeM, :etat, :lien_demo)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             'designation' => $designation,
             'photo' => $photo,
             'dateAchat' => $date_achat,
-            'quantité' => $quantite,
+            'quantite' => $quantite,
             'descriptif' => $descriptif,
             'typeM' => $type,
             'etat' => $etat,
@@ -61,11 +69,13 @@ if (isset($_POST['ajouterMateriel'])) {
 
 
         // Insertion de la ref
-        $sql3 = "INSERT INTO materiel (RefernceM) VALUES (:id)";
+        $sql3 = "UPDATE materiel SET refernceM = :ref WHERE idM = :id";
         $stmt3 = $pdo->prepare($sql3);
         $stmt3->execute([
-            'id' => $ref
-        ]);
+            'ref' => $ref,
+            'id' => $lastInsertId
+]);
+
         header('Location: ../PHP/listeDuMateriel.php');
     }
 }

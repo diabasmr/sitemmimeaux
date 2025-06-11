@@ -152,6 +152,17 @@
     height: auto;
     display: none;
   }
+  .modifPopupMateriel.active,
+  #ajouterMateriel.active {
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 4vh 4vw;
+    border-radius: 3vw;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 70vw;
+    height: 80%;
+    display: block;
+  }
 
   .modifPopupMateriel_content_header h3 {
     font-size: 4.5vw;

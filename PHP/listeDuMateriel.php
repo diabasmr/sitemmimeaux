@@ -1,50 +1,13 @@
 <?php
-include("../PHPpure/entete.php");
-if ($_SESSION['user']['role'] != 'Administrateur') {
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+
+if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur') {
     header('Location: ../PHP/index.php');
     exit();
 }
-
-/*if (isset($_POST['upload'])) {
-    // Récupérer le nom du matériel
-    $materiel = $_POST['materiel'] ?? '';
-
-    // Récupérer d'abord les anciens noms dans la BDD (exemple avec PDO)
-    $sql = "SELECT photo FROM materiel WHERE Nom = ? LIMIT 1";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$materiel]);
-    $oldImage = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // Initialiser les noms à garder par défaut
-    $newImages = $oldImage;
-
-    // Dossier upload
-    $targetDir = "../materiel/";
-
-        $inputName = "image";
-
-        if (isset($_FILES[$inputName]) && $_FILES[$inputName]['error'] === UPLOAD_ERR_OK) {
-            // Nouveau fichier uploadé remplace
-            $originalName = $_FILES[$inputName];
-            $extension = pathinfo($originalName, PATHINFO_EXTENSION);
-            $newName = preg_replace('/[^a-zA-Z0-9_-]/', '', $materiel) . "_image" . '_' . uniqid() . "." . $extension;
-            $targetFile = $targetDir . $newName;
-            move_uploaded_file($_FILES[$inputName]['tmp_name'], $targetFile);
-
-            $newImage = $newName; // On remplace dans la variable
-        }
-
-    // Préparation de la requête UPDATE avec placeholders
-    $sqlUpdate = "UPDATE materiel SET photo = :img WHERE Nom = :nom";
-    $stmtUpdate = $pdo->prepare($sqlUpdate);
-
-    // Liaison des paramètres un par un avec bindParam
-    $stmtUpdate->bindParam(':img', $newImage, PDO::PARAM_STR);
-    $stmtUpdate->bindParam(':nom', $materiel, PDO::PARAM_STR);
-
-    // Exécution de la requête
-    $stmtUpdate->execute();
-}*/
 ?>
 
 <!DOCTYPE html>
@@ -146,7 +109,9 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                                     data-descriptif="' . htmlspecialchars($row['descriptif']) . '"
                                     data-type="' . htmlspecialchars($row['typeM']) . '"
                                     data-etat="' . htmlspecialchars($row['etat']) . '"
-                                    data-lien_demo="' . htmlspecialchars($row['lien_demo']) . '"></button>';
+                                    data-lien_demo="' . (isset($row['lien_demo']) && !empty($row['lien_demo']) ? htmlspecialchars($row['lien_demo']) : 'lien démonstration') . '"
+                                    ></button>';
+
                             echo '</div>';
                         }
                     } else {
@@ -159,9 +124,9 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                 $pdo = null;
                 ?>
             </article>
-            <button class="add" onclick="addmateriel()" id="addMateriel"><img src="../res/add.svg" alt="plus"></button>
+            <button class="add" id="addMateriel"><img src="../res/add.svg" alt="plus"></button>
         </section>
-        <form class="modifPopupMateriel" action="../PHPpure/materielValidation.php" method="POST">
+        <form id="upload-form-<?=$index?>" class="modifPopupMateriel" action="../PHPpure/materielValidation.php" method="POST" enctype="multipart/form-data">
             <div class="modifPopupMateriel_content">
                 <div class="modifPopupMateriel_content_header">
                     <h3>Modifier le matériel</h3>
@@ -177,6 +142,9 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                     </div>
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="photo">Photo</label>
+                         <!-- UPLOAD IMAGES-->
+                        <input type="file" name="image1" accept="image/*" required>
+                    
                         <img src="https://glistening-sunburst-222dae.netlify.app/materiel/<?= htmlspecialchars($row['photo']); ?>" alt="Photo matériel" style="height:100px; width:100px;">
                     </div>
                     <div class="modifPopupMateriel_content_body_item">
@@ -225,31 +193,26 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
 
             <!-- AJOUT MATERIEL -->
         <div class="modifPopupMateriel h-30" id="ajouterMateriel">
-        <form action="../PHPpure/addMateriel.php" method="POST">
+        <form action="../PHPpure/addMateriel.php" method="POST" enctype="multipart/form-data">
             <div class="modifPopupMateriel_content">
                 <div class="modifPopupMateriel_content_header">
                     <h3>Ajouter un matériel</h3>
-                    <button class="close_modifPopupMateriel" onclick="closePopup()">
+                    <button class="close_modifPopupMateriel" id="close_modifPopupMateriel">
                         <img src="../res/x.svg" alt="close">
                     </button>
                 </div>
                 <input type="hidden" name="idM" id="idM">
                 <div class="modifPopupMateriel_content_body">
                     <div class="modifPopupMateriel_content_body_item">
-                        <label for="designation">Désignation du matériel</label>
-                        <input type="text" id="designation" name="designation" placeholder="Matériel">
+                        <label for="designation_add">Désignation du matériel</label>
+                        <input type="text" id="designation_add" name="designation" placeholder="Matériel">
                     </div>
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="photo">Photo</label>
+                        <input type="file" name="photo" accept="image/*" />
+
                         <img src="https://glistening-sunburst-222dae.netlify.app/materiel/<?= htmlspecialchars($row['photo']); ?>" alt="Photo matériel" style="height:100px; width:100px;">
                     </div>
-                    <!-- FORM UPLOAD IMAGES 
-                    <form id="upload-form-<?= $index ?>" class="d-none mt-2" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="materiel" value="<?= htmlspecialchars($user['Nom']) ?>">
-                        <input type="file" name="image1" accept="image/*" required>
-                        <button type="submit" name="upload" class="btn btn-success btn-sm mt-2">Uploader</button>
-                    </form>
-                -->
 
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="date_achat">Date d'achat</label>
@@ -292,11 +255,11 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                     </div>
                 </div>
         </form>
+        
     </div>
-
     </main>
-    <script src="../JS/sideBarre.js"></script>
-    <script src="../JS/listeDuMateriel.js"></script>
-</body>
+    <script src="../JS/sideBarre.js" defer></script>
+    <script src="../JS/listeDuMateriel.js" defer></script>
 
+</body>
 </html>
