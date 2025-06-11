@@ -98,7 +98,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
 
 
                             echo '<div class="line my-5">';
-                            echo '<img src="https://glistening-sunburst-222dae.netlify.app/materiel/' . htmlspecialchars($row['photo']) . '" alt="Photo matériel" style="height:100px; width:100px;">';
+                            echo '<img src="../materiel/' . htmlspecialchars($row['photo']) . '" alt="Photo matériel" style="height:100px; width:100px;">';
                             echo '<p class="text-center">' . htmlspecialchars($row['designation']) . '</p>';
                             echo '<p>' . $status . '</p>';
                             echo '<button class="modifier" data-id="' . $row['idM'] . '" 
@@ -145,11 +145,11 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
                          <!-- UPLOAD IMAGES-->
                         <input type="file" name="image1" accept="image/*" required>
                     
-                        <img src="https://glistening-sunburst-222dae.netlify.app/materiel/<?= htmlspecialchars($row['photo']); ?>" alt="Photo matériel" style="height:100px; width:100px;">
+                        <img src="../materiel/<?= htmlspecialchars($row['photo']); ?>" alt="Photo matériel" style="height:100px; width:100px;">
                     </div>
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="date_achat">Date d'achat</label>
-                        <input type="datetime-local" id="date_achat" name="date_achat" placeholder="Date d'achat">
+                        <input type="date" id="date_achat" name="date_achat" placeholder="Date d'achat">
                     </div>
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="quantite">Quantité</label>
@@ -211,12 +211,12 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
                         <label for="photo">Photo</label>
                         <input type="file" name="photo" accept="image/*" />
 
-                        <img src="https://glistening-sunburst-222dae.netlify.app/materiel/<?= htmlspecialchars($row['photo']); ?>" alt="Photo matériel" style="height:100px; width:100px;">
+                        <img src="../materiel/<?= htmlspecialchars($row['photo']); ?>" alt="Photo matériel" style="height:100px; width:100px;">
                     </div>
 
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="date_achat">Date d'achat</label>
-                        <input type="datetime-local" id="date_achat" name="date_achat" placeholder="Date d'achat">
+                        <input type="date" id="date_achat" name="date_achat" placeholder="Date d'achat">
                     </div>
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="quantite">Quantité</label>

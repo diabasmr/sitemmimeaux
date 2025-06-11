@@ -69,7 +69,7 @@ if (isset($_GET['id'])) {
                 <h2><?= htmlspecialchars($row['designation']) ?></h2>
             </div>
             <div class="row">
-                <img src="https://glistening-sunburst-222dae.netlify.app/materiel/<?= htmlspecialchars($row['photo']) ?>" alt="Photo matériel" class="col-sm-4 rounded ">
+                <img src="../materiel/<?= htmlspecialchars($row['photo']) ?>" alt="Photo matériel" class="col-sm-4 rounded ">
                 <div class="col-sm-7 ms-1 me-1">
                     <div class="row justify-content-center">
                         <h3 id="nomproduit"><?= htmlspecialchars($row['designation']) ?></h3>

@@ -11,10 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Récupérer l'image actuelle
         $sql = "SELECT photo FROM materiel WHERE idM = ? LIMIT 1";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$materiel]);
+        $stmt->execute([$idM]);
         $oldImage = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Si aucune image actuelle, initialiser à null
+        // Valeur par défaut
         $newImage = $oldImage['photo'] ?? null;
 
         $targetDir = "../materiel/";
@@ -22,15 +22,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (isset($_FILES[$inputName]) && $_FILES[$inputName]['error'] === UPLOAD_ERR_OK) {
             $originalName = $_FILES[$inputName]['name'];
-            $extension = pathinfo($originalName, PATHINFO_EXTENSION);
-            $safeName = preg_replace('/[^a-zA-Z0-9_-]/', '', pathinfo($originalName, PATHINFO_FILENAME));
-            $newName = $safeName . '_image_' . uniqid() . "." . $extension;
-            $targetFile = $targetDir . $newName;
 
-            if (move_uploaded_file($_FILES[$inputName]['tmp_name'], $targetFile)) {
-                $newImage = $newName;
+            // Comparer avec l'image existante
+            if ($originalName !== $oldImage['photo']) {
+                $extension = pathinfo($originalName, PATHINFO_EXTENSION);
+                $safeName = preg_replace('/[^a-zA-Z0-9_-]/', '', pathinfo($originalName, PATHINFO_FILENAME));
+                $newName = $safeName . '_image_' . uniqid() . "." . $extension;
+                $targetFile = $targetDir . $newName;
+
+                // Déplacer uniquement si différent
+                if (move_uploaded_file($_FILES[$inputName]['tmp_name'], $targetFile)) {
+                   $newImage = $newName;
+                   echo $newImage;
+                }
             }
         }
+
 
         $designation = $_POST['designation'];
         $date_achat = $_POST['date_achat'];

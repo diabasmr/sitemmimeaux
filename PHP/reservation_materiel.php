@@ -39,7 +39,7 @@
                     $stmt->execute([$idM]);
                     $materiel = $stmt->fetch();
                     ?>
-                    <img src="https://glistening-sunburst-222dae.netlify.app/materiel/<?php echo $materiel['photo']; ?>" alt="" id="materiel-image">
+                    <img src="../materiel/<?php echo $materiel['photo']; ?>" alt="" id="materiel-image">
                     <h2 id="materiel-title"><?php echo $materiel['designation']; ?></h2>
                     <input type="hidden" name="materiel" value="<?php echo $materiel['idM']; ?>">
 
