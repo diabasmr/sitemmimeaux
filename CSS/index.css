@@ -627,7 +627,7 @@ main .reservation div .searchContainer button img {
     background-color: transparent;
     border: 0.15vw solid var(--tertiary-color);
     border-radius: 1vw;
-    font-size: 4vw !important;
+    font-size: 3vw !important;
   }
 
   .add {

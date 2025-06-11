@@ -1,4 +1,5 @@
-<?php include("../PHPpure/entete.php"); ?>
+<?php include("../PHPpure/entete.php"); 
+require("../PHPpure/connexion.php");?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -30,9 +31,18 @@
             <img id="imageToClick1" src="../IMG/image.png" alt="Salle 138" style="width: 60%; cursor: pointer;">
             <div style="display: flex; justify-content: space-between; align-items: center; width: 60%; margin-top: 1vh;">
                 <h3 style="margin: 0;">Réservation de la salle 138</h3>
+                <?php
+                    // Connexion déjà faite plus haut normalement
+                    $sql1 = "SELECT etat FROM salle WHERE Nom = 'Salle 138'";
+                    $stmt = $pdo->prepare($sql1);
+                    $stmt->execute();
+                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                    $etat = $result['etat'] ?? 'Indisponible'; // Valeur de secours
+                ?>
                 <a href="reservation_salle.php?salle=138">
-                    <button style="background-color: rgba(211, 27, 74, 0.61); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
-                        Réserver
+                    <button style="background-color: rgba(211, 27, 74, 0.61); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;"
+                        <?php if (strtolower($etat) !== 'disponible') echo "disabled"; ?>>
+                        <?php echo (strtolower($etat) === 'disponible') ? "Réserver" : "Indisponible"; ?>
                     </button>
                 </a>
             </div>
@@ -43,13 +53,26 @@
             <img id="imageToClick2" src="../IMG/image2.jpg" alt="Salle 212" style="width: 60%; cursor: pointer;">
             <div style="display: flex; justify-content: space-between; align-items: center; width: 60%; margin-top: 1vh;">
                 <h3 style="margin: 0;">Réservation de la salle 212</h3>
+
+                <?php
+                    // Connexion déjà faite plus haut normalement
+                    $sql1 = "SELECT etat FROM salle WHERE Nom = 'Salle 212'";
+                    $stmt = $pdo->prepare($sql1);
+                    $stmt->execute();
+                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                    $etat = $result['etat'] ?? 'Indisponible'; // Valeur de secours
+                ?>
+
                 <a href="reservation_salle.php?salle=212">
-                    <button style="background-color: rgba(211, 27, 74, 0.61); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
-                        Réserver
+                    <button 
+                        style="background-color: rgba(211, 27, 74, 0.61); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;"
+                        <?php if (strtolower($etat) !== 'disponible') echo "disabled"; ?>>
+                        <?php echo (strtolower($etat) === 'disponible') ? "Réserver" : "Indisponible"; ?>
                     </button>
                 </a>
             </div>
         </div>
+
 
         <!-- Scène VR -->
         <div id="vrContainer" style="display: none; width: 100%; height: 100vh; position: fixed; top: 0; left: 0; z-index: 1000;">

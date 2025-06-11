@@ -1,4 +1,5 @@
-<?php include("../PHPpure/entete.php"); ?>
+<?php include("../PHPpure/entete.php"); 
+?>
 <!DOCTYPE html>
 <html lang="fr">
 

@@ -43,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $commentaire = "rien";
     $document = "rien";
     $salle = "Salle " . $_POST['salle'];
+    $valid = $_SESSION['user']['role'] == 'Etudiant(e)' ? 0 : 1;
     print_r($salle);
     print_r($horaireD);
     print_r($horaireF);
@@ -72,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Insertion de la réservation
     $requete = $pdo->prepare("INSERT INTO reservations (date_debut, date_fin, valide, motif, commentaires, signatureElectronique, documentAdministrateur) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $requete->execute([$dateDebut, $dateFin, 0, $motif, $commentaire, $signature, $document]);
+    $requete->execute([$dateDebut, $dateFin, $valid, $motif, $commentaire, $signature, $document]);
 
     // Récupérer l'ID de la réservation créée
     $idReservation = $pdo->lastInsertId();
@@ -88,6 +89,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $requete = $pdo->prepare("INSERT INTO concerne_salle (idR, idS) VALUES (?, ?)");
     $requete->execute([$idReservation, $salle]);
 
-    header("Location: ../PHP/index.php"); // page de succès
+    // Modifier la disponiblilite
+    $requete = $pdo->prepare("UPDATE salle SET etat = 'Indisponible' WHERE Nom = ?");
+    $requete->execute([$salle]);
+
+    header("Location: ../PHP/salles.php"); // page de succès
     exit();
 }
