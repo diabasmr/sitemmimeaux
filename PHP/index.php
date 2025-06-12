@@ -15,7 +15,7 @@ include("../PHPpure/entete.php");
     <link rel="stylesheet" href="../CSS/style.css" />
     <link rel="stylesheet" href="../CSS/index.css" />
     <link rel="stylesheet" href="../CSS/header.css" />
-    <title>Document</title>
+    <title>Accueil</title>
 </head>
 
 <body>
@@ -28,9 +28,9 @@ include("../PHPpure/entete.php");
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']['role'] == "Etudiant(e)") {
                 include("index_etudiant.php");
-            } else if ($_SESSION['user']['role'] == "Enseignant") {
+            } else if ($_SESSION['user']['role'] == "Enseignant(e)") {
                 include("index_enseignant.php");
-            } else if ($_SESSION['user']['role'] == "Agent") {
+            } else if ($_SESSION['user']['role'] == "Agent(e)") {
                 include("index_agent.php");
             } else if ($_SESSION['user']['role'] == "Administrateur") {
                 include("index_admin.php");

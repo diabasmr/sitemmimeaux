@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $commentaire = "rien";
     $document = "rien";
     $salle = "Salle " . $_POST['salle'];
-    $valid = $_SESSION['user']['role'] == 'Etudiant(e)' ? 0 : 1;
+    $valid = $_SESSION['user']['role'] == 'Enseignant(e)' ? 1 : 0;
     print_r($salle);
     print_r($horaireD);
     print_r($horaireF);

@@ -3,11 +3,8 @@
     <p><?php echo $_SESSION['user']['prenom'] ?></p>
     <div class="cards">
         <div class="card">
-        <h5>Profil</h5>
-        </div>
-        <div class="card">
             <h5>Prochaine réservation</h5>
-            <p style="color:pink;">08 octobre 2025</p>
+            <p style="color:pink;">04 juillet 2025</p>
         </div>
     </div>
 </section>

@@ -1,29 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Hôte : 127.0.0.1:3306
--- Généré le : mar. 27 mai 2025 à 02:15
--- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.2.12
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de données : `sae201`
---
-CREATE DATABASE IF NOT EXISTS `sae201` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `sae201`;
--- --------------------------------------------------------
-
 --
 -- Structure de la table `administrateur`
 --
@@ -56,7 +30,8 @@ CREATE TABLE `agent` (
 
 INSERT INTO `agent` (`id`) VALUES
 (3),
-(9);
+(9),
+(20);
 
 -- --------------------------------------------------------
 
@@ -99,6 +74,8 @@ INSERT INTO `concerne_salle` (`idS`, `idR`) VALUES
 (1, 20),
 (1, 26),
 (1, 34),
+(1, 42),
+(1, 43),
 (2, 25);
 
 -- --------------------------------------------------------
@@ -142,8 +119,7 @@ INSERT INTO `etudiant` (`id`, `numeroEtudiant`, `grpTP_TD_Promo`, `promotion`, `
 (7, NULL, NULL, '', ''),
 (8, NULL, NULL, '', ''),
 (10, NULL, NULL, '', ''),
-(11, NULL, NULL, '', ''),
-(20, NULL, NULL, '', '');
+(11, NULL, NULL, '', '');
 
 -- --------------------------------------------------------
 
@@ -188,7 +164,7 @@ CREATE TABLE `materiel` (
 --
 
 INSERT INTO `materiel` (`idM`, `refernceM`, `designation`, `photo`, `typeM`, `dateAchat`, `etat`, `quantité`, `descriptif`, `lien_demo`) VALUES
-(1, 'REF001', 'Trépied Benro Kit', '20230505_110146.jpg', 'Accessoire', '0000-00-00', 'Bon état', 3, 'Trépied léger et stable pour prises de vue pro.', 'rien'),
+(1, 'REF001', 'Trépied Benro Kit', '20230505_110146.jpg', 'Accessoire', '0000-00-00', 'Bon état', 1, 'Trépied léger et stable pour prises de vue pro.', 'rien'),
 (2, 'REF002', 'Caméra 360° Ricoh Theta M15', 'P1018481.JPG', 'Vidéo', '2023-02-01', 'Bon état', 2, 'Caméra 360° compacte pour vidéo immersive.', NULL),
 (3, 'REF003', 'Casque SteelSeries Arctis Pro', 'P1018474.JPG', 'Audio', '2023-03-05', 'Très bon état', 4, 'Casque gaming de haute qualité.', NULL),
 (4, 'REF004', 'Drone DJI Tello', 'P1018445.JPG', 'Drone', '2023-03-15', 'Très bon état', 2, 'Mini drone idéal pour débutants.', NULL),
@@ -196,7 +172,7 @@ INSERT INTO `materiel` (`idM`, `refernceM`, `designation`, `photo`, `typeM`, `da
 (6, 'REF006', 'HTC Vive Focus 3 - Casque + Manettes', 'P1018553.JPG', 'VR', '2023-04-20', 'Excellent état', 2, 'Casque VR pro avec manettes incluses.', NULL),
 (7, 'REF007', 'Webcam Logitech BRIO 4K', 'P1018493.JPG', 'Vidéo', '2023-05-01', 'Très bon état', 3, 'Webcam 4K pour streaming ou visio.', NULL),
 (8, 'REF008', 'Manette MSI Force GC30 V2', 'P1018509.JPG', 'Accessoire', '2023-05-10', 'Bon état', 5, 'Manette sans fil pour gaming.', NULL),
-(9, 'REF009', 'Meta Quest 2 - Casque + Manettes + Câble', 'IMG_0007.JPG', '0', '2025-06-06', '1', 2, 'Pack VR complet avec casque, manettes et câble Link.', 'rien'),
+(9, 'REF009', 'Meta Quest 2 - Casque + Manettes + Câble', 'IMG_0007.JPG', 'Accessoire', '2025-06-06', 'Bon état', 2, 'Pack VR complet avec casque, manettes et câble Link.', 'rien'),
 (10, 'REF010', 'Micro HyperX QuadCast', '20230505_100306.jpg', 'Audio', '2023-05-17', 'Très bon état', 3, 'Micro USB de qualité studio avec support intégré.', NULL),
 (11, 'REF011', 'Microsoft Hololens 2', 'P1018521.JPG', 'AR/VR', '2023-05-20', 'Très bon état', 1, 'Casque de réalité mixte autonome.', NULL),
 (12, 'REF012', 'Samsung Galaxy Tab A', 'P1018472.JPG', 'Tablette', '2023-05-22', 'Bon état', 3, 'Tablette polyvalente pour navigation et app.', NULL),
@@ -214,7 +190,7 @@ INSERT INTO `materiel` (`idM`, `refernceM`, `designation`, `photo`, `typeM`, `da
 
 CREATE TABLE `reservations` (
   `idR` int(11) NOT NULL,
-  `quantite` int(11) NOT NULL,
+  `quantite` int(11) NOT NULL DEFAULT 1,
   `date_debut` datetime NOT NULL,
   `date_fin` datetime NOT NULL,
   `valide` int(11) DEFAULT NULL,
@@ -229,15 +205,17 @@ CREATE TABLE `reservations` (
 --
 
 INSERT INTO `reservations` (`idR`, `quantite`, `date_debut`, `date_fin`, `valide`, `motif`, `commentaires`, `signatureElectronique`, `documentAdministrateur`) VALUES
-(20, 1, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 1, 'charlytest', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(25, 1, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 1, 'essaie de sale212', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(26, 1, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 1, 'essaie maison', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(27, 1, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 1, ' sfsfddf', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(28, 1, '2025-05-27 16:00:00', '2025-05-27 18:00:00', 1, 'manette pour une partie de FC pendant pause', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(29, 1, '2025-06-05 16:00:00', '2025-06-05 18:00:00', 1, 'admin', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(32, 1, '2025-06-03 12:00:00', '2025-06-03 14:00:00', 0, 'oùpùù', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(33, 1, '2025-06-06 12:00:00', '2025-06-06 14:00:00', 1, 'diaba', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(34, 1, '2025-06-17 08:00:00', '2025-06-17 12:00:00', 1, 'fgbghn', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien');
+(20, 1, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 3, 'charlytest', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(25, 1, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 3, 'essaie de sale212', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(26, 1, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 3, 'essaie maison', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(27, 1, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 3, ' sfsfddf', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(28, 1, '2025-05-27 16:00:00', '2025-05-27 18:00:00', 3, 'manette pour une partie de FC pendant pause', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(29, 1, '2025-06-05 16:00:00', '2025-06-05 18:00:00', 3, 'admin', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(32, 1, '2025-06-03 12:00:00', '2025-06-03 14:00:00', 3, 'oùpùù', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(33, 1, '2025-06-06 12:00:00', '2025-06-06 14:00:00', 3, 'diaba', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(34, 1, '2025-06-17 08:00:00', '2025-06-17 12:00:00', 1, 'fgbghn', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien'),
+(42, 1, '2025-06-18 08:00:00', '2025-06-18 09:00:00', 0, 'ahhhhhhhhhhhhh', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien'),
+(43, 1, '2025-06-14 08:00:00', '2025-06-14 09:00:00', 1, 'ha ha ha', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien');
 
 -- --------------------------------------------------------
 
@@ -268,18 +246,20 @@ INSERT INTO `reservation_users` (`id`, `idR`) VALUES
 (2, 32),
 (7, 20),
 (7, 28),
+(7, 34),
 (8, 27),
+(8, 43),
 (10, 20),
 (10, 27),
 (10, 28),
 (10, 29),
+(10, 33),
 (11, 20),
 (11, 25),
 (11, 27),
 (11, 28),
 (11, 29),
-(20, 33),
-(20, 34);
+(11, 42);
 
 -- --------------------------------------------------------
 
@@ -440,7 +420,7 @@ ALTER TABLE `materiel`
 -- AUTO_INCREMENT pour la table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `idR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `idR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT pour la table `salle`
@@ -507,7 +487,6 @@ ALTER TABLE `favori_materiel`
 -- Contraintes pour la table `reservation_users`
 --
 ALTER TABLE `reservation_users`
-  ADD CONSTRAINT `reservation_users_ibfk_1` FOREIGN KEY (`id`) REFERENCES `etudiant` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `reservation_users_ibfk_2` FOREIGN KEY (`idR`) REFERENCES `reservations` (`idR`) ON DELETE CASCADE;
 COMMIT;
 

@@ -33,6 +33,9 @@ $current_page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
                         ?>
                     </a>
                 </li>
+                <?php
+                if ($_SESSION['user']['role'] != 'Agent(e)') {
+                ?>
                 <li>
                     <a href="materiels.php" id="materiel"
                         <?php echo ($current_page === 'materiels') ? 'class="active"' : ''; ?>>
@@ -47,6 +50,9 @@ $current_page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
                         Salles
                     </a>
                 </li>
+                <?php
+                }
+                ?>
                 <?php
                 if ($_SESSION['user']['role'] == 'Administrateur') {
                 ?>
@@ -81,12 +87,18 @@ $current_page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
                         Mon profil
                     </a>
                 </li>
+                <?php
+                if ($_SESSION['user']['role'] != 'Agent(e)') {
+                ?>
                 <li>
                     <a href="https://intranet-edu.univ-eiffel.fr/ent" id="ent">
                         <img src="../res/univ.svg" alt="" />
                         Accéder à l'ENT 
                     </a>
                 </li>
+                <?php
+                }
+                ?>
             </ul>
         </nav>
     </article>

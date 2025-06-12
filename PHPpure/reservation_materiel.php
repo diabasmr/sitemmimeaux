@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $document = "rien";
     $materiel_id = $_POST['materiel'];
     $quantite = abs((int)$_POST['quantite']);
-    $valid = $_SESSION['user']['role'] == 'Etudiant(e)' ? 0 : 1;
+    $valid = $_SESSION['user']['role'] == 'Enseignant(e)' ? 1 : 0;
 
     // creer date debut = date + horaire debut et date fin = date + horaire fin
     $dateDebut = $date . " " . $horaireD;
