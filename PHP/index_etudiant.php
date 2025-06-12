@@ -96,13 +96,26 @@
                     $status = "attente";
                     if ($end < $now) {
                         $status = "annulé";
+                        $sql = "UPDATE reservations SET valide = 2 WHERE idR = :idR";
+                        $stmt = $pdo->prepare($sql);
+                        $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
+                        $stmt->execute();
                     }
                 } elseif ($end < $now) {
                     $status = "terminé";
+                    $sql = "UPDATE reservations SET valide = 3 WHERE idR = :idR";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
+                    $stmt->execute();
+                    $sql2 = "UPDATE materiel SET quantité = quantité + :quantite WHERE idR = :idR";
+                    $stmt = $pdo->prepare($sql2);
+                    $stmt->bindParam(':quantite', $row['quantite'], PDO::PARAM_INT);
+                    $stmt->bindParam(':idM', $row['idM'], PDO::PARAM_INT);
+                    $stmt->execute();
                 } else if ($row['valide'] == 1) {
                     $status = "accepté";
                 } else if ($row['valide'] == 2) {
-                    $status = "réfusé";
+                    $status = "refusé";
                 }
 
                 // Affichage des informations de réservation

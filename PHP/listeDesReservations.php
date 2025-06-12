@@ -31,6 +31,15 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
     ?>
     <main>
         <h1>Réservations</h1>
+        <div class="search">
+        <p>Consulter l'historique</p>
+        <div class="searchContainer">
+            <input type="search" name="search" id="inputSearch" placeholder="Chercher..." />
+            <button id="buttonSearch">
+                <img src="../res/search.svg" alt="" />
+            </button>
+        </div>
+    </div>
         <section class="table mb-5">
             <article class="header_Table">
                 <p>Matériel/Salle</p>
@@ -90,8 +99,21 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
 
                     if (count($result) > 0) {
                         foreach ($result as $row) {
-                            // $status = $row['valide'] == 1 || $row['valide'] == 2 ? "Validée" : "En attente";
-                            if ($row['valide'] == 1) {
+                            $now = new DateTime();
+                            $end = new DateTime($row['date_fin']);
+                            if ($row['valide'] == 0 && $end < $now) {
+                                $status = "Annulé";
+                                $sql = "UPDATE reservations SET valide = 2 WHERE idR = :idR";
+                                $stmt = $pdo->prepare($sql);
+                                $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
+                                $stmt->execute();
+                            } elseif ($end < $now) {
+                                $status = "Terminé";
+                                $sql = "UPDATE reservations SET valide = 3 WHERE idR = :idR";
+                                $stmt = $pdo->prepare($sql);
+                                $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
+                                $stmt->execute();
+                            } elseif ($row['valide'] == 1) {
                                 $status = "Validée";
                             } else if ($row['valide'] == 2) {
                                 $status = "Refusée";
@@ -156,7 +178,19 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                             }
                             echo '<p class="text-center">' . date('d/m/Y H:i', strtotime($row['date_debut'])) . ' - ' .
                                 date('d/m/Y H:i', strtotime($row['date_fin'])) . '</p>';
-                            echo '<p>' . $status . '</p>';
+                                if($status == "En attente"){
+                                    echo '<p class="p-2 text-center" style="color: #f9a308; border: 0.15vw solid #f9a308; border-radius:15px;">' . $status . '</p>';
+                                }
+                                elseif($status == "Validée"){
+                                    echo '<p class="text-center p-2" style="color: #356c25; border: 0.15vw solid #356c25; border-radius:15px;">' . $status . '</p>';
+                                }
+                                elseif($status == "Refusé"){
+                                    echo '<p class="text-center p-2" style="color: #f9080c; border: 0.15vw solid #f9080c; border-radius:15px;">' . $status . '</p>';
+                                }
+                                elseif($status == "Terminé"){
+                                    echo '<p class="text-center p-2" style="color: #707070; border: 0.15vw solid #4b4b4b; border-radius:15px;">' . $status . '</p>';
+                                }
+                                else{echo '<p class="text-center  p-2" style="color: #f9080c; border: 0.15vw solid #f9080c; border-radius:15px;">' . $status . '</p>';}
                             echo '<button class="modifier" data-id="' . $row['idR'] . '" 
                                     data-motif="' . htmlspecialchars($row['motif']) . '"
                                     data-date-debut="' . date('Y-m-d\TH:i', strtotime($row['date_debut'])) . '"
@@ -206,7 +240,7 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                             <option value="0" selected>En attente</option>
                             <option value="1">Validée</option>
                             <option value="2">Refusée</option>
-                            <option value="3">Retourné</option>
+                            <option value="3">Terminé</option>
                         </select>
                     </div>
                     <div class="modifPopupReservation_content_body_item">
