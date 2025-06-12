@@ -32,7 +32,7 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
     <main>
         <h1>Réservations</h1>
         <div class="search">
-        <p>Consulter l'historique</p>
+        <p class="fs-6 me-5">Consulter l'historique</p>
         <div class="searchContainer">
             <input type="search" name="search" id="inputSearch" placeholder="Chercher..." />
             <button id="buttonSearch">
