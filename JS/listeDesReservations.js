@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
     lines.forEach((line) => {
       const text = line.textContent.toLowerCase();
       if (text.includes(value)) {
-        line.style.display = "";
+        console.log("PLEASE");
+        line.style.display = "flex";
       } else {
         line.style.display = "none";
       }

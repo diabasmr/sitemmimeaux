@@ -11,6 +11,7 @@
         integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <!-- Styles -->
     <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/index.css">
     <link rel="stylesheet" href="../CSS/header.css">
     <link rel="stylesheet" href="../CSS/reservation_salle.css">
 </head>
@@ -24,6 +25,12 @@
     <main class="reservation-container mt-5 mb-5 mt-md-auto">
         <form action="../PHPpure/reservation_materiel.php" method="post" class="ms-4 ms-md-auto my-5 mt-md-auto">
             <h1>Procédure de réservation</h1>
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="materiels.php">Matériels</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Réserver</li>
+                        </ol>
+                    </nav>
 
 
             <section class="reservation-content">

@@ -51,7 +51,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
                 <p>Statut</p>
 
             </article>
-            <article class="body_Table pb-5">
+            <article id="tab" class="body_Table pb-5">
                 <!-- <div class="line">
                     <p>Nom de la reservation</p>
                     <p>07/02/2025</p>
@@ -116,7 +116,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
                             echo '</div>';
                         }
                     } else {
-                        echo '<div class="line"><p>Aucun matériel trouvée</p></div>';
+                        echo '<div class="line"><p>Aucun matériel trouvé</p></div>';
                     }
                 } catch (PDOException $e) {
                     echo '<div class="line"><p>Erreur : ' . $e->getMessage() . '</p></div>';

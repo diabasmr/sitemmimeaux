@@ -48,7 +48,7 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                 <p>Statut</p>
 
             </article>
-            <article class="body_Table pb-5">
+            <article id="tab" class="body_Table pb-5">
                 <!-- <div class="line">
                     <p>Nom de la reservation</p>
                     <p>07/02/2025</p>

@@ -64,110 +64,121 @@ if (isset($_GET['id'])) {
     $result->execute([$_SESSION['user']['id']]);
     ?>
     <main>
-        <div>
-            <div class="row ms-3 ms-md-auto mt-3">
-                <h2><?= htmlspecialchars($row['designation']) ?></h2>
-            </div>
-            <div class="row">
-                <img src="../materiel/<?= htmlspecialchars($row['photo']) ?>" alt="Photo matériel" class="col-sm-4 rounded ">
-                <div class="col-sm-7 ms-1 me-1">
-                    <div class="row justify-content-center">
-                        <h3 id="nomproduit"><?= htmlspecialchars($row['designation']) ?></h3>
-                        <p><?= htmlspecialchars($row['descriptif']) ?></p>
-                    </div>
+  <div class="mb-4">
+    <div>
+      <h2><?= htmlspecialchars($row['designation']) ?></h2>
+      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mt-2 mt-md-0">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a href="materiels.php">Matériels</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Produit</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
 
-                    <div class="row justify-content-center mt-5">
-                        <div class="col-sm-5 col-4 justify-content-center align-items-center">
-                            <div class="row mt-2">
-                                <?php
-                                echo "<button class='btn btn-danger text-white text-center p-3' onclick='reserverMateriel(" . $row['idM'] . ")'";
+  <div class="row g-4">
+    <div class="col-md-4">
+      <img src="../materiel/<?= htmlspecialchars($row['photo']) ?>" alt="Photo matériel" class="img-fluid rounded">
+    </div>
+    <div class="col-md-8 d-flex flex-column justify-content-between">
+      <div>
+        <h3 id="nomproduit"><?= htmlspecialchars($row['designation']) ?></h3>
+        <p><?= htmlspecialchars($row['descriptif']) ?></p>
+      </div>
 
-                                if ($row['quantité'] == 0) {
-                                    echo " disabled";
-                                }
+      <div class="d-flex flex-wrap align-items-center gap-3 mt-4">
+        <button
+          class="btn btn-danger px-4 py-2"
+          onclick="reserverMateriel(<?= $row['idM'] ?>)"
+          <?= $row['quantité'] == 0 ? 'disabled' : '' ?>
+        >
+          Réserver
+        </button>
 
-                                echo ">Réserver</button>";
-                                ?>
-                            </div>
-                        </div>
-                        <div class="col-4 ms-3">
-                            <?php
-                            echo "<div class='row'>";
-                            echo "<p id='other' class='mt-2 text-center fs-auto fw-bold w-100'>";
-                            echo $row['quantité'] . " " . "disponibles";
-                            echo "</p>";
-                            echo "</div>";
-                            echo "<div class='row mt-2'>";
-                            echo "<button class='btn bg-transparent border-0'>";
-                            $sql1 = "SELECT * FROM favori_materiel WHERE idM = ? AND id = ?";
-                            // avec idM = $row['idM'] et id = $_SESSION['user']['id']
-                            $result1 = $pdo->prepare($sql1);
-                            $result1->execute([$row['idM'], $_SESSION['user']['id']]);
-                            if ($result1->fetch()) {
-                                echo "<img src='../res/heartPlein.svg' alt='favory' onclick='retirerFavoris(" . $row['idM'] . ")'>";
-                            } else {
-                                echo "<img src='../res/heartVide.svg' alt='favory' onclick='ajouterFavoris(" . $row['idM'] . ")'>";
-                            }
-                            echo "<span class='ms-2 text-center fs-auto fw-bold w-100'>Favoris</span>";
-                            echo "</button>";
-                            echo "</div>";
-                            ?>
-                        </div>
-                    </div>
+        <div class="fs-5 fw-semibold text-center">
+          <?= $row['quantité'] ?> disponibles
+        </div>
 
-                    <div class="row gap-2 justify-content-center">
-                        <div class="col-5 p-5 bg-light  mt-3">
-                            PDF Consignes
-                        </div>
-                        <div class="col-5 p-5 bg-light mt-3">
-                            Tuto utilisation
-                        </div>
-                    </div>
-                </div>
+        <button class="btn d-flex align-items-center gap-2 p-0 border-0 bg-transparent">
+          <?php
+            $sql1 = "SELECT * FROM favori_materiel WHERE idM = ? AND id = ?";
+            $result1 = $pdo->prepare($sql1);
+            $result1->execute([$row['idM'], $_SESSION['user']['id']]);
+            if ($result1->fetch()) {
+              echo "<img src='../res/heartPlein.svg' alt='favori' style='cursor:pointer;' onclick='retirerFavoris({$row['idM']})'>";
+            } else {
+              echo "<img src='../res/heartVide.svg' alt='favori' style='cursor:pointer;' onclick='ajouterFavoris({$row['idM']})'>";
+            }
+          ?>
+          <span class="fs-5 fw-bold">Favoris</span>
+        </button>
+      </div>
+
+      <div class="row mt-5 g-3">
+        <div class="col-6 bg-light p-4 rounded text-center">
+          PDF Consignes
+        </div>
+        <div class="col-6">
+            <div class="ratio ratio-16x9 rounded overflow-hidden">
+                <iframe
+                src="https://www.youtube.com/embed/ID_DE_LA_VIDEO"
+                title="Démonstration vidéo"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                ></iframe>
             </div>
         </div>
 
-        <div class="container-fluid my-5">
-            <div class="row ms-5">
-                <div class="col-sm-4 fs-3 mt-5">
-                    Commentaires
-                </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="my-5">
+    <h4 class="mb-4">Commentaires</h4>
+
+    <!-- Exemple commentaire -->
+    <div class="mb-4">
+      <div class="card">
+        <div class="card-body d-flex">
+          <img src="../img/jinx.png" alt="boite mes emprunts" class="rounded me-3" style="width:10%; height:10%;">
+          <div>
+            <div class="d-flex justify-content-between gap-2 align-items-center mb-2">
+              <strong>Clarou</strong>
+              <small class="text-muted">10/06/2025</small>
             </div>
-            <?php
-
-            // Préparation de la requête avec UNION
-            
-
-            // Récupération des résultats
-            
-            ?>
-
-            <!--boucle foreach-->
-                <div id="com1" class="row ms-0 m-5">
-                    <div class="col-sm-10 mt-2 ms-5 border border-secondary rounded p-3">
-                        <div class="row ms-5">
-                            <div class="col-sm-1"><img src="../img/jinx.png" class='rounded' style="height: 50px; width:auto;" alt="boite mes emprunts"></div>
-                            <div class="col-sm-4"> Clarou</div>
-                        </div>
-                        <div class="row ms-5">
-                            <div class="col-sm-2">5 ☆</div>
-                            <div class="col-sm-2">10/06/2025</div>
-                        </div>
-                        <div class="row ms-2 mt-2">
-                            <div class="col-sm-10"> Super produit !!</div>
-                        </div>
-                    </div>
-                </div>
-            <!--fin boucle foreach-->
-
-            <form action="#" method="post" class="my-5 d-flex align-items-center ms-md-5">
-                <textarea class="form-control me-3 p-2 rounded" id="exampleFormControlTextarea1" rows="1"
-                    name="commentaire" placeholder="Ecrire un commentaire" style="resize: none; width: 70%;"></textarea>
-                <input class="p-2 rounded" type="number" name="reaction" value="5" min="1" max="5" style="width: 60px; margin-right: 5px;"> <span class="fs-3">☆</span>
-                <input type="submit" name="submit" class="btn btn-danger ms-2" value="ENVOYER">
-            </form>
+            <div class="mb-2">5 ☆</div>
+            <p>Super produit !!</p>
+          </div>
         </div>
-    </main>
+      </div>
+    </div>
+    <!-- Fin exemple -->
+
+    <form action="#" method="post" class="d-flex gap-3 align-items-center">
+      <textarea
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="1"
+        name="commentaire"
+        placeholder="Écrire un commentaire"
+        style="resize:none; max-width: 70%;"
+      ></textarea>
+      <input
+        type="number"
+        name="reaction"
+        value="5"
+        min="1"
+        max="5"
+        class="form-control"
+        style="max-width: 80px;"
+      >
+      <span class="fs-3">☆</span>
+      <input type="submit" name="submit" class="btn btn-danger" value="ENVOYER">
+    </form>
+  </section>
+</main>
+
 
     <?php
     if (isset($_POST["submit"])) {

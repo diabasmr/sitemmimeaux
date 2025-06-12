@@ -11,7 +11,7 @@ buttonSearch.addEventListener("click", function () {
   lines.forEach((line) => {
     const text = line.textContent.toLowerCase();
     if (text.includes(value)) {
-      line.style.display = "";
+      line.style.display = "flex";
     } else {
       line.style.display = "none";
     }

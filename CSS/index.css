@@ -56,6 +56,18 @@ main .reservation h2 {
   font-weight: bold;
 }
 
+.breadcrumb-item a {
+  color: #f72585;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+  color: #ec93be;
+  text-decoration: underline;
+}
+
 .search {
   display: flex;
   justify-content: space-between;
