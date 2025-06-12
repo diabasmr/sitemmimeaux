@@ -260,6 +260,5 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
     </main>
     <script src="../JS/sideBarre.js" defer></script>
     <script src="../JS/listeDuMateriel.js" defer></script>
-
 </body>
 </html>

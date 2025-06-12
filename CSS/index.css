@@ -56,23 +56,23 @@ main .reservation h2 {
   font-weight: bold;
 }
 
-main .reservation .search {
+.search {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-main .reservation .search p {
+.search p {
   font-size: 1vw;
 }
 
-main .reservation .search .searchContainer {
+.search .searchContainer {
   display: flex;
   justify-content: start;
   gap: 0.5vw;
 }
 
-main .reservation .search .searchContainer input {
+.search .searchContainer input {
   width: 13vw;
   height: 3vw;
   background-color: white;
@@ -86,12 +86,12 @@ main .reservation .search .searchContainer input {
   align-items: center;
 }
 
-main .reservation div .searchContainer input::placeholder {
+.searchContainer input::placeholder {
   font-size: 1vw;
   color: black;
 }
 
-main .reservation div .searchContainer button {
+.searchContainer button {
   width: 3vw;
   height: 3vw;
   background-color: #ffdee4;
@@ -103,7 +103,7 @@ main .reservation div .searchContainer button {
   align-items: center;
 }
 
-main .reservation div .searchContainer button img {
+.searchContainer button img {
   width: 50%;
   height: auto;
   object-fit: contain;
@@ -556,21 +556,21 @@ main .reservation div .searchContainer button img {
     font-size: 4vw !important;
   }
 
-  main .reservation div .searchContainer {
+  .searchContainer {
     gap: 2vw;
   }
 
-  main .reservation div .searchContainer input {
+  .searchContainer input {
     width: 35vw !important;
     height: 7vw !important;
     font-size: 4vw !important;
   }
 
-  main .reservation div .searchContainer input::placeholder {
+  .searchContainer input::placeholder {
     font-size: 4vw;
   }
 
-  main .reservation div .searchContainer button {
+  .searchContainer button {
     width: 7vw;
     height: 7vw;
     font-size: 5vw;

@@ -2,6 +2,22 @@ const popup = document.querySelector(".modifPopupMateriel");
 const closeButton = document.querySelector(".close_modifPopupMateriel");
 const modifierButtons = document.querySelectorAll(".modifier");
 
+var buttonSearch = document.getElementById("buttonSearch");
+var inputSearch = document.getElementById("inputSearch");
+
+buttonSearch.addEventListener("click", function () {
+  const value = inputSearch.value.toLowerCase();
+  const lines = document.querySelectorAll(".line");
+  lines.forEach((line) => {
+    const text = line.textContent.toLowerCase();
+    if (text.includes(value)) {
+      line.style.display = "";
+    } else {
+      line.style.display = "none";
+    }
+  });
+});
+
 // Fonction pour formater la liste des matériels ou salles
 // function formatList(items) {
 // 	if (!items || items.length === 0) return "Aucun";

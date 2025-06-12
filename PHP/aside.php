@@ -58,7 +58,7 @@ $current_page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
                         </a>
                     </li>
                     <li>
-                        <a href="listeDuMateriel.php" id="accepter_reservation"
+                        <a href="listeDuMateriel.php" id="accepter_materiel"
                             <?php echo ($current_page === 'listeDuMateriel') ? 'class="active"' : ''; ?>>
                             <img src="../res/liste_rsrv.svg" alt="" />
                             Liste du matériel
