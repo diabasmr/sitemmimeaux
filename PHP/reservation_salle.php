@@ -116,7 +116,7 @@
                                 <?php
                                 require_once("../PHPpure/connexion.php");
                                 $id_utilisateur = $_SESSION["user"]["id"];
-                                if ($_SESSION["user"]["role"] == "Etudiant(e)") {
+                                if ($_SESSION["user"]["role"] == "Etudiant(e)" || $_SESSION["user"]["role"] == "Enseignant(e)" || $_SESSION["user"]["role"] == "Administrateur") {
                                     $requete = $pdo->prepare("SELECT * FROM user_ WHERE id = ?");
                                     $requete->execute([$id_utilisateur]);
                                     $utilisateur = $requete->fetch();
@@ -150,37 +150,70 @@
                                 require_once("../PHPpure/connexion.php");
                                 if (isset($_SESSION['user'])) {
                                     $idConnecte = $_SESSION['user']['id'];
-                                    $sql = "
+                                    if($_SESSION['user']['role'] == 'Etudiant(e)'){
+                                        $sql = "
                                             SELECT u.id, u.nom, u.prenom, u.avatar, e.promotion, e.td
                                             FROM user_ u
                                             INNER JOIN etudiant e ON u.id= e.id
                                             WHERE u.id != :idConnecte
                                         ";
-                                    $stmt = $pdo->prepare($sql);
-                                    $stmt->bindParam(':idConnecte', $idConnecte, PDO::PARAM_INT);
-                                    $stmt->execute();
-                                    $etudiants = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                    foreach ($etudiants as $etudiant) {
-                                ?>
-                                        <div class="who-list-user-item mb-3 col-12 d-flex justify-content-between align-items-center gap-2 w-100"
-                                            id="<?= $etudiant['id'] ?>">
-                                            <div class="d-flex justify-content-between align-items-center w-100">
-                                                <div class="d-flex justify-content-between align-items-center gap-2">
-                                                    <img src="<?= htmlspecialchars($etudiant['avatar'] ?? '../uploads/default.png') ?>"
-                                                        alt="" class="avatarAjouterEtudiant " id="<?= $etudiant['id'] ?>">
-                                                    <div
-                                                        class="etudiantInfo d-flex justify-content-end align-items-start flex-column">
-                                                        <p class="fs-3 fs-md-1"><?= htmlspecialchars($etudiant['prenom']) . ' ' . htmlspecialchars($etudiant['nom']) ?>
-                                                        </p>
-                                                        <p class="fs-3 fs-md-1"><?= htmlspecialchars($etudiant['promotion']) ?></p>
+                                        $stmt = $pdo->prepare($sql);
+                                        $stmt->bindParam(':idConnecte', $idConnecte, PDO::PARAM_INT);
+                                        $stmt->execute();
+                                        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    foreach ($users as $user) {
+                                            ?>
+                                                  <div class="who-list-user-item mb-3 col-12 d-flex justify-content-between align-items-center gap-2 w-100"
+                                                        id="<?= $user['id'] ?>">
+                                                        <div class="d-flex justify-content-between align-items-center w-100">
+                                                            <div class="d-flex justify-content-between align-items-center gap-2">
+                                                                <img src="<?= htmlspecialchars($user['avatar'] ?? '../uploads/default.png') ?>"
+                                                                    alt="" class="avatarAjouterEtudiant " id="<?= $user['id'] ?>">
+                                                                <div
+                                                                    class="etudiantInfo d-flex justify-content-end align-items-start flex-column">
+                                                                    <p class="fs-3 fs-md-1"><?= htmlspecialchars($user['prenom']) . ' ' . htmlspecialchars($user['nom']) ?>
+                                                                    </p>
+                                                                    <p class="fs-3 fs-md-1"><?= isset($user['promotion']) ? htmlspecialchars($user['promotion']) : "" ?></p>
+                                                                </div>
+                                                            </div>
+                                                            <p class="fs-3 fs-md-1"><?= isset($user['td']) ? htmlspecialchars($user['td']) : "" ?></p>
+                                                        </div>
+                                                        <button type="button" class="ajouterUserButton">Ajouter</button>
                                                     </div>
-                                                </div>
-                                                <p class="fs-3 fs-md-1"><?= htmlspecialchars($etudiant['td']) ?></p>
-                                            </div>
-                                            <button type="button" class="ajouterUserButton">Ajouter</button>
-                                        </div>
+                                    <?php
+                                    }
+                                    } elseif ($_SESSION['user']['role'] == 'Enseignant(e)'){
+                                        $sql = "
+                                            SELECT u.id, u.nom, u.prenom, u.avatar
+                                            FROM user_ u
+                                            WHERE u.id != :idConnecte
+                                        ";
+                                        $stmt = $pdo->prepare($sql);
+                                        $stmt->bindParam(':idConnecte', $idConnecte, PDO::PARAM_INT);
+                                        $stmt->execute();
+                                        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                        foreach ($users as $user) {
+                                            ?>
+                                                  <div class="who-list-user-item mb-3 col-12 d-flex justify-content-between align-items-center gap-2 w-100"
+                                                        id="<?= $user['id'] ?>">
+                                                        <div class="d-flex justify-content-between align-items-center w-100">
+                                                            <div class="d-flex justify-content-between align-items-center gap-2">
+                                                                <img src="<?= htmlspecialchars($user['avatar'] ?? '../uploads/default.png') ?>"
+                                                                    alt="" class="avatarAjouterEtudiant " id="<?= $user['id'] ?>">
+                                                                <div
+                                                                    class="etudiantInfo d-flex justify-content-end align-items-start flex-column">
+                                                                    <p class="fs-3 fs-md-1"><?= htmlspecialchars($user['prenom']) . ' ' . htmlspecialchars($user['nom']) ?>
+                                                                    </p>
+                                                                    <p class="fs-3 fs-md-1"><?= isset($user['promotion']) ? htmlspecialchars($user['promotion']) : "" ?></p>
+                                                                </div>
+                                                            </div>
+                                                            <p class="fs-3 fs-md-1"><?= isset($user['td']) ? htmlspecialchars($user['td']) : "" ?></p>
+                                                        </div>
+                                                        <button type="button" class="ajouterUserButton">Ajouter</button>
+                                                    </div>  
                                 <?php
                                     }
+                                }
                                 } else {
                                     echo "Utilisateur non connecté.";
                                 }
@@ -200,7 +233,7 @@
                             En cas de perte, de détérioration ou d'utilisation non autorisée, je m'engage à en assumer
                             les
                             conséquences.
-                        </label>
+                        </label><!--POPUP-->
                     </div>
 
                     <button class="submit-button" type="submit" name="submit">Soumettre</button>
