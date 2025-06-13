@@ -12,8 +12,7 @@ if (isset($_POST['ajouterMateriel'])) {
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
         $uploadDir = '../materiel/';
         $fileName = basename($_FILES['photo']['name']);
-        $fileName = preg_replace('/[^a-zA-Z0-9._-]/', '', $fileName); // sécuriser nom fichier
-        $targetFile = $uploadDir . uniqid() . '_' . $fileName;
+        $targetFile =  $fileName;
     
         if (move_uploaded_file($_FILES['photo']['tmp_name'], $targetFile)) {
             $photo = basename($targetFile); // nom fichier à stocker en BDD

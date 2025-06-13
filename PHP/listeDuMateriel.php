@@ -144,7 +144,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="photo">Photo</label>
                          <!-- UPLOAD IMAGES-->
-                        <input type="file" name="image1" accept="image/*">
+                        <input type="file" name="photo" accept="image/*">
                         <img src="../materiel/" alt="Photo matériel" style="height:100px; width:100px;"><!--IMAGE RECUPEREE-->
                     </div>
                     <div class="modifPopupMateriel_content_body_item">
@@ -210,8 +210,6 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="photo">Photo</label>
                         <input type="file" name="photo" accept="image/*" />
-
-                        <img src="../materiel/<?= htmlspecialchars($row['photo']); ?>" alt="Photo matériel" style="height:100px; width:100px;">
                     </div>
 
                     <div class="modifPopupMateriel_content_body_item">
