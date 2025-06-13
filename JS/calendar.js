@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
       center: "title",
       right: "dayGridMonth,dayGridWeek,dayGridDay",
     },
-    events: "..SAE201-mainv2/PHPpure/get_reservations.php",
+    events: "../PHPpure/get_reservations.php",
 
     eventDidMount: function (info) {
       const container = info.el.querySelector(".fc-event-main-frame");

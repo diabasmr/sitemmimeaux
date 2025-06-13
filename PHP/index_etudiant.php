@@ -4,6 +4,7 @@
     <div class="cards">
         <div class="card">
         <h5>Profil</h5>
+        <p></p>
         </div>
         <div class="card">
             <h5>Prochaine réservation</h5>
