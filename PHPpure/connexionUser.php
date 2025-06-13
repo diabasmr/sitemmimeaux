@@ -11,14 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // vérifier que les champs ne sont pas vides
     if (empty($pseudo) || empty($mdp)) {
-        echo <<<HTML
-        <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center" style="--bs-border-opacity: .5; z-index:10; width: 500px; border: 1px solid  #e47390;">
-          <p class="mb-2 d-block">Veuillez remplir tous les champs.</p>
-          <div class="text-center mt-3">
-          <button onclick="this.style.display='none'" style="height: 7vh; background-color: #e47390; border-radius: 0.5vw; border: none; font-size: 1.2vw; color: white;">Fermer</button>
-          </div>
-        </div>
-        HTML;
+        $error = "Veuillez remplir tous les champs";
         exit;
         
     }
@@ -34,14 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (password_verify($mdp, $user['mot_de_passe'])) {
             if ($user['valable'] == 0) {
-                echo <<<HTML
-                <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center" style="--bs-border-opacity: .5; z-index:10; width: 500px; border: 1px solid  #e47390;">
-                    <p class="mb-2 d-block">Votre compte n'est pas encore activé par un administrateur ou un enseignant veuillez patienter ou contacter un administrateur.</p>
-                    <div class="text-center mt-3">
-                        <button onclick="this.style.display='none'" style="height: 7vh; background-color: #e47390; border-radius: 0.5vw; border: none; font-size: 1.2vw; color: white;">Fermer</button>
-                    </div>
-                </div>
-                HTML;
+                $error = "Votre compte n'est pas encore activé par un administrateur ou un enseignant veuillez patienter ou contacter un administrateur.";
                 exit;
             }
 
@@ -88,26 +74,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: ../PHP/index.php');
             exit();
         } else {
-            echo <<<HTML
-                <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center" style="--bs-border-opacity: .5; z-index:10; width: 500px; border: 1px solid  #e47390;">
-                    <p class="mb-2 d-block">Mot de passe incorrect.</p>
-                    <div class="text-center mt-3">
-                        <button onclick="this.style.display='none'" style="height: 7vh; background-color: #e47390; border-radius: 0.5vw; border: none; font-size: 1.2vw; color: white;">Fermer</button>
-                    </div>
-                </div>
-                HTML;
+            $error = "Mot de passe incorrect.";
                 exit;
             
         }
     } else {
-        echo <<<HTML
-                <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center" style="--bs-border-opacity: .5; z-index:10; width: 500px; border: 1px solid  #e47390;">
-                    <p class="mb-2 d-block">Aucun utilisateur trouvé avec ce pseudo.</p>
-                    <div class="text-center mt-3">
-                        <button onclick="this.style.display='none'" style="height: 7vh; background-color: #e47390; border-radius: 0.5vw; border: none; font-size: 1.2vw; color: white;">Fermer</button>
-                    </div>
-                </div>
-                HTML;
-                exit;
+        $error = "Aucun utilisateur trouvé avec ce pseudo.";
+        exit;
     }
 }

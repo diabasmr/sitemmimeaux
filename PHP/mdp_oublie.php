@@ -119,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <a href="inscription.php">Inscrivez-vous</a>
           </p>
           <p class="fs-6 fs-md-2">
-            <a href="connexion.html">Se connecter</a>
+            <a href="connexion-compte.php">Se connecter</a>
           </p>
         </div>
       </section>

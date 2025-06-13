@@ -59,6 +59,15 @@
             </div>
             <button class="fs-6 fs-md-2" type="submit">Connexion</button>
           </form>
+          <!--AFFICHAGE DES ERREURS REPEREES-->
+          <?php if (!empty($error)): ?>
+            <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center" style="--bs-border-opacity: .5; z-index:10; width: 500px; border: 1px solid  #e47390;">
+              <p class="mb-2 d-block"><?= htmlspecialchars($error) ?></p>
+              <div class="text-center mt-3">
+                <button class="fs-6 fs-md-2" onclick="this.closest('.container-sm-6').style.display='none'" style="height: 7vh; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;">Fermer</button>
+              </div>
+            </div>
+          <?php endif; ?>
           <p class="fs-6 fs-md-2">
             Pas encore de compte ?
             <a href="inscription.php">Inscrivez-vous</a>

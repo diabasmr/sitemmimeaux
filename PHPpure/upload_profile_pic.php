@@ -75,5 +75,5 @@ if (isset($_SESSION['user']['id'])) {
 } else {
     // si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
     echo "Vous devez être connecté.";
-    header("Location: ../PHP/connexion.html");
+    header("Location: ../PHP/connexion-compte.php");
 }

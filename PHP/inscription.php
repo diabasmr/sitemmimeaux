@@ -85,7 +85,7 @@ $il_y_a_100_ans = date("Y-m-d", $dt - 31536000*100);
 
                 <p class="fs-6 fs-md-2">
 					Déjà inscrit(e)?
-					<a href="connexion.html">Connectez-vous</a>
+					<a href="connexion-compte.php">Connectez-vous</a>
 					</p>
                 <div class="progress">
     <div class="progress-bar" id="progressBar" role="progressbar"
