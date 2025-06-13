@@ -55,8 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':idM' => $idM
                 ]);
             }
-        }
-    }      
+        }     
         
 
     } else if (isset($_POST['supprimer'])) {
