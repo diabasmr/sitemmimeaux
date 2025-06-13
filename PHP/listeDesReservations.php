@@ -244,6 +244,10 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                         </select>
                     </div>
                     <div class="modifPopupReservation_content_body_item">
+                        <label for="com">Ajouter un commentaire</label>
+                        <input type="text" name="com" id="com" placeholder="Commentaire">
+                    </div>
+                    <div class="modifPopupReservation_content_body_item">
                         <label for="materiels">Matériels</label>
                         <input type="text" id="materiels" placeholder="Materiels" disabled>
                     </div>

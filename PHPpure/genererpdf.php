@@ -25,7 +25,7 @@ if (isset($_GET['idR'])) {
     $idR = $_GET['idR'];
 
     $sql = "SELECT r.*, 
-            GROUP_CONCAT(DISTINCT CONCAT(m.idM, ':', m.designation, ':', m.refernceM) SEPARATOR '||') as materiels, 
+            GROUP_CONCAT(DISTINCT CONCAT(m.idM, ':', m.photo, ':', m.designation, ':', m.refernceM) SEPARATOR '||') as materiels, 
             GROUP_CONCAT(DISTINCT CONCAT(s.idS, ':', s.nom, ':', s.type) SEPARATOR '||') as salles,
             GROUP_CONCAT(DISTINCT CONCAT(u.id, ':', u.nom, ':', u.prenom) SEPARATOR '||') as users
             FROM reservations r
@@ -73,8 +73,9 @@ if (isset($_GET['idR'])) {
             if ($reservation['materiels']) {
                 $materiels = explode('||', $reservation['materiels']);
                 foreach ($materiels as $materiel) {
-                    list($id, $designation, $reference) = explode(':', $materiel);
+                    list($id, $photo, $designation, $reference) = explode(':', $materiel);
                     $pdf->Cell(0, 10, "- $designation ($reference)", 0, 1);
+                    $pdf->Image('../materiel/' . $photo, 115, 50, 50); // X=10mm, Y=20mm, largeur=50mm
                 }
             } else {
                 $pdf->Cell(0, 10, "Aucun materiel reserve", 0, 1);
@@ -110,10 +111,12 @@ if (isset($_GET['idR'])) {
 
             if ($reservation['commentaires']) {
                 $pdf->Ln(5);
+                $pdf->SetTextColor(255, 0, 0);
                 $pdf->SetFont('Arial', 'B', 12);
                 $pdf->Cell(0, 10, 'Commentaires :', 0, 1);
                 $pdf->SetFont('Arial', '', 12);
                 $pdf->MultiCell(0, 10, $reservation['commentaires']);
+                $pdf->SetTextColor(0, 0, 0);
             }
 
             // Génération du PDF

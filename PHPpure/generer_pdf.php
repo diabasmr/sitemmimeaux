@@ -44,8 +44,10 @@ $pdf->MultiCell(0, 10, "Matériel : {$res['materiels']}");
 $pdf->Cell(0, 10, "Date de début : {$res['date_debut']}", 0, 1);
 $pdf->Cell(0, 10, "Date de fin : {$res['date_fin']}", 0, 1);
 $pdf->MultiCell(0, 10, "Motif : {$res['motif']}");
+$pdf->SetTextColor(255, 0, 0);
 $pdf->MultiCell(0, 10, "Commentaires : {$res['commentaires']}");
 
+$pdf->SetTextColor(0, 0, 0);
 $pdf->Ln(10);
 $pdf->SetFont('Arial', 'I', 10);
 $pdf->MultiCell(0, 10, "Ce document vous sert de preuve de réservation. Merci d’imprimer ce reçu si besoin.");

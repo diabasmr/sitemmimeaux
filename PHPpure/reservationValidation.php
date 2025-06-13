@@ -4,6 +4,7 @@ require_once('connexion.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['modifier'])) {
         $idR = $_POST['idR'] ?? null;
+        $comment = $_POST['com'] ?? '';
         $status = $_POST['status'] ?? 0;
     
         if (!$idR) {
@@ -11,10 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     
         // Mettre à jour le statut dans la table reservations
-        $sql = "UPDATE reservations SET valide = :status WHERE idR = :idR";
+        $sql = "UPDATE reservations SET valide = :status, commentaires = :comment WHERE idR = :idR";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             ':status' => $status,
+            ':comment' => $comment,
             ':idR' => $idR
         ]);
     

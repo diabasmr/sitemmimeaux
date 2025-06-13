@@ -61,7 +61,7 @@
             if (isset($_SESSION['user']['id'])) {
                 $userId = $_SESSION['user']['id']; // Récupérer l'ID de l'utilisateur connecté
             }
-            require_once "../PHPpure/connexion.php";
+            require "../PHPpure/connexion.php";
 
             // Requête SQL pour récupérer les réservations de l'utilisateur
             $sql = "
@@ -112,7 +112,7 @@
                     $stmt = $pdo->prepare($sql);
                     $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
                     $stmt->execute();
-                    $sql2 = "UPDATE materiel SET quantité = quantité + :quantite WHERE idR = :idR";
+                    $sql2 = "UPDATE materiel SET quantité = quantité + :quantite WHERE idM = :idM";
                     $stmt = $pdo->prepare($sql2);
                     $stmt->bindParam(':quantite', $row['quantite'], PDO::PARAM_INT);
                     $stmt->bindParam(':idM', $row['idM'], PDO::PARAM_INT);
