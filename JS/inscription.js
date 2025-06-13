@@ -13,30 +13,41 @@ function nextStep(currentStep, nextStep, requiredFields = []) {
     const email = document.getElementById("email").value.trim();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // Cas 1: Rien n'est rempli
-    if (!dateNaissance && !email) {
-      alert("Veuillez remplir tous les champs obligatoires.");
+    // Cas 1: Pas rempli
+    if (!dateNaissance || !email) {
+      const messageDiv = document.createElement("div");
+      messageDiv.innerHTML = `
+    <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center"
+         style="--bs-border-opacity: .5; z-index:10; width: 80%; border: 1px solid #e47390;">
+      <p class="mb-2 d-block">Veuillez remplir tous les champs obligatoires.</p>
+      <div class="text-center mt-3">
+        <button onclick="this.closest('.container-sm-6').style.display='none'"
+                style="height: 7vh; width:50%; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;" class="fs-6 fs-md-2">
+          Fermer
+        </button>
+      </div>
+    </div>
+  `;
+      document.body.appendChild(messageDiv);
       return;
     }
 
-    // Cas 2: Seulement email rempli
-    if (!dateNaissance && email) {
-      alert("Veuillez entrer une date de naissance.");
-      document.getElementById("date_naissance").focus();
-      return;
-    }
-
-    // Cas 3: Seulement date de naissance remplie
-    if (dateNaissance && !email) {
-      alert("Veuillez entrer une adresse email.");
-      document.getElementById("email").focus();
-      return;
-    }
-
-    // Cas 4: Email mal formaté
+    // Cas 2: Email mal formaté
     if (email && !emailRegex.test(email)) {
-      alert("Veuillez entrer une adresse email valide.");
-      document.getElementById("email").focus();
+      const messageDiv = document.createElement("div");
+      messageDiv.innerHTML = `
+    <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center"
+         style="--bs-border-opacity: .5; z-index:10; width: 80%; border: 1px solid #e47390;">
+      <p class="mb-2 d-block">Veuillez entrer une adresse email valide.</p>
+      <div class="text-center mt-3">
+        <button onclick="this.closest('.container-sm-6').style.display='none'"
+                style="height: 7vh; width:50%; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;" class="fs-6 fs-md-2">
+          Fermer
+        </button>
+      </div>
+    </div>
+  `;
+      document.body.appendChild(messageDiv);
       return;
     }
 
@@ -87,13 +98,54 @@ function nextStep(currentStep, nextStep, requiredFields = []) {
   if (!valid) {
     if (firstInvalid) firstInvalid.focus();
     if (requiredFields.includes("email")) {
-      alert("Veuillez entrer un email valide.");
+      const messageDiv = document.createElement("div");
+      messageDiv.innerHTML = `
+    <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center"
+         style="--bs-border-opacity: .5; z-index:10; width: 80%; border: 1px solid #e47390;">
+      <p class="mb-2 d-block">Veuillez entrer un email valide.</p>
+      <div class="text-center mt-3">
+        <button onclick="this.closest('.container-sm-6').style.display='none'"
+                style="height: 7vh; width:50%; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;" class="fs-6 fs-md-2">
+          Fermer
+        </button>
+      </div>
+    </div>
+  `;
+      document.body.appendChild(messageDiv);
+      return;
     } else if (requiredFields.includes("date_naissance")) {
-      alert("Veuillez entrer une date de naissance");
+      const messageDiv = document.createElement("div");
+      messageDiv.innerHTML = `
+    <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center"
+         style="--bs-border-opacity: .5; z-index:10; width: 80%; border: 1px solid #e47390;">
+      <p class="mb-2 d-block">Veuillez entrer une date de naissance</p>
+      <div class="text-center mt-3">
+        <button onclick="this.closest('.container-sm-6').style.display='none'"
+                style="height: 7vh; width:50%; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;" class="fs-6 fs-md-2">
+          Fermer
+        </button>
+      </div>
+    </div>
+  `;
+      document.body.appendChild(messageDiv);
+      return;
     } else {
-      alert("Veuillez remplir tous les champs obligatoires.");
+      const messageDiv = document.createElement("div");
+      messageDiv.innerHTML = `
+    <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center"
+         style="--bs-border-opacity: .5; z-index:10; width: 80%; border: 1px solid #e47390;">
+      <p class="mb-2 d-block">Veuillez remplir tous les champs obligatoires.</p>
+      <div class="text-center mt-3">
+        <button onclick="this.closest('.container-sm-6').style.display='none'"
+                style="height: 7vh; width:50%; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;" class="fs-6 fs-md-2">
+          Fermer
+        </button>
+      </div>
+    </div>
+  `;
+      document.body.appendChild(messageDiv);
+      return;
     }
-    return;
   }
 
   // Validation spécifique des mots de passe
@@ -103,19 +155,54 @@ function nextStep(currentStep, nextStep, requiredFields = []) {
     const mdpRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{6,}$/;
 
     if (!mdp || !confirme_mdp) {
-      alert("Veuillez remplir tous les champs obligatoires.");
+      const messageDiv = document.createElement("div");
+      messageDiv.innerHTML = `
+    <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center"
+         style="--bs-border-opacity: .5; z-index:10; width: 80%; border: 1px solid #e47390;">
+      <p class="mb-2 d-block">Veuillez remplir tous les champs obligatoires.</p>
+      <div class="text-center mt-3">
+        <button onclick="this.closest('.container-sm-6').style.display='none'"
+                style="height: 7vh; width:50%; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;" class="fs-6 fs-md-2">
+          Fermer
+        </button>
+      </div>
+    </div>
+  `;
+      document.body.appendChild(messageDiv);
       return;
     }
     if (!mdpRegex.test(mdp)) {
-      alert(
-        "Le mot de passe doit faire au moins 6 caractères et contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial."
-      );
-      document.getElementById("mdp").focus();
+      const messageDiv = document.createElement("div");
+      messageDiv.innerHTML = `
+    <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center"
+         style="--bs-border-opacity: .5; z-index:10; width: 80%; border: 1px solid #e47390;">
+      <p class="mb-2 d-block">Le mot de passe doit faire au moins 6 caractères et contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial.</p>
+      <div class="text-center mt-3">
+        <button onclick="this.closest('.container-sm-6').style.display='none'"
+                style="height: 7vh; width:50%; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;" class="fs-6 fs-md-2">
+          Fermer
+        </button>
+      </div>
+    </div>
+  `;
+      document.body.appendChild(messageDiv);
       return;
     }
     if (mdp !== confirme_mdp) {
-      alert("Les mots de passe ne correspondent pas.");
-      document.getElementById("confirme_mdp").focus();
+      const messageDiv = document.createElement("div");
+      messageDiv.innerHTML = `
+    <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center"
+         style="--bs-border-opacity: .5; z-index:10; width: 80%; border: 1px solid #e47390;">
+      <p class="mb-2 d-block">Les mots de passe ne correspondent pas.</p>
+      <div class="text-center mt-3">
+        <button onclick="this.closest('.container-sm-6').style.display='none'"
+                style="height: 7vh; width:50%; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;" class="fs-6 fs-md-2">
+          Fermer
+        </button>
+      </div>
+    </div>
+  `;
+      document.body.appendChild(messageDiv);
       return;
     }
     // Si tout est valide, on soumet le formulaire

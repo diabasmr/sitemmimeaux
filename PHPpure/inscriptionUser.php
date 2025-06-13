@@ -30,7 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Vérification que tous les champs sont remplis
     if (empty($nom) || empty($prenom) || empty($date_naissance) || empty($email) || empty($mdp) || empty($confirme_mdp)) {
-        die('Veuillez remplir tous les champs.');
+        $error = "Veuillez remplir tous les champs";
+        exit;
     }
 
     // Vérification si l'email existe déjà
@@ -38,7 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
     $stmt->execute();
     if ($stmt->fetch()) {
-        die('Cette adresse email est déjà utilisée.');
+        $error = "Cette adresse email est déjà utilisée.";
+        exit;
     }
 
     // Vérification si le pseudo existe déjà
@@ -46,7 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
     $stmt->execute();
     if ($stmt->fetch()) {
-        die('Cet utilisateur existe déjà.');
+        $error = "Cet utilisateur existe déjà.";
+        exit;
     }
 
     // Hashage mdp
@@ -82,6 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } catch (Exception $e) {
         // En cas d'erreur, annulation de la transaction
         $pdo->rollBack();
-        die('Une erreur est survenue lors de l\'inscription : ' . $e->getMessage());
+        $error = "Une erreur est survenue lors de l\'inscription : " . $e->getMessage();
+        exit;
     }
 }
