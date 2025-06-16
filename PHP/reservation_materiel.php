@@ -39,7 +39,7 @@
                     <!-- <img src="../IMG/canon.jpg" alt="" id="materiel-image">
                     <h2 id="materiel-title">Caméra</h2> -->
                     <?php
-                    require_once("../PHPpure/connexion.php");
+                    require("../PHPpure/connexion.php");
                     $idM = $_GET['idM'];
                     $sql = "SELECT * FROM materiel WHERE idM = ?";
                     $stmt = $pdo->prepare($sql);
@@ -86,9 +86,22 @@
 
                     <div id="qtt" class="d-flex justify-content-center align-items-baseline gap-3">
                         <p class='text-white rounded text-center justify-content-center p-2 border-0' style='background-color:#e4587d;'>
-                        <span id="dispo" data-stock="<?php echo $materiel['quantité']?>"><?php echo $materiel['quantité']?></span> disponibles
+                        <?php 
+                        $sql2 = "SELECT quantité FROM materiel WHERE idM = ?";
+                        $stmt2 = $pdo->prepare($sql2);
+                        $stmt2->execute([$_GET['idM']]);
+                        $quantite_totale = $stmt2->fetch(PDO::FETCH_ASSOC);
+
+                        $sql3 = "SELECT COUNT(r.idR) AS nb_reservations FROM reservations r JOIN concerne c ON r.idR = c.idR WHERE c.idM = ? AND r.valide = 1";
+                        $stmt3 = $pdo->prepare($sql3);
+                        $stmt3->execute([$_GET['idM']]);
+                        $resas = $stmt3->fetch(PDO::FETCH_ASSOC);
+
+                        // Calcul de la quantité restante
+                        $quantite_dispo = $quantite_totale['quantité'] - $resas['nb_reservations'];?>
+                        <span id="dispo" data-stock="<?php echo $materiel['quantité']?>"><?php echo $quantite_dispo?></span> disponibles
                         </p>
-                        <input type="number" class="form-control w-75 text-center" value="1" min="1" max="<?php echo $materiel['quantité']; ?>" id="quantite" name="quantite">
+                        <input type="number" class="form-control w-75 text-center" value="1" min="1" max="<?php echo $quantite_dispo; ?>" id="quantite" name="quantite">
                     </div>
 
 

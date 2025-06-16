@@ -49,12 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $requete = $pdo->prepare("INSERT INTO concerne (idR, idM) VALUES (?, ?)");
     $requete->execute([$idReservation, $materiel_id]);
 
-    // Modifier la quantite
-    if($valid == 1){
-        $requete = $pdo->prepare("UPDATE materiel SET quantité = quantité - ? WHERE idM = ?");
-        $requete->execute([$quantite, $materiel_id]);
-    }
-
     header("Location: ../PHP/materiels.php"); // page de succès ??
     exit();
 }

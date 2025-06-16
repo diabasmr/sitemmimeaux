@@ -91,7 +91,19 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
                     if (count($result) > 0) {
                         foreach ($result as $row) {
                             // si le matériel est disponible ou non
-                            if ($row['quantité'] >= 1) {
+                            $sql2 = "SELECT quantité FROM materiel WHERE idM = ?";
+                            $stmt2 = $pdo->prepare($sql2);
+                            $stmt2->execute([$row['idM']]);
+                            $quantite_totale = $stmt2->fetch(PDO::FETCH_ASSOC);
+    
+                            $sql3 = "SELECT COUNT(r.idR) AS nb_reservations FROM reservations r JOIN concerne c ON r.idR = c.idR WHERE c.idM = ? AND r.valide = 1";
+                            $stmt3 = $pdo->prepare($sql3);
+                            $stmt3->execute([$row['idM']]);
+                            $resas = $stmt3->fetch(PDO::FETCH_ASSOC);
+    
+                            // Calcul de la quantité restante
+                            $quantite_dispo = $quantite_totale['quantité'] - $resas['nb_reservations'];
+                            if ($quantite_dispo >= 1) {
                                 $status = "Disponible";
                             } else {
                                 $status = "Indisponible";

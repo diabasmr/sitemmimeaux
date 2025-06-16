@@ -28,39 +28,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([':idR' => $idR]);
         $row1 = $stmt->fetch(PDO::FETCH_ASSOC);
     
-        // Récupérer la quantite depuis la table reservations
-        $sql2 = "SELECT quantite FROM reservations WHERE idR = :idR";
-        $stmt = $pdo->prepare($sql2);
-        $stmt->execute([':idR' => $idR]);
-        $row2 = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-        if ($row1 && $row2) {
+        if ($row1) {
             $idM = $row1['idM'];
-            $quantite = $row2['quantite'];
     
             switch ((int)$status) {
-                case 1: // validé : retirer du stock
-                    $sqlUpdate = "UPDATE materiel SET quantité = quantité - :quantite WHERE idM = :idM";
+                case 1: // validé
                     $message = "Nous vous informons que votre réservation a été validée.\n\nConsultez le pdf de celle-ci sur votre tableau de bord ReZoom\nNous vous y indiquons les mesures à suivre.";
                     break;
     
-                case 3: // terminé : remettre en stock
-                    $sqlUpdate = "UPDATE materiel SET quantité = quantité + :quantite WHERE idM = :idM";
+                case 3: // terminé
                     $message = "Nous vous informons que votre réservation a été marqué comme terminée.\n\nSi vous avez des questions, n'hésitez pas à nous contacter.\n\n";
                     break;
     
                 default:
-                    $sqlUpdate = null;
                     $message = "Nous vous informons que votre réservation a été refusée ou marquée en attente.\n\nLes raisons possibles peuvent être :\n- Indisponibilité du matériel\n- Demande d’annulation de votre part\n- Autres contraintes organisationnelles\n\nSi vous avez des questions, n'hésitez pas à nous contacter.";
                     break;
-            }
-    
-            if ($sqlUpdate) {
-                $stmt = $pdo->prepare($sqlUpdate);
-                $stmt->execute([
-                    ':quantite' => $quantite,
-                    ':idM' => $idM
-                ]);
             }
         }     
 

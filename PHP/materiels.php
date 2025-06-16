@@ -60,9 +60,19 @@ include("../PHPpure/entete.php");
                     require_once("../PHPpure/connexion.php");
                     // recuperer favori et materiel
                     $sql = "SELECT m.*, f.* FROM favori_materiel f LEFT JOIN materiel m ON f.idM = m.idM WHERE f.id = ?";
-                    $result = $pdo->prepare($sql);
-                    $result->execute([$_SESSION['user']['id']]);
-                    while ($row = $result->fetch()) {
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute([$_SESSION['user']['id']]);
+
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        // Requête pour compter les réservations validées
+                        $sql2 = "SELECT COUNT(r.idR) AS nb_reservations FROM reservations r JOIN concerne c ON r.idR = c.idR WHERE c.idM = ? AND r.valide = 1";
+
+                        $stmt2 = $pdo->prepare($sql2);
+                        $stmt2->execute([$row['idM']]);
+                        $resas = $stmt2->fetch(PDO::FETCH_ASSOC);
+
+                        // Calcul de la quantité restante
+                        $quantite_dispo = $row['quantité'] - $resas['nb_reservations'];
 
                         echo "<div class='col-6 col-md-4 d-flex justify-content-center align-items-center flex-column position-relative'>";
                         echo "<div class='position-absolute top-0 end-0 d-flex justify-content-between align-items-center gap-3 p-4'>";
@@ -72,10 +82,10 @@ include("../PHPpure/entete.php");
                         echo "</div>";
                         echo "<div class='position-absolute top-0 start-0 d-flex justify-content-between align-items-center gap-3 p-4'>";
                         echo "<p id='other' class='text-white rounded p-2 border-0' style='background-color:#e4587d;'>";
-                        echo $row['quantité'] . " " . "disponibles";
+                        echo $quantite_dispo . " " . "disponibles";
                         echo "</p>";
                         echo "<p id='phone' class='text-white rounded p-2 border-0' style='background-color:#e4587d;'>";
-                        echo $row['quantité'];
+                        echo $quantite_dispo;
                         echo "</p>";
                         echo "</div>";
                         echo "<img src='../materiel/" . $row['photo'] . "' alt='materiel' class='w-100 rounded-5 materiel-image'>";
@@ -83,7 +93,7 @@ include("../PHPpure/entete.php");
                         echo "<a class='text-center fs-auto fw-bold w-100' style='text-decoration:none; color:black;' href='produit.php?id=". $row['idM']. "'>" . $row['designation'] . "</a>";
                         echo "<button class='btn btn-danger text-white text-center w-80 w-md-50 p-3' onclick='reserverMateriel(" . $row['idM'] . ")'";
 
-                        if ($row['quantité'] == 0) {
+                        if ($quantite_dispo == 0) {
                             echo " disabled";
                         }
 

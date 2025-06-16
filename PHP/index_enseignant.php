@@ -2,10 +2,46 @@
     <p>Bienvenue dans votre espace personnel</p>
     <p><?php echo $_SESSION['user']['prenom'] ?></p>
     <div class="cards">
-        <div class="card">
-            <h5>Prochaine réservation</h5>
-            <p style="color:pink;">04 juillet 2025</p>
-        </div>
+    <div class="card">
+        <h5>Prochaine réservation</h5>
+        <p style="color:pink;">
+            <?php
+            require "../PHPpure/connexion.php";
+
+            // Préparation de la requête
+            $sql = "
+                SELECT r.idR, r.date_debut
+                FROM reservations r
+                JOIN concerne c ON r.idR = c.idR
+                JOIN reservation_users ru ON r.idR = ru.idR
+                WHERE ru.id = :user_id AND r.date_debut > :today
+                ORDER BY r.date_debut ASC
+                LIMIT 1
+            ";
+
+            $stmt = $pdo->prepare($sql);
+
+            // Passage des paramètres
+            $userId = $_SESSION['user']['id'];
+            $today = date('Y-m-d');
+
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $stmt->bindParam(':today', $today);
+
+            // Exécution et traitement
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($row) {
+                echo $row['date_debut'];
+            } else {
+                echo "Aucune réservation à venir.";
+            }
+            ?>
+        </p>
+    </div>
+</div>
+
     </div>
 </section>
 <section class="reservation">
@@ -58,7 +94,6 @@
             if (isset($_SESSION['user']['id'])) {
                 $userId = $_SESSION['user']['id']; // Récupérer l'ID de l'utilisateur connecté
             }
-            require_once "../PHPpure/connexion.php";
 
             // Requête SQL pour récupérer les réservations de l'utilisateur
             $sql = "
@@ -108,11 +143,6 @@
                     $sql = "UPDATE reservations SET valide = 3 WHERE idR = :idR";
                     $stmt = $pdo->prepare($sql);
                     $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
-                    $stmt->execute();
-                    $sql2 = "UPDATE materiel SET quantité = quantité + :quantite WHERE idR = :idR";
-                    $stmt = $pdo->prepare($sql2);
-                    $stmt->bindParam(':quantite', $row['quantite'], PDO::PARAM_INT);
-                    $stmt->bindParam(':idM', $row['idM'], PDO::PARAM_INT);
                     $stmt->execute();
                 } else if ($row['valide'] == 1) {
                     $status = "accepté";
@@ -174,11 +204,6 @@
                     $sql = "UPDATE reservations SET valide = 3 WHERE idR = :idR";
                     $stmt = $pdo->prepare($sql);
                     $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
-                    $stmt->execute();
-                    $sql2 = "UPDATE materiel SET quantité = quantité + :quantite WHERE idR = :idR";
-                    $stmt = $pdo->prepare($sql2);
-                    $stmt->bindParam(':quantite', $row['quantite'], PDO::PARAM_INT);
-                    $stmt->bindParam(':idM', $row['idM'], PDO::PARAM_INT);
                     $stmt->execute();
                 } elseif ($row['valide'] == 1) {
                     $status = "accepté";

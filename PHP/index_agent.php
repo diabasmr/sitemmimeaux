@@ -2,9 +2,39 @@
     <p>Bienvenue dans votre espace personnel</p>
     <p><?php echo $_SESSION['user']['prenom'] ?></p>
     <div class="cards">
-        <div class="card">
+        <div class="card p-2">
             <h5>Prochaine réservation</h5>
-            <p style="color:pink;">04 juillet 2025</p>
+            <p style="color:pink;">
+            <?php
+            require "../PHPpure/connexion.php";
+
+            // Préparation de la requête
+            $sql = "
+                SELECT r.idR, r.date_debut
+                FROM reservations r
+                WHERE r.date_debut > :today AND valide = 1
+                ORDER BY r.date_debut ASC
+                LIMIT 1
+            ";
+
+            $stmt = $pdo->prepare($sql);
+
+            // Passage des paramètres
+            $today = date('Y-m-d');
+
+            $stmt->bindParam(':today', $today);
+
+            // Exécution et traitement
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($row) {
+                echo $row['date_debut'];
+            } else {
+                echo "Aucune réservation à venir.";
+            }
+            ?>
+        </p>
         </div>
     </div>
 </section>
@@ -34,8 +64,7 @@
             }
             require_once "../PHPpure/connexion.php";
 
-            $sql = "
-                        SELECT 
+            $sql = "SELECT 
                             r.idR,
                             r.date_debut,
                             r.date_fin,
@@ -74,8 +103,7 @@
             }
 
             // Pareil pour les réservations de salle
-            $sql = "
-                        SELECT 
+            $sql = "SELECT 
                             r.date_debut,
                             r.date_fin,
                             r.valide,
