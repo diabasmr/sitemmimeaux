@@ -24,7 +24,7 @@ include("../PHPpure/entete.php");
     ?>
     <main>
         <?php
-        require_once("../PHPpure/connexion.php");
+        require("../PHPpure/connexion.php");
         // recuperer les favoris
         $sql = "SELECT * FROM favori_materiel WHERE id = ?";
         $result = $pdo->prepare($sql);
@@ -57,7 +57,6 @@ include("../PHPpure/entete.php");
 
                 <div class="row justify-content-start align-items-center">
                     <?php
-                    require_once("../PHPpure/connexion.php");
                     // recuperer favori et materiel
                     $sql = "SELECT m.*, f.* FROM favori_materiel f LEFT JOIN materiel m ON f.idM = m.idM WHERE f.id = ?";
                     $stmt = $pdo->prepare($sql);
@@ -214,9 +213,6 @@ include("../PHPpure/entete.php");
                         <button class="btn btn-danger text-white w-50 p-3 ">Réserver</button>
                     </div>
                 </div> -->
-                <?php
-                require_once("../PHPpure/connexion.php");
-                ?>
                 <?php foreach ($materiaux as $materiel): ?>
                     <?php
                     echo "<div class='materielItem col-6 col-md-4 d-flex justify-content-center align-items-center flex-column position-relative'>";
@@ -233,12 +229,20 @@ include("../PHPpure/entete.php");
                     }
                     echo "</button>";
                     echo "</div>";
+                    $sql2 = "SELECT COUNT(r.idR) AS nb_reservations FROM reservations r JOIN concerne c ON r.idR = c.idR WHERE c.idM = ? AND r.valide = 1";
+
+                        $stmt2 = $pdo->prepare($sql2);
+                        $stmt2->execute([$materiel['idM']]);
+                        $resas = $stmt2->fetch(PDO::FETCH_ASSOC);
+
+                        // Calcul de la quantité restante
+                        $quantite_dispo = $materiel['quantité'] - $resas['nb_reservations'];
                     echo "<div class='position-absolute top-0 start-0 ms-3 d-flex justify-content-between align-items-center gap-3 p-4'>";
                         echo "<p id='other' class='text-white rounded p-2 border-0' style='background-color:#e4587d;'>";
-                        echo $materiel['quantité'] . " " . "disponibles";
+                        echo $quantite_dispo . " " . "disponibles";
                         echo "</p>";
                         echo "<p id='phone' class='text-white rounded p-2 border-0' style='background-color:#e4587d;'>";
-                        echo $materiel['quantité'];
+                        echo $quantite_dispo;
                         echo "</p>";
                         echo "</div>";
                     // img meme taille que la div

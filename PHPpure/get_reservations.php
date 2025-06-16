@@ -13,7 +13,7 @@ $role = $_SESSION['user']['role'] ?? 'Etudiant(e)';
 
 $reservationIds = [];
 
-if ($role !== 'Administrateur') {
+if ($role !== 'Administrateur' && $role !== 'Agent(e)') {
     // Récupère les idR où l'utilisateur est dedans
     $stmt = $pdo->prepare("SELECT idR FROM reservation_users WHERE id = :userId");
     $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);

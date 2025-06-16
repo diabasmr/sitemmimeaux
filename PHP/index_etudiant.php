@@ -96,7 +96,6 @@
             if (isset($_SESSION['user']['id'])) {
                 $userId = $_SESSION['user']['id']; // Récupérer l'ID de l'utilisateur connecté
             }
-            require "../PHPpure/connexion.php";
 
             // Requête SQL pour récupérer les réservations de l'utilisateur
             $sql = "

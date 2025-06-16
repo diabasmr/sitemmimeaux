@@ -50,12 +50,37 @@
                     <h2 id="materiel-title"><?php echo $materiel['designation']; ?></h2>
                     <input type="hidden" name="materiel" value="<?php echo $materiel['idM']; ?>">
 
-                    <label for="horaire">Choisir un créneau horaire:</label>
+                    <?php
+                    $idM = $_GET['idM'];
+                    $sql4 = "SELECT TIME(date_debut) as heure_debut, DATE(date_debut) as date_debut, TIME(date_fin) as heure_fin, DATE(date_fin) as date_fin FROM reservations r JOIN concerne c ON r.idR = c.idR WHERE idM = ? AND valide <= 1;";
+                    $stmt4 = $pdo->prepare($sql4);
+                    $stmt4->execute([$idM]);
+                    $creneaux = $stmt4->fetchAll(PDO::FETCH_ASSOC);
+
+                    $dateD = [];
+                    $dateF = [];
+                    $heureD = [];
+                    $heureF = [];
+
+                    foreach ($creneaux as $creneau) {
+                        $dateD[] = $creneau['date_debut'];
+                        $dateF[] = $creneau['date_fin'];
+                        $heureD[] = $creneau['heure_debut'];
+                        $heureF[] = $creneau['heure_fin'];
+                    }
+                    ?>
+
+                    <input type="hidden" id="dateD" value='<?= json_encode($dateD) ?>'>
+                    <input type="hidden" id="dateF" value='<?= json_encode($dateF) ?>'>
+                    <input type="hidden" id="heureD" value='<?= json_encode($heureD) ?>'>
+                    <input type="hidden" id="heureF" value='<?= json_encode($heureF) ?>'>
+
                     <div class="my-4 d-flex justify-content-around">
                         <div class="d-flex justify-content-between align-items-baseline">
                         <label for="horaireD" class="form-label me-2"> De: </label>
                         <select name="horaireD" class="form-select" id="horaireD" required>
-                            <option name="horaireD" value="08:00" selected>08:00</option>
+                            <option name="horaireD" value="" selected>début</option>
+                            <option name="horaireD" value="08:00">08:00</option>
                             <option name="horaireD" value="09:00">09:00</option>
                             <option name="horaireD" value="10:00">10:00</option>
                             <option name="horaireD" value="11:00">11:00</option>
@@ -70,7 +95,8 @@
                         <div class="d-flex justify-content-between align-items-baseline">
                         <label for="horaireF" class="form-label me-2"> À: </label>
                         <select name="horaireF" class="form-select" id="horaireF" required>
-                            <option name="horaireF" value="09:00" selected>09:00</option>
+                        <option name="horaireD" value="" selected>fin</option>
+                            <option name="horaireF" value="09:00">09:00</option>
                             <option name="horaireF" value="10:00">10:00</option>
                             <option name="horaireF" value="11:00">11:00</option>
                             <option name="horaireF" value="12:00">12:00</option>

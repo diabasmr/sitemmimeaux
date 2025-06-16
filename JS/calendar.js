@@ -17,6 +17,7 @@ function next() {
 }
 let tel = false;
 
+//initialisation du calendrier
 document.addEventListener("DOMContentLoaded", function () {
   getEventTimes();
   const calendarEl = document.getElementById("calendar");
@@ -29,16 +30,17 @@ document.addEventListener("DOMContentLoaded", function () {
       center: "title",
       right: "dayGridMonth,dayGridWeek,dayGridDay",
     },
-    events: "../PHPpure/get_reservations.php",
+    events: "../PHPpure/get_reservations.php", //les données sont récupérées ici au format json
 
     eventDidMount: function (info) {
       const container = info.el.querySelector(".fc-event-main-frame");
 
       if (container && info.event.extendedProps.avatars) {
+        //ajoute des avatars
         const avatarWrapper = document.createElement("div");
         avatarWrapper.style.position = "absolute";
-        avatarWrapper.style.bottom = "5%";
-        avatarWrapper.style.left = "5px";
+        avatarWrapper.style.bottom = "45%";
+        avatarWrapper.style.right = "5px";
         avatarWrapper.style.display = "flex";
         avatarWrapper.style.gap = "5px";
 
@@ -95,6 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function modifyCalendar() {
+  //adaptation responsive
   if (window.innerWidth < 1000) {
     const dayBtn = document.querySelector(
       ".fc-dayGridDay-button.fc-button.fc-button-primary"
@@ -110,6 +113,7 @@ function modifyCalendar() {
 }
 
 function updateCustomHeader() {
+  //sychronise les dates header
   const actual = document.querySelector(".fc-toolbar-title");
   const dates = document.getElementById("dates");
   if (actual && dates) {
