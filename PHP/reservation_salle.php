@@ -182,7 +182,7 @@
                                                     </div>
                                     <?php
                                     }
-                                    } elseif ($_SESSION['user']['role'] == 'Enseignant(e)'){
+                                    } elseif ($_SESSION['user']['role'] == 'Enseignant(e)' || $_SESSION['user']['role'] == 'Administrateur'){
                                         $sql = "
                                             SELECT u.id, u.nom, u.prenom, u.avatar
                                             FROM user_ u
@@ -230,10 +230,28 @@
 
                         <label>
                             <input type="checkbox" name="acceptation">
-                            En cas de perte, de détérioration ou d'utilisation non autorisée, je m'engage à en assumer
-                            les
-                            conséquences.
-                        </label><!--POPUP-->
+                            Lire et approuver le <a style="color:red; text-decoration:underline;" onclick="document.getElementById('regle').style.display='block'">règlement de l'utilisation</a> de la salle.
+                        </label>
+                        <div id="regle" 
+                        class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-md-65 start-50 translate-middle text-center align-items-center justify-content-center" 
+                        style="--bs-border-opacity: .5; z-index:10; width: 50%; border: 1px solid #e47390; display:none;">
+
+                            <h5 class="mb-4">Règlement d'utilisation</h5>
+                            <p class="mb-3">En réservant du matériel ou une salle dans le cadre du BUT MMI, je reconnais avoir pris connaissance du présent règlement :</p>
+                            <ul class="text-start mb-4" style="display: inline-block; text-align: left;">
+                                <li>Je suis responsable du matériel ou de la salle durant toute la durée de la réservation.</li>
+                                <li>En cas de perte, vol, ou détérioration, je m'engage à en assumer les conséquences, y compris financières.</li>
+                                <li>Je m'engage à utiliser les équipements de manière respectueuse, en conformité avec leur usage prévu.</li>
+                                <li>Je comprends que toute utilisation non autorisée pourra entraîner des sanctions pédagogiques ou disciplinaires.</li>
+                            </ul>
+
+                            <div class="text-center">
+                                <label>
+                                    <input type="checkbox" name="acceptation" class="fs-6 fs-md-5" onclick="const container = this.closest('.container-sm-6'); container.style.display='none'; document.querySelector('input[name=acceptation]').checked = true; ">
+                                    <span class="ms-2">Je certifie avoir lu et approuvé ce règlement</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
 
                     <button class="submit-button" type="submit" name="submit">Soumettre</button>

@@ -32,7 +32,7 @@ require_once("../PHPpure/connexion.php");
 // -- INSERT INTO `concerne_salle` (`idS`, `idR`) VALUES (1, 2);
 
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST['submit'])) {
     $date = $_POST['selected-date'];
     $horaireD = $_POST['horaireD'];
     $horaireF = $_POST['horaireF'];

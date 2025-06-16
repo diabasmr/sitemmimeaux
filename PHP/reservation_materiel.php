@@ -124,11 +124,11 @@
                     <div class="who">
                         <h3>Qui réserve ?</h3>
                         <div class="avatars">
-                            <div id="avatar-container">
+                        <div id="avatar-container">
                                 <?php
                                 require_once("../PHPpure/connexion.php");
                                 $id_utilisateur = $_SESSION["user"]["id"];
-                                if ($_SESSION["user"]["role"] == "Etudiant(e)") {
+                                if ($_SESSION["user"]["role"] == "Etudiant(e)" || $_SESSION["user"]["role"] == "Enseignant(e)" || $_SESSION["user"]["role"] == "Administrateur") {
                                     $requete = $pdo->prepare("SELECT * FROM user_ WHERE id = ?");
                                     $requete->execute([$id_utilisateur]);
                                     $utilisateur = $requete->fetch();
@@ -158,37 +158,70 @@
                                 require_once("../PHPpure/connexion.php");
                                 if (isset($_SESSION['user'])) {
                                     $idConnecte = $_SESSION['user']['id'];
-                                    $sql = "
+                                    if($_SESSION['user']['role'] == 'Etudiant(e)'){
+                                        $sql = "
                                             SELECT u.id, u.nom, u.prenom, u.avatar, e.promotion, e.td
                                             FROM user_ u
                                             INNER JOIN etudiant e ON u.id= e.id
                                             WHERE u.id != :idConnecte
                                         ";
-                                    $stmt = $pdo->prepare($sql);
-                                    $stmt->bindParam(':idConnecte', $idConnecte, PDO::PARAM_INT);
-                                    $stmt->execute();
-                                    $etudiants = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                    foreach ($etudiants as $etudiant) {
-                                ?>
-                                        <div class="who-list-user-item mb-3 col-12 d-flex justify-content-between align-items-center gap-2 w-100"
-                                            id="<?= $etudiant['id'] ?>">
-                                            <div class="d-flex justify-content-between align-items-center w-100">
-                                                <div class="d-flex justify-content-between align-items-center gap-2">
-                                                    <img src="<?= htmlspecialchars($etudiant['avatar'] ?? '../uploads/default.png') ?>"
-                                                        alt="" class="avatarAjouterEtudiant " id="<?= $etudiant['id'] ?>">
-                                                    <div
-                                                        class="etudiantInfo d-flex justify-content-end align-items-start flex-column">
-                                                        <p class="fs-3 fs-md-1"><?= htmlspecialchars($etudiant['prenom']) . ' ' . htmlspecialchars($etudiant['nom']) ?>
-                                                        </p>
-                                                        <p class="fs-3 fs-md-1"><?= htmlspecialchars($etudiant['promotion']) ?></p>
+                                        $stmt = $pdo->prepare($sql);
+                                        $stmt->bindParam(':idConnecte', $idConnecte, PDO::PARAM_INT);
+                                        $stmt->execute();
+                                        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    foreach ($users as $user) {
+                                            ?>
+                                                  <div class="who-list-user-item mb-3 col-12 d-flex justify-content-between align-items-center gap-2 w-100"
+                                                        id="<?= $user['id'] ?>">
+                                                        <div class="d-flex justify-content-between align-items-center w-100">
+                                                            <div class="d-flex justify-content-between align-items-center gap-2">
+                                                                <img src="<?= htmlspecialchars($user['avatar'] ?? '../uploads/default.png') ?>"
+                                                                    alt="" class="avatarAjouterEtudiant " id="<?= $user['id'] ?>">
+                                                                <div
+                                                                    class="etudiantInfo d-flex justify-content-end align-items-start flex-column">
+                                                                    <p class="fs-3 fs-md-1"><?= htmlspecialchars($user['prenom']) . ' ' . htmlspecialchars($user['nom']) ?>
+                                                                    </p>
+                                                                    <p class="fs-3 fs-md-1"><?= isset($user['promotion']) ? htmlspecialchars($user['promotion']) : "" ?></p>
+                                                                </div>
+                                                            </div>
+                                                            <p class="fs-3 fs-md-1"><?= isset($user['td']) ? htmlspecialchars($user['td']) : "" ?></p>
+                                                        </div>
+                                                        <button type="button" class="ajouterUserButton">Ajouter</button>
                                                     </div>
-                                                </div>
-                                                <p class="fs-3 fs-md-1"><?= htmlspecialchars($etudiant['td']) ?></p>
-                                            </div>
-                                            <button type="button" class="ajouterUserButton fs-3 fs-md-1">ajouter</button>
-                                        </div>
+                                    <?php
+                                    }
+                                    } elseif ($_SESSION['user']['role'] == 'Enseignant(e)' || $_SESSION['user']['role'] == 'Administrateur'){
+                                        $sql = "
+                                            SELECT u.id, u.nom, u.prenom, u.avatar
+                                            FROM user_ u
+                                            WHERE u.id != :idConnecte
+                                        ";
+                                        $stmt = $pdo->prepare($sql);
+                                        $stmt->bindParam(':idConnecte', $idConnecte, PDO::PARAM_INT);
+                                        $stmt->execute();
+                                        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                        foreach ($users as $user) {
+                                            ?>
+                                                  <div class="who-list-user-item mb-3 col-12 d-flex justify-content-between align-items-center gap-2 w-100"
+                                                        id="<?= $user['id'] ?>">
+                                                        <div class="d-flex justify-content-between align-items-center w-100">
+                                                            <div class="d-flex justify-content-between align-items-center gap-2">
+                                                                <img src="<?= htmlspecialchars($user['avatar'] ?? '../uploads/default.png') ?>"
+                                                                    alt="" class="avatarAjouterEtudiant " id="<?= $user['id'] ?>">
+                                                                <div
+                                                                    class="etudiantInfo d-flex justify-content-end align-items-start flex-column">
+                                                                    <p class="fs-3 fs-md-1"><?= htmlspecialchars($user['prenom']) . ' ' . htmlspecialchars($user['nom']) ?>
+                                                                    </p>
+                                                                    <p class="fs-3 fs-md-1"><?= isset($user['promotion']) ? htmlspecialchars($user['promotion']) : "" ?></p>
+                                                                </div>
+                                                            </div>
+                                                            <p class="fs-3 fs-md-1"><?= isset($user['td']) ? htmlspecialchars($user['td']) : "" ?></p>
+                                                        </div>
+                                                        <button type="button" class="ajouterUserButton">Ajouter</button>
+                                                    </div>  
                                 <?php
                                     }
+                                }
                                 } else {
                                     echo "Utilisateur non connecté.";
                                 }
@@ -204,9 +237,29 @@
                         <input type="hidden" name="signature" id="signature-data">
 
                         <label>
-                            <input type="checkbox" name="acceptation">
-                            En cas de perte, de détérioration ou d'utilisation non autorisée, je m'engage à en assumer les conséquences.
+                        <input type="checkbox" name="acceptation">
+                        Lire et approuver le <a style="color:red; text-decoration:underline;" onclick="document.getElementById('regle').style.display='block'">règlement de l'utilisation</a> du matériel.
                         </label>
+                        <div id="regle" 
+                        class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-md-65 start-50 translate-middle text-center align-items-center justify-content-center" 
+                        style="--bs-border-opacity: .5; z-index:10; width: 50%; border: 1px solid #e47390; display:none;">
+
+                            <h5 class="mb-4">Règlement d'utilisation</h5>
+                            <p class="mb-3">En réservant du matériel ou une salle dans le cadre du BUT MMI, je reconnais avoir pris connaissance du présent règlement :</p>
+                            <ul class="text-start mb-4" style="display: inline-block; text-align: left;">
+                                <li>Je suis responsable du matériel ou de la salle durant toute la durée de la réservation.</li>
+                                <li>En cas de perte, vol, ou détérioration, je m'engage à en assumer les conséquences, y compris financières.</li>
+                                <li>Je m'engage à utiliser les équipements de manière respectueuse, en conformité avec leur usage prévu.</li>
+                                <li>Je comprends que toute utilisation non autorisée pourra entraîner des sanctions pédagogiques ou disciplinaires.</li>
+                            </ul>
+
+                            <div class="text-center">
+                                <label>
+                                    <input type="checkbox" name="acceptation" class="fs-6 fs-md-5" onclick="const container = this.closest('.container-sm-6'); container.style.display='none'; document.querySelector('input[name=acceptation]').checked = true; ">
+                                    <span class="ms-2">Je certifie avoir lu et approuvé ce règlement</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
 
                     <button class="submit-button" type="submit" name="submit">Soumettre</button>
