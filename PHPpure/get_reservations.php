@@ -27,8 +27,7 @@ if ($role !== 'Administrateur' && $role !== 'Agent(e)') {
     }
 
     $placeholders = implode(',', array_fill(0, count($reservationIds), '?'));
-    $sql = "
-        SELECT 
+    $sql = "SELECT 
             r.idR,
             r.date_debut AS start,
             r.date_fin AS end,
@@ -54,7 +53,7 @@ if ($role !== 'Administrateur' && $role !== 'Agent(e)') {
         JOIN salle s ON cs.idS = s.idS
         JOIN reservation_users ru ON r.idR = ru.idR
         JOIN user_ u ON ru.id = u.id
-        WHERE r.valide = 1 AND r.idR IN ($placeholders)
+        WHERE r.valide = 1 OR r.valide = 3 AND r.idR IN ($placeholders)
         ORDER BY start
     "; // IMPORTANT : il faut passer deux fois les mêmes params (pour chaque IN)
     $params = array_merge($reservationIds, $reservationIds);
@@ -63,8 +62,7 @@ if ($role !== 'Administrateur' && $role !== 'Agent(e)') {
     $stmt->execute($params);
 } else {
     // admin : récupère tout
-    $sql = "
-        SELECT 
+    $sql = "SELECT 
             r.idR,
             r.date_debut AS start,
             r.date_fin AS end,
@@ -90,7 +88,7 @@ if ($role !== 'Administrateur' && $role !== 'Agent(e)') {
         JOIN salle s ON cs.idS = s.idS
         JOIN reservation_users ru ON r.idR = ru.idR
         JOIN user_ u ON ru.id = u.id
-        WHERE r.valide = 1
+        WHERE r.valide = 1 OR r.valide = 3
         ORDER BY start
     ";
     $stmt = $pdo->query($sql);

@@ -25,6 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
     initialView: "timeGridWeek",
     themeSystem: "standard",
     locale: "fr",
+    slotMinTime: "08:00:00",
+    slotMaxTime: "18:00:00",
+    hiddenDays: [0, 6],
     headerToolbar: {
       left: "prev,next",
       center: "title",
@@ -43,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         avatarWrapper.style.right = "5px";
         avatarWrapper.style.display = "flex";
         avatarWrapper.style.gap = "5px";
+        container.style.overflow = "hidden";
 
         // Pour chaque avatar, on crée une image et on l'ajoute
         info.event.extendedProps.avatars.forEach((src) => {

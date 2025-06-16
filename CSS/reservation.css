@@ -180,6 +180,11 @@ div.fc-timegrid-slot-label-cushion.fc-scrollgrid-shrink-cushion {
   color: #6b7a99;
 }
 
+/* Ajuster la hauteur des lignes horaires */
+.fc-timegrid-slot {
+  height: 50px !important; /* Change cette valeur selon tes besoins */
+}
+
 /* le tr avec le role row */
 
 /* responsive */

@@ -42,7 +42,7 @@
             <section class="reservation-content">
                 <!-- Colonne de gauche : caméra -->
                 <div class="equipment">
-                    <img src="https://glistening-sunburst-222dae.netlify.app/salle/salle138.png" alt=""
+                    <img src="../materiel/Salle138.JPG" alt=""
                         id="salle-image">
                     <h2 id="salle-title">Salle 138</h2>
 
