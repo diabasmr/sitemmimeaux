@@ -42,7 +42,7 @@
             <section class="reservation-content">
                 <!-- Colonne de gauche : caméra -->
                 <div class="equipment">
-                    <img src="../materiel/Salle138.JPG" alt=""
+                    <img src="../IMG/image.png" alt=""
                         id="salle-image">
                     <h2 id="salle-title">Salle 138</h2>
 
@@ -229,8 +229,8 @@
                         <input type="hidden" name="signature" id="signature-data">
 
                         <label>
-                            <input type="checkbox" name="acceptation">
-                            Lire et approuver le <a style="color:red; text-decoration:underline;" onclick="document.getElementById('regle').style.display='block'">règlement de l'utilisation</a> de la salle.
+                            <input type="checkbox" name="acceptation" onclick="document.getElementById('regle').style.display='block'">
+                            Lire et approuver le Règlement de l'Utilisation de la salle.
                         </label>
                         <div id="regle" 
                         class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-md-65 start-50 translate-middle text-center align-items-center justify-content-center" 

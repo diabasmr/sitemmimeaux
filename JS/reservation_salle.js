@@ -251,7 +251,7 @@ document.addEventListener("DOMContentLoaded", function () {
     salleTitle.textContent = `Salle ${salle}`;
 
     // Mettre à jour l'image
-    salleImage.src = salle === "138" ? "../IMG/image.jpg" : "../IMG/image2.jpg";
+    salleImage.src = salle === "138" ? "../IMG/image.png" : "../IMG/image2.jpg";
   }
 
   // Ajouter les écouteurs d'événements sur les boutons

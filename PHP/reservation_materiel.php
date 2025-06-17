@@ -276,12 +276,11 @@
                         <input type="hidden" name="signature" id="signature-data">
 
                         <label>
-                        <input type="checkbox" name="acceptation">
-                        Lire et approuver le <a style="color:red; text-decoration:underline;" onclick="document.getElementById('regle').style.display='block'">règlement de l'utilisation</a> du matériel.
+                            <input type="checkbox" name="acceptation" onclick="document.getElementById('regle').style.display='block'">
+                            Lire et approuver le Règlement de l'Utilisation du matériel.
                         </label>
                         <div id="regle" 
-                        class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-md-65 start-50 translate-middle text-center align-items-center justify-content-center" 
-                        style="--bs-border-opacity: .5; z-index:10; width: 50%; border: 1px solid #e47390; display:none;">
+                        class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-md-65 start-50 translate-middle text-center align-items-center justify-content-center" >
 
                             <h5 class="mb-4">Règlement d'utilisation</h5>
                             <p class="mb-3">En réservant du matériel ou une salle dans le cadre du BUT MMI, je reconnais avoir pris connaissance du présent règlement :</p>

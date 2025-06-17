@@ -360,6 +360,14 @@ main .reservation-container {
   z-index: 5;
 }
 
+#regle {
+  --bs-border-opacity: 0.5;
+  z-index: 10;
+  width: 50%;
+  border: 1px solid #e47390;
+  display: none;
+}
+
 @media screen and (max-width: 1100px) {
   .who-list-user {
     width: 95%;
@@ -389,5 +397,10 @@ main .reservation-container {
   .avatarAjouterEtudiant {
     width: 10vw;
     height: 10vw;
+  }
+
+  #regle {
+    width: 90%;
+    margin-top: 90%;
   }
 }
