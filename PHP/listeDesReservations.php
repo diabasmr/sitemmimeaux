@@ -33,12 +33,14 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
         <h1>Réservations</h1>
         <div class="search">
         <p class="fs-6 me-5">Consulter l'historique</p>
-        <div class="searchContainer">
+        <div class="searchContainer me-5">
             <input type="search" name="search" id="inputSearch" placeholder="Chercher..." />
             <button id="buttonSearch">
                 <img src="../res/search.svg" alt="" />
             </button>
         </div>
+        <button class="ms-5 salles rounded p-2 text-dark" style="background-color:pink; border:solid 1px #e4587d;" onclick="window.location.href='reputation.php'"
+        >Voir les statistiques</button>
     </div>
         <section class="table mb-5">
             <article class="header_Table">

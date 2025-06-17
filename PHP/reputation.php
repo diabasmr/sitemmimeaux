@@ -1,7 +1,5 @@
 <?php
 include("../PHPpure/entete.php");
-
-echo json_encode($labels)
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +20,6 @@ echo json_encode($labels)
 </head>
 
 <body>
-    <!-- width 100%-->
     <?php
     include("header.php");
     include("aside.php");
@@ -39,24 +36,18 @@ echo json_encode($labels)
             </div>
         </section>
   
-        <section id="stats-resa">
+        <section id="stats-resa" style="width:100%;">
             <h4>Statistiques temporelles des réservations</h4>
             <canvas id="Reservations"></canvas>
 
             <div class="row">
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-4 my-4">
                     <canvas id="Validations"></canvas>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <canvas id=""></canvas>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <canvas id=""></canvas>
                 </div>
             </div>
         </section>
   
-        <section id="stats-materiel" style="display:none;">
+        <section id="stats-materiel" style="display:none; width:100%;">
             <h4>Statistiques quantitative de l'utilisation du matériel</h4>
             <canvas id="Materiel"></canvas>
 
@@ -76,7 +67,7 @@ echo json_encode($labels)
             </div>
         </section>
 
-        <section id="stats-salles" style="display:none;">
+        <section id="stats-salles" style="display:none; width:100%;">
             <h4>Statistiques quantitative de l'utilisation des salles</h4>
             <canvas id="Salles"></canvas>
 

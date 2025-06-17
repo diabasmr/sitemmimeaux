@@ -42,6 +42,8 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
                 <img src="../res/search.svg" alt="" />
             </button>
         </div>
+        <button class="ms-5 salles rounded p-2 text-dark" style="background-color:pink; border:solid 1px #e4587d;" onclick="window.location.href='reputation.php'"
+        >Voir les statistiques</button>
     </div>
     </div>
         <section class="table mb-5">
