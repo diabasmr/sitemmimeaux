@@ -79,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(idR);
     });
   }
-
   window.addEventListener("resize", function () {
     modifyCalendar();
   });

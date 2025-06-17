@@ -39,7 +39,7 @@ if ($role !== 'Administrateur' && $role !== 'Agent(e)') {
         JOIN materiel m ON c.idM = m.idM
         JOIN reservation_users ru ON r.idR = ru.idR
         JOIN user_ u ON ru.id = u.id
-        WHERE r.valide = 1 AND r.idR IN ($placeholders)
+        WHERE r.valide = 1 OR r.valide = 3 AND r.idR IN ($placeholders)
         UNION ALL
         SELECT 
             r.idR,
@@ -74,7 +74,7 @@ if ($role !== 'Administrateur' && $role !== 'Agent(e)') {
         JOIN materiel m ON c.idM = m.idM
         JOIN reservation_users ru ON r.idR = ru.idR
         JOIN user_ u ON ru.id = u.id
-        WHERE r.valide = 1
+        WHERE r.valide = 1 OR r.valide = 3
         UNION ALL
         SELECT 
             r.idR,
