@@ -22,6 +22,9 @@ include("../PHPpure/entete.php");
     <?php
     include("header.php");
     include("aside.php");
+    // Inclure PHPMailer
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
     ?>
     <main>
         <?php
