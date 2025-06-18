@@ -246,25 +246,33 @@ foreach ($salle as $row3) {
 }
 
 //Récupère les matériaux les plus utilisés
-$stmt5 = $pdo->prepare("SELECT m.idM, m.designation, COUNT(c.idM) AS nb_concernes FROM materiel m JOIN concerne c ON c.idM = m.idM GROUP BY m.idM, m.designation ORDER BY nb_concernes DESC LIMIT 3;");
+$stmt5 = $pdo->prepare("SELECT
+                        m.idM, m.designation, COUNT(c.idM) AS nb_concernes,
+                        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 1 THEN 1 ELSE 0 END) AS duree_1h,
+                        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 2 THEN 1 ELSE 0 END) AS duree_2h,
+                        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 3 THEN 1 ELSE 0 END) AS duree_3h,
+                        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) >= 4 THEN 1 ELSE 0 END) AS duree_plus_4h
+                        FROM materiel m
+                        JOIN concerne c ON m.idM = c.idM
+                        JOIN reservations r ON r.idR = c.idR
+                        GROUP BY m.idM ORDER BY nb_concernes DESC LIMIT 3;");
 $stmt5->execute();
 $plusutilise = $stmt5->fetchAll(PDO::FETCH_ASSOC);
-//Récupère les périodes d'utilisation
-$idM_list = array_column($plusutilise, 'idM');
 
-$placeholders = implode(',', array_fill(0, count($idM_list), '?'));
+//Données salle 138 et 212
+$stmt6 = $pdo->prepare("SELECT
+                        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 1 THEN 1 ELSE 0 END) AS duree_1h,
+                        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 2 THEN 1 ELSE 0 END) AS duree_2h,
+                        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 3 THEN 1 ELSE 0 END) AS duree_3h,
+                        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) >= 4 THEN 1 ELSE 0 END) AS duree_plus_4h
+                        FROM salle s
+                        JOIN concerne_salle cs ON s.idS = cs.idS
+                        JOIN reservations r ON r.idR = cs.idR
+                        GROUP BY s.idS;");
+$stmt6->execute();
+$salle = $stmt6->fetchAll(PDO::FETCH_ASSOC);
 
-$stmt6 = $pdo->prepare("
-    SELECT c.idM, ROUND(TIME_TO_SEC(TIMEDIFF(r.date_fin, r.date_debut)) / 3600, 2) AS temps_moyen
-    FROM reservations r
-    JOIN concerne c ON c.idR = r.idR
-    WHERE c.idM IN ($placeholders)
-");
 
-$stmt6->execute($idM_list);
-$tempsmoyens = $stmt6->fetchAll(PDO::FETCH_ASSOC);
-
-print_r($tempsmoyens);
 echo json_encode([
     "enseignants" => $enseignants,
     "etudiants" => $etudiants,
@@ -278,10 +286,27 @@ echo json_encode([
     "thirdyearS" => $thirdyearS,
     "enseignantsS" => $enseignantsS,
     "materiel1" => $plusutilise[0]['designation'],
-    "utilisation1" =>$tempsmoyens[0]['temps_moyen'],
+    "heure" =>$plusutilise[0]['duree_1h'],
+    "deuxHeure" =>$plusutilise[0]['duree_2h'],
+    "troisHeure" =>$plusutilise[0]['duree_3h'],
+    "plus4Heure" =>$plusutilise[0]['duree_plus_4h'],
     "materiel2" => $plusutilise[1]['designation'],
-    "utilisation2" =>$tempsmoyens[1]['temps_moyen'],
+    "heureSecond" =>$plusutilise[1]['duree_1h'],
+    "deuxHeureSecond" =>$plusutilise[1]['duree_2h'],
+    "troisHeureSecond" =>$plusutilise[1]['duree_3h'],
+    "plus4HeureSecond" =>$plusutilise[1]['duree_plus_4h'],
     "materiel3" => $plusutilise[2]['designation'],
-    "utilisation3" =>$tempsmoyens[2]['temps_moyen']
+    "heureTroisieme" =>$plusutilise[2]['duree_1h'],
+    "deuxHeureTroisieme" =>$plusutilise[2]['duree_2h'],
+    "troisHeureTroisieme" =>$plusutilise[2]['duree_3h'],
+    "plus4HeureTroisieme" =>$plusutilise[2]['duree_plus_4h'],
+    "heuresalle138" =>$salle[0]['duree_1h'],
+    "deuxHeuresalle138" =>$salle[0]['duree_2h'],
+    "troisHeuresalle138" =>$salle[0]['duree_3h'],
+    "plus4Heuresalle138" =>$salle[0]['duree_plus_4h'],
+    "heuresalle212" =>$salle[1]['duree_1h'],
+    "deuxHeuresalle212" =>$salle[1]['duree_2h'],
+    "troisHeuresalle212" =>$salle[1]['duree_3h'],
+    "plus4Heuresalle212" =>$salle[1]['duree_plus_4h']
 ]);
     ?>

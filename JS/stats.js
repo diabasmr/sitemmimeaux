@@ -87,7 +87,15 @@ fetch("../phpPure/get_stats.php")
         ],
         labels: ["Acceptée", "Refusée", "En attente", "Terminée"],
       },
-      options: { responsive: true },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: "Taux de validation des réservations",
+          },
+        },
+      },
     });
 
     //MATERIEL
@@ -117,7 +125,15 @@ fetch("../phpPure/get_stats.php")
           },
         ],
       },
-      options: {},
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: "Réservations des matériels selon les niveaux",
+          },
+        },
+      },
     });
 
     var ctx3 = document.getElementById("Temporalite1").getContext("2d");
@@ -126,15 +142,28 @@ fetch("../phpPure/get_stats.php")
       data: {
         datasets: [
           {
-            data: [1, 3, 4],
+            data: [
+              reservations.heure,
+              reservations.deuxHeure,
+              reservations.troisHeure,
+              reservations.plus4Heure,
+            ],
             backgroundColor: ["#a38bbe", "#dc88bf", "#dcab88"],
             borderColor: "#fff",
             borderWidth: 2,
           },
         ],
-        labels: ["1 heure", "2-3 heures", "Plus de 4 heures"],
+        labels: ["1 heure", "2-3 heures", "3 heures", "Plus de 4 heures"],
       },
-      options: { responsive: true },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: `Durée d'usage de ${reservations.materiel1}`,
+          },
+        },
+      },
     });
 
     var ctx3 = document.getElementById("Temporalite2").getContext("2d");
@@ -143,15 +172,28 @@ fetch("../phpPure/get_stats.php")
       data: {
         datasets: [
           {
-            data: [10, 20, 30],
+            data: [
+              reservations.heureSecond,
+              reservations.deuxHeureSecond,
+              reservations.troisHeureSecond,
+              reservations.plus4HeureSecond,
+            ],
             backgroundColor: ["#a38bbe", "#dc88bf", "#dcab88"],
             borderColor: "#fff",
             borderWidth: 2,
           },
         ],
-        labels: ["1 heure", "2-3 heures", "Plus de 4 heures"],
+        labels: ["1 heure", "2 heures", "3 heures", "Plus de 4 heures"],
       },
-      options: { responsive: true },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: `Durée d'usage de ${reservations.materiel2}`,
+          },
+        },
+      },
     });
 
     var ctx3 = document.getElementById("Temporalite3").getContext("2d");
@@ -160,15 +202,28 @@ fetch("../phpPure/get_stats.php")
       data: {
         datasets: [
           {
-            data: [10, 20, 30],
+            data: [
+              reservations.heureTroisieme,
+              reservations.deuxHeureTroisieme,
+              reservations.troisHeureTroisieme,
+              reservations.plus4HeureTroisieme,
+            ],
             backgroundColor: ["#a38bbe", "#dc88bf", "#dcab88"],
             borderColor: "#fff",
             borderWidth: 2,
           },
         ],
-        labels: ["1 heure", "2-3 heures", "Plus de 4 heures"],
+        labels: ["1 heure", "2 heures", "3 heures", "Plus de 4 heures"],
       },
-      options: { responsive: true },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: `Durée d'usage de ${reservations.materiel3}`,
+          },
+        },
+      },
     });
 
     //SALLES
@@ -204,7 +259,15 @@ fetch("../phpPure/get_stats.php")
           },
         ],
       },
-      options: {},
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: `Réservations des Salles selon le rôle`,
+          },
+        },
+      },
     });
 
     var ctx3 = document.getElementById("Temporalite4").getContext("2d");
@@ -213,15 +276,28 @@ fetch("../phpPure/get_stats.php")
       data: {
         datasets: [
           {
-            data: [10, 20, 30],
+            data: [
+              reservations.heuresalle138,
+              reservations.deuxHeuresalle138,
+              reservations.troisHeuresalle138,
+              reservations.plus4Heuresalle138,
+            ],
             backgroundColor: ["#a38bbe", "#dc88bf", "#dcab88"],
             borderColor: "#fff",
             borderWidth: 2,
           },
         ],
-        labels: ["1 heure", "2-3 heures", "Plus de 4 heures"],
+        labels: ["1 heure", "2 heures", "3 heures", "Plus de 4 heures"],
       },
-      options: { responsive: true },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: `Durée d'usage de la Salle 138`,
+          },
+        },
+      },
     });
 
     var ctx3 = document.getElementById("Temporalite5").getContext("2d");
@@ -230,97 +306,61 @@ fetch("../phpPure/get_stats.php")
       data: {
         datasets: [
           {
-            data: [10, 20, 30],
+            data: [
+              reservations.heuresalle212,
+              reservations.deuxHeuresalle212,
+              reservations.troisHeuresalle212,
+              reservations.plus4Heuresalle212,
+            ],
             backgroundColor: ["#a38bbe", "#dc88bf", "#dcab88"],
             borderColor: "#fff",
             borderWidth: 2,
           },
         ],
-        labels: ["1 heure", "2-3 heures", "Plus de 4 heures"],
+        labels: ["1 heure", "2 heures", "3 heures", "Plus de 4 heures"],
       },
-      options: { responsive: true },
-    });
-
-    var ctx3 = document.getElementById("Temporalite6").getContext("2d");
-    var myDoughnutChart3 = new Chart(ctx3, {
-      type: "doughnut",
-      data: {
-        datasets: [
-          {
-            data: [10, 20, 30],
-            backgroundColor: ["#a38bbe", "#dc88bf", "#dcab88"],
-            borderColor: "#fff",
-            borderWidth: 2,
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: `Durée d'usage de la Salle 212`,
           },
-        ],
-        labels: ["1 heure", "2-3 heures", "Plus de 4 heures"],
+        },
       },
-      options: { responsive: true },
     });
   });
 
 //TELECHARGEMENT CSV
-document.getElementById("downloadCSV").addEventListener("click", function () {
-  downloadCSV({
-    filename: "chart-data.csv",
-    chart: chart,
-  });
-});
+function exportChartToCSV(canvasId) {
+  const chart = Chart.getChart(canvasId);
+  if (!chart) return alert(`Graphique "${canvasId}" introuvable.`);
 
-function convertChartDataToCSV(args) {
-  let result, columnDelimiter, lineDelimiter, labels, data;
+  const labels = chart.data.labels;
+  const datasets = chart.data.datasets;
+  const separator = ";"; // ou "," selon ton Excel
+  const chartTitle = chart.options?.plugins?.title?.text || "Label";
 
-  data = args.data.data || null;
-  if (data == null || !data.length) {
-    return null;
-  }
+  let csv =
+    `"${chartTitle}"` +
+    separator +
+    datasets.map((ds) => `"${ds.label}"`).join(separator) +
+    "\n";
 
-  labels = args.labels || null;
-  if (labels == null || !labels.length) {
-    return null;
-  }
-
-  columnDelimiter = args.columnDelimiter || ",";
-  lineDelimiter = args.lineDelimiter || "\n";
-
-  result = "" + columnDelimiter;
-  result += labels.join(columnDelimiter);
-  result += lineDelimiter;
-
-  result += args.data.label.toString();
-
-  for (let i = 0; i < data.length; i++) {
-    result += columnDelimiter;
-    result += data[i];
-  }
-  result += lineDelimiter;
-
-  return result;
-}
-
-function downloadCSV(args) {
-  var data, filename, link;
-  var csv = "";
-  for (var i = 0; i < chart.data.datasets.length; i++) {
-    csv += convertChartDataToCSV({
-      data: chart.data.datasets[i],
-      labels: dataLabels,
+  for (let i = 0; i < labels.length; i++) {
+    let row = labels[i];
+    datasets.forEach((ds) => {
+      const value = ds.data[i];
+      row += separator + (value != null ? value : "");
     });
-  }
-  if (csv == null) return;
-  console.log(csv);
-
-  filename = args.filename || "chart-data.csv";
-  if (!csv.match(/^data:text\/csv/i)) {
-    csv = "data:text/csv;charset=utf-8," + csv;
+    csv += row + "\n";
   }
 
-  // not sure if anything below this comment works
-  data = encodeURI(csv);
-  link = document.createElement("a");
-  link.setAttribute("href", data);
-  link.setAttribute("download", filename);
-  document.body.appendChild(link); // Required for FF
+  const BOM = "\uFEFF";
+  const blob = new Blob([BOM + csv], { type: "text/csv;charset=utf-8;" });
+
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `${canvasId}.csv`;
   link.click();
-  document.body.removeChild(link);
 }

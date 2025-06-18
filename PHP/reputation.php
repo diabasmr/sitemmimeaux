@@ -37,56 +37,59 @@ include("../PHPpure/entete.php");
         </section>
   
         <section id="stats-resa" style="width:100%;">
-            <h4>Statistiques temporelles des réservations</h4>
             <canvas id="Reservations"></canvas>
+            <button class="salles rounded p-2 text-white mt-2" style="background-color:#e4587d; border:none;" onclick="exportChartToCSV('Reservations')">Télécharger en CSV</button>
 
             <div class="row">
                 <div class="col-12 col-md-4 my-4">
                     <canvas id="Validations"></canvas>
+                    <button class="salles rounded p-2 text-white mt-2" style="background-color:#e4587d; border:none;" onclick="exportChartToCSV('Validations')">Télécharger en CSV</button>
                 </div>
             </div>
-            <button id="downloadCSV">Télécharger les statistiques en CSV</button>
         </section>
   
         <section id="stats-materiel" style="display:none; width:100%;">
-            <h4>Statistiques quantitative de l'utilisation du matériel</h4>
             <canvas id="Materiel"></canvas>
+            <button class="salles rounded p-2 text-white mt-2" style="background-color:#e4587d; border:none;" onclick="exportChartToCSV('Materiel');">Télécharger en CSV</button>
 
-            <div class="row">
+            <div class="row mt-5">
                 <div class="col-12 col-md-4 mb-4">
                     <canvas id="Temporalite1"></canvas>
                     <b>Matériel 1</b>
+                    <button class="salles rounded p-2 mt-2 text-white" style="background-color:#e4587d; border:none;" onclick="exportChartToCSV('Temporalite1');">Télécharger en CSV</button>
                 </div>
                 <div class="col-12 col-md-4 mb-4">
                     <canvas id="Temporalite2"></canvas>
                     <b>Matériel 2</b>
+                    <button class="salles rounded p-2 mt-2 text-white" style="background-color:#e4587d; border:none;" onclick="exportChartToCSV('Temporalite2');">Télécharger en CSV</button>
                 </div>
                 <div class="col-12 col-md-4 mb-4">
                     <canvas id="Temporalite3"></canvas>
                     <b>Matériel 3</b>
+                    <button class="salles rounded p-2 mt-2 text-white" style="background-color:#e4587d; border:none;" onclick="exportChartToCSV('Temporalite3');">Télécharger en CSV</button>
                 </div>
             </div>
-            <button id="downloadCSV">Télécharger les statistiques en CSV</button>
         </section>
 
         <section id="stats-salles" style="display:none; width:100%;">
-            <h4>Statistiques quantitative de l'utilisation des salles</h4>
             <canvas id="Salles"></canvas>
+            <button class="salles rounded p-2 mt-2 text-white" style="background-color:#e4587d; border:none;" onclick="exportChartToCSV('Salles');">Télécharger en CSV</button>
 
-            <div class="row">
+            <div class="row mt-5">
                 <div class="col-12 col-md-6 mb-4">
                     <canvas id="Temporalite4"></canvas>
                     <b>Salle 138</b>
+                    <button class="salles rounded p-2 mt-2 text-white" style="background-color:#e4587d; border:none;" onclick="exportChartToCSV('Temporalite4');">Télécharger en CSV</button>
                 </div>
                 <div class="col-12 col-md-6 mb-4">
                     <canvas id="Temporalite5"></canvas>
                     <b>Salle 212</b>
+                    <button class="salles rounded p-2 mt-2 text-white" style="background-color:#e4587d; border:none;" onclick="exportChartToCSV('Temporalite5');">Télécharger en CSV</button>
                 </div>
-                <button id="downloadCSV">Télécharger les statistiques en CSV</button>
         </section>
 </main>
     <!-- JS -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
     <script src="../JS/sideBarre.js"></script>
     <script src="../JS/stats.js"></script>
 </body>
