@@ -126,7 +126,7 @@ fetch("../phpPure/get_stats.php")
       data: {
         datasets: [
           {
-            data: [10, 20, 30],
+            data: [1, 3, 4],
             backgroundColor: ["#a38bbe", "#dc88bf", "#dcab88"],
             borderColor: "#fff",
             borderWidth: 2,
@@ -258,3 +258,69 @@ fetch("../phpPure/get_stats.php")
       options: { responsive: true },
     });
   });
+
+//TELECHARGEMENT CSV
+document.getElementById("downloadCSV").addEventListener("click", function () {
+  downloadCSV({
+    filename: "chart-data.csv",
+    chart: chart,
+  });
+});
+
+function convertChartDataToCSV(args) {
+  let result, columnDelimiter, lineDelimiter, labels, data;
+
+  data = args.data.data || null;
+  if (data == null || !data.length) {
+    return null;
+  }
+
+  labels = args.labels || null;
+  if (labels == null || !labels.length) {
+    return null;
+  }
+
+  columnDelimiter = args.columnDelimiter || ",";
+  lineDelimiter = args.lineDelimiter || "\n";
+
+  result = "" + columnDelimiter;
+  result += labels.join(columnDelimiter);
+  result += lineDelimiter;
+
+  result += args.data.label.toString();
+
+  for (let i = 0; i < data.length; i++) {
+    result += columnDelimiter;
+    result += data[i];
+  }
+  result += lineDelimiter;
+
+  return result;
+}
+
+function downloadCSV(args) {
+  var data, filename, link;
+  var csv = "";
+  for (var i = 0; i < chart.data.datasets.length; i++) {
+    csv += convertChartDataToCSV({
+      data: chart.data.datasets[i],
+      labels: dataLabels,
+    });
+  }
+  if (csv == null) return;
+  console.log(csv);
+
+  filename = args.filename || "chart-data.csv";
+  if (!csv.match(/^data:text\/csv/i)) {
+    csv = "data:text/csv;charset=utf-8," + csv;
+  }
+
+  // not sure if anything below this comment works
+  data = encodeURI(csv);
+  link = document.createElement("a");
+  link.setAttribute("href", data);
+  link.setAttribute("download", filename);
+  document.body.appendChild(link); // Required for FF
+  link.click();
+  document.body.removeChild(link);
+}

@@ -45,6 +45,7 @@ include("../PHPpure/entete.php");
                     <canvas id="Validations"></canvas>
                 </div>
             </div>
+            <button id="downloadCSV">Télécharger les statistiques en CSV</button>
         </section>
   
         <section id="stats-materiel" style="display:none; width:100%;">
@@ -65,6 +66,7 @@ include("../PHPpure/entete.php");
                     <b>Matériel 3</b>
                 </div>
             </div>
+            <button id="downloadCSV">Télécharger les statistiques en CSV</button>
         </section>
 
         <section id="stats-salles" style="display:none; width:100%;">
@@ -80,6 +82,7 @@ include("../PHPpure/entete.php");
                     <canvas id="Temporalite5"></canvas>
                     <b>Salle 212</b>
                 </div>
+                <button id="downloadCSV">Télécharger les statistiques en CSV</button>
         </section>
 </main>
     <!-- JS -->

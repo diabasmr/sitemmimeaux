@@ -245,6 +245,26 @@ foreach ($salle as $row3) {
     }
 }
 
+//Récupère les matériaux les plus utilisés
+$stmt5 = $pdo->prepare("SELECT m.idM, m.designation, COUNT(c.idM) AS nb_concernes FROM materiel m JOIN concerne c ON c.idM = m.idM GROUP BY m.idM, m.designation ORDER BY nb_concernes DESC LIMIT 3;");
+$stmt5->execute();
+$plusutilise = $stmt5->fetchAll(PDO::FETCH_ASSOC);
+//Récupère les périodes d'utilisation
+$idM_list = array_column($plusutilise, 'idM');
+
+$placeholders = implode(',', array_fill(0, count($idM_list), '?'));
+
+$stmt6 = $pdo->prepare("
+    SELECT c.idM, ROUND(TIME_TO_SEC(TIMEDIFF(r.date_fin, r.date_debut)) / 3600, 2) AS temps_moyen
+    FROM reservations r
+    JOIN concerne c ON c.idR = r.idR
+    WHERE c.idM IN ($placeholders)
+");
+
+$stmt6->execute($idM_list);
+$tempsmoyens = $stmt6->fetchAll(PDO::FETCH_ASSOC);
+
+print_r($tempsmoyens);
 echo json_encode([
     "enseignants" => $enseignants,
     "etudiants" => $etudiants,
@@ -256,6 +276,12 @@ echo json_encode([
     "firstyearS" => $firstyearS,
     "secondyearS" => $secondyearS,
     "thirdyearS" => $thirdyearS,
-    "enseignantsS" => $enseignantsS
+    "enseignantsS" => $enseignantsS,
+    "materiel1" => $plusutilise[0]['designation'],
+    "utilisation1" =>$tempsmoyens[0]['temps_moyen'],
+    "materiel2" => $plusutilise[1]['designation'],
+    "utilisation2" =>$tempsmoyens[1]['temps_moyen'],
+    "materiel3" => $plusutilise[2]['designation'],
+    "utilisation3" =>$tempsmoyens[2]['temps_moyen']
 ]);
     ?>
