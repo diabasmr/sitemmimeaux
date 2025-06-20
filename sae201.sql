@@ -31,7 +31,7 @@ CREATE TABLE `agent` (
 INSERT INTO `agent` (`id`) VALUES
 (3),
 (9),
-(20);
+(21);
 
 -- --------------------------------------------------------
 
@@ -52,7 +52,10 @@ INSERT INTO `concerne` (`idM`, `idR`) VALUES
 (1, 27),
 (1, 32),
 (2, 33),
+(3, 45),
 (5, 29),
+(7, 46),
+(7, 47),
 (8, 28);
 
 -- --------------------------------------------------------
@@ -73,8 +76,6 @@ CREATE TABLE `concerne_salle` (
 INSERT INTO `concerne_salle` (`idS`, `idR`) VALUES
 (1, 20),
 (1, 26),
-(1, 34),
-(1, 42),
 (1, 43),
 (2, 25);
 
@@ -93,7 +94,9 @@ CREATE TABLE `enseignant` (
 --
 
 INSERT INTO `enseignant` (`id`) VALUES
-(3);
+(2),
+(3),
+(22);
 
 -- --------------------------------------------------------
 
@@ -116,10 +119,11 @@ CREATE TABLE `etudiant` (
 INSERT INTO `etudiant` (`id`, `numeroEtudiant`, `grpTP_TD_Promo`, `promotion`, `td`) VALUES
 (1, '729321', NULL, 'MMI - 1', 'TD - 2'),
 (2, 'E20251002', NULL, 'MMI - 1', 'TD - 1'),
-(7, NULL, NULL, '', ''),
-(8, NULL, NULL, '', ''),
-(10, NULL, NULL, '', ''),
-(11, NULL, NULL, '', '');
+(7, NULL, NULL, 'MMI - 1', 'TD - 2'),
+(8, NULL, NULL, 'MMI - 2', 'TD - 1'),
+(10, NULL, NULL, 'MMI - 2', 'TD - 1'),
+(11, NULL, NULL, 'MMI - 3', 'TD - 2'),
+(20, NULL, NULL, 'MMI - 3', 'TD - 1');
 
 -- --------------------------------------------------------
 
@@ -138,7 +142,8 @@ CREATE TABLE `favori_materiel` (
 
 INSERT INTO `favori_materiel` (`id`, `idM`) VALUES
 (1, 1),
-(3, 1);
+(3, 1),
+(20, 7);
 
 -- --------------------------------------------------------
 
@@ -180,7 +185,8 @@ INSERT INTO `materiel` (`idM`, `refernceM`, `designation`, `photo`, `typeM`, `da
 (14, 'REF014', 'Tablette Graphique Wacom One', 'P1018499.JPG', 'Graphisme', '2023-05-23', 'Très bon état', 2, 'Tablette graphique avec stylet pour illustration.', NULL),
 (15, 'REF015', 'Trépied Mantona SG-350', 'P1018449.JPG', 'Accessoire', '2023-05-24', 'Très bon état', 2, 'Trépied robuste pour photo/vidéo.', NULL),
 (16, 'REF016', 'Vidéoprojecteur EPSON EMP 6110 - XGA', '20230505_104109.jpg', 'Vidéo', '2023-05-25', 'Bon état', 1, 'Vidéoprojecteur XGA performant pour présentations.', NULL),
-(17, 'REF017', 'Câble Vive Pro Link', 'P1018496.JPG', 'Accessoire', '2023-05-25', 'Très bon état', 2, 'Câble officiel pour casque Vive Pro.', NULL);
+(17, 'REF017', 'Câble Vive Pro Link', 'P1018496.JPG', 'Accessoire', '2023-05-25', 'Très bon état', 2, 'Câble officiel pour casque Vive Pro.', NULL),
+(22, 'REF000022', 'Unknown', '20230505_105442.jpg', 'Accessoire', '2025-06-13', 'Très bon état', 3, 'si ça marche cest bien sinon bah', 'rien');
 
 -- --------------------------------------------------------
 
@@ -213,9 +219,10 @@ INSERT INTO `reservations` (`idR`, `quantite`, `date_debut`, `date_fin`, `valide
 (29, 1, '2025-06-05 16:00:00', '2025-06-05 18:00:00', 3, 'admin', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
 (32, 1, '2025-06-03 12:00:00', '2025-06-03 14:00:00', 3, 'oùpùù', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
 (33, 1, '2025-06-06 12:00:00', '2025-06-06 14:00:00', 3, 'diaba', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(34, 1, '2025-06-17 08:00:00', '2025-06-17 12:00:00', 1, 'fgbghn', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien'),
-(42, 1, '2025-06-18 08:00:00', '2025-06-18 09:00:00', 0, 'ahhhhhhhhhhhhh', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien'),
-(43, 1, '2025-06-14 08:00:00', '2025-06-14 09:00:00', 1, 'ha ha ha', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien');
+(43, 1, '2025-06-13 08:00:00', '2025-06-13 09:00:00', 3, 'ha ha ha', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien'),
+(45, 1, '2025-06-18 08:00:00', '2025-06-18 09:00:00', 3, 'MAIL TEST', 'Tu peux récupérer dans la salle 138', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien'),
+(46, 1, '2025-06-27 08:00:00', '2025-06-27 09:00:00', 1, 'blocage', '', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien'),
+(47, 1, '2025-06-27 14:00:00', '2025-06-27 15:00:00', 1, 'blocbloc', '', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien');
 
 -- --------------------------------------------------------
 
@@ -240,26 +247,27 @@ INSERT INTO `reservation_users` (`id`, `idR`) VALUES
 (1, 28),
 (1, 29),
 (2, 20),
-(2, 25),
 (2, 28),
 (2, 29),
 (2, 32),
+(2, 33),
+(3, 25),
 (7, 20),
 (7, 28),
-(7, 34),
 (8, 27),
 (8, 43),
 (10, 20),
-(10, 27),
-(10, 28),
 (10, 29),
-(10, 33),
 (11, 20),
 (11, 25),
 (11, 27),
 (11, 28),
 (11, 29),
-(11, 42);
+(20, 27),
+(20, 28),
+(20, 45),
+(20, 46),
+(20, 47);
 
 -- --------------------------------------------------------
 
@@ -324,7 +332,9 @@ INSERT INTO `user_` (`id`, `email`, `pseudo`, `nom`, `prenom`, `Date_de_naissanc
 (16, 'janviercharlyAZEAZE@gmail.com', 'azeaze.azeaze', 'AZEAZE', 'AZEAZE', '2025-05-25', '2, Allée de la Marne', '$2y$10$KFwvK9AK91Z5s.7b2PkRoO7GHEKgdSStGiOyI/KksdcV8SAl50mw.', NULL, '2025-05-25', 0, NULL),
 (17, 'TEST@test.test', 'test.test', 'TEST', 'TEST', '2025-05-25', '', '$2y$10$GH0H1vsxF0GPxxKzjOgpD.vOnoF6yHQTgwJ9bO3WcQv7yi/Nava3W', NULL, '2025-05-25', 0, NULL),
 (18, 'diabasamoura@gmail.cm', 'marta.stewart', 'Stewart', 'Marta', '2009-06-05', 'ggrr', '$2y$10$IZfJCgd9mjtb8YZT2MwJWeAa2yHiJrnM2ByFdDvwza19t/sHxjrT2', NULL, '2025-06-05', 0, NULL),
-(20, 'diabasamoura@gmail.com', 'diaba.samoura', 'Samoura', 'Diaba', '2009-06-04', 'ggrr', '$2y$10$FucRG6my7G4qmwDJibZZBuXEA.OjeEf84TUFtD8Vu5oIccmB8YjNW', NULL, '2025-06-05', 1, NULL);
+(20, 'diabasamoura@gmail.com', 'diaba.samoura', 'Samoura', 'Diaba', '2009-06-04', 'ggrr', '$2y$10$X61Qjul2osAACQPdSdLbAeZ07IlyU3Fn3Jvb8sqOtWO4kvTClz0aG', NULL, '2025-06-05', 1, NULL),
+(21, 'agent@mail.com', 'agent.agent', 'Agent', 'agent', '1985-02-14', '1 rue du puit', '$2y$10$IKKYOdZW/Tx7859V4km.D.zJ8YxtOZkel8Wn6jHw0q29b3fnZ0Ury', NULL, '2025-06-16', 1, NULL),
+(22, 'diaba.samoura@hotmail.com', 'melodie.Stewart', 'Stewart', 'melodie', NULL, NULL, 'blablabla', NULL, '2025-06-18', 1, NULL);
 
 --
 -- Structure de la table `commentaires`
