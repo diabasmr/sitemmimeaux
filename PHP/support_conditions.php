@@ -1,4 +1,4 @@
-<?php include("../PHPpure/entete.php"); 
+<?php //include("../PHPpure/entete.php"); 
 require("../PHPpure/connexion.php");?>
 
 <!DOCTYPE html>
@@ -33,13 +33,13 @@ require("../PHPpure/connexion.php");?>
             <!-- Fil d’Ariane -->
             <ol class="breadcrumb mb-0" style="--bs-breadcrumb-divider: '>'; white-space: nowrap;">
                 <li class="breadcrumb-item">
-                    <a href="salles.php" class="text-decoration-none text-dark">Connexion</a>
+                    <a href="connexion-compte.php" class="text-decoration-none text-dark">Connexion</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    <a href="salles.php" class="text-decoration-none text-dark">Inscription</a>
+                    <a href="inscription.php" class="text-decoration-none text-dark">Inscription</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    <a href="salles.php" class="text-decoration-none text-dark">ReZoom</a>
+                    <a href="index.php" class="text-decoration-none text-dark">ReZoom</a>
                 </li>
             </ol>
 

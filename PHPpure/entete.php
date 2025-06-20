@@ -2,9 +2,11 @@
 // creation de la session de l'utilisateur
 session_start();
 
-if (!isset($_SESSION['user'])) {
-    header("Location: ../PHP/connexion-compte.php");
-    exit();
+if ($filename !== "support_conditions") {
+    if (!isset($_SESSION['user'])) {
+        header("Location: ../PHP/connexion-compte.php");
+        exit();
+    }
 }
 
 // si l'utilisateur a cocher la case "se souvenir de moi"
