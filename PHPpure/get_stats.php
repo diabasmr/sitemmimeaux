@@ -1,6 +1,8 @@
 <?php
 session_start();
 require_once('connexion.php');
+$currentyear = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
+
 
 // Check session
 if (!isset($_SESSION['user']['id'])) {
@@ -22,7 +24,7 @@ if (!isset($_SESSION['user']['id'])) {
     JOIN concerne c ON r.idR = c.idR
     JOIN reservation_users ru ON r.idR = ru.idR
     JOIN enseignant en ON ru.id = en.id
-    WHERE YEAR(r.date_debut) = 2025
+    WHERE YEAR(r.date_debut) = ?
     GROUP BY mois
 
     UNION ALL
@@ -36,7 +38,7 @@ if (!isset($_SESSION['user']['id'])) {
     JOIN concerne c ON r.idR = c.idR
     JOIN reservation_users ru ON r.idR = ru.idR
     JOIN etudiant et ON ru.id = et.id
-    WHERE YEAR(r.date_debut) = 2025
+    WHERE YEAR(r.date_debut) = ?
     GROUP BY mois
     ) AS sous_total
     GROUP BY mois
@@ -44,7 +46,7 @@ if (!isset($_SESSION['user']['id'])) {
     ";
 
 $stmt = $pdo->prepare($sql);
-$stmt->execute();
+$stmt->execute([$currentyear, $currentyear]);
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Initialise les tableaux avec 10 mois de Septembre (9) à Juin (6)
@@ -62,11 +64,11 @@ foreach ($result as $row) {
 }
 
 //Récupère les statuts
-$stmt2 = $pdo->prepare("SELECT (SELECT COUNT(idR) FROM reservations WHERE valide = 1) AS acceptee,
-(SELECT COUNT(idR) FROM reservations WHERE valide = 2) AS refusee,
-(SELECT COUNT(idR) FROM reservations WHERE valide = 0) AS attente,
-(SELECT COUNT(idR) FROM reservations WHERE valide = 3) AS terminee;");
-$stmt2->execute();
+$stmt2 = $pdo->prepare("SELECT (SELECT COUNT(idR) FROM reservations WHERE valide = 1 AND YEAR(reservations.date_debut) = ?) AS acceptee,
+(SELECT COUNT(idR) FROM reservations WHERE valide = 2 AND YEAR(reservations.date_debut) = ?) AS refusee,
+(SELECT COUNT(idR) FROM reservations WHERE valide = 0 AND YEAR(reservations.date_debut) = ?) AS attente,
+(SELECT COUNT(idR) FROM reservations WHERE valide = 3 AND YEAR(reservations.date_debut) = ?) AS terminee;");
+$stmt2->execute([$currentyear, $currentyear, $currentyear, $currentyear]);
 $validation = $stmt2->fetch(PDO::FETCH_ASSOC);
 
 //Récupère les statuts
@@ -88,6 +90,7 @@ FROM (
   JOIN etudiant en ON ru.id = en.id
   JOIN materiel m ON c.idM = m.idM
   WHERE promotion = 'MMI - 1'
+  AND YEAR(r.date_debut) = ?
   GROUP BY typemateriel
 
   UNION ALL
@@ -104,6 +107,7 @@ FROM (
   JOIN etudiant en ON ru.id = en.id
   JOIN materiel m ON c.idM = m.idM
   WHERE promotion = 'MMI - 2'
+  AND YEAR(r.date_debut) = ?
   GROUP BY typemateriel
 
   UNION ALL
@@ -120,13 +124,14 @@ FROM (
   JOIN etudiant en ON ru.id = en.id
   JOIN materiel m ON c.idM = m.idM
   WHERE promotion = 'MMI - 3'
+  AND YEAR(r.date_debut) = ?
   GROUP BY typemateriel
 ) AS sub
 GROUP BY typemateriel
 ORDER BY typemateriel;
 ");
 
-$stmt3->execute();
+$stmt3->execute([$currentyear, $currentyear, $currentyear]);
 $usagepromo = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 
 // Initialise les tableaux avec 10 mois de Septembre (9) à Juin (6)
@@ -168,6 +173,7 @@ $sql = "SELECT
     JOIN reservation_users ru ON r.idR = ru.idR
     JOIN salle s ON cs.idS= s.idS
     JOIN enseignant en ON ru.id = en.id
+    AND YEAR(r.date_debut) = ?
     GROUP BY salle
 
     UNION ALL
@@ -186,6 +192,7 @@ $sql = "SELECT
   JOIN etudiant en ON ru.id = en.id
   JOIN salle s ON cs.idS= s.idS
   WHERE promotion = 'MMI - 1'
+  AND YEAR(r.date_debut) = ?
   GROUP BY salle
 
   UNION ALL
@@ -203,6 +210,7 @@ $sql = "SELECT
   JOIN etudiant en ON ru.id = en.id
   JOIN salle s ON cs.idS= s.idS
   WHERE promotion = 'MMI - 2'
+  AND YEAR(r.date_debut) = ?
   GROUP BY salle
 
   UNION ALL
@@ -220,6 +228,7 @@ $sql = "SELECT
   JOIN etudiant en ON ru.id = en.id
   JOIN salle s ON cs.idS= s.idS
   WHERE promotion = 'MMI - 3'
+  AND YEAR(r.date_debut) = ?
   GROUP BY salle
 ) AS sub
 GROUP BY salle
@@ -227,7 +236,7 @@ ORDER BY salle;
     ";
 
 $stmt4 = $pdo->prepare($sql);
-$stmt4->execute();
+$stmt4->execute([$currentyear, $currentyear, $currentyear, $currentyear]);
 $salle = $stmt4->fetchAll(PDO::FETCH_ASSOC);
 
 // Initialise les tableaux avec 10 mois de Septembre (9) à Juin (6)
@@ -255,8 +264,9 @@ $stmt5 = $pdo->prepare("SELECT
                         FROM materiel m
                         JOIN concerne c ON m.idM = c.idM
                         JOIN reservations r ON r.idR = c.idR
+                        WHERE YEAR(r.date_debut) = ?
                         GROUP BY m.idM ORDER BY nb_concernes DESC LIMIT 3;");
-$stmt5->execute();
+$stmt5->execute([$currentyear]);
 $plusutilise = $stmt5->fetchAll(PDO::FETCH_ASSOC);
 
 //Données salle 138 et 212
@@ -268,8 +278,9 @@ $stmt6 = $pdo->prepare("SELECT
                         FROM salle s
                         JOIN concerne_salle cs ON s.idS = cs.idS
                         JOIN reservations r ON r.idR = cs.idR
+                        WHERE YEAR(r.date_debut) = ?
                         GROUP BY s.idS;");
-$stmt6->execute();
+$stmt6->execute([$currentyear]);
 $salle = $stmt6->fetchAll(PDO::FETCH_ASSOC);
 
 

@@ -28,7 +28,8 @@ main a {
   font-size: 1.2vw;
 }
 
-.calendarHeader .left {
+.calendarHeader .left,
+.annee {
   width: auto;
   display: flex;
   justify-content: start;
@@ -36,12 +37,14 @@ main a {
   gap: 3vw;
 }
 
-.calendarHeader .left p {
+.calendarHeader .left p,
+.annee p {
   font-size: 1.5vw;
   font-weight: bold;
 }
 
-.calendarHeader .left .buttoncontainer {
+.calendarHeader .left .buttoncontainer,
+.annee {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,7 +53,8 @@ main a {
   height: auto;
 }
 
-.calendarHeader .left .buttoncontainer button {
+.calendarHeader .left .buttoncontainer button,
+.annee button {
   display: flex;
   justify-content: center;
   align-items: center;

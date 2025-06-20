@@ -1,3 +1,38 @@
+function getYearFromPageUrl() {
+  const params = new URLSearchParams(window.location.search);
+  return params.has("year")
+    ? parseInt(params.get("year"), 10)
+    : new Date().getFullYear();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const leftBtn = document.getElementById("left");
+  const rightBtn = document.getElementById("right");
+  const headerDate = document.getElementById("headerDate");
+
+  // Fonction pour récupérer le paramètre "year" dans l'URL
+  function getYearFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.has("year") ? parseInt(params.get("year"), 10) : null;
+  }
+
+  // Initialisation de la date affichée
+  let currentYear = getYearFromPageUrl();
+  headerDate.textContent = currentYear;
+
+  // Gestion des clics sur les boutons
+  leftBtn.addEventListener("click", function () {
+    currentYear -= 1;
+    // Redirection vers la nouvelle URL avec la nouvelle année
+    window.location.href = `?year=${currentYear}`;
+  });
+
+  rightBtn.addEventListener("click", function () {
+    currentYear += 1;
+    window.location.href = `?year=${currentYear}`;
+  });
+});
+
 statsResa = document.getElementById("stats-resa");
 statsMateriel = document.getElementById("stats-materiel");
 statsSalles = document.getElementById("stats-salles");
@@ -17,7 +52,8 @@ function showSalles() {
   statsSalles.style.display = "block";
 }
 
-fetch("../phpPure/get_stats.php")
+const year = getYearFromPageUrl();
+fetch(`../phpPure/get_stats.php?year=${year}`)
   .then((response) => response.json())
   .then((reservations) => {
     const ctx = document.getElementById("Reservations").getContext("2d");
@@ -148,7 +184,7 @@ fetch("../phpPure/get_stats.php")
               reservations.troisHeure,
               reservations.plus4Heure,
             ],
-            backgroundColor: ["#a38bbe", "#dc88bf", "#dcab88"],
+            backgroundColor: ["#a38bbe", "#dc88bf", "#dcab88", "#0f507c"],
             borderColor: "#fff",
             borderWidth: 2,
           },
@@ -178,7 +214,7 @@ fetch("../phpPure/get_stats.php")
               reservations.troisHeureSecond,
               reservations.plus4HeureSecond,
             ],
-            backgroundColor: ["#a38bbe", "#dc88bf", "#dcab88"],
+            backgroundColor: ["#a38bbe", "#dc88bf", "#dcab88", "#0f507c"],
             borderColor: "#fff",
             borderWidth: 2,
           },
@@ -208,7 +244,7 @@ fetch("../phpPure/get_stats.php")
               reservations.troisHeureTroisieme,
               reservations.plus4HeureTroisieme,
             ],
-            backgroundColor: ["#a38bbe", "#dc88bf", "#dcab88"],
+            backgroundColor: ["#a38bbe", "#dc88bf", "#dcab88", "#0f507c"],
             borderColor: "#fff",
             borderWidth: 2,
           },
@@ -282,7 +318,7 @@ fetch("../phpPure/get_stats.php")
               reservations.troisHeuresalle138,
               reservations.plus4Heuresalle138,
             ],
-            backgroundColor: ["#a38bbe", "#dc88bf", "#dcab88"],
+            backgroundColor: ["#a38bbe", "#dc88bf", "#dcab88", "#0f507c"],
             borderColor: "#fff",
             borderWidth: 2,
           },
@@ -312,7 +348,7 @@ fetch("../phpPure/get_stats.php")
               reservations.troisHeuresalle212,
               reservations.plus4Heuresalle212,
             ],
-            backgroundColor: ["#a38bbe", "#dc88bf", "#dcab88"],
+            backgroundColor: ["#a38bbe", "#dc88bf", "#dcab88", "#0f507c"],
             borderColor: "#fff",
             borderWidth: 2,
           },

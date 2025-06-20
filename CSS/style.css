@@ -69,3 +69,15 @@ main {
   --black-color: #000000;
   --white-color: #ffffff;
 }
+
+#pdf-preview-container {
+  overflow: hidden;
+  filter: blur(4px); /* flou */
+  border-radius: 10px;
+  position: relative;
+}
+
+#pdf-preview-canvas {
+  width: 100%;
+  display: block;
+}

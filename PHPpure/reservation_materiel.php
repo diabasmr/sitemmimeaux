@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     require '../PHPMailer-master/src/SMTP.php';
     require '../PHPMailer-master/src/Exception.php';
 
-    $stmt = $pdo->prepare("SELECT * FROM `user_` AS u JOIN `reservation_users` AS ru ON ru.id = u.id WHERE r.idR = ?");
+    $stmt = $pdo->prepare("SELECT * FROM `user_` AS u JOIN `reservation_users` AS ru ON ru.id = u.id WHERE ru.idR = ?");
     $stmt->execute([$idR]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 

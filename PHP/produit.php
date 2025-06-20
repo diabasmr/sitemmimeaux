@@ -52,6 +52,7 @@ if (isset($_GET['id'])) {
     <link rel="stylesheet" href="../CSS/style.css" />
     <link rel="stylesheet" href="../CSS/index.css" />
     <link rel="stylesheet" href="../CSS/header.css" />
+    <link rel="stylesheet" href="../CSS/reservation_salle.css" />
 </head>
 
 <body>
@@ -115,8 +116,24 @@ if (isset($_GET['id'])) {
       </div>
 
       <div class="row mt-5 g-3">
-        <div class="col-6 bg-light p-4 rounded text-center">
-          PDF Consignes
+        <div class="col-6 bg-light p-4 rounded text-center d-flex flex-column justify-content-center align-items-center">
+          <h5 class="mb-4">Règlement général d'utilisation</h5>
+          <button class="btn btn-danger px-4 py-2" onclick="regle.style.display='block';">Le consulter</button>
+          <div id="regle" class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-md-65 start-50 translate-middle text-center align-items-center justify-content-center" >
+            <h5 class="mb-4">Règlement général d'utilisation</h5>
+            <p class="mb-3">En réservant du matériel ou une salle dans le cadre du BUT MMI, je reconnais avoir pris connaissance du présent règlement :</p>
+            <ul class="text-start mb-4" style="display: inline-block; text-align: left;">
+              <li>Je suis responsable du matériel ou de la salle durant toute la durée de la réservation.</li>
+              <li>En cas de perte, vol, ou détérioration, je m'engage à en assumer les conséquences, y compris financières.</li>
+              <li>Je m'engage à utiliser les équipements de manière respectueuse, en conformité avec leur usage prévu.</li>
+              <li>Je comprends que toute utilisation non autorisée pourra entraîner des sanctions pédagogiques ou disciplinaires.</li>
+            </ul>
+            <div class="text-center">
+              <label>
+                <input type="button" name="acceptation" class="fs-6 fs-md-5 btn btn-danger px-4 py-2" value="Fermer" onclick="const container = this.closest('.container-sm-6'); container.style.display='none';">
+              </label>
+            </div>
+          </div>
         </div>
         <div class="col-6">
             <div class="ratio ratio-16x9 rounded overflow-hidden">
@@ -208,6 +225,7 @@ if (isset($_GET['id'])) {
     ?>
     <script src="../JS/sideBarre.js"></script>
     <script src="../JS/index.js"></script>
+    <script src="../JS/reservation_salle.js"></script>
     <script>
         function reserverMateriel(idM) {
             window.location.href = "reservation_materiel.php?idM=" + idM;

@@ -25,16 +25,23 @@ include("../PHPpure/entete.php");
     include("aside.php");
     ?>
     <main class="mt-5 mt-md-auto">
-        <section class="d-flex justify-content-between col-12 mt-5 mt-md-auto rounded bg-white p-3">
-            <article class="left">
-                <h2>Statistiques</h2>
-            </article>
-            <div>
+    <section class="d-flex flex-column flex-md-row justify-content-between align-items-baseline col-12 mt-5 mt-md-auto rounded bg-white p-3 gap-3">
+        <article class="left">
+            <h2>Statistiques</h2>
+        </article>
+
+        <article class="annee d-flex align-items-center gap-5">
+            <button id="left" class="fs-md-3 fs-6">←</button>
+            <h4 id="headerDate" class="m-0">2025</h4>
+            <button id="right" class="fs-md-3 fs-6">→</button>
+        </article>
+
+        <div class="d-flex gap-2 flex-wrap">
             <button class="salles rounded p-2 text-white" style="background-color:#e4587d; border:none;" onclick="showResas()">Réservations</button>
-                <button class="materiel rounded p-2 text-white" style="background-color:#e4587d; border:none;" onclick="showMateriel()">Matériel</button>
-                <button class="salles rounded p-2 text-white" style="background-color:#e4587d; border:none;" onclick="showSalles()">Salles</button>
-            </div>
-        </section>
+            <button class="materiel rounded p-2 text-white" style="background-color:#e4587d; border:none;" onclick="showMateriel()">Matériel</button>
+            <button class="salles rounded p-2 text-white" style="background-color:#e4587d; border:none;" onclick="showSalles()">Salles</button>
+        </div>
+    </section>
   
         <section id="stats-resa" style="width:100%;">
             <canvas id="Reservations"></canvas>
@@ -55,17 +62,14 @@ include("../PHPpure/entete.php");
             <div class="row mt-5">
                 <div class="col-12 col-md-4 mb-4">
                     <canvas id="Temporalite1"></canvas>
-                    <b>Matériel 1</b>
                     <button class="salles rounded p-2 mt-2 text-white" style="background-color:#e4587d; border:none;" onclick="exportChartToCSV('Temporalite1');">Télécharger en CSV</button>
                 </div>
                 <div class="col-12 col-md-4 mb-4">
                     <canvas id="Temporalite2"></canvas>
-                    <b>Matériel 2</b>
                     <button class="salles rounded p-2 mt-2 text-white" style="background-color:#e4587d; border:none;" onclick="exportChartToCSV('Temporalite2');">Télécharger en CSV</button>
                 </div>
                 <div class="col-12 col-md-4 mb-4">
                     <canvas id="Temporalite3"></canvas>
-                    <b>Matériel 3</b>
                     <button class="salles rounded p-2 mt-2 text-white" style="background-color:#e4587d; border:none;" onclick="exportChartToCSV('Temporalite3');">Télécharger en CSV</button>
                 </div>
             </div>
@@ -78,12 +82,10 @@ include("../PHPpure/entete.php");
             <div class="row mt-5">
                 <div class="col-12 col-md-6 mb-4">
                     <canvas id="Temporalite4"></canvas>
-                    <b>Salle 138</b>
                     <button class="salles rounded p-2 mt-2 text-white" style="background-color:#e4587d; border:none;" onclick="exportChartToCSV('Temporalite4');">Télécharger en CSV</button>
                 </div>
                 <div class="col-12 col-md-6 mb-4">
                     <canvas id="Temporalite5"></canvas>
-                    <b>Salle 212</b>
                     <button class="salles rounded p-2 mt-2 text-white" style="background-color:#e4587d; border:none;" onclick="exportChartToCSV('Temporalite5');">Télécharger en CSV</button>
                 </div>
         </section>
