@@ -77,9 +77,7 @@ if (isset($_SESSION['error'])) {
         </p>
       </div>
       <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 mt-3">
-        <a class="fs-6 liens" href="support_conditions.php#contact">Contactez-nous</a>
-        <a class="fs-6 liens" href="support_conditions.php#mentions">Mentions légales</a>
-        <a class="fs-6 liens" href="support_conditions.php#confidentialite">Politique de confidentialité</a>
+        <a class="fs-6 liens" href="support_conditions.php">Support et Conditions</a>
       </div>
     </section>
   </main>

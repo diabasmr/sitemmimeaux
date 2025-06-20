@@ -56,9 +56,13 @@
             case 'reputation':
                 echo '<h1 class="fs-3 fs-md-1">Statistiques</h1>';
                 break;
+            case 'support_conditions':
+                echo '<h1 class="fs-3 fs-md-1">Support et Conditions</h1>';
+                break;
             default:
                 echo '<h1 class="fs-3 fs-md-1">ya pas le nom ou c mal mis</h1>';
         }
+        if(isset($_SESSION['user'])){
         ?>
 
         <div class="profilXlogout">
@@ -91,5 +95,6 @@
                 <img src="../res/logout.svg" alt="" />
             </button>
         </div>
+        <?php } ?>
     </div>
 </header>
