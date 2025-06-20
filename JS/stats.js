@@ -10,12 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const rightBtn = document.getElementById("right");
   const headerDate = document.getElementById("headerDate");
 
-  // Fonction pour récupérer le paramètre "year" dans l'URL
-  function getYearFromUrl() {
-    const params = new URLSearchParams(window.location.search);
-    return params.has("year") ? parseInt(params.get("year"), 10) : null;
-  }
-
   // Initialisation de la date affichée
   let currentYear = getYearFromPageUrl();
   headerDate.textContent = currentYear;

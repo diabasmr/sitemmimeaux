@@ -35,7 +35,7 @@ use PHPMailer\PHPMailer\Exception;
 // -- INSERT INTO `concerne_salle` (`idS`, `idR`) VALUES (1, 2);
 
 
-if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST['submit'])) {
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     $date = $_POST['selected-date'];
     $horaireD = $_POST['horaireD'];
     $horaireF = $_POST['horaireF'];
@@ -45,18 +45,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST['submit'])) {
     $user_ids = $_POST['user_ids'];
     $commentaire = "rien";
     $document = "rien";
-    $salle = "Salle " . $_POST['salle'];
+    $salle = $_POST['salle'];
     $valid = $_SESSION['user']['role'] == 'Enseignant(e)' ? 1 : 0;
-    print_r($salle);
     print_r($horaireD);
     print_r($horaireF);
-
-    // recuperer dans salle le id ou le nom est egal a la salle selectionnée
-    $requete = $pdo->prepare("SELECT idS FROM salle WHERE nom = ?");
-    $requete->execute([$salle]);
-    $salle = $requete->fetch();
-    $salle = $salle['idS'];
-
 
     // creer date debut = date + horaire debut et date fin = date + horaire fin
     $dateDebut = $date . " " . $horaireD;
@@ -93,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST['submit'])) {
     $requete->execute([$idReservation, $salle]);
 
     // Modifier la disponiblilite
-    $requete = $pdo->prepare("UPDATE salle SET etat = 'Indisponible' WHERE Nom = ?");
+    $requete = $pdo->prepare("UPDATE salle SET etat = 'Indisponible' WHERE idS = ?");
     $requete->execute([$salle]);
 
     //MAIL
@@ -102,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST['submit'])) {
     require '../PHPMailer-master/src/Exception.php';
 
     $stmt = $pdo->prepare("SELECT * FROM `user_` AS u JOIN `reservation_users` AS ru ON ru.id = u.id WHERE ru.idR = ?");
-    $stmt->execute([$idR]);
+    $stmt->execute([$idReservation]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user) {

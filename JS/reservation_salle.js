@@ -233,44 +233,30 @@ avatarContainer.addEventListener("click", (e) => {
 // Gestion des boutons de sélection de salle
 document.addEventListener("DOMContentLoaded", function () {
   const salleButtons = document.querySelectorAll(".salle-selector button");
-  const salleInput = document.getElementById("selected-salle");
-  const salleImage = document.getElementById("salle-image");
-  const salleTitle = document.getElementById("salle-title");
+
+  // Fonction pour récupérer la valeur de idS dans l'URL
+  function getIdSFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("idS");
+  }
 
   // Fonction pour mettre à jour l'interface en fonction de la salle sélectionnée
   function updateSalleInterface(salle) {
-    // Mettre à jour les boutons
     salleButtons.forEach((btn) => {
       btn.classList.toggle("active", btn.dataset.salle === salle);
     });
+  }
 
-    // Mettre à jour l'input caché
-    salleInput.value = salle;
-
-    // Mettre à jour le titre
-    salleTitle.textContent = `Salle ${salle}`;
-
-    // Mettre à jour l'image
-    salleImage.src = salle === "138" ? "../IMG/image.png" : "../IMG/image2.jpg";
+  const currentSalle = getIdSFromURL();
+  if (currentSalle) {
+    updateSalleInterface(currentSalle);
   }
 
   // Ajouter les écouteurs d'événements sur les boutons
   salleButtons.forEach((button) => {
     button.addEventListener("click", function () {
       const salle = this.dataset.salle;
-      updateSalleInterface(salle);
+      window.location.href = `?idS=${salle}`;
     });
   });
-
-  // Sélection initiale basée sur l'URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const initialSalle = urlParams.get("salle");
-  if (initialSalle && (initialSalle === "138" || initialSalle === "212")) {
-    updateSalleInterface(initialSalle);
-  }
 });
-
-// Affichage du message de succès si présent
-if (urlParams.get("success") === "1") {
-  alert("Réservation effectuée avec succès !");
-}

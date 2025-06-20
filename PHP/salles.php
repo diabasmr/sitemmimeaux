@@ -27,51 +27,36 @@ require("../PHPpure/connexion.php");?>
         <p>Cliquer sur une image pour entrer en mode VR 360°.</p>
 
         <!-- Image 1 -->
-        <div id="imageContainer1" style="margin-bottom: 20px;">
-            <img id="imageToClick1" src="../IMG/image.png" alt="Salle 138" style="width: 60%; cursor: pointer;">
-            <div style="display: flex; justify-content: space-between; align-items: center; width: 60%; margin-top: 1vh;">
-                <h3 style="margin: 0;">Réservation de la salle 138</h3>
-                <?php
-                    // Connexion déjà faite plus haut normalement
-                    $sql1 = "SELECT etat FROM salle WHERE Nom = 'Salle 138'";
-                    $stmt = $pdo->prepare($sql1);
-                    $stmt->execute();
-                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                    $etat = $result['etat'] ?? 'Indisponible'; // Valeur de secours
-                ?>
-                <a href="reservation_salle.php?salle=138">
-                    <button style="background-color: rgba(211, 27, 74, 0.61); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;"
-                        <?php if (strtolower($etat) !== 'disponible') echo "disabled"; ?>>
-                        <?php echo (strtolower($etat) === 'disponible') ? "Réserver" : "Indisponible"; ?>
-                    </button>
-                </a>
-            </div>
+        <?php
+$sql1 = "SELECT * FROM salle";
+$stmt = $pdo->prepare($sql1);
+$stmt->execute();
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<?php foreach ($result as $salle): ?>
+    <?php $etat = $salle['etat'] ?? 'Indisponible'; ?>
+    <div class="imageContainer" style="margin-bottom: 20px;">
+        <img 
+            class="imageToClick" 
+            src="../materiel/<?php echo htmlspecialchars($salle['photo']); ?>" 
+            data-src="../materiel/<?php echo htmlspecialchars($salle['photo']); ?>"
+            alt="Salle <?php echo htmlspecialchars($salle['nom']); ?>" 
+            style="width: 60%; cursor: pointer;"
+        >
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 60%; margin-top: 1vh;">
+            <h3 style="margin: 0;">Réservation de la <?php echo htmlspecialchars($salle['nom']); ?></h3>
+            <a href="reservation_salle.php?idS=<?php echo $salle['idS']; ?>">
+                <button 
+                    style="background-color: rgba(211, 27, 74, 0.61); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;"
+                    <?php if (strtolower($etat) !== 'disponible') echo "disabled"; ?>
+                >
+                    <?php echo (strtolower($etat) === 'disponible') ? "Réserver" : "Indisponible"; ?>
+                </button>
+            </a>
         </div>
-
-        <!-- Image 2 -->
-        <div id="imageContainer2">
-            <img id="imageToClick2" src="../IMG/image2.jpg" alt="Salle 212" style="width: 60%; cursor: pointer;">
-            <div style="display: flex; justify-content: space-between; align-items: center; width: 60%; margin-top: 1vh;">
-                <h3 style="margin: 0;">Réservation de la salle 212</h3>
-
-                <?php
-                    // Connexion déjà faite plus haut normalement
-                    $sql1 = "SELECT etat FROM salle WHERE Nom = 'Salle 212'";
-                    $stmt = $pdo->prepare($sql1);
-                    $stmt->execute();
-                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                    $etat = $result['etat'] ?? 'Indisponible'; // Valeur de secours
-                ?>
-
-                <a href="reservation_salle.php?salle=212">
-                    <button 
-                        style="background-color: rgba(211, 27, 74, 0.61); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;"
-                        <?php if (strtolower($etat) !== 'disponible') echo "disabled"; ?>>
-                        <?php echo (strtolower($etat) === 'disponible') ? "Réserver" : "Indisponible"; ?>
-                    </button>
-                </a>
-            </div>
-        </div>
+    </div>
+<?php endforeach; ?>
 
 
         <!-- Scène VR -->
@@ -102,53 +87,50 @@ require("../PHPpure/connexion.php");?>
 
     <script>
         const vrContainer = document.getElementById('vrContainer');
-        const sky = document.getElementById('sky');
-        const backButton = document.getElementById('backButton');
+    const sky = document.getElementById('sky');
+    const backButton = document.getElementById('backButton');
+    const imageContainers = document.querySelectorAll('.imageContainer');
+    const images = document.querySelectorAll('.imageToClick');
 
-        function showVR(imageSrc) {
-            document.getElementById('imageContainer1').style.display = 'none';
-            document.getElementById('imageContainer2').style.display = 'none';
-            sky.setAttribute('src', imageSrc);
-            vrContainer.style.display = 'block';
-            backButton.style.display = 'block';
-            document.body.style.overflow = 'hidden';
+    function showVR(imageSrc) {
+        imageContainers.forEach(container => container.style.display = 'none');
+        sky.setAttribute('src', imageSrc);
+        vrContainer.style.display = 'block';
+        backButton.style.display = 'block';
+        document.body.style.overflow = 'hidden';
 
-            // Forcer le plein écran pour une meilleure expérience VR
-            if (vrContainer.requestFullscreen) {
-                vrContainer.requestFullscreen();
-            } else if (vrContainer.webkitRequestFullscreen) {
-                vrContainer.webkitRequestFullscreen();
-            } else if (vrContainer.msRequestFullscreen) {
-                vrContainer.msRequestFullscreen();
-            }
+        if (vrContainer.requestFullscreen) {
+            vrContainer.requestFullscreen();
+        } else if (vrContainer.webkitRequestFullscreen) {
+            vrContainer.webkitRequestFullscreen();
+        } else if (vrContainer.msRequestFullscreen) {
+            vrContainer.msRequestFullscreen();
+        }
+    }
+
+    function exitVR() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
         }
 
-        function exitVR() {
-            // Sortir du mode plein écran
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) {
-                document.msExitFullscreen();
-            }
+        vrContainer.style.display = 'none';
+        imageContainers.forEach(container => container.style.display = 'block');
+        backButton.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
 
-            vrContainer.style.display = 'none';
-            document.getElementById('imageContainer1').style.display = 'block';
-            document.getElementById('imageContainer2').style.display = 'block';
-            backButton.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        document.getElementById('imageToClick1').addEventListener('click', function() {
-            showVR('../IMG/image.png');
+    images.forEach(image => {
+        image.addEventListener('click', () => {
+            const src = image.getAttribute('data-src');
+            showVR(src);
         });
+    });
 
-        document.getElementById('imageToClick2').addEventListener('click', function() {
-            showVR('../IMG/image2.jpg');
-        });
-
-        backButton.addEventListener('click', exitVR);
+    backButton.addEventListener('click', exitVR);
     </script>
 </body>
 

@@ -36,8 +36,6 @@
             <section class="reservation-content">
                 <!-- Colonne de gauche : matériel -->
                 <div class="equipment">
-                    <!-- <img src="../IMG/canon.jpg" alt="" id="materiel-image">
-                    <h2 id="materiel-title">Caméra</h2> -->
                     <?php
                     require("../PHPpure/connexion.php");
                     $idM = $_GET['idM'];

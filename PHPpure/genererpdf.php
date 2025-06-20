@@ -75,7 +75,7 @@ if (isset($_GET['idR'])) {
                 foreach ($materiels as $materiel) {
                     list($id, $photo, $designation, $reference) = explode(':', $materiel);
                     $pdf->Cell(0, 10, "- $designation ($reference)", 0, 1);
-                    $pdf->Image('../materiel/' . $photo, 115, 50, 50); // X=10mm, Y=20mm, largeur=50mm
+                    $pdf->Image('../materiel/' . $photo, 115, 50, 50); // X=10mm, Y=50mm, largeur=50mm
                 }
             } else {
                 $pdf->Cell(0, 10, "Aucun materiel reserve", 0, 1);
@@ -118,6 +118,8 @@ if (isset($_GET['idR'])) {
                 $pdf->MultiCell(0, 10, $reservation['commentaires']);
                 $pdf->SetTextColor(0, 0, 0);
             }
+
+            //SIGNATURE $pdf->Image('', 115, 100, 50);
 
             // Génération du PDF
             $pdf->Output('D', 'reservation_' . $idR . '.pdf');
