@@ -1,6 +1,9 @@
 <?php
 session_start();
 require_once("../PHPpure/connexion.php");
+// Inclure PHPMailer
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $date = $_POST['selected-date'];
@@ -49,6 +52,51 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $requete = $pdo->prepare("INSERT INTO concerne (idR, idM) VALUES (?, ?)");
     $requete->execute([$idReservation, $materiel_id]);
 
+    //MAIL
+    require '../PHPMailer-master/src/PHPMailer.php';
+    require '../PHPMailer-master/src/SMTP.php';
+    require '../PHPMailer-master/src/Exception.php';
+
+    $stmt = $pdo->prepare("SELECT * FROM `user_` AS u JOIN `reservation_users` AS ru ON ru.id = u.id WHERE r.idR = ?");
+    $stmt->execute([$idR]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user) {
+        $email = $user['email'];
+        $Pseudo = $user['pseudo'];
+        $Nom = $user['nom'];
+        $Prenom = $user['prenom'];
+
+        // Envoi de l'e-mail avec PHPMailer
+        $mail = new PHPMailer(true);
+
+        try {
+            // Configuration SMTP
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'materiel.iut@gmail.com';
+            $mail->Password = 'obmv hoac gbrw ftwz';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
+
+            $mail->CharSet = 'UTF-8';
+            $mail->setFrom('materiel.iut@gmail.com', 'IUT Support');
+            $mail->addAddress('materiel.iut@gmail.com', 'IUT Support');
+            $mail->addReplyTo($email, "$Nom $Prenom");
+
+            $mail->Subject = 'Nouvelle réservation de matériel';
+            $mail->Body = "Une nouvelle réservation ReZoom a été enregistrée.\n\nVeuillez en prendre connaissance:\n\nUtilisateur: $Nom $Prenom\nDate: $date - $horaireD:$horaireF\n\nReZoom";
+
+            $mail->send();
+        } catch (Exception $e) {
+            echo "Erreur lors de l'envoi du mail : {$mail->ErrorInfo}";
+        }
+    }
+
+    /* Insérer la notification pour l'admin
+    $requete = $pdo->prepare("INSERT INTO notifications (idR, notif) VALUES (?, 1)");
+    $requete->execute([$idReservation]);*/
     header("Location: ../PHP/materiels.php"); // page de succès ??
     exit();
 }

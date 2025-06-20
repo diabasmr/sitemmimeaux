@@ -3,12 +3,13 @@ $current_page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 ?>
 
 <!-- bootstrap -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 <aside class="d-flex flex-column justify-content-between">
     <article class="menu">
-    <div class="logoside">
-        <!-- <p>Logo + nom</p> -->
-        <img src="../IMG/logo.png" alt="">
-    </div>
+        <div class="logoside">
+            <!-- <p>Logo + nom</p> -->
+            <img src="../IMG/logo.png" alt="">
+        </div>
         <p>Menu</p>
         <nav>
             <ul class="">
@@ -36,20 +37,20 @@ $current_page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
                 <?php
                 if ($_SESSION['user']['role'] != 'Agent(e)') {
                 ?>
-                <li>
-                    <a href="materiels.php" id="materiel"
-                        <?php echo ($current_page === 'materiels') ? 'class="active"' : ''; ?>>
-                        <img src="../res/materiel.svg" alt="" />
-                        Matériel
-                    </a>
-                </li>
-                <li>
-                    <a href="salles.php" id="salles"
-                        <?php echo ($current_page === 'salles' || $current_page === 'reservation_salle') ? 'class="active"' : ''; ?>>
-                        <img src="../res/salles.svg" alt="" />
-                        Salles
-                    </a>
-                </li>
+                    <li>
+                        <a href="materiels.php" id="materiel"
+                            <?php echo ($current_page === 'materiels') ? 'class="active"' : ''; ?>>
+                            <img src="../res/materiel.svg" alt="" />
+                            Matériel
+                        </a>
+                    </li>
+                    <li>
+                        <a href="salles.php" id="salles"
+                            <?php echo ($current_page === 'salles' || $current_page === 'reservation_salle') ? 'class="active"' : ''; ?>>
+                            <img src="../res/salles.svg" alt="" />
+                            Salles
+                        </a>
+                    </li>
                 <?php
                 }
                 ?>
@@ -90,15 +91,21 @@ $current_page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
                 <?php
                 if ($_SESSION['user']['role'] != 'Agent(e)') {
                 ?>
-                <li>
-                    <a href="https://intranet-edu.univ-eiffel.fr/ent" id="ent">
-                        <img src="../res/univ.svg" alt="" />
-                        Accéder à l'ENT 
-                    </a>
-                </li>
+                    <li>
+                        <a href="https://intranet-edu.univ-eiffel.fr/ent" id="ent">
+                            <img src="../res/univ.svg" alt="" />
+                            Accéder à l'ENT
+                        </a>
+                    </li>
                 <?php
                 }
                 ?>
+                <li>
+                    <a href="support_conditions.php" id="support" <?php echo ($current_page === 'support_conditions') ? 'class="active"' : ''; ?>>
+                        <i class="fa fa-info-circle" style="color:#e4587d;" aria-hidden="true" title="Info"></i>
+                        Support et conditions
+                    </a>
+                </li>
             </ul>
         </nav>
     </article>

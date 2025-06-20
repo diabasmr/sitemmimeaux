@@ -4,6 +4,7 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
     header('Location: ../PHP/index.php');
     exit();
 }
+require('../PHPpure/connexion.php');
 ?>
 
 <!DOCTYPE html>
@@ -31,17 +32,38 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
     ?>
     <main>
         <h1>Réservations</h1>
-        <div class="search">
-        <p class="fs-6 me-5">Consulter l'historique</p>
-        <div class="searchContainer me-5">
-            <input type="search" name="search" id="inputSearch" placeholder="Chercher..." />
-            <button id="buttonSearch">
-                <img src="../res/search.svg" alt="" />
-            </button>
+        <div class="container search p-3">
+            <div class="row align-items-center gy-3">
+                <div class="col-12 col-md-auto d-flex align-items-center gap-3 flex-wrap">
+                    <p class="fs-6 mb-0 text-nowrap">Consulter l'historique</p>
+                    <div class="searchContainer me-5">
+                        <input type="search" name="search" id="inputSearch" placeholder="Chercher..." />
+                        <button id="buttonSearch">
+                            <img src="../res/search.svg" alt="" />
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-12 d-flex align-items-center gap-3 flex-wrap">
+                    <button class="btn text-dark px-3 py-2" style="background-color: pink; border: 1px solid #e4587d; border-radius: 10px;" onclick="window.location.href='reputation.php'">
+                        Voir les statistiques
+                    </button>
+
+                    <div class="d-flex align-items-center p-2 rounded shadow-sm" style="color: #e4587d; background-color: #fff0f5;">
+                        <div class="rounded-circle me-2 flex-shrink-0" style="width: 16px; height: 16px; background-color: #e4587d; border: 1px solid #e4587d;"></div>
+                        <span class="fw-semibold"><?php
+                                                    $sql1 = "SELECT SUM(notif) AS notifs FROM notifications";
+                                                    $stmt = $pdo->prepare($sql1);
+                                                    $stmt->execute();
+                                                    $notifs = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                                    $nbNotifs = isset($notifs['notifs']) && $notifs['notifs'] !== null ? (int)$notifs['notifs'] : 0;
+                                                    echo htmlspecialchars($nbNotifs) ?> Notifications</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <button class="ms-5 salles rounded p-2 text-dark" style="background-color:pink; border:solid 1px #e4587d;" onclick="window.location.href='reputation.php'"
-        >Voir les statistiques</button>
-    </div>
+
         <section class="table mb-5">
             <article class="header_Table">
                 <p>Matériel/Salle</p>
@@ -77,8 +99,6 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                 </div> -->
                 <!-- pareil mais avec les reservations des materiels ou des salles -->
                 <?php
-                require_once('../PHPpure/connexion.php');
-
                 // Récupération des réservations
                 $sql = "SELECT r.*, 
                         GROUP_CONCAT(DISTINCT CONCAT(m.idM, ':', m.designation, ':', m.refernceM) SEPARATOR '||') as materiels, 
@@ -165,14 +185,33 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                                     ];
                                 }
                             }
-
+$sql2= "SELECT notif FROM notifications WHERE idR = ?";
+                                                    $stmt = $pdo->prepare($sql2);
+                                                    $stmt->execute([$row['idR']]);
+                                                    $notifications = $stmt->fetch(PDO::FETCH_ASSOC);
                             echo '<div class="line mb-3">';
                             if (!empty($salles)) {
                                 $salle = $salles[0];
-                                echo '<p>' . htmlspecialchars($salle['nom']) . '</p>';
+                                if (is_array($notifications) && isset($notifications['notif']) && (int)$notifications['notif'] === 1) { //pour eviter les erreurs dans le cas ou il y a pas de notifs
+                                    echo '
+                            <div class="d-flex align-items-center mb-2">
+                            <span class="rounded-circle me-2 flex-shrink-0" style="width: 16px; height: 16px; background-color: #e4587d; border: 1px solid #e4587d;"></span>
+                            <span>' . htmlspecialchars($salle['nom']) . '</span>
+                            </div>';
+                                } else {
+                                    echo '<p>' . htmlspecialchars($salle['nom']) . '</p>';
+                                }
                             } else {
                                 $mater = $materiels[0];
-                                echo '<p>' . htmlspecialchars($mater['designation']) . '</p>';
+                                if (is_array($notifications) && isset($notifications['notif']) && (int)$notifications['notif'] === 1) { //pour eviter les erreurs dans le cas ou il y a pas de notifs
+                                    echo '
+                            <div class="d-flex align-items-center mb-2">
+                            <span class="rounded-circle me-2 flex-shrink-0" style="width: 16px; height: 16px; background-color: #e4587d; border: 1px solid #e4587d;"></span>
+                            <span>' . htmlspecialchars($mater['designation']) . '</span>
+                            </div>';
+                                } else {
+                                    echo '<p>' . htmlspecialchars($mater['designation']) . '</p>';
+                                }
                             }
                             if (!empty($users)) {
                                 $firstUser = $users[0];
@@ -180,19 +219,17 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
                             }
                             echo '<p class="text-center">' . date('d/m/Y H:i', strtotime($row['date_debut'])) . ' - ' .
                                 date('d/m/Y H:i', strtotime($row['date_fin'])) . '</p>';
-                                if($status == "En attente"){
-                                    echo '<p class="p-2 text-center" style="color: #f9a308; border: 0.15vw solid #f9a308; border-radius:15px;">' . $status . '</p>';
-                                }
-                                elseif($status == "Validée"){
-                                    echo '<p class="text-center p-2" style="color: #356c25; border: 0.15vw solid #356c25; border-radius:15px;">' . $status . '</p>';
-                                }
-                                elseif($status == "Refusé"){
-                                    echo '<p class="text-center p-2" style="color: #f9080c; border: 0.15vw solid #f9080c; border-radius:15px;">' . $status . '</p>';
-                                }
-                                elseif($status == "Terminé"){
-                                    echo '<p class="text-center p-2" style="color: #707070; border: 0.15vw solid #4b4b4b; border-radius:15px;">' . $status . '</p>';
-                                }
-                                else{echo '<p class="text-center  p-2" style="color: #f9080c; border: 0.15vw solid #f9080c; border-radius:15px;">' . $status . '</p>';}
+                            if ($status == "En attente") {
+                                echo '<p class="p-2 text-center" style="color: #f9a308; border: 0.15vw solid #f9a308; border-radius:15px;">' . $status . '</p>';
+                            } elseif ($status == "Validée") {
+                                echo '<p class="text-center p-2" style="color: #356c25; border: 0.15vw solid #356c25; border-radius:15px;">' . $status . '</p>';
+                            } elseif ($status == "Refusé") {
+                                echo '<p class="text-center p-2" style="color: #f9080c; border: 0.15vw solid #f9080c; border-radius:15px;">' . $status . '</p>';
+                            } elseif ($status == "Terminé") {
+                                echo '<p class="text-center p-2" style="color: #707070; border: 0.15vw solid #4b4b4b; border-radius:15px;">' . $status . '</p>';
+                            } else {
+                                echo '<p class="text-center  p-2" style="color: #f9080c; border: 0.15vw solid #f9080c; border-radius:15px;">' . $status . '</p>';
+                            }
                             echo '<button class="modifier" data-id="' . $row['idR'] . '" 
                                     data-motif="' . htmlspecialchars($row['motif']) . '"
                                     data-date-debut="' . date('Y-m-d\TH:i', strtotime($row['date_debut'])) . '"

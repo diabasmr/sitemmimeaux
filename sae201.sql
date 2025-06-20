@@ -327,6 +327,27 @@ INSERT INTO `user_` (`id`, `email`, `pseudo`, `nom`, `prenom`, `Date_de_naissanc
 (20, 'diabasamoura@gmail.com', 'diaba.samoura', 'Samoura', 'Diaba', '2009-06-04', 'ggrr', '$2y$10$FucRG6my7G4qmwDJibZZBuXEA.OjeEf84TUFtD8Vu5oIccmB8YjNW', NULL, '2025-06-05', 1, NULL);
 
 --
+-- Structure de la table `commentaires`
+--
+
+CREATE TABLE `commentaires` (
+  `id` int(11) NOT NULL,
+  `date_comment` datetime NOT NULL,
+  `commentaire` varchar(500) DEFAULT NULL,
+  `reaction` int(11) NOT NULL,
+  `idM` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Structure de la table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `notif` int(11) NOT NULL,
+  `idR` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
 -- Index pour les tables déchargées
 --
 
@@ -405,6 +426,20 @@ ALTER TABLE `salle`
 --
 ALTER TABLE `user_`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `commentaires_eleve`
+--
+ALTER TABLE `commentaires`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idM` (`idM`);
+
+--
+-- Index pour la table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`notif`,`idR`),
+  ADD KEY `idR` (`idR`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -488,6 +523,20 @@ ALTER TABLE `favori_materiel`
 --
 ALTER TABLE `reservation_users`
   ADD CONSTRAINT `reservation_users_ibfk_2` FOREIGN KEY (`idR`) REFERENCES `reservations` (`idR`) ON DELETE CASCADE;
+COMMIT;
+
+--
+-- Contraintes pour la table `commentaires`
+--
+ALTER TABLE `commentaires`
+  ADD CONSTRAINT `commentaires_ibfk_2` FOREIGN KEY (`idM`) REFERENCES `materiel` (`idM`);
+COMMIT;
+
+--
+-- Contraintes pour la table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD CONSTRAINT `notifications_ibfk_2` FOREIGN KEY (`idR`) REFERENCES `reservations` (`idR`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -121,7 +121,7 @@ if (isset($_GET['id'])) {
         <div class="col-6">
             <div class="ratio ratio-16x9 rounded overflow-hidden">
                 <iframe
-                src="https://www.youtube.com/embed/ID_DE_LA_VIDEO"
+                src="https://www.youtube.com/embed/<?= htmlspecialchars($row['lien_demo']) ?>"
                 title="Démonstration vidéo"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -186,10 +186,8 @@ if (isset($_GET['id'])) {
         $reaction = htmlspecialchars($_POST['reaction']) ?? '';
 
         if (!empty($commentaire) && !empty($reaction)) {
-            if ($_SESSION['utilisateur']['Td']) {
-                // Préparer la requête pour les élèves
-                $sql = "INSERT INTO commentaires_eleve(Pseudo, date_comment, commentaire, reaction, materiel) 
-                    VALUES (:pseudo, DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i'), :commentaire, :reaction, :materiel)";
+                $sql = "INSERT INTO commentaires(id, date_comment, commentaire, reaction, idM) 
+                    VALUES (:id, DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i'), :commentaire, :reaction, :idM)";
                 $stmt = $pdo->prepare($sql);
 
                 // Vérifier si la préparation a échoué
@@ -198,32 +196,13 @@ if (isset($_GET['id'])) {
                 }
 
                 // Lier les paramètres à la requête
-                $stmt->bindParam(':pseudo', $_SESSION['utilisateur']['Pseudo'], PDO::PARAM_STR);
+                $stmt->bindParam(':id', $_SESSION['utilisateur']['id'], PDO::PARAM_STR);
                 $stmt->bindParam(':commentaire', $commentaire, PDO::PARAM_STR);
                 $stmt->bindParam(':reaction', $reaction, PDO::PARAM_STR);
-                $stmt->bindParam(':materiel', $_GET['id'], PDO::PARAM_STR);
+                $stmt->bindParam(':idM', $_GET['id'], PDO::PARAM_STR);
 
                 // Exécuter la requête
                 $stmt->execute();
-            } else {
-                // Préparer la requête pour les professeurs
-                $sql = "INSERT INTO commentaires_prof(Pseudo, date_comment, commentaire, reaction) 
-                    VALUES (:pseudo, NOW(), :commentaire, :reaction)";
-                $stmt = $pdo->prepare($sql);
-
-                // Vérifier si la préparation a échoué
-                if ($stmt === false) {
-                    die("Erreur de préparation de la requête: " . $conn->errorInfo());
-                }
-
-                // Lier les paramètres à la requête
-                $stmt->bindParam(':pseudo', $_SESSION['utilisateur']['Pseudo'], PDO::PARAM_STR);
-                $stmt->bindParam(':commentaire', $commentaire, PDO::PARAM_STR);
-                $stmt->bindParam(':reaction', $reaction, PDO::PARAM_STR);
-
-                // Exécuter la requête
-                $stmt->execute();
-            }
         }
     }
     ?>

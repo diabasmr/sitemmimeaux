@@ -70,7 +70,7 @@ if (isset($_POST['ajouterUtilisateur'])) {
         require '../PHPMailer-master/src/Exception.php';
         $stmt = $pdo->prepare("SELECT * FROM `user_` WHERE email = ?");
         $stmt->execute([$email]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user3 = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user3) {
         $email = $user3['email'];

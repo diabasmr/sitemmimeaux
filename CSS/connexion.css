@@ -187,9 +187,16 @@ main section .formContainer p {
   text-align: center;
 }
 
-main section .formContainer p a {
+main section .formContainer p a{
   color: #d72f59;
   text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+a {
+  color: #d72f59;
+  text-decoration: underline;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }

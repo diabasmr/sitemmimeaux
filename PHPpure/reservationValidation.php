@@ -3,16 +3,17 @@ require_once('connexion.php');
 // Inclure PHPMailer
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['modifier'])) {
         $idR = $_POST['idR'] ?? null;
         $comment = $_POST['com'] ?? '';
         $status = $_POST['status'] ?? 0;
-    
+
         if (!$idR) {
             die('ID réservation manquant');
         }
-    
+
         // Mettre à jour le statut dans la table reservations
         $sql = "UPDATE reservations SET valide = :status, commentaires = :comment WHERE idR = :idR";
         $stmt = $pdo->prepare($sql);
@@ -21,30 +22,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':comment' => $comment,
             ':idR' => $idR
         ]);
-    
+
         // Récupérer l'idM depuis la table concerne
         $sql1 = "SELECT idM FROM concerne WHERE idR = :idR";
         $stmt = $pdo->prepare($sql1);
         $stmt->execute([':idR' => $idR]);
         $row1 = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
         if ($row1) {
             $idM = $row1['idM'];
-    
+
             switch ((int)$status) {
                 case 1: // validé
                     $message = "Nous vous informons que votre réservation a été validée.\n\nConsultez le pdf de celle-ci sur votre tableau de bord ReZoom\nNous vous y indiquons les mesures à suivre.";
                     break;
-    
+
                 case 3: // terminé
                     $message = "Nous vous informons que votre réservation a été marqué comme terminée.\n\nSi vous avez des questions, n'hésitez pas à nous contacter.\n\n";
                     break;
-    
+
                 default:
                     $message = "Nous vous informons que votre réservation a été refusée ou marquée en attente.\n\nLes raisons possibles peuvent être :\n- Indisponibilité du matériel\n- Demande d’annulation de votre part\n- Autres contraintes organisationnelles\n\nSi vous avez des questions, n'hésitez pas à nous contacter.";
                     break;
             }
-        }     
+        }
 
         //MAIL
         require '../PHPMailer-master/src/PHPMailer.php';
@@ -83,13 +84,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->Body = "Bonjour $Nom $Prenom,\n\n$message\n\nCordialement,\nL'équipe IUT Meaux";
 
                 $mail->send();
-
             } catch (Exception $e) {
                 echo "Erreur lors de l'envoi du mail : {$mail->ErrorInfo}";
             }
-
         }
-
+        /* Supprimer la notification pour l'admin
+    $requete = $pdo->prepare("DELETE FROM notifications WHERE idR = ?");
+    $requete->execute([$idR]);*/
     } else if (isset($_POST['supprimer'])) {
         $idR = $_POST['idR'] ?? null;
 
@@ -141,14 +142,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->Body = "Bonjour $Nom $Prenom,\n\nNous vous informons que votre réservation a été annulée.\n\nLes raisons possibles peuvent être :\n- Indisponibilité du matériel\n- Demande d’annulation de votre part\n- Autres contraintes organisationnelles\n\nSi vous avez des questions, n'hésitez pas à nous contacter.\n\nCordialement,\nL'équipe IUT Meaux";
 
                 $mail->send();
-
             } catch (Exception $e) {
                 echo "Erreur lors de l'envoi du mail : {$mail->ErrorInfo}";
             }
-
         }
 
-        }
-        header('Location: ../PHP/listeDesReservations.php');
-            exit;
-        }
+        /* Supprimer la notification pour l'admin
+    $requete = $pdo->prepare("DELETE FROM notifications WHERE idR = ?");
+    $requete->execute([$idR]);*/
+    }
+    header('Location: ../PHP/listeDesReservations.php');
+    exit;
+}

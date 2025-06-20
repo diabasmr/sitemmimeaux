@@ -1,9 +1,9 @@
-<?php 
+<?php
 $dt = time();
-$il_y_a_16_ans = date("Y-m-d", $dt- 31536000*16);
-$il_y_a_100_ans = date("Y-m-d", $dt - 31536000*100);
+$il_y_a_16_ans = date("Y-m-d", $dt - 31536000 * 16);
+$il_y_a_100_ans = date("Y-m-d", $dt - 31536000 * 100);
 
- ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +38,7 @@ $il_y_a_100_ans = date("Y-m-d", $dt - 31536000*100);
                     <div class="step" id="step2" style="display: none;">
                         <label for="date_naissance" class="fs-6 fs-md-2">Date de naissance *</label>
                         <div style="position:relative; width:100%;">
-                        <input class="fs-6 fs-md-2" type="date" min="<?=$il_y_a_100_ans?>" max="<?=$il_y_a_16_ans?>" name="date_naissance" id="date_naissance" style="padding-right:2.5em;" required />
+                            <input class="fs-6 fs-md-2" type="date" min="<?= $il_y_a_100_ans ?>" max="<?= $il_y_a_16_ans ?>" name="date_naissance" id="date_naissance" style="padding-right:2.5em;" required />
                             <span class="calendar">
                                 <img src="../res/calendar.svg" alt="">
                             </span>
@@ -53,16 +53,16 @@ $il_y_a_100_ans = date("Y-m-d", $dt - 31536000*100);
                     <!-- Step 3 -->
                     <div class="step" id="step3" style="display: none;">
                         <label class="fs-6 fs-md-2" for="mdp">Mot de passe *</label>
-  
+
                         <div class="box">
                             <input class="fs-6 fs-md-2" type="password" minlength="8"
-                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$" placeholder="Ex : Mot2passe!" name="mdp" id="mdp" required />
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$" placeholder="Ex : Mot2passe!" name="mdp" id="mdp" required />
                             <span class="voir toggle-password" onclick="voirmdp()">
                                 <img class="voirimg" src="../res/eye-slash-regular.svg" alt="">
                             </span>
                         </div>
                         <label class="fs-6 fs-md-2" for="confirme_mdp">Confirmez un mot de passe *</label>
-  
+
                         <div class="box">
                             <input class="fs-6 fs-md-2" type="password" placeholder="" name="confirme_mdp" id="confirme_mdp" required />
                             <span class="voir toggle-password" onclick="voirmdpconfirm()">
@@ -84,15 +84,21 @@ $il_y_a_100_ans = date("Y-m-d", $dt - 31536000*100);
                 <?php endif; ?>
 
                 <p class="fs-6 fs-md-2">
-					Déjà inscrit(e)?
-					<a href="connexion-compte.php">Connectez-vous</a>
-					</p>
+                    Déjà inscrit(e)?
+                    <a href="connexion-compte.php">Connectez-vous</a>
+                </p>
                 <div class="progress">
-    <div class="progress-bar" id="progressBar" role="progressbar"
-        style="width: 25%; background-color:#E47390;"></div>
-</div>
+                    <div class="progress-bar" id="progressBar" role="progressbar"
+                        style="width: 25%; background-color:#E47390;"></div>
+                </div>
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 mt-3">
+                    <a class="fs-6 liens" href="support_conditions.php#contact">Contactez-nous</a>
+                    <a class="fs-6 liens" href="support_conditions.php#mentions">Mentions légales</a>
+                    <a class="fs-6 liens" href="support_conditions.php#confidentialite">Politique de confidentialité</a>
+                </div>
         </section>
     </main>
     <script src="../JS/inscription.js"></script>
 </body>
+
 </html>
