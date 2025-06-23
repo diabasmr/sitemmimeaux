@@ -1,7 +1,7 @@
 <?php
 // creation de la session de l'utilisateur
 session_start();
-
+$filename = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 if ($filename !== "support_conditions") {
     if (!isset($_SESSION['user'])) {
         header("Location: ../PHP/connexion-compte.php");
