@@ -131,6 +131,7 @@ use PHPMailer\PHPMailer\Exception; ?>
                     <div class="text-end">
                         <button
                             type="submit"
+                            name="submit"
                             class="btn text-white px-4 py-2 rounded-3"
                             style="background-color: #d72f59;"
                             onmouseover="this.style.backgroundColor='#e47390';"
@@ -293,140 +294,157 @@ use PHPMailer\PHPMailer\Exception; ?>
 
     </main>
     <?php
+
     if (isset($_POST['submit'])) {
-        $nom = $_POST['nom'];
-        $prenom = $_POST['prenom'];
-        $email = $_POST['email'];
-        $sujet = $_POST['sujet'];
-        $message = $_POST['message'];
+        // Sécurisation des données
+        $nom     = htmlspecialchars(trim($_POST['nom']));
+        $prenom  = htmlspecialchars(trim($_POST['prenom']));
+        $email   = htmlspecialchars(trim($_POST['email']));
+        $sujet   = htmlspecialchars(trim($_POST['sujet']));
+        $message = htmlspecialchars(trim($_POST['message']));
 
         // Validation basique
-        if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($sujet) && !empty($message) && !empty($nom) && !empty($prenom)) {
-            //MAIL
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) && $nom && $prenom && $sujet && $message) {
+            // Inclusion de PHPMailer
             require '../PHPMailer-master/src/PHPMailer.php';
             require '../PHPMailer-master/src/SMTP.php';
             require '../PHPMailer-master/src/Exception.php';
 
-            // Envoi de l'e-mail avec PHPMailer
             $mail = new PHPMailer(true);
 
             try {
                 // Configuration SMTP
                 $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'iut.rezoom@gmail.com';
-                $mail->Password = 'obmv hoac gbrw ftwz';
+                $mail->Host       = 'smtp.gmail.com';
+                $mail->SMTPAuth   = true;
+                $mail->Username   = 'iut.rezoom@gmail.com';
+                $mail->Password   = 'veta utze kwrk elbf'; // ← à mettre en variable d'env ou fichier séparé plus tard !
                 $mail->SMTPSecure = 'tls';
-                $mail->Port = 587;
+                $mail->Port       = 587;
 
                 $mail->CharSet = 'UTF-8';
                 $mail->setFrom('iut.rezoom@gmail.com', 'ReZoom Support');
                 $mail->addAddress('iut.rezoom@gmail.com', 'ReZoom Support');
                 $mail->addReplyTo($email, "$nom $prenom");
 
+                $mail->isHTML(true);
                 $mail->Subject = $sujet;
-                $mail->Body = $messsage;
+                $mail->Body = "<strong>Message reçu de :</strong><br>
+                Nom : $prenom $nom<br>
+                Email : $email<br><br>
+                <strong>Sujet :</strong> $sujet<br><br>
+                <strong>Message :</strong><br>
+                " . nl2br(htmlspecialchars($message));
 
                 $mail->send();
+                $feedback = "Votre message a bien été envoyé. Merci beaucoup !";
             } catch (Exception $e) {
-                echo "Erreur lors de l'envoi du mail : {$mail->ErrorInfo}";
+                $feedback = "Erreur lors de l'envoi du mail : {$mail->ErrorInfo}";
             }
+        } else {
+            $feedback = "Veuillez remplir tous les champs correctement ";
         }
     }
     ?>
-    <script>
-        email = document.getElementById('email');
-        nom = document.getElementById('nom');
-        prenom = document.getElementById('prenom');
-        msg = document.querySelectorAll('textarea');
-        select = document.querySelector('select');
-        submit = document.querySelector('button[type="submit"]');
+    <div class="mt-4 text-center" style="width: 80%; margin: auto;">
+        <?php if (isset($feedback)) : ?>
+            <div class="alert alert-danger" role="alert">
+                <?php echo $feedback; ?>
+            </div>
+        <?php endif; ?>
 
-        submit.addEventListener('click', function(event) {
-            alerte = document.querySelector('p.text-danger');
-            // Vérification des champs avant l'envoi
-            if (email.value.trim() === '' || nom.value.trim() === '' || prenom.value.trim() === '' || select.value === '' || Array.from(msg).some(textarea => textarea.value.trim() === '')) {
-                alerte.style.display = 'block'; // Affiche le message d'erreur
-                event.preventDefault(); // Empêche l'envoi du formulaire
-            }
-        });
+        <script>
+            email = document.getElementById('email');
+            nom = document.getElementById('nom');
+            prenom = document.getElementById('prenom');
+            msg = document.querySelectorAll('textarea');
+            select = document.querySelector('select');
+            submit = document.querySelector('button[type="submit"]');
 
-        email.addEventListener('input', function() {
-            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-            if (emailPattern.test(email.value)) {
-                email.classList.remove('is-invalid');
-                email.classList.add('is-valid');
-            } else {
-                email.classList.remove('is-valid');
-                email.classList.add('is-invalid');
-            }
-        });
-
-
-        nom.addEventListener('input', function() {
-            if (nom.value.trim() !== '') {
-                nom.classList.remove('is-invalid');
-                nom.classList.add('is-valid');
-            } else {
-                nom.classList.remove('is-valid');
-                nom.classList.add('is-invalid');
-            }
-        });
-
-        prenom.addEventListener('input', function() {
-            if (prenom.value.trim() !== '') {
-                prenom.classList.remove('is-invalid');
-                prenom.classList.add('is-valid');
-            } else {
-                prenom.classList.remove('is-valid');
-                prenom.classList.add('is-invalid');
-            }
-        });
-
-        msg.forEach(function(textarea) {
-            textarea.addEventListener('input', function() {
-                if (textarea.value.trim() !== '') {
-                    textarea.classList.remove('is-invalid');
-                    textarea.classList.add('is-valid');
-                } else {
-                    textarea.classList.remove('is-valid');
-                    textarea.classList.add('is-invalid');
+            submit.addEventListener('click', function(event) {
+                alerte = document.querySelector('p.text-danger');
+                // Vérification des champs avant l'envoi
+                if (email.value.trim() === '' || nom.value.trim() === '' || prenom.value.trim() === '' || select.value === '' || Array.from(msg).some(textarea => textarea.value.trim() === '')) {
+                    alerte.style.display = 'block'; // Affiche le message d'erreur
+                    event.preventDefault(); // Empêche l'envoi du formulaire
                 }
             });
-        });
 
-        select.addEventListener('change', function() {
-            if (select.value !== '') {
-                select.classList.remove('is-invalid');
-                select.classList.add('is-valid');
-            } else {
-                select.classList.remove('is-valid');
-                select.classList.add('is-invalid');
+            email.addEventListener('input', function() {
+                const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                if (emailPattern.test(email.value)) {
+                    email.classList.remove('is-invalid');
+                    email.classList.add('is-valid');
+                } else {
+                    email.classList.remove('is-valid');
+                    email.classList.add('is-invalid');
+                }
+            });
+
+
+            nom.addEventListener('input', function() {
+                if (nom.value.trim() !== '') {
+                    nom.classList.remove('is-invalid');
+                    nom.classList.add('is-valid');
+                } else {
+                    nom.classList.remove('is-valid');
+                    nom.classList.add('is-invalid');
+                }
+            });
+
+            prenom.addEventListener('input', function() {
+                if (prenom.value.trim() !== '') {
+                    prenom.classList.remove('is-invalid');
+                    prenom.classList.add('is-valid');
+                } else {
+                    prenom.classList.remove('is-valid');
+                    prenom.classList.add('is-invalid');
+                }
+            });
+
+            msg.forEach(function(textarea) {
+                textarea.addEventListener('input', function() {
+                    if (textarea.value.trim() !== '') {
+                        textarea.classList.remove('is-invalid');
+                        textarea.classList.add('is-valid');
+                    } else {
+                        textarea.classList.remove('is-valid');
+                        textarea.classList.add('is-invalid');
+                    }
+                });
+            });
+
+            select.addEventListener('change', function() {
+                if (select.value !== '') {
+                    select.classList.remove('is-invalid');
+                    select.classList.add('is-valid');
+                } else {
+                    select.classList.remove('is-valid');
+                    select.classList.add('is-invalid');
+                }
+            });
+
+            function showSection(id) {
+                // Masquer toutes les sections
+                const allSections = ['contact', 'mentions', 'confidentialite'];
+                allSections.forEach(sectionId => {
+                    const section = document.getElementById(sectionId);
+                    if (section) section.style.display = 'none';
+                });
+
+                // Afficher la section ciblée
+                const target = document.getElementById(id);
+                if (target) target.style.display = 'block';
+
+                // Optionnel : activer le bouton correspondant
+                allSections.forEach(btnId => {
+                    const btn = document.getElementById(btnId);
+                    if (btn) btn.classList.remove('active');
+                });
+                const activeBtn = document.getElementById(id);
+                if (activeBtn) activeBtn.classList.add('active');
             }
-        });
-
-        function showSection(id) {
-            // Masquer toutes les sections
-            const allSections = ['contact', 'mentions', 'confidentialite'];
-            allSections.forEach(sectionId => {
-                const section = document.getElementById(sectionId);
-                if (section) section.style.display = 'none';
-            });
-
-            // Afficher la section ciblée
-            const target = document.getElementById(id);
-            if (target) target.style.display = 'block';
-
-            // Optionnel : activer le bouton correspondant
-            allSections.forEach(btnId => {
-                const btn = document.getElementById(btnId);
-                if (btn) btn.classList.remove('active');
-            });
-            const activeBtn = document.getElementById(id);
-            if (activeBtn) activeBtn.classList.add('active');
-        }
-    </script>
+        </script>
 
 </body>
 

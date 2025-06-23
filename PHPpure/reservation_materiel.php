@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'iut.rezoom@gmail.com';
-            $mail->Password = 'obmv hoac gbrw ftwz';
+            $mail->Password = 'veta utze kwrk elbf';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 

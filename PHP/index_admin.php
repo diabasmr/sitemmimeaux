@@ -240,7 +240,7 @@ if (isset($_POST['id']) && isset($_POST['validation'])) {
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'materiel.iut@gmail.com';
-            $mail->Password = 'obmv hoac gbrw ftwz';     // Utilise un mot de passe d’application
+            $mail->Password = 'veta utze kwrk elbf';     // Utilise un mot de passe d’application
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 

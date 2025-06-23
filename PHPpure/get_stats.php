@@ -9,7 +9,7 @@ if (!isset($_SESSION['user']['id'])) {
     echo json_encode([]);
     exit();
 }
-    $sql = "SELECT 
+$sql = "SELECT 
     mois,
     SUM(enseignants) AS enseignants,
     SUM(etudiants) AS etudiants,
@@ -135,12 +135,14 @@ $stmt3->execute([$currentyear, $currentyear, $currentyear]);
 $usagepromo = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 
 // Initialise les tableaux avec 10 mois de Septembre (9) à Juin (6)
-$type_map = ["Accessoire",
-          "Vidéo",
-          "Audio",
-          "Drone",
-          "AR/VR",
-          "Graphisme"];
+$type_map = [
+    "Accessoire",
+    "Vidéo",
+    "Audio",
+    "Drone",
+    "AR/VR",
+    "Graphisme"
+];
 $firstyear = $secondyear = $thirdyear = array_fill(0, count($type_map), 0); //3 tableaux de 7 zéros
 
 // Remplir les données extraites
@@ -253,21 +255,38 @@ foreach ($salle as $row3) {
         $thirdyearS[$index] = (int)$row3['thirdyearS'];
     }
 }
-
-//Récupère les matériaux les plus utilisés
+// Récupère les 3 matériels les plus utilisés selon le nombre de réservations en cours d'année
 $stmt5 = $pdo->prepare("SELECT
-                        m.idM, m.designation, COUNT(c.idM) AS nb_concernes,
-                        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 1 THEN 1 ELSE 0 END) AS duree_1h,
-                        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 2 THEN 1 ELSE 0 END) AS duree_2h,
-                        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 3 THEN 1 ELSE 0 END) AS duree_3h,
-                        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) >= 4 THEN 1 ELSE 0 END) AS duree_plus_4h
-                        FROM materiel m
-                        JOIN concerne c ON m.idM = c.idM
-                        JOIN reservations r ON r.idR = c.idR
-                        WHERE YEAR(r.date_debut) = ?
-                        GROUP BY m.idM ORDER BY nb_concernes DESC LIMIT 3;");
+        m.idM,
+        m.designation,
+        COUNT(c.idM) AS nb_concernes,
+        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 1 THEN 1 ELSE 0 END) AS duree_1h,
+        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 2 THEN 1 ELSE 0 END) AS duree_2h,
+        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 3 THEN 1 ELSE 0 END) AS duree_3h,
+        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) >= 4 THEN 1 ELSE 0 END) AS duree_plus_4h
+    FROM materiel m
+    JOIN concerne c ON m.idM = c.idM
+    JOIN reservations r ON r.idR = c.idR
+    WHERE YEAR(r.date_debut) = ?
+    GROUP BY m.idM
+    ORDER BY nb_concernes DESC
+    LIMIT 3
+");
 $stmt5->execute([$currentyear]);
 $plusutilise = $stmt5->fetchAll(PDO::FETCH_ASSOC);
+
+// Ajoute des lignes vides s’il y a moins de 3 résultats
+while (count($plusutilise) < 3) {
+    $plusutilise[] = [
+        'designation'    => '',
+        'duree_1h'       => 0,
+        'duree_2h'       => 0,
+        'duree_3h'       => 0,
+        'duree_plus_4h'  => 0
+    ];
+}
+
+
 
 //Données salle 138 et 212
 $stmt6 = $pdo->prepare("SELECT
@@ -283,7 +302,16 @@ $stmt6 = $pdo->prepare("SELECT
 $stmt6->execute([$currentyear]);
 $salle = $stmt6->fetchAll(PDO::FETCH_ASSOC);
 
+// Initialiser les valeurs à zéro si aucune donnée salle
+$default_salle_duree = [
+    "duree_1h" => 0,
+    "duree_2h" => 0,
+    "duree_3h" => 0,
+    "duree_plus_4h" => 0
+];
 
+$salle138 = isset($salle[0]) ? $salle[0] : $default_salle_duree;
+$salle212 = isset($salle[1]) ? $salle[1] : $default_salle_duree;
 echo json_encode([
     "enseignants" => $enseignants,
     "etudiants" => $etudiants,
@@ -297,27 +325,26 @@ echo json_encode([
     "thirdyearS" => $thirdyearS,
     "enseignantsS" => $enseignantsS,
     "materiel1" => $plusutilise[0]['designation'],
-    "heure" =>$plusutilise[0]['duree_1h'],
-    "deuxHeure" =>$plusutilise[0]['duree_2h'],
-    "troisHeure" =>$plusutilise[0]['duree_3h'],
-    "plus4Heure" =>$plusutilise[0]['duree_plus_4h'],
+    "heure" => $plusutilise[0]['duree_1h'],
+    "deuxHeure" => $plusutilise[0]['duree_2h'],
+    "troisHeure" => $plusutilise[0]['duree_3h'],
+    "plus4Heure" => $plusutilise[0]['duree_plus_4h'],
     "materiel2" => $plusutilise[1]['designation'],
-    "heureSecond" =>$plusutilise[1]['duree_1h'],
-    "deuxHeureSecond" =>$plusutilise[1]['duree_2h'],
-    "troisHeureSecond" =>$plusutilise[1]['duree_3h'],
-    "plus4HeureSecond" =>$plusutilise[1]['duree_plus_4h'],
+    "heureSecond" => $plusutilise[1]['duree_1h'],
+    "deuxHeureSecond" => $plusutilise[1]['duree_2h'],
+    "troisHeureSecond" => $plusutilise[1]['duree_3h'],
+    "plus4HeureSecond" => $plusutilise[1]['duree_plus_4h'],
     "materiel3" => $plusutilise[2]['designation'],
-    "heureTroisieme" =>$plusutilise[2]['duree_1h'],
-    "deuxHeureTroisieme" =>$plusutilise[2]['duree_2h'],
-    "troisHeureTroisieme" =>$plusutilise[2]['duree_3h'],
-    "plus4HeureTroisieme" =>$plusutilise[2]['duree_plus_4h'],
-    "heuresalle138" =>$salle[0]['duree_1h'],
-    "deuxHeuresalle138" =>$salle[0]['duree_2h'],
-    "troisHeuresalle138" =>$salle[0]['duree_3h'],
-    "plus4Heuresalle138" =>$salle[0]['duree_plus_4h'],
-    "heuresalle212" =>$salle[1]['duree_1h'],
-    "deuxHeuresalle212" =>$salle[1]['duree_2h'],
-    "troisHeuresalle212" =>$salle[1]['duree_3h'],
-    "plus4Heuresalle212" =>$salle[1]['duree_plus_4h']
+    "heureTroisieme" => $plusutilise[2]['duree_1h'],
+    "deuxHeureTroisieme" => $plusutilise[2]['duree_2h'],
+    "troisHeureTroisieme" => $plusutilise[2]['duree_3h'],
+    "plus4HeureTroisieme" => $plusutilise[2]['duree_plus_4h'],
+    "heuresalle138" => $salle[0]['duree_1h'],
+    "deuxHeuresalle138" => $salle[0]['duree_2h'],
+    "troisHeuresalle138" => $salle[0]['duree_3h'],
+    "plus4Heuresalle138" => $salle[0]['duree_plus_4h'],
+    "heuresalle212" => $salle[1]['duree_1h'],
+    "deuxHeuresalle212" => $salle[1]['duree_2h'],
+    "troisHeuresalle212" => $salle[1]['duree_3h'],
+    "plus4Heuresalle212" => $salle[1]['duree_plus_4h']
 ]);
-    ?>

@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
                 $mail->Username = 'iut.rezoom@gmail.com'; // Remplace par ton e-mail Gmail
-                $mail->Password = 'obmv hoac gbrw ftwz';     // Utilise un mot de passe d’application
+                $mail->Password = 'veta utze kwrk elbf';     // Utilise un mot de passe d’application
                 $mail->SMTPSecure = 'tls';
                 $mail->Port = 587;
 
@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
                 $mail->Username = 'iut.rezoom@gmail.com'; // Remplace par ton e-mail Gmail
-                $mail->Password = 'obmv hoac gbrw ftwz';     // Utilise un mot de passe d’application
+                $mail->Password = 'veta utze kwrk elbf';     // Utilise un mot de passe d’application
                 $mail->SMTPSecure = 'tls';
                 $mail->Port = 587;
 
