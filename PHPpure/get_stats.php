@@ -255,38 +255,21 @@ foreach ($salle as $row3) {
         $thirdyearS[$index] = (int)$row3['thirdyearS'];
     }
 }
-// Récupère les 3 matériels les plus utilisés selon le nombre de réservations en cours d'année
+
+//Récupère les matériaux les plus utilisés
 $stmt5 = $pdo->prepare("SELECT
-        m.idM,
-        m.designation,
-        COUNT(c.idM) AS nb_concernes,
-        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 1 THEN 1 ELSE 0 END) AS duree_1h,
-        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 2 THEN 1 ELSE 0 END) AS duree_2h,
-        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 3 THEN 1 ELSE 0 END) AS duree_3h,
-        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) >= 4 THEN 1 ELSE 0 END) AS duree_plus_4h
-    FROM materiel m
-    JOIN concerne c ON m.idM = c.idM
-    JOIN reservations r ON r.idR = c.idR
-    WHERE YEAR(r.date_debut) = ?
-    GROUP BY m.idM
-    ORDER BY nb_concernes DESC
-    LIMIT 3
-");
+                        m.idM, m.designation, COUNT(c.idM) AS nb_concernes,
+                        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 1 THEN 1 ELSE 0 END) AS duree_1h,
+                        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 2 THEN 1 ELSE 0 END) AS duree_2h,
+                        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) = 3 THEN 1 ELSE 0 END) AS duree_3h,
+                        SUM(CASE WHEN ROUND(TIMESTAMPDIFF(MINUTE, r.date_debut, r.date_fin) / 60, 1) >= 4 THEN 1 ELSE 0 END) AS duree_plus_4h
+                        FROM materiel m
+                        JOIN concerne c ON m.idM = c.idM
+                        JOIN reservations r ON r.idR = c.idR
+                        WHERE YEAR(r.date_debut) = ?
+                        GROUP BY m.idM ORDER BY nb_concernes DESC LIMIT 3;");
 $stmt5->execute([$currentyear]);
 $plusutilise = $stmt5->fetchAll(PDO::FETCH_ASSOC);
-
-// Ajoute des lignes vides s’il y a moins de 3 résultats
-while (count($plusutilise) < 3) {
-    $plusutilise[] = [
-        'designation'    => '',
-        'duree_1h'       => 0,
-        'duree_2h'       => 0,
-        'duree_3h'       => 0,
-        'duree_plus_4h'  => 0
-    ];
-}
-
-
 
 //Données salle 138 et 212
 $stmt6 = $pdo->prepare("SELECT
@@ -302,16 +285,27 @@ $stmt6 = $pdo->prepare("SELECT
 $stmt6->execute([$currentyear]);
 $salle = $stmt6->fetchAll(PDO::FETCH_ASSOC);
 
-// Initialiser les valeurs à zéro si aucune donnée salle
-$default_salle_duree = [
-    "duree_1h" => 0,
-    "duree_2h" => 0,
-    "duree_3h" => 0,
-    "duree_plus_4h" => 0
-];
+while (count($plusutilise) < 3) {
+    $plusutilise[] = [
+        'designation' => '',
+        'duree_1h' => 0,
+        'duree_2h' => 0,
+        'duree_3h' => 0,
+        'duree_plus_4h' => 0
+    ];
+}
 
-$salle138 = isset($salle[0]) ? $salle[0] : $default_salle_duree;
-$salle212 = isset($salle[1]) ? $salle[1] : $default_salle_duree;
+while (count($salle) < 2) {
+    $salle[] = [
+        'duree_1h' => 0,
+        'duree_2h' => 0,
+        'duree_3h' => 0,
+        'duree_plus_4h' => 0
+    ];
+}
+
+$validation = $validation ?: ['acceptee' => 0, 'refusee' => 0, 'attente' => 0, 'terminee' => 0];
+
 echo json_encode([
     "enseignants" => $enseignants,
     "etudiants" => $etudiants,
