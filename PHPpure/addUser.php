@@ -72,36 +72,36 @@ if (isset($_POST['ajouterUtilisateur'])) {
         $stmt->execute([$email]);
         $user3 = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user3) {
-        $email = $user3['email'];
-        $Pseudo = $user3['pseudo'];
-        $Nom = $user3['nom'];
-        $Prenom = $user3['prenom'];
+        if ($user3) {
+            $email = $user3['email'];
+            $Pseudo = $user3['pseudo'];
+            $Nom = $user3['nom'];
+            $Prenom = $user3['prenom'];
 
-        // Envoi de l'e-mail avec PHPMailer
-        $mail = new PHPMailer(true);
+            // Envoi de l'e-mail avec PHPMailer
+            $mail = new PHPMailer(true);
 
-        try {
-            // Configuration SMTP
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'materiel.iut@gmail.com';
-            $mail->Password = 'obmv hoac gbrw ftwz';     // Utilise un mot de passe d’application
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
+            try {
+                // Configuration SMTP
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'iut.rezoom@gmail.com';
+                $mail->Password = 'obmv hoac gbrw ftwz';     // Utilise un mot de passe d’application
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
 
-            $mail->CharSet = 'UTF-8';
-            $mail->setFrom('materiel.iut@gmail.com', 'IUT Support');
-            $mail->addAddress($email, "$Nom $Prenom");
-            $mail->addReplyTo('materiel.iut@gmail.com', 'IUT Support');
+                $mail->CharSet = 'UTF-8';
+                $mail->setFrom('iut.rezoom@gmail.com', 'ReZoom Support');
+                $mail->addAddress($email, "$Nom $Prenom");
+                $mail->addReplyTo('iut.rezoom@gmail.com', 'ReZoom Support');
 
-            $mail->Subject = 'Validation de votre compte';
-            $mail->Body = "Bonjour $Nom $Prenom,\n\nVotre compte ReZoom, $Pseudo a été validé, vous pouvez maintenant consulter le site et commencer à prévoir vos emprunts et réservations !\n\nCordialement,\nL'équipe IUT Meaux";
+                $mail->Subject = 'Validation de votre compte';
+                $mail->Body = "Bonjour $Nom $Prenom,\n\nVotre compte ReZoom, $Pseudo a été validé, vous pouvez maintenant consulter le site et commencer à prévoir vos emprunts et réservations !\n\nCordialement,\nL'équipe ReZoom";
 
-            $mail->send();
+                $mail->send();
 
-            echo <<<HTML
+                echo <<<HTML
             <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center" style="--bs-border-opacity: .5; z-index:10; width: 500px; border: 1px solid  #e47390;">
               <p class="mb-2 d-block">Le compte a été créé avec succès. </p>
               <div class="text-center mt-3">
@@ -109,13 +109,10 @@ if (isset($_POST['ajouterUtilisateur'])) {
               </div>
             </div>
             HTML;
-
-        } catch (Exception $e) {
-            echo "Erreur lors de l'envoi du mail : {$mail->ErrorInfo}";
+            } catch (Exception $e) {
+                echo "Erreur lors de l'envoi du mail : {$mail->ErrorInfo}";
+            }
         }
-
-    }
         header('Location: ../PHP/index.php');
     }
 }
-?>

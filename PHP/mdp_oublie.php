@@ -36,18 +36,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       $mail->isSMTP();
       $mail->Host = 'smtp.gmail.com';
       $mail->SMTPAuth = true;
-      $mail->Username = 'materiel.iut@gmail.com'; // Remplace par ton e-mail Gmail
+      $mail->Username = 'iut.rezoom@gmail.com'; // Remplace par ton e-mail Gmail
       $mail->Password = 'obmv hoac gbrw ftwz';     // Utilise un mot de passe d’application
       $mail->SMTPSecure = 'tls';
       $mail->Port = 587;
 
       $mail->CharSet = 'UTF-8';
-      $mail->setFrom('materiel.iut@gmail.com', 'IUT Support');
+      $mail->setFrom('iut.rezoom@gmail.com', 'ReZoom Support');
       $mail->addAddress($email, "$Nom $Prenom");
-      $mail->addReplyTo('materiel.iut@gmail.com', 'IUT Support');
+      $mail->addReplyTo('iut.rezoom@gmail.com', 'ReZoom Support');
 
       $mail->Subject = 'Réinitialisation de votre mot de passe';
-      $mail->Body = "Bonjour $Nom $Prenom,\n\nVoici votre mot de passe temporaire pour le compte $Pseudo : $mdp_temporaire\n\nMerci de le changer dès votre connexion.\n\nCordialement,\nL'équipe IUT Meaux";
+      $mail->Body = "Bonjour $Nom $Prenom,\n\nVoici votre mot de passe temporaire pour le compte $Pseudo : $mdp_temporaire\n\nMerci de le changer dès votre connexion.\n\nCordialement,\nL'équipe ReZoom";
 
       $mail->send();
 

@@ -111,14 +111,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'materiel.iut@gmail.com';
+            $mail->Username = 'iut.rezoom@gmail.com';
             $mail->Password = 'obmv hoac gbrw ftwz';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
             $mail->CharSet = 'UTF-8';
-            $mail->setFrom('materiel.iut@gmail.com', 'IUT Support');
-            $mail->addAddress('materiel.iut@gmail.com', 'IUT Support');
+            $mail->setFrom('iut.rezoom@gmail.com', 'ReZoom Support');
+            $mail->addAddress('iut.rezoom@gmail.com', 'ReZoom Support');
             $mail->addReplyTo($email, "$Nom $Prenom");
 
             $mail->Subject = "Nouvelle réservation d'une salle";
