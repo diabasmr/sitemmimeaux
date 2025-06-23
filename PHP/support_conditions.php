@@ -60,91 +60,237 @@ use PHPMailer\PHPMailer\Exception; ?>
         </nav>
         <section id="contact" style="width: 80%; margin: auto;">
             <div class="py-5">
-                <h3 class="text-center mb-4">Nous contacter</h1>
+                <h2 class="text-center fw-bold" style="color: #d72f59;">Nous contacter</h2>
 
-                    <form action="#"
-                        method="POST"
-                        class="mx-auto p-4 rounded shadow-sm"
-                        style="background-color:rgb(255, 255, 255);">
+                <form action=" #"
+                    method="POST"
+                    class="mx-auto p-4 rounded shadow-sm"
+                    style="background-color:rgb(255, 255, 255);">
 
-                        <div class="d-flex mb-3 justify-content-around gap-5">
-                            <div class="w-100">
-                                <label for="nom" class="form-label fw-semibold">Nom</label>
-                                <input
-                                    class="form-control fs-6 rounded-3"
-                                    type="text"
-                                    placeholder="Votre nom"
-                                    name="nom"
-                                    id="nom"
-                                    required />
-                            </div>
-
-                            <div class="w-100">
-                                <label for="prenom" class="form-label fw-semibold">Prénom</label>
-                                <input
-                                    class="form-control fs-6 rounded-3"
-                                    type="text"
-                                    placeholder="Votre prénom"
-                                    name="prenom"
-                                    id="prenom"
-                                    required />
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="email" class="form-label fw-semibold">Adresse email</label>
+                    <div class="d-flex mb-3 justify-content-around gap-5">
+                        <div class="w-100">
+                            <label for="nom" class="form-label fw-semibold">Nom</label>
                             <input
                                 class="form-control fs-6 rounded-3"
-                                type="email"
-                                placeholder="exemple@email.com"
-                                name="email"
-                                id="email"
+                                type="text"
+                                placeholder="Votre nom"
+                                name="nom"
+                                id="nom"
                                 required />
                         </div>
 
-                        <div class="mb-3">
-                            <label for="sujet" class="form-label fw-semibold">Sujet</label>
-                            <select
-                                name="sujet"
-                                id="sujet"
-                                class="form-select fs-6 rounded-3"
-                                required>
-                                <option value="" disabled selected hidden>Choisissez un sujet</option>
-                                <option value="Suggestion">Suggestion</option>
-                                <option value="Bug">Bug</option>
-                                <option value="Question">Question</option>
-                                <option value="Réclamation">Réclamation</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="message" class="form-label fw-semibold">Message</label>
-                            <textarea
+                        <div class="w-100">
+                            <label for="prenom" class="form-label fw-semibold">Prénom</label>
+                            <input
                                 class="form-control fs-6 rounded-3"
-                                placeholder="Votre message..."
-                                name="message"
-                                id="message"
-                                rows="5"
-                                required></textarea>
+                                type="text"
+                                placeholder="Votre prénom"
+                                name="prenom"
+                                id="prenom"
+                                required />
                         </div>
-                        <p style="display:none" class="text-danger fw-semibold">* Veuillez remplir tous les champs</p>
-                        <div class="text-end">
-                            <button
-                                type="submit"
-                                class="btn text-white px-4 py-2 rounded-3"
-                                style="background-color: #d72f59;"
-                                onmouseover="this.style.backgroundColor='#e47390';"
-                                onmouseout="this.style.backgroundColor='#d72f59';">
-                                Envoyer
-                            </button>
-                        </div>
-                    </form>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label fw-semibold">Adresse email</label>
+                        <input
+                            class="form-control fs-6 rounded-3"
+                            type="email"
+                            placeholder="exemple@email.com"
+                            name="email"
+                            id="email"
+                            required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="sujet" class="form-label fw-semibold">Sujet</label>
+                        <select
+                            name="sujet"
+                            id="sujet"
+                            class="form-select fs-6 rounded-3"
+                            required>
+                            <option value="" disabled selected hidden>Choisissez un sujet</option>
+                            <option value="Suggestion">Suggestion</option>
+                            <option value="Bug">Bug</option>
+                            <option value="Question">Question</option>
+                            <option value="Réclamation">Réclamation</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="message" class="form-label fw-semibold">Message</label>
+                        <textarea
+                            class="form-control fs-6 rounded-3"
+                            placeholder="Votre message..."
+                            name="message"
+                            id="message"
+                            rows="5"
+                            required></textarea>
+                    </div>
+                    <p style="display:none" class="text-danger fw-semibold">* Veuillez remplir tous les champs</p>
+                    <div class="text-end">
+                        <button
+                            type="submit"
+                            class="btn text-white px-4 py-2 rounded-3"
+                            style="background-color: #d72f59;"
+                            onmouseover="this.style.backgroundColor='#e47390';"
+                            onmouseout="this.style.backgroundColor='#d72f59';">
+                            Envoyer
+                        </button>
+                    </div>
+                </form>
             </div>
         </section>
 
 
-        <section id="mentions" style="display:none;">blabla</section>
-        <section id="confidentialite" style="display:none;">clever blabla</section>
+        <section id="mentions" style="display:none; width: 80%; margin: auto;">
+            <div class="py-5">
+                <h2 class="text-center fw-bold" style="color: #d72f59;">Mentions légales</h2>
+
+                <div class="bg-white p-4 p-md-5 rounded shadow-sm fs-6">
+                    <h2 class="h5 fw-semibold mb-3">Éditeur du site</h2>
+                    <p>
+                        Site : <strong>ReZoom</strong><br>
+                        Responsable de la publication : Samoura Diaba<br>
+                        Contact : iut.rezoom@gmail.com
+                    </p>
+
+                    <h2 class="h5 fw-semibold mt-4 mb-3">Hébergement</h2>
+                    <p>
+                        Hébergeur : O2Switch<br>
+                        Adresse : 222 Boulevard Gustave Flaubert, 63000 Clermont-Ferrand, France<br>
+                        Téléphone : 04 44 44 60 40
+                    </p>
+
+                    <h2 class="h5 fw-semibold mt-4 mb-3">Propriété intellectuelle</h2>
+                    <p>
+                        Tous les contenus présents sur le site <strong>ReZoom</strong> (textes, images, logos, etc.) sont protégés par les lois en vigueur sur la propriété intellectuelle.
+                        Toute reproduction ou représentation totale ou partielle est interdite sans autorisation préalable.
+                    </p>
+
+                    <h2 class="h5 fw-semibold mt-4 mb-3">Données personnelles</h2>
+                    <p>
+                        Conformément au RGPD, vous disposez d’un droit d’accès, de rectification et de suppression des données vous concernant.
+                        Pour toute demande, contactez-nous à l’adresse : <strong>iut.rezoom@gmail.com</strong>.
+                    </p>
+
+                    <!--<h2 class="h5 fw-semibold mt-4 mb-3">Cookies</h2>
+                    <p>
+                        Ce site peut utiliser des cookies à des fins de statistiques ou de fonctionnement.
+                        Vous pouvez configurer votre navigateur pour refuser leur utilisation.
+                    </p>
+-->
+
+                    <h2 class="h5 fw-semibold mt-4 mb-3">Crédits</h2>
+                    <p>
+                        Design & développement :
+                    <ul>
+                        <li><strong>Diaba Samoura</strong></li>
+                        <li><strong>Charly Janvier</strong></li>
+                        <li><strong>Soumiyya Gbadagni</strong></li>
+                        <li><strong>Laura Lebreton</strong></li>
+                    </ul><br>
+                    Images / illustrations : Diaba Samoura, Charly Janvier, Gbadagni, Laura Lebreton.<br>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="confidentialite" style="display:none; width: 80%; margin: auto;">
+            <div class="py-5">
+                <h2 class="text-center fw-bold" style="color: #d72f59;">Politique de confidentialité</h2>
+
+                <div class="bg-white p-4 p-md-5 rounded shadow-sm fs-6">
+                    <p class="mb-3">
+                        Cette politique de confidentialité a pour but de vous informer de manière transparente sur la manière dont nous collectons, utilisons et protégeons vos données personnelles.
+                    </p>
+
+                    <h2 class="fs-5 mt-4">1. Données collectées</h2>
+                    <p>
+                        Lorsque vous remplissez notre formulaire de contact, nous collectons les données suivantes :
+                    </p>
+                    <ul>
+                        <li>Votre adresse e-mail</li>
+                        <li>Le sujet de votre message</li>
+                        <li>Le contenu de votre message</li>
+                    </ul>
+                    <p>Ces informations sont strictement utilisées pour répondre à votre demande.</p>
+
+                    <h2 class="fs-5 mt-4">2. Stockage des données</h2>
+                    <p>
+                        Vos données sont stockées de manière sécurisée sur notre serveur hébergé chez :
+                        <br>
+                        <strong>O2Switch – 222 Boulevard Gustave Flaubert, 63000 Clermont-Ferrand</strong>.
+                    </p>
+
+                    <h2 class="fs-5 mt-4">3. Cookies</h2>
+                    <p>
+                        Ce site n’utilise pas de cookies à des fins publicitaires ou analytiques. Seuls des cookies strictement nécessaires au bon fonctionnement du site peuvent être utilisés (ex : cookie de session).
+                    </p>
+
+                    <h2 class="fs-5 mt-4">4. Vos droits</h2>
+                    <p>
+                        Conformément au RGPD, vous disposez des droits suivants :
+                    </p>
+                    <ul>
+                        <li>Droit d'accès à vos données personnelles</li>
+                        <li>Droit de rectification</li>
+                        <li>Droit à l'effacement ("droit à l’oubli")</li>
+                        <li>Droit d’opposition</li>
+                        <li>Droit à la portabilité</li>
+                    </ul>
+                    <p>
+                        Pour exercer vos droits, vous pouvez nous contacter via le formulaire de contact.
+                    </p>
+
+                    <h2 class="fs-5 mt-4">5. Responsable du traitement</h2>
+                    <p>
+                        Le responsable du traitement des données est l’équipe du site ReZoom. Vous pouvez nous écrire via la page “Nous contacter”.
+                    </p>
+
+                    <h2 class="fs-5 mt-4">6. Sécurité</h2>
+                    <p>
+                        Nous mettons tout en œuvre pour assurer la sécurité de vos données, en limitant les accès et en sécurisant notre serveur. Les mots de passe sont stockés sous forme chiffrée.
+                    </p>
+
+                    <h2 class="fs-5 mt-4">7. Données des formulaires d’inscription et de connexion</h2>
+                    <p>
+                        Lors de votre inscription sur notre site, nous collectons :
+                    </p>
+                    <ul>
+                        <li>Nom et prénom</li>
+                        <li>Pseudonyme</li>
+                        <li>Date de naissance</li>
+                        <li>Numéro de téléphone</li>
+                        <li>Adresse e-mail</li>
+                        <li>Mot de passe (crypté)</li>
+                        <li>Date d’inscription</li>
+                    </ul>
+                    <p>
+                        Ces informations sont nécessaires pour créer et gérer votre compte utilisateur. En vous connectant, nous collectons également votre adresse e-mail et votre mot de passe afin de vérifier vos identifiants. Un cookie de session temporaire est utilisé pour maintenir votre connexion.
+                    </p>
+
+                    <h2 class="fs-5 mt-4">8. Données liées aux réservations</h2>
+                    <p>
+                        Lorsque vous effectuez une réservation de salle ou de matériel, nous collectons :
+                    </p>
+                    <ul>
+                        <li>La date et l’heure de la réservation</li>
+                        <li>Le type de ressource réservée (salle, matériel, etc.)</li>
+                        <li>Votre identifiant utilisateur</li>
+                        <li>La signature électronique ou le nom associé à la réservation</li>
+                    </ul>
+                    <p>
+                        Ces données nous permettent de garantir le suivi, la traçabilité et la bonne gestion des demandes de réservation.
+                    </p>
+
+                    <p class="mt-5 text-muted small text-end">
+                        Dernière mise à jour : juin 2025
+                    </p>
+                </div>
+            </div>
+        </section>
+
     </main>
     <?php
     if (isset($_POST['submit'])) {
