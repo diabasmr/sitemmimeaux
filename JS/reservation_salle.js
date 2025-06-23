@@ -101,7 +101,7 @@ function changeMonth(offset) {
   current.setMonth(current.getMonth() + offset);
   renderCalendar();
 }
-//-------------------------------------------------------------------------------------------------------------------
+
 document.addEventListener("DOMContentLoaded", renderCalendar);
 // Convertir une heure "HH:MM" en minutes
 function timeToMinutes(t) {

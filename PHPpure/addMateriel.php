@@ -3,7 +3,7 @@ require_once '../PHPpure/connexion.php';
 
 if (isset($_POST['ajouterMateriel'])) {
     // si les champs sont vides mettre un message d'erreur
-    if (empty($_POST['date_achat']) || empty($_POST['designation']) || empty($_POST['quantite']) || empty($_POST['descriptif']) || empty($_POST['type']) || empty($_POST['etat']) || empty($_POST['lien_demo'])) {
+    if (empty($_POST['designation']) || empty($_POST['quantite']) || empty($_POST['descriptif']) || empty($_POST['type']) || empty($_POST['etat']) || empty($_POST['lien_demo'])) {
         echo "Veuillez remplir tous les champs";
         echo "<script>setTimeout(function() { window.location.href = '../PHP/listeDuMateriel.php'; }, 3000);</script>";
         exit();
@@ -12,8 +12,8 @@ if (isset($_POST['ajouterMateriel'])) {
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
         $uploadDir = '../materiel/';
         $fileName = basename($_FILES['photo']['name']);
-        $targetFile =  $fileName;
-    
+        $targetFile =  $uploadDir . $fileName;
+
         if (move_uploaded_file($_FILES['photo']['tmp_name'], $targetFile)) {
             $photo = basename($targetFile); // nom fichier à stocker en BDD
         } else {
@@ -23,9 +23,8 @@ if (isset($_POST['ajouterMateriel'])) {
     } else {
         $photo = null;
     }
-    
+
     $designation = $_POST['designation'];
-    $date_achat = $_POST['date_achat'];
     $quantite  = $_POST['quantite'];
     $descriptif  = $_POST['descriptif'];
     $type  = $_POST['type'];
@@ -46,13 +45,12 @@ if (isset($_POST['ajouterMateriel'])) {
         echo "<script>setTimeout(function() { window.location.href = '../PHP/index.php'; }, 3000);</script>";
     } else {
         // Insertion dans materiel
-        $sql = "INSERT INTO materiel (designation, photo, dateAchat, quantité, descriptif, typeM, etat, lien_demo)
-            VALUES (:designation, :photo, :dateAchat, :quantite, :descriptif, :typeM, :etat, :lien_demo)";
+        $sql = "INSERT INTO materiel (designation, photo, quantité, descriptif, typeM, etat, lien_demo)
+            VALUES (:designation, :photo, :quantite, :descriptif, :typeM, :etat, :lien_demo)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             'designation' => $designation,
             'photo' => $photo,
-            'dateAchat' => $date_achat,
             'quantite' => $quantite,
             'descriptif' => $descriptif,
             'typeM' => $type,
@@ -73,7 +71,7 @@ if (isset($_POST['ajouterMateriel'])) {
         $stmt3->execute([
             'ref' => $ref,
             'id' => $lastInsertId
-]);
+        ]);
 
         header('Location: ../PHP/listeDuMateriel.php');
     }

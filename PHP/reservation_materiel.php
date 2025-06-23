@@ -26,11 +26,11 @@
         <form action="../PHPpure/reservation_materiel.php" method="post" class="ms-4 ms-md-auto my-5 mt-md-auto">
             <h1>Procédure de réservation</h1>
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="materiels.php">Matériels</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Réserver</li>
-                        </ol>
-                    </nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="materiels.php">Matériels</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Réserver</li>
+                </ol>
+            </nav>
 
 
             <section class="reservation-content">
@@ -75,57 +75,57 @@
 
                     <div class="my-4 d-flex justify-content-around">
                         <div class="d-flex justify-content-between align-items-baseline">
-                        <label for="horaireD" class="form-label me-2"> De: </label>
-                        <select name="horaireD" class="form-select" id="horaireD" required>
-                            <option name="horaireD" value="" selected>début</option>
-                            <option name="horaireD" value="08:00">08:00</option>
-                            <option name="horaireD" value="09:00">09:00</option>
-                            <option name="horaireD" value="10:00">10:00</option>
-                            <option name="horaireD" value="11:00">11:00</option>
-                            <option name="horaireD" value="12:00">12:00</option>
-                            <option name="horaireD" value="13:00">13:00</option>
-                            <option name="horaireD" value="14:00">14:00</option>
-                            <option name="horaireD" value="15:00">15:00</option>
-                            <option name="horaireD" value="16:00">16:00</option>
-                            <option name="horaireD" value="17:00">17:00</option>
-                        </select>
+                            <label for="horaireD" class="form-label me-2"> De: </label>
+                            <select name="horaireD" class="form-select" id="horaireD" required>
+                                <option name="horaireD" value="" selected>début</option>
+                                <option name="horaireD" value="08:00">08:00</option>
+                                <option name="horaireD" value="09:00">09:00</option>
+                                <option name="horaireD" value="10:00">10:00</option>
+                                <option name="horaireD" value="11:00">11:00</option>
+                                <option name="horaireD" value="12:00">12:00</option>
+                                <option name="horaireD" value="13:00">13:00</option>
+                                <option name="horaireD" value="14:00">14:00</option>
+                                <option name="horaireD" value="15:00">15:00</option>
+                                <option name="horaireD" value="16:00">16:00</option>
+                                <option name="horaireD" value="17:00">17:00</option>
+                            </select>
                         </div>
                         <div class="d-flex justify-content-between align-items-baseline">
-                        <label for="horaireF" class="form-label me-2"> À: </label>
-                        <select name="horaireF" class="form-select" id="horaireF" required>
-                        <option name="horaireD" value="" selected>fin</option>
-                            <option name="horaireF" value="09:00">09:00</option>
-                            <option name="horaireF" value="10:00">10:00</option>
-                            <option name="horaireF" value="11:00">11:00</option>
-                            <option name="horaireF" value="12:00">12:00</option>
-                            <option name="horaireF" value="13:00">13:00</option>
-                            <option name="horaireF" value="14:00">14:00</option>
-                            <option name="horaireF" value="15:00">15:00</option>
-                            <option name="horaireF" value="16:00">16:00</option>
-                            <option name="horaireF" value="17:00">17:00</option>
-                            <option name="horaireF" value="18:00">18:00</option>
-                        </select>
+                            <label for="horaireF" class="form-label me-2"> À: </label>
+                            <select name="horaireF" class="form-select" id="horaireF" required>
+                                <option name="horaireD" value="" selected>fin</option>
+                                <option name="horaireF" value="09:00">09:00</option>
+                                <option name="horaireF" value="10:00">10:00</option>
+                                <option name="horaireF" value="11:00">11:00</option>
+                                <option name="horaireF" value="12:00">12:00</option>
+                                <option name="horaireF" value="13:00">13:00</option>
+                                <option name="horaireF" value="14:00">14:00</option>
+                                <option name="horaireF" value="15:00">15:00</option>
+                                <option name="horaireF" value="16:00">16:00</option>
+                                <option name="horaireF" value="17:00">17:00</option>
+                                <option name="horaireF" value="18:00">18:00</option>
+                            </select>
                         </div>
                     </div>
 
                     <div id="qtt" class="d-flex justify-content-center align-items-baseline gap-3">
-                        <p class='text-white rounded text-center justify-content-center p-2 border-0' style='background-color:#e4587d;'>
-                        <?php 
-                        $sql2 = "SELECT quantité FROM materiel WHERE idM = ?";
-                        $stmt2 = $pdo->prepare($sql2);
-                        $stmt2->execute([$_GET['idM']]);
-                        $quantite_totale = $stmt2->fetch(PDO::FETCH_ASSOC);
+                        <input type="number" class="form-control text-center" value="1" min="1" max="<?php echo $quantite_dispo; ?>" id="quantite" style='width:30%;' name="quantite">
+                        <p class=' text-white rounded text-center justify-content-center p-2 border-0' style='width:30%; background-color:#e4587d;'>
+                            <?php
+                            $sql2 = "SELECT quantité FROM materiel WHERE idM = ?";
+                            $stmt2 = $pdo->prepare($sql2);
+                            $stmt2->execute([$_GET['idM']]);
+                            $quantite_totale = $stmt2->fetch(PDO::FETCH_ASSOC);
 
-                        $sql3 = "SELECT COUNT(r.idR) AS nb_reservations FROM reservations r JOIN concerne c ON r.idR = c.idR WHERE c.idM = ? AND r.valide = 1";
-                        $stmt3 = $pdo->prepare($sql3);
-                        $stmt3->execute([$_GET['idM']]);
-                        $resas = $stmt3->fetch(PDO::FETCH_ASSOC);
+                            $sql3 = "SELECT COUNT(r.idR) AS nb_reservations FROM reservations r JOIN concerne c ON r.idR = c.idR WHERE c.idM = ? AND r.valide = 1";
+                            $stmt3 = $pdo->prepare($sql3);
+                            $stmt3->execute([$_GET['idM']]);
+                            $resas = $stmt3->fetch(PDO::FETCH_ASSOC);
 
-                        // Calcul de la quantité restante
-                        $quantite_dispo = $quantite_totale['quantité'] - $resas['nb_reservations'];?>
-                        <span id="dispo" data-stock="<?php echo $materiel['quantité']?>"><?php echo $quantite_dispo?></span> disponibles
+                            // Calcul de la quantité restante
+                            $quantite_dispo = $quantite_totale['quantité'] - $resas['nb_reservations']; ?>
+                            <span id="dispo" data-stock="<?php echo $materiel['quantité'] ?>"><?php echo $quantite_dispo ?></span> disponibles
                         </p>
-                        <input type="number" class="form-control w-75 text-center" value="1" min="1" max="<?php echo $quantite_dispo; ?>" id="quantite" name="quantite">
                     </div>
 
 
@@ -161,7 +161,7 @@
                     <div class="who">
                         <h3>Qui réserve ?</h3>
                         <div class="avatars">
-                        <div id="avatar-container">
+                            <div id="avatar-container">
                                 <?php
                                 require_once("../PHPpure/connexion.php");
                                 $id_utilisateur = $_SESSION["user"]["id"];
@@ -195,7 +195,7 @@
                                 require_once("../PHPpure/connexion.php");
                                 if (isset($_SESSION['user'])) {
                                     $idConnecte = $_SESSION['user']['id'];
-                                    if($_SESSION['user']['role'] == 'Etudiant(e)'){
+                                    if ($_SESSION['user']['role'] == 'Etudiant(e)') {
                                         $sql = "
                                             SELECT u.id, u.nom, u.prenom, u.avatar, e.promotion, e.td
                                             FROM user_ u
@@ -206,28 +206,28 @@
                                         $stmt->bindParam(':idConnecte', $idConnecte, PDO::PARAM_INT);
                                         $stmt->execute();
                                         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                    foreach ($users as $user) {
-                                            ?>
-                                                  <div class="who-list-user-item mb-3 col-12 d-flex justify-content-between align-items-center gap-2 w-100"
-                                                        id="<?= $user['id'] ?>">
-                                                        <div class="d-flex justify-content-between align-items-center w-100">
-                                                            <div class="d-flex justify-content-between align-items-center gap-2">
-                                                                <img src="<?= htmlspecialchars($user['avatar'] ?? '../uploads/default.png') ?>"
-                                                                    alt="" class="avatarAjouterEtudiant " id="<?= $user['id'] ?>">
-                                                                <div
-                                                                    class="etudiantInfo d-flex justify-content-end align-items-start flex-column">
-                                                                    <p class="fs-3 fs-md-1"><?= htmlspecialchars($user['prenom']) . ' ' . htmlspecialchars($user['nom']) ?>
-                                                                    </p>
-                                                                    <p class="fs-3 fs-md-1"><?= isset($user['promotion']) ? htmlspecialchars($user['promotion']) : "" ?></p>
-                                                                </div>
-                                                            </div>
-                                                            <p class="fs-3 fs-md-1"><?= isset($user['td']) ? htmlspecialchars($user['td']) : "" ?></p>
+                                        foreach ($users as $user) {
+                                ?>
+                                            <div class="who-list-user-item mb-3 col-12 d-flex justify-content-between align-items-center gap-2 w-100"
+                                                id="<?= $user['id'] ?>">
+                                                <div class="d-flex justify-content-between align-items-center w-100">
+                                                    <div class="d-flex justify-content-between align-items-center gap-2">
+                                                        <img src="<?= htmlspecialchars($user['avatar'] ?? '../uploads/default.png') ?>"
+                                                            alt="" class="avatarAjouterEtudiant " id="<?= $user['id'] ?>">
+                                                        <div
+                                                            class="etudiantInfo d-flex justify-content-end align-items-start flex-column">
+                                                            <p class="fs-3 fs-md-1"><?= htmlspecialchars($user['prenom']) . ' ' . htmlspecialchars($user['nom']) ?>
+                                                            </p>
+                                                            <p class="fs-3 fs-md-1"><?= isset($user['promotion']) ? htmlspecialchars($user['promotion']) : "" ?></p>
                                                         </div>
-                                                        <button type="button" class="ajouterUserButton">Ajouter</button>
                                                     </div>
-                                    <?php
-                                    }
-                                    } elseif ($_SESSION['user']['role'] == 'Enseignant(e)' || $_SESSION['user']['role'] == 'Administrateur'){
+                                                    <p class="fs-3 fs-md-1"><?= isset($user['td']) ? htmlspecialchars($user['td']) : "" ?></p>
+                                                </div>
+                                                <button type="button" class="ajouterUserButton">Ajouter</button>
+                                            </div>
+                                        <?php
+                                        }
+                                    } elseif ($_SESSION['user']['role'] == 'Enseignant(e)' || $_SESSION['user']['role'] == 'Administrateur') {
                                         $sql = "
                                             SELECT u.id, u.nom, u.prenom, u.avatar
                                             FROM user_ u
@@ -238,27 +238,27 @@
                                         $stmt->execute();
                                         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         foreach ($users as $user) {
-                                            ?>
-                                                  <div class="who-list-user-item mb-3 col-12 d-flex justify-content-between align-items-center gap-2 w-100"
-                                                        id="<?= $user['id'] ?>">
-                                                        <div class="d-flex justify-content-between align-items-center w-100">
-                                                            <div class="d-flex justify-content-between align-items-center gap-2">
-                                                                <img src="<?= htmlspecialchars($user['avatar'] ?? '../uploads/default.png') ?>"
-                                                                    alt="" class="avatarAjouterEtudiant " id="<?= $user['id'] ?>">
-                                                                <div
-                                                                    class="etudiantInfo d-flex justify-content-end align-items-start flex-column">
-                                                                    <p class="fs-3 fs-md-1"><?= htmlspecialchars($user['prenom']) . ' ' . htmlspecialchars($user['nom']) ?>
-                                                                    </p>
-                                                                    <p class="fs-3 fs-md-1"><?= isset($user['promotion']) ? htmlspecialchars($user['promotion']) : "" ?></p>
-                                                                </div>
-                                                            </div>
-                                                            <p class="fs-3 fs-md-1"><?= isset($user['td']) ? htmlspecialchars($user['td']) : "" ?></p>
+                                        ?>
+                                            <div class="who-list-user-item mb-3 col-12 d-flex justify-content-between align-items-center gap-2 w-100"
+                                                id="<?= $user['id'] ?>">
+                                                <div class="d-flex justify-content-between align-items-center w-100">
+                                                    <div class="d-flex justify-content-between align-items-center gap-2">
+                                                        <img src="<?= htmlspecialchars($user['avatar'] ?? '../uploads/default.png') ?>"
+                                                            alt="" class="avatarAjouterEtudiant " id="<?= $user['id'] ?>">
+                                                        <div
+                                                            class="etudiantInfo d-flex justify-content-end align-items-start flex-column">
+                                                            <p class="fs-3 fs-md-1"><?= htmlspecialchars($user['prenom']) . ' ' . htmlspecialchars($user['nom']) ?>
+                                                            </p>
+                                                            <p class="fs-3 fs-md-1"><?= isset($user['promotion']) ? htmlspecialchars($user['promotion']) : "" ?></p>
                                                         </div>
-                                                        <button type="button" class="ajouterUserButton">Ajouter</button>
-                                                    </div>  
+                                                    </div>
+                                                    <p class="fs-3 fs-md-1"><?= isset($user['td']) ? htmlspecialchars($user['td']) : "" ?></p>
+                                                </div>
+                                                <button type="button" class="ajouterUserButton">Ajouter</button>
+                                            </div>
                                 <?php
+                                        }
                                     }
-                                }
                                 } else {
                                     echo "Utilisateur non connecté.";
                                 }
@@ -277,8 +277,8 @@
                             <input type="checkbox" name="acceptation" onclick="document.getElementById('regle').style.display='block'">
                             Lire et approuver le Règlement de l'Utilisation du matériel.
                         </label>
-                        <div id="regle" 
-                        class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-md-65 start-50 translate-middle text-center align-items-center justify-content-center" >
+                        <div id="regle"
+                            class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-md-65 start-50 translate-middle text-center align-items-center justify-content-center">
 
                             <h5 class="mb-4">Règlement d'utilisation</h5>
                             <p class="mb-3">En réservant du matériel ou une salle dans le cadre du BUT MMI, je reconnais avoir pris connaissance du présent règlement :</p>

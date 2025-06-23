@@ -89,7 +89,7 @@ include("../PHPpure/entete.php");
                         echo "</div>";
                         echo "<img src='../materiel/" . $row['photo'] . "' alt='materiel' class='w-100 rounded-5 materiel-image'>";
                         echo "<div class='d-flex justify-content-center align-items-center flex-column w-100'>";
-                        echo "<a class='text-center fs-auto fw-bold w-100' style='text-decoration:none; color:black;' href='produit.php?id=". $row['idM']. "'>" . $row['designation'] . "</a>";
+                        echo "<a class='text-center fs-auto fw-bold w-100' style='text-decoration:none; color:black;' href='produit.php?id=" . $row['idM'] . "'>" . $row['designation'] . "</a>";
                         echo "<button class='btn btn-danger text-white text-center w-80 w-md-50 p-3' onclick='reserverMateriel(" . $row['idM'] . ")'";
 
                         if ($quantite_dispo == 0) {
@@ -119,15 +119,15 @@ include("../PHPpure/entete.php");
                         <button name="search" type="submit" class="search-btn btn ms-3 p-3"><img src="../res/search.svg" alt="search"></button>
                     </form>
                 </div>
-                
+
                 <?php
-                $materiaux = []; 
+                $materiaux = [];
                 if (isset($_POST['search'])) {
                     $motcle = '%' . $_POST['motcle'] . '%';
-                
+
                     $stmt = $pdo->prepare("SELECT * FROM materiel WHERE designation LIKE ? OR typeM LIKE ? OR descriptif LIKE ?");
                     $stmt->execute([$motcle, $motcle, $motcle]);
-                
+
                     $materiaux = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 } else {
                     $stmt = $pdo->query("SELECT * FROM materiel");
@@ -231,24 +231,24 @@ include("../PHPpure/entete.php");
                     echo "</div>";
                     $sql2 = "SELECT COUNT(r.idR) AS nb_reservations FROM reservations r JOIN concerne c ON r.idR = c.idR WHERE c.idM = ? AND r.valide = 1";
 
-                        $stmt2 = $pdo->prepare($sql2);
-                        $stmt2->execute([$materiel['idM']]);
-                        $resas = $stmt2->fetch(PDO::FETCH_ASSOC);
+                    $stmt2 = $pdo->prepare($sql2);
+                    $stmt2->execute([$materiel['idM']]);
+                    $resas = $stmt2->fetch(PDO::FETCH_ASSOC);
 
-                        // Calcul de la quantité restante
-                        $quantite_dispo = $materiel['quantité'] - $resas['nb_reservations'];
+                    // Calcul de la quantité restante
+                    $quantite_dispo = $materiel['quantité'] - $resas['nb_reservations'];
                     echo "<div class='position-absolute top-0 start-0 ms-3 d-flex justify-content-between align-items-center gap-3 p-4'>";
-                        echo "<p id='other' class='text-white rounded p-2 border-0' style='background-color:#e4587d;'>";
-                        echo $quantite_dispo . " " . "disponibles";
-                        echo "</p>";
-                        echo "<p id='phone' class='text-white rounded p-2 border-0' style='background-color:#e4587d;'>";
-                        echo $quantite_dispo;
-                        echo "</p>";
-                        echo "</div>";
+                    echo "<p id='other' class='text-white rounded p-2 border-0' style='background-color:#e4587d;'>";
+                    echo $quantite_dispo . " " . "disponibles";
+                    echo "</p>";
+                    echo "<p id='phone' class='text-white rounded p-2 border-0' style='background-color:#e4587d;'>";
+                    echo $quantite_dispo;
+                    echo "</p>";
+                    echo "</div>";
                     // img meme taille que la div
-                    echo "<img src='../materiel/" . $materiel['photo'] . "' alt='materiel' class='rounded-5 materiel-image'>";
+                    echo "<img src='../materiel/" . $materiel['photo'] . "' alt='materiel' class='bg-white rounded-5 materiel-image'>";
                     echo "<div class='d-flex justify-content-center align-items-center flex-column w-100'>";
-                    echo "<a class='text-center fs-auto fw-bold w-100' style='text-decoration:none; color:black;' href='produit.php?id=". $materiel['idM']. "'>" . $materiel['designation'] . "</a>";
+                    echo "<a class='text-center fs-auto fw-bold w-100' style='text-decoration:none; color:black;' href='produit.php?id=" . $materiel['idM'] . "'>" . $materiel['designation'] . "</a>";
                     echo "<button class='btn btn-danger text-white text-center w-80 w-md-50 p-3' onclick='reserverMateriel(" . $materiel['idM'] . ")'";
 
                     if ($materiel['quantité'] == 0) {
