@@ -58,11 +58,11 @@ use PHPMailer\PHPMailer\Exception; ?>
                 </div>
             </div>
         </nav>
-        <section id="contact" style="display:none; width: 80%; margin: auto;">
+        <section id="contact" style="width: 80%; margin: auto;">
             <div class="py-5">
                 <h3 class="text-center mb-4">Nous contacter</h1>
 
-                    <form action="../PHPpure/contact.php"
+                    <form action="#"
                         method="POST"
                         class="mx-auto p-4 rounded shadow-sm"
                         style="background-color:rgb(255, 255, 255);">
@@ -127,8 +127,7 @@ use PHPMailer\PHPMailer\Exception; ?>
                                 rows="5"
                                 required></textarea>
                         </div>
-                        <p class="text-danger fw-semibold">* Entrer un email valide</p>
-                        <p class="text-danger fw-semibold">* Veuillez remplir tous les champs</p>
+                        <p style="display:none" class="text-danger fw-semibold">* Veuillez remplir tous les champs</p>
                         <div class="text-end">
                             <button
                                 type="submit"
@@ -191,6 +190,76 @@ use PHPMailer\PHPMailer\Exception; ?>
     }
     ?>
     <script>
+        email = document.getElementById('email');
+        nom = document.getElementById('nom');
+        prenom = document.getElementById('prenom');
+        msg = document.querySelectorAll('textarea');
+        select = document.querySelector('select');
+        submit = document.querySelector('button[type="submit"]');
+
+        submit.addEventListener('click', function(event) {
+            alerte = document.querySelector('p.text-danger');
+            // Vérification des champs avant l'envoi
+            if (email.value.trim() === '' || nom.value.trim() === '' || prenom.value.trim() === '' || select.value === '' || Array.from(msg).some(textarea => textarea.value.trim() === '')) {
+                alerte.style.display = 'block'; // Affiche le message d'erreur
+                event.preventDefault(); // Empêche l'envoi du formulaire
+            }
+        });
+
+        email.addEventListener('input', function() {
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (emailPattern.test(email.value)) {
+                email.classList.remove('is-invalid');
+                email.classList.add('is-valid');
+            } else {
+                email.classList.remove('is-valid');
+                email.classList.add('is-invalid');
+            }
+        });
+
+
+        nom.addEventListener('input', function() {
+            if (nom.value.trim() !== '') {
+                nom.classList.remove('is-invalid');
+                nom.classList.add('is-valid');
+            } else {
+                nom.classList.remove('is-valid');
+                nom.classList.add('is-invalid');
+            }
+        });
+
+        prenom.addEventListener('input', function() {
+            if (prenom.value.trim() !== '') {
+                prenom.classList.remove('is-invalid');
+                prenom.classList.add('is-valid');
+            } else {
+                prenom.classList.remove('is-valid');
+                prenom.classList.add('is-invalid');
+            }
+        });
+
+        msg.forEach(function(textarea) {
+            textarea.addEventListener('input', function() {
+                if (textarea.value.trim() !== '') {
+                    textarea.classList.remove('is-invalid');
+                    textarea.classList.add('is-valid');
+                } else {
+                    textarea.classList.remove('is-valid');
+                    textarea.classList.add('is-invalid');
+                }
+            });
+        });
+
+        select.addEventListener('change', function() {
+            if (select.value !== '') {
+                select.classList.remove('is-invalid');
+                select.classList.add('is-valid');
+            } else {
+                select.classList.remove('is-valid');
+                select.classList.add('is-invalid');
+            }
+        });
+
         function showSection(id) {
             // Masquer toutes les sections
             const allSections = ['contact', 'mentions', 'confidentialite'];
