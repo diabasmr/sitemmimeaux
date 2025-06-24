@@ -1,4 +1,11 @@
-<?php include("../PHPpure/entete.php"); 
+<?php
+include("../PHPpure/entete.php");
+require("../PHPpure/connexion.php");
+$error = '';
+if (isset($_SESSION['error'])) {
+    $error = $_SESSION['error'];
+    unset($_SESSION['error']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -27,11 +34,11 @@
         <form action="../PHPpure/reservation_salle.php" method="post" class="ms-4 ms-md-auto my-5 mt-md-auto">
             <h1>Procédure de réservation</h1>
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="salles.php">Salles</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Réserver</li>
-                        </ol>
-                    </nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="salles.php">Salles</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Réserver</li>
+                </ol>
+            </nav>
 
             <div class="salle-selector">
                 <button type="button" class="active" data-salle="1">Salle 138</button>
@@ -42,7 +49,6 @@
                 <!-- Colonne de gauche : caméra -->
                 <div class="equipment">
                     <?php
-                    require("../PHPpure/connexion.php");
                     $idS = $_GET['idS'];
                     $sql = "SELECT * FROM salle WHERE idS = ?";
                     $stmt = $pdo->prepare($sql);
@@ -80,36 +86,36 @@
 
                     <div class="my-4 d-flex justify-content-around">
                         <div class="d-flex justify-content-between align-items-baseline">
-                        <label for="horaireD" class="form-label me-2"> De: </label>
-                        <select name="horaireD" class="form-select" id="horaireD" required>
-                            <option name="horaireD" value="" selected>début</option>
-                            <option name="horaireD" value="08:00">08:00</option>
-                            <option name="horaireD" value="09:00">09:00</option>
-                            <option name="horaireD" value="10:00">10:00</option>
-                            <option name="horaireD" value="11:00">11:00</option>
-                            <option name="horaireD" value="12:00">12:00</option>
-                            <option name="horaireD" value="13:00">13:00</option>
-                            <option name="horaireD" value="14:00">14:00</option>
-                            <option name="horaireD" value="15:00">15:00</option>
-                            <option name="horaireD" value="16:00">16:00</option>
-                            <option name="horaireD" value="17:00">17:00</option>
-                        </select>
+                            <label for="horaireD" class="form-label me-2"> De: </label>
+                            <select name="horaireD" class="form-select" id="horaireD" required>
+                                <option name="horaireD" value="" selected>début</option>
+                                <option name="horaireD" value="08:00">08:00</option>
+                                <option name="horaireD" value="09:00">09:00</option>
+                                <option name="horaireD" value="10:00">10:00</option>
+                                <option name="horaireD" value="11:00">11:00</option>
+                                <option name="horaireD" value="12:00">12:00</option>
+                                <option name="horaireD" value="13:00">13:00</option>
+                                <option name="horaireD" value="14:00">14:00</option>
+                                <option name="horaireD" value="15:00">15:00</option>
+                                <option name="horaireD" value="16:00">16:00</option>
+                                <option name="horaireD" value="17:00">17:00</option>
+                            </select>
                         </div>
                         <div class="d-flex justify-content-between align-items-baseline">
-                        <label for="horaireF" class="form-label me-2"> À: </label>
-                        <select name="horaireF" class="form-select" id="horaireF" required>
-                        <option name="horaireD" value="" selected>fin</option>
-                            <option name="horaireF" value="09:00">09:00</option>
-                            <option name="horaireF" value="10:00">10:00</option>
-                            <option name="horaireF" value="11:00">11:00</option>
-                            <option name="horaireF" value="12:00">12:00</option>
-                            <option name="horaireF" value="13:00">13:00</option>
-                            <option name="horaireF" value="14:00">14:00</option>
-                            <option name="horaireF" value="15:00">15:00</option>
-                            <option name="horaireF" value="16:00">16:00</option>
-                            <option name="horaireF" value="17:00">17:00</option>
-                            <option name="horaireF" value="18:00">18:00</option>
-                        </select>
+                            <label for="horaireF" class="form-label me-2"> À: </label>
+                            <select name="horaireF" class="form-select" id="horaireF" required>
+                                <option name="horaireD" value="" selected>fin</option>
+                                <option name="horaireF" value="09:00">09:00</option>
+                                <option name="horaireF" value="10:00">10:00</option>
+                                <option name="horaireF" value="11:00">11:00</option>
+                                <option name="horaireF" value="12:00">12:00</option>
+                                <option name="horaireF" value="13:00">13:00</option>
+                                <option name="horaireF" value="14:00">14:00</option>
+                                <option name="horaireF" value="15:00">15:00</option>
+                                <option name="horaireF" value="16:00">16:00</option>
+                                <option name="horaireF" value="17:00">17:00</option>
+                                <option name="horaireF" value="18:00">18:00</option>
+                            </select>
                         </div>
                     </div>
 
@@ -183,7 +189,7 @@
                                 require_once("../PHPpure/connexion.php");
                                 if (isset($_SESSION['user'])) {
                                     $idConnecte = $_SESSION['user']['id'];
-                                    if($_SESSION['user']['role'] == 'Etudiant(e)'){
+                                    if ($_SESSION['user']['role'] == 'Etudiant(e)') {
                                         $sql = "
                                             SELECT u.id, u.nom, u.prenom, u.avatar, e.promotion, e.td
                                             FROM user_ u
@@ -194,28 +200,28 @@
                                         $stmt->bindParam(':idConnecte', $idConnecte, PDO::PARAM_INT);
                                         $stmt->execute();
                                         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                    foreach ($users as $user) {
-                                            ?>
-                                                  <div class="who-list-user-item mb-3 col-12 d-flex justify-content-between align-items-center gap-2 w-100"
-                                                        id="<?= $user['id'] ?>">
-                                                        <div class="d-flex justify-content-between align-items-center w-100">
-                                                            <div class="d-flex justify-content-between align-items-center gap-2">
-                                                                <img src="<?= htmlspecialchars($user['avatar'] ?? '../uploads/default.png') ?>"
-                                                                    alt="" class="avatarAjouterEtudiant " id="<?= $user['id'] ?>">
-                                                                <div
-                                                                    class="etudiantInfo d-flex justify-content-end align-items-start flex-column">
-                                                                    <p class="fs-3 fs-md-1"><?= htmlspecialchars($user['prenom']) . ' ' . htmlspecialchars($user['nom']) ?>
-                                                                    </p>
-                                                                    <p class="fs-3 fs-md-1"><?= isset($user['promotion']) ? htmlspecialchars($user['promotion']) : "" ?></p>
-                                                                </div>
-                                                            </div>
-                                                            <p class="fs-3 fs-md-1"><?= isset($user['td']) ? htmlspecialchars($user['td']) : "" ?></p>
+                                        foreach ($users as $user) {
+                                ?>
+                                            <div class="who-list-user-item mb-3 col-12 d-flex justify-content-between align-items-center gap-2 w-100"
+                                                id="<?= $user['id'] ?>">
+                                                <div class="d-flex justify-content-between align-items-center w-100">
+                                                    <div class="d-flex justify-content-between align-items-center gap-2">
+                                                        <img src="<?= htmlspecialchars($user['avatar'] ?? '../uploads/default.png') ?>"
+                                                            alt="" class="avatarAjouterEtudiant " id="<?= $user['id'] ?>">
+                                                        <div
+                                                            class="etudiantInfo d-flex justify-content-end align-items-start flex-column">
+                                                            <p class="fs-3 fs-md-1"><?= htmlspecialchars($user['prenom']) . ' ' . htmlspecialchars($user['nom']) ?>
+                                                            </p>
+                                                            <p class="fs-3 fs-md-1"><?= isset($user['promotion']) ? htmlspecialchars($user['promotion']) : "" ?></p>
                                                         </div>
-                                                        <button type="button" class="ajouterUserButton">Ajouter</button>
                                                     </div>
-                                    <?php
-                                    }
-                                    } elseif ($_SESSION['user']['role'] == 'Enseignant(e)' || $_SESSION['user']['role'] == 'Administrateur'){
+                                                    <p class="fs-3 fs-md-1"><?= isset($user['td']) ? htmlspecialchars($user['td']) : "" ?></p>
+                                                </div>
+                                                <button type="button" class="ajouterUserButton">Ajouter</button>
+                                            </div>
+                                        <?php
+                                        }
+                                    } elseif ($_SESSION['user']['role'] == 'Enseignant(e)' || $_SESSION['user']['role'] == 'Administrateur') {
                                         $sql = "
                                             SELECT u.id, u.nom, u.prenom, u.avatar
                                             FROM user_ u
@@ -226,27 +232,27 @@
                                         $stmt->execute();
                                         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         foreach ($users as $user) {
-                                            ?>
-                                                  <div class="who-list-user-item mb-3 col-12 d-flex justify-content-between align-items-center gap-2 w-100"
-                                                        id="<?= $user['id'] ?>">
-                                                        <div class="d-flex justify-content-between align-items-center w-100">
-                                                            <div class="d-flex justify-content-between align-items-center gap-2">
-                                                                <img src="<?= htmlspecialchars($user['avatar'] ?? '../uploads/default.png') ?>"
-                                                                    alt="" class="avatarAjouterEtudiant " id="<?= $user['id'] ?>">
-                                                                <div
-                                                                    class="etudiantInfo d-flex justify-content-end align-items-start flex-column">
-                                                                    <p class="fs-3 fs-md-1"><?= htmlspecialchars($user['prenom']) . ' ' . htmlspecialchars($user['nom']) ?>
-                                                                    </p>
-                                                                    <p class="fs-3 fs-md-1"><?= isset($user['promotion']) ? htmlspecialchars($user['promotion']) : "" ?></p>
-                                                                </div>
-                                                            </div>
-                                                            <p class="fs-3 fs-md-1"><?= isset($user['td']) ? htmlspecialchars($user['td']) : "" ?></p>
+                                        ?>
+                                            <div class="who-list-user-item mb-3 col-12 d-flex justify-content-between align-items-center gap-2 w-100"
+                                                id="<?= $user['id'] ?>">
+                                                <div class="d-flex justify-content-between align-items-center w-100">
+                                                    <div class="d-flex justify-content-between align-items-center gap-2">
+                                                        <img src="<?= htmlspecialchars($user['avatar'] ?? '../uploads/default.png') ?>"
+                                                            alt="" class="avatarAjouterEtudiant " id="<?= $user['id'] ?>">
+                                                        <div
+                                                            class="etudiantInfo d-flex justify-content-end align-items-start flex-column">
+                                                            <p class="fs-3 fs-md-1"><?= htmlspecialchars($user['prenom']) . ' ' . htmlspecialchars($user['nom']) ?>
+                                                            </p>
+                                                            <p class="fs-3 fs-md-1"><?= isset($user['promotion']) ? htmlspecialchars($user['promotion']) : "" ?></p>
                                                         </div>
-                                                        <button type="button" class="ajouterUserButton">Ajouter</button>
-                                                    </div>  
+                                                    </div>
+                                                    <p class="fs-3 fs-md-1"><?= isset($user['td']) ? htmlspecialchars($user['td']) : "" ?></p>
+                                                </div>
+                                                <button type="button" class="ajouterUserButton">Ajouter</button>
+                                            </div>
                                 <?php
+                                        }
                                     }
-                                }
                                 } else {
                                     echo "Utilisateur non connecté.";
                                 }
@@ -265,9 +271,9 @@
                             <input type="checkbox" name="acceptation" onclick="document.getElementById('regle').style.display='block'">
                             Lire et approuver le Règlement de l'Utilisation de la salle.
                         </label>
-                        <div id="regle" 
-                        class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-md-65 start-50 translate-middle text-center align-items-center justify-content-center" 
-                        style="--bs-border-opacity: .5; z-index:10; width: 50%; border: 1px solid #e47390; display:none;">
+                        <div id="regle"
+                            class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-md-65 start-50 translate-middle text-center align-items-center justify-content-center"
+                            style="--bs-border-opacity: .5; z-index:10; width: 50%; border: 1px solid #e47390; display:none;">
 
                             <h5 class="mb-4">Règlement d'utilisation</h5>
                             <p class="mb-3">En réservant du matériel ou une salle dans le cadre du BUT MMI, je reconnais avoir pris connaissance du présent règlement :</p>
@@ -292,6 +298,15 @@
             </section>
         </form>
     </main>
+    <?php if (!empty($error)) : ?>
+        <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+            <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+                <h5 class="mb-3 fw-semibold text-dark">Pas si vite</h5>
+                <p class="text-muted mb-4"><?= htmlspecialchars($error) ?></p>
+                <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
+            </div>
+        </div>
+    <?php endif; ?>
 
     <script src="../JS/sideBarre.js"></script>
     <script src="../JS/reservation_salle.js"></script>

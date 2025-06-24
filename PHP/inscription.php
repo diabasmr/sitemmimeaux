@@ -74,11 +74,12 @@ $il_y_a_100_ans = date("Y-m-d", $dt - 31536000 * 100);
                     </div>
                 </form>
                 <!--AFFICHAGE DES ERREURS REPEREES-->
-                <?php if (!empty($error)): ?>
-                    <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center" style="--bs-border-opacity: .5; z-index:10; width: 500px; border: 1px solid  #e47390;">
-                        <p class="mb-2 d-block"><?= htmlspecialchars($error) ?></p>
-                        <div class="text-center mt-3">
-                            <button class="fs-6 fs-md-2" onclick="this.closest('.container-sm-6').style.display='none'" style="height: 7vh; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;">Fermer</button>
+                <?php if (!empty($error)) : ?>
+                    <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+                        <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+                            <h5 class="mb-3 fw-semibold text-dark">Pas si vite</h5>
+                            <p class="text-muted mb-4"><?= htmlspecialchars($error) ?></p>
+                            <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
                         </div>
                     </div>
                 <?php endif; ?>

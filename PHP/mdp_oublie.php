@@ -59,17 +59,36 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
               </div>
             </div>
             HTML;
+      echo <<<HTML
+          <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+            <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+              <h5 class="mb-3 fw-semibold text-dark">Confirmation</h5>
+              <p class="text-muted">La réinitialisation de votre mot de passe a été réalisée avec succès. </p>
+              <p class="text-muted mb-4">Consultez vos emails pour le récupérer. </p>
+              <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
+            </div>
+          </div>
+        HTML;
     } catch (Exception $e) {
-      echo "Erreur lors de l'envoi du mail : {$mail->ErrorInfo}";
+      echo <<<HTML
+          <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+            <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+              <h5 class="mb-3 fw-semibold text-dark">Erreur</h5>
+              <p class="text-muted mb-4">"Erreur lors de l'envoi du mail : {$mail->ErrorInfo}"</p>
+              <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
+            </div>
+          </div>
+        HTML;
     }
   } else {
     echo <<<HTML
-        <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center" style="--bs-border-opacity: .5; z-index:10; width: 500px; border: 1px solid  #e47390;">
-          <b class="mb-2 d-block">AUCUN COMPTE N'A ÉTÉ TROUVÉ SOUS CETTE ADRESSE EMAIL</b>
-          <div class="text-center mt-3">
-          <button onclick="window.location.href='mdp_oublie.php'" style="height: 7vh; background-color: #e47390; border-radius: 0.5vw; border: none; font-size: 1.2vw; color: white;">Fermer</button>
+          <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+            <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+              <h5 class="mb-3 fw-semibold text-dark">Pas si vite</h5>
+              <p class="text-muted mb-4">Veuillez entrer un adresse email valide et existante chez Re Zoom</p>
+              <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
+            </div>
           </div>
-        </div>
         HTML;
   }
 }

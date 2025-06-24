@@ -24,15 +24,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $dateFin = $date . " " . $horaireF;
 
     if (!isset($_POST['acceptation'])) {
-        die("Veuillez accepter les conditions.");
+        $_SESSION['error'] = "Veuillez accepter les conditions.";
+        header("Location: ../PHP/reservation_materiel.php");
+        exit();
     }
     if ($horaireD >= $horaireF) {
-        die("Veuillez entrer un créneau d'horaire valide.");
+        $_SESSION['error'] = "Veuillez entrer un créneau d'horaire valide.";
+        header("Location: ../PHP/reservation_materiel.php");
+        exit();
     } //JS
 
     // Vérifie que les champs ne sont pas vides
     if (empty($quantite) || empty($date) || empty($horaireD) || empty($horaireF)  || empty($motif) || empty($signature)) {
-        die("Tous les champs sont requis.");
+        $_SESSION['error'] = "Tous les champs sont requis.";
+        header("Location: ../PHP/reservation_materiel.php");
+        exit();
     }
 
     // Insertion de la réservation
@@ -90,13 +96,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $mail->send();
         } catch (Exception $e) {
-            echo "Erreur lors de l'envoi du mail : {$mail->ErrorInfo}";
+            $_SESSION['error'] = "Erreur lors de l'envoi du mail : {$mail->ErrorInfo}";
+            header("Location: ../PHP/reservation_materiel.php");
+            exit();
         }
     }
 
-    /* Insérer la notification pour l'admin
+    // Insérer la notification pour l'admin
     $requete = $pdo->prepare("INSERT INTO notifications (idR, notif) VALUES (?, 1)");
-    $requete->execute([$idReservation]);*/
-    header("Location: ../PHP/materiels.php"); // page de succès ??
+    $requete->execute([$idReservation]);
+    $_SESSION['error'] = 'enregistré'; // Indiquer que la réservation a été réussie
+    header("Location: ../PHP/materiels.php"); // page de succès 
     exit();
 }

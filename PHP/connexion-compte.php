@@ -62,11 +62,12 @@ if (isset($_SESSION['error'])) {
           <button class="fs-6 fs-md-2" type="submit">Connexion</button>
         </form>
         <!--AFFICHAGE DES ERREURS REPEREES-->
-        <?php if (!empty($error)): ?>
-          <div class="container bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center" style="z-index:10; width: 500px; border: 1px solid #e47390;">
-            <p class="mb-2 fs-6 fs-md-2"><?= htmlspecialchars($error) ?></p>
-            <div class="text-center mt-3">
-              <button onclick="this.closest('.container').style.display='none'" class="p-3" style="height: 7vh; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;">Fermer</button>
+        <?php if (!empty($error)) : ?>
+          <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+            <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+              <h5 class="mb-3 fw-semibold text-dark">Pas si vite</h5>
+              <p class="text-muted mb-4"><?= htmlspecialchars($error) ?></p>
+              <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
             </div>
           </div>
         <?php endif; ?>
