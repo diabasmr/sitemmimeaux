@@ -73,7 +73,28 @@ function renderCalendar() {
 
   for (let d = 1; d <= total; d++) {
     const td = document.createElement("td");
+    const today = new Date();
+    const isCurrentMonth = year === today.getFullYear() && month === today.getMonth();
+    const isPast = isCurrentMonth && d < today.getDate();
+
     td.textContent = d;
+
+    if (isPast) {
+      td.classList.add("disabled"); // ou tu le supprimes carrément
+      td.style.pointerEvents = "none"; // désactive le clic
+      td.style.opacity = "0.3"; // effet grisé
+    } else {
+      td.addEventListener("click", () => {
+        document.querySelectorAll(".calendar td").forEach((cell) => cell.classList.remove("selected"));
+        td.classList.add("selected");
+
+        const fullDate = `${year}-${String(month + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+        hiddenInput.value = fullDate;
+        disableHorairesForDate(fullDate);
+        console.log("Date sélectionnée :", fullDate);
+      });
+    }
+
     td.dataset.day = d;
     td.addEventListener("click", () => {
       document
@@ -98,7 +119,16 @@ function renderCalendar() {
 }
 
 function changeMonth(offset) {
-  current.setMonth(current.getMonth() + offset);
+  const next = new Date(current);
+  next.setMonth(current.getMonth() + offset);
+
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+  const currentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+  if (next < currentMonth) return; // 🔒 bloque les mois avant aujourd'hui
+
+  current = next;
   renderCalendar();
 }
 
