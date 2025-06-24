@@ -72,24 +72,24 @@ include("../PHPpure/entete.php");
 
                         // Calcul de la quantité restante
                         $quantite_dispo = $row['quantité'] - $resas['nb_reservations'];
-
                         echo "<div class='col-6 col-md-4 d-flex justify-content-center align-items-center flex-column position-relative'>";
+                        echo "<a class='text-center fs-auto fw-bold w-100' style='text-decoration:none; color:black;' href='produit.php?id=" . $row['idM'] . "'>";
                         echo "<div class='position-absolute top-0 end-0 d-flex justify-content-between align-items-center gap-3 p-4'>";
                         echo "<button class='btn bg-transparent border-0'>";
                         echo "<img src='../res/heartPlein.svg' alt='favory' onclick='retirerFavoris(" . $row['idM'] . ")'>";
                         echo "</button>";
                         echo "</div>";
                         echo "<div class='position-absolute top-0 start-0 d-flex justify-content-between align-items-center gap-3 p-4'>";
-                        echo "<p id='other' class='text-white rounded p-2 border-0' style='background-color:#e4587d;'>";
+                        echo "<p id='other' class='text-white rounded p-2 border-0 fw-normal' style='background-color:#e4587d;'>";
                         echo $quantite_dispo . " " . "disponibles";
                         echo "</p>";
-                        echo "<p id='phone' class='text-white rounded p-2 border-0' style='background-color:#e4587d;'>";
+                        echo "<p id='phone' class='text-white rounded p-2 border-0 fw-normal' style='background-color:#e4587d;'>";
                         echo $quantite_dispo;
                         echo "</p>";
                         echo "</div>";
                         echo "<img src='../materiel/" . $row['photo'] . "' alt='materiel' class='w-100 rounded-5 materiel-image'>";
                         echo "<div class='d-flex justify-content-center align-items-center flex-column w-100'>";
-                        echo "<a class='text-center fs-auto fw-bold w-100' style='text-decoration:none; color:black;' href='produit.php?id=" . $row['idM'] . "'>" . $row['designation'] . "</a>";
+                        echo "<p>" . $row['designation'] . "</p></a>";
                         echo "<button class='btn btn-danger text-white text-center w-80 w-md-50 p-3' onclick='reserverMateriel(" . $row['idM'] . ")'";
 
                         if ($quantite_dispo == 0) {
@@ -238,17 +238,18 @@ include("../PHPpure/entete.php");
                     // Calcul de la quantité restante
                     $quantite_dispo = $materiel['quantité'] - $resas['nb_reservations'];
                     echo "<div class='position-absolute top-0 start-0 ms-3 d-flex justify-content-between align-items-center gap-3 p-4'>";
-                    echo "<p id='other' class='text-white rounded p-2 border-0' style='background-color:#e4587d;'>";
+                    echo "<a class='text-center fs-auto fw-bold w-100' style='text-decoration:none; color:black;' href='produit.php?id=" . $materiel['idM'] . "'>";
+                    echo "<p id='other' class='text-white rounded p-2 border-0 fw-normal' style='background-color:#e4587d;'>";
                     echo $quantite_dispo . " " . "disponibles";
                     echo "</p>";
-                    echo "<p id='phone' class='text-white rounded p-2 border-0' style='background-color:#e4587d;'>";
+                    echo "<p id='phone' class='text-white rounded p-2 border-0 fw-normal' style='background-color:#e4587d;'>";
                     echo $quantite_dispo;
                     echo "</p>";
                     echo "</div>";
                     // img meme taille que la div
                     echo "<img src='../materiel/" . $materiel['photo'] . "' alt='materiel' class='bg-white rounded-5 materiel-image'>";
                     echo "<div class='d-flex justify-content-center align-items-center flex-column w-100'>";
-                    echo "<a class='text-center fs-auto fw-bold w-100' style='text-decoration:none; color:black;' href='produit.php?id=" . $materiel['idM'] . "'>" . $materiel['designation'] . "</a>";
+                    echo "<p>" . $materiel['designation'] . "</p></a>";
                     echo "<button class='btn btn-danger text-white text-center w-80 w-md-50 p-3' onclick='reserverMateriel(" . $materiel['idM'] . ")'";
 
                     if ($materiel['quantité'] == 0) {

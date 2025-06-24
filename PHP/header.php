@@ -62,13 +62,13 @@
             default:
                 echo '<h1 class="fs-3 fs-md-1">ya pas le nom ou c mal mis</h1>';
         }
-        if(isset($_SESSION['user'])){
+        if (isset($_SESSION['user'])) {
         ?>
 
-        <div class="profilXlogout">
-            <div class="profil">
-                <div class="imgProfilContainer">
-                    <img src="
+            <div class="profilXlogout">
+                <div class="profil" onclick="location.href = 'profil.php'">
+                    <div class="imgProfilContainer">
+                        <img src="
                         <?php
                         if (isset($_SESSION['user']['profil'])) {
                             if ($_SESSION['user']['profil'] != "none") {
@@ -77,24 +77,24 @@
                                 echo "../uploads/default.png";
                             }
                         }
-                        ?>" onclick="location.href = 'profil.php'" alt="" class="imgProfil" />
+                        ?>" alt="" class="imgProfil" />
+                    </div>
+                    <div class="nomRole">
+                        <!-- recuperer le nom de l'utilisateur dans la session user-->
+                        <p>
+                            <?php
+                            if (isset($_SESSION['user'])) {
+                                echo $_SESSION['user']['nom'] . ' ' . $_SESSION['user']['prenom'];
+                            }
+                            ?></p>
+                        <p><?php echo $_SESSION['user']['role']; ?></p>
+                    </div>
                 </div>
-                <div class="nomRole">
-                    <!-- recuperer le nom de l'utilisateur dans la session user-->
-                    <p>
-                        <?php
-                        if (isset($_SESSION['user'])) {
-                            echo $_SESSION['user']['nom'] . ' ' . $_SESSION['user']['prenom'];
-                        }
-                        ?></p>
-                    <p><?php echo $_SESSION['user']['role']; ?></p>
-                </div>
+                <!-- detruire la session -->
+                <button class="logout" onclick="location.href = '../PHPpure/logout.php'">
+                    <img src="../res/logout.svg" alt="" />
+                </button>
             </div>
-            <!-- detruire la session -->
-            <button class="logout" onclick="location.href = '../PHPpure/logout.php'">
-                <img src="../res/logout.svg" alt="" />
-            </button>
-        </div>
         <?php } ?>
     </div>
 </header>
