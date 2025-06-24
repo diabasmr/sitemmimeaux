@@ -108,29 +108,37 @@
                         </div>
                     </div>
 
-                    <div id="qtt" class="d-flex justify-content-center align-items-baseline gap-3">
-                        <input type="number" class="form-control text-center" value="1" min="1" max="<?php echo $quantite_dispo; ?>" id="quantite" style='width:30%;' name="quantite">
-                        <p class=' text-white rounded text-center justify-content-center p-2 border-0' style='width:30%; background-color:#e4587d;'>
-                            <?php
-                            $sql2 = "SELECT quantité FROM materiel WHERE idM = ?";
-                            $stmt2 = $pdo->prepare($sql2);
-                            $stmt2->execute([$_GET['idM']]);
-                            $quantite_totale = $stmt2->fetch(PDO::FETCH_ASSOC);
+                    <div id="qtt" class="d-flex justify-content-center align-items-baseline">
+                        <?php
+                        $sql2 = "SELECT quantité FROM materiel WHERE idM = ?";
+                        $stmt2 = $pdo->prepare($sql2);
+                        $stmt2->execute([$_GET['idM']]);
+                        $quantite_totale = $stmt2->fetch(PDO::FETCH_ASSOC);
 
-                            $sql3 = "SELECT COUNT(r.idR) AS nb_reservations FROM reservations r JOIN concerne c ON r.idR = c.idR WHERE c.idM = ? AND r.valide = 1";
-                            $stmt3 = $pdo->prepare($sql3);
-                            $stmt3->execute([$_GET['idM']]);
-                            $resas = $stmt3->fetch(PDO::FETCH_ASSOC);
+                        $sql3 = "SELECT COUNT(r.idR) AS nb_reservations FROM reservations r JOIN concerne c ON r.idR = c.idR WHERE c.idM = ? AND r.valide = 1";
+                        $stmt3 = $pdo->prepare($sql3);
+                        $stmt3->execute([$_GET['idM']]);
+                        $resas = $stmt3->fetch(PDO::FETCH_ASSOC);
 
-                            // Calcul de la quantité restante
-                            $quantite_dispo = $quantite_totale['quantité'] - $resas['nb_reservations']; ?>
+                        // Calcul de la quantité restante
+                        $quantite_dispo = $quantite_totale['quantité'] - $resas['nb_reservations']; ?>
+                        <div class="quantite-wrapper d-flex justify-content-center align-items-baseline gap-2">
+                            <button type="button" class="quantite-btn" onclick="changerQuantite(-1)">–</button>
+                            <input type="number" class="form-control border rounded text-center" value="1"
+                                min="1" max="<?php echo $quantite_dispo; ?>" data-max="<?php echo $quantite_dispo; ?>"
+                                id="quantite" name="quantite" style="width:30%" readonly>
+                            <button type="button" class="quantite-btn" onclick="changerQuantite(1)">+</button>
+                        </div>
+
+
+                        <p class=' text-dark rounded text-center justify-content-center p-2 border-0' style='width:30%;'>
                             <span id="dispo" data-stock="<?php echo $materiel['quantité'] ?>"><?php echo $quantite_dispo ?></span> disponibles
                         </p>
                     </div>
 
 
                     <label for="motif">Motif de la réservation</label>
-                    <textarea id="motif" name="motif" placeholder="Bonjour ,...."></textarea>
+                    <textarea id="motif" name="motif" placeholder="Entrer le motif de votre réservation"></textarea>
                 </div>
 
                 <!-- Colonne de droite : calendrier et infos utilisateur -->

@@ -404,3 +404,24 @@ main .reservation-container {
     margin-top: 90%;
   }
 }
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.quantite-btn {
+  padding: 6px 12px;
+  font-size: 18px;
+  border: none;
+  background-color: #e4587d;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.quantite-btn:hover {
+  background-color: rgb(235, 151, 174);
+}

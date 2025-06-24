@@ -1,10 +1,16 @@
-const quantite = document.getElementById("quantite");
-const disponible = document.getElementById("dispo");
 
-quantite.addEventListener("input", (e) => {
-  const quantiteValeur = parseInt(e.target.value) || 0;
-  const dispoInitial = parseInt(disponible.dataset.stock) || 0; // Stock initial stocké dans un data-attribute
 
-  const nouveauDispo = dispoInitial - quantiteValeur;
-  disponible.textContent = nouveauDispo >= 0 ? nouveauDispo : 0;
-});
+function changerQuantite(val) {
+  const input = document.getElementById('quantite');
+  const min = parseInt(input.min);
+  const max = parseInt(input.dataset.max);
+  let valeur = parseInt(input.value) || min;
+  console.log(max, min, valeur, val);
+  valeur += val;
+
+  // Clamp entre min et max
+  if (valeur < min) valeur = min;
+  if (valeur > max) valeur = max;
+
+  input.value = valeur;
+}
