@@ -160,9 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const updateHeaderDate = () => {
       const words = dates.innerText.trim().split(/\s+/); // coupe tous les mots
       if (words.length >= 2) {
-        const moisAnnee = `${words[words.length - 2]} ${
-          words[words.length - 1]
-        }`;
+        const moisAnnee = `${words[words.length - 2]} ${words[words.length - 1]
+          }`;
         if (headerDate.innerText !== moisAnnee) {
           headerDate.innerText = moisAnnee;
         }

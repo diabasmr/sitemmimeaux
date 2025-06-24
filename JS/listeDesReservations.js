@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
     lines.forEach((line) => {
       const text = line.textContent.toLowerCase();
       if (text.includes(value)) {
-        console.log("PLEASE");
         line.style.display = "flex";
       } else {
         line.style.display = "none";
@@ -114,3 +113,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
