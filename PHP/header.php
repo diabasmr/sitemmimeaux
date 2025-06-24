@@ -13,9 +13,12 @@
         <!-- <p>Logo + nom</p> -->
         <img src="../IMG/logo.png" alt="">
     </div>
-    <button class="menuButton" onclick="toggleSidebar()">
-        <img src="../res/menu.svg" alt="" id="menuimg" />
-    </button>
+    <?php if (isset($_SESSION['user'])) {
+    ?>
+        <button class="menuButton" onclick="toggleSidebar()">
+            <img src="../res/menu.svg" alt="" id="menuimg" />
+        </button>
+    <?php } ?>
     <!-- bootstrap -->
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <!-- <h1>Tableau de bord</h1> -->
