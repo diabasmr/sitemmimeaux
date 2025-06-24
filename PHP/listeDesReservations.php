@@ -68,7 +68,8 @@ require('../PHPpure/connexion.php');
             <article class="header_Table">
                 <p>Matériel/Salle</p>
                 <p>Utilisateur</p>
-                <p>Date</p>
+                <p>Date de demande</p>
+                <p>Date de réservation</p>
                 <p>Statut</p>
 
             </article>
@@ -112,7 +113,7 @@ require('../PHPpure/connexion.php');
                         LEFT JOIN reservation_users ru ON r.idR = ru.idR
                         LEFT JOIN user_ u ON ru.id = u.id
                         GROUP BY r.idR
-                        ORDER BY r.date_debut DESC";
+                        ORDER BY r.date_demande DESC";
 
                 try {
                     $stmt = $pdo->prepare($sql);
@@ -217,6 +218,7 @@ require('../PHPpure/connexion.php');
                                 $firstUser = $users[0];
                                 echo '<p>' . htmlspecialchars($firstUser['nom']) . ' ' . htmlspecialchars($firstUser['prenom']) . '</p>';
                             }
+                            echo '<p class="text-center">' . date('d/m/Y H:i', strtotime($row['date_demande'])) . '</p>';
                             echo '<p class="text-center">' . date('d/m/Y H:i', strtotime($row['date_debut'])) . ' - ' .
                                 date('d/m/Y H:i', strtotime($row['date_fin'])) . '</p>';
                             if ($status == "En attente") {
