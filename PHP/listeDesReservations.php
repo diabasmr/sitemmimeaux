@@ -185,10 +185,10 @@ require('../PHPpure/connexion.php');
                                     ];
                                 }
                             }
-$sql2= "SELECT notif FROM notifications WHERE idR = ?";
-                                                    $stmt = $pdo->prepare($sql2);
-                                                    $stmt->execute([$row['idR']]);
-                                                    $notifications = $stmt->fetch(PDO::FETCH_ASSOC);
+                            $sql2 = "SELECT notif FROM notifications WHERE idR = ?";
+                            $stmt = $pdo->prepare($sql2);
+                            $stmt->execute([$row['idR']]);
+                            $notifications = $stmt->fetch(PDO::FETCH_ASSOC);
                             echo '<div class="line mb-3">';
                             if (!empty($salles)) {
                                 $salle = $salles[0];
@@ -302,22 +302,42 @@ $sql2= "SELECT notif FROM notifications WHERE idR = ?";
                         </div>
                     </div>
                     <div class="button-container">
-                        <button type="submit" class="supprimer" name="supprimer">Supprimer</button>
+                        <button onclick="document.getElementById('SuppressionPopup').style.display='block'">Supprimer</button>
                         <button type="submit" name="modifier">Modifier</button>
+                    </div>
+                </div>
+            </div>
+            <div id="SuppressionPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
+                style="display:none; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+                <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+                    <h5 class="mb-3 fw-semibold text-dark">Supprimer la réservation</h5>
+                    <p class="text-muted mb-4">Êtes-vous sûr de vouloir supprimer cette réservation&nbsp;?</p>
+
+                    <div class="d-flex justify-content-center gap-2">
+                        <button type="button" class="btn text-white" style="background-color: #e47390; width: 120px;"
+                            onclick="document.getElementById('SuppressionPopup').remove()">
+                            Annuler
+                        </button>
+
+                        <button type="submit" name="supprimer" class="btn text-white" style="background-color: #dc3545; width: 120px;">
+                            Supprimer
+                        </button>
                     </div>
                 </div>
             </div>
         </form>
     </main>
+    <?php if (!empty($error)) : ?>
+        <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+            <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+                <h5 class="mb-3 fw-semibold text-dark">Erreur</h5>
+                <p class="mb-1"><?= htmlspecialchars($error) ?></p>
+                <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
+            </div>
+        </div>
+    <?php endif; ?>
     <script src="../JS/sideBarre.js"></script>
     <script src="../JS/listeDesReservations.js"></script>
-    <script>
-        function supprimerReservation() {
-            if (confirm("Voulez-vous vraiment supprimer cette réservation ?")) {
-                window.location.href = "../PHPpure/supprimer_reservation.php?idR=" + idR;
-            }
-        }
-    </script>
 </body>
 
 </html>

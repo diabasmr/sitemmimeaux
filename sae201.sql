@@ -197,6 +197,7 @@ INSERT INTO `materiel` (`idM`, `refernceM`, `designation`, `photo`, `typeM`, `da
 CREATE TABLE `reservations` (
   `idR` int(11) NOT NULL,
   `quantite` int(11) NOT NULL DEFAULT 1,
+  `date_demande` datetime NOT NULL,
   `date_debut` datetime NOT NULL,
   `date_fin` datetime NOT NULL,
   `valide` int(11) DEFAULT NULL,
@@ -210,19 +211,19 @@ CREATE TABLE `reservations` (
 -- Déchargement des données de la table `reservations`
 --
 
-INSERT INTO `reservations` (`idR`, `quantite`, `date_debut`, `date_fin`, `valide`, `motif`, `commentaires`, `signatureElectronique`, `documentAdministrateur`) VALUES
-(20, 1, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 3, 'charlytest', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(25, 1, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 3, 'essaie de sale212', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(26, 1, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 3, 'essaie maison', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(27, 1, '2025-05-30 14:00:00', '2025-05-30 16:00:00', 3, ' sfsfddf', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(28, 1, '2025-05-27 16:00:00', '2025-05-27 18:00:00', 3, 'manette pour une partie de FC pendant pause', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(29, 1, '2025-06-05 16:00:00', '2025-06-05 18:00:00', 3, 'admin', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(32, 1, '2025-06-03 12:00:00', '2025-06-03 14:00:00', 3, 'oùpùù', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(33, 1, '2025-06-06 12:00:00', '2025-06-06 14:00:00', 3, 'diaba', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(43, 1, '2025-06-13 08:00:00', '2025-06-13 09:00:00', 3, 'ha ha ha', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien'),
-(45, 1, '2025-06-18 08:00:00', '2025-06-18 09:00:00', 3, 'MAIL TEST', 'Tu peux récupérer dans la salle 138', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien'),
-(46, 1, '2025-06-27 08:00:00', '2025-06-27 09:00:00', 1, 'blocage', '', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien'),
-(47, 1, '2025-06-27 14:00:00', '2025-06-27 15:00:00', 1, 'blocbloc', '', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien');
+INSERT INTO `reservations` (`idR`, `quantite`, `date_demande`, `date_debut`, `date_fin`, `valide`, `motif`, `commentaires`, `signatureElectronique`, `documentAdministrateur`) VALUES
+(20, 1, '2025-06-01 11:16:00', '2025-06-30 14:00:00', '2025-06-30 16:00:00', 3, 'charlytest', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(25, 1, '2025-06-08 14:00:00', '2025-06-22 14:00:00', '2025-06-22 16:00:00', 3, 'essaie de sale212', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(26, 1, '2025-06-09 14:01:00', '2025-07-05 14:00:00', '2025-07-05 16:00:00', 3, 'essaie maison', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(27, 1, '2025-06-09 18:30:00', '2025-06-25 14:00:00', '2025-06-25 16:00:00', 3, ' sfsfddf', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(28, 1, '2025-06-10 20:06:00', '2025-06-25 16:00:00', '2025-06-25 18:00:00', 3, 'manette pour une partie de FC pendant pause', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(29, 1, '2025-06-12 20:07:00', '2025-08-15 16:00:00', '2025-08-15 18:00:00', 3, 'admin', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(32, 1, '2025-06-12 21:46:00', '2025-06-03 12:00:00', '2025-06-03 14:00:00', 3, 'oùpùù', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(33, 1, '2025-06-15 18:07:00', '2025-06-06 12:00:00', '2025-06-06 14:00:00', 3, 'diaba', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
+(43, 1, '2025-06-23 13:36:00', '2025-06-13 08:00:00', '2025-06-13 09:00:00', 3, 'ha ha ha', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien'),
+(45, 1, '2025-06-23 10:00:00', '2025-06-18 08:00:00', '2025-06-18 09:00:00', 3, 'MAIL TEST', 'Tu peux récupérer dans la salle 138', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien'),
+(46, 1, '2025-06-23 14:00:00', '2025-06-27 08:00:00', '2025-06-27 09:00:00', 1, 'blocage', '', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien'),
+(47, 1, '2025-06-24 15:00:00', '2025-06-27 14:00:00', '2025-06-27 15:00:00', 1, 'blocbloc', '', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien');
 
 -- --------------------------------------------------------
 

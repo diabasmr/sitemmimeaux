@@ -11,7 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $status = $_POST['status'] ?? 0;
 
         if (!$idR) {
-            die('ID réservation manquant');
+            $_SESSION['error'] = "ID réservation manquant'";
+            header("Location: ../PHP/listeDesReservations.php");
+            exit();
         }
 
         // Mettre à jour le statut dans la table reservations
@@ -85,17 +87,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $mail->send();
             } catch (Exception $e) {
-                echo "Erreur lors de l'envoi du mail : {$mail->ErrorInfo}";
+                $_SESSION['error'] = "Erreur lors de l'envoi du mail : {$mail->ErrorInfo}";
+                header("Location: ../PHP/listeDesReservations.php");
+                exit();
             }
         }
-        /* Supprimer la notification pour l'admin
-    $requete = $pdo->prepare("DELETE FROM notifications WHERE idR = ?");
-    $requete->execute([$idR]);*/
+        //Supprimer la notification pour l'admin
+        $requete = $pdo->prepare("DELETE FROM notifications WHERE idR = ?");
+        $requete->execute([$idR]);
     } else if (isset($_POST['supprimer'])) {
         $idR = $_POST['idR'] ?? null;
 
         if (!$idR) {
-            die('ID réservation manquant');
+            $_SESSION['error'] = "ID réservation manquant";
+            header("Location: ../PHP/listeDesReservations.php");
+            exit();
         }
 
         //suppression reservation
@@ -128,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->isSMTP();
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
-                $mail->Username = 'iut.rezoom@gmail.com'; // Remplace par ton e-mail Gmail
+                $mail->Username = 'iut.rezoom@gmail.com';
                 $mail->Password = 'veta utze kwrk elbf';     // Utilise un mot de passe d’application
                 $mail->SMTPSecure = 'tls';
                 $mail->Port = 587;
@@ -143,13 +149,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $mail->send();
             } catch (Exception $e) {
-                echo "Erreur lors de l'envoi du mail : {$mail->ErrorInfo}";
+                $_SESSION['error'] = "Erreur lors de l'envoi du mail : {$mail->ErrorInfo}";
+                header("Location: ../PHP/listeDesReservations.php");
+                exit();
             }
         }
 
-        /* Supprimer la notification pour l'admin
-    $requete = $pdo->prepare("DELETE FROM notifications WHERE idR = ?");
-    $requete->execute([$idR]);*/
+        //Supprimer la notification pour l'admin
+        $requete = $pdo->prepare("DELETE FROM notifications WHERE idR = ?");
+        $requete->execute([$idR]);
     }
     header('Location: ../PHP/listeDesReservations.php');
     exit;
