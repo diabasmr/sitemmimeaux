@@ -192,7 +192,7 @@ require('../PHPpure/connexion.php');
                             $stmt = $pdo->prepare($sql2);
                             $stmt->execute([$row['idR']]);
                             $notifications = $stmt->fetch(PDO::FETCH_ASSOC);
-                            echo '<div class="line mb-3">';
+                            echo '<div class="line mb-5">';
                             if (!empty($salles)) {
                                 $salle = $salles[0];
                                 if (is_array($notifications) && isset($notifications['notif']) && (int)$notifications['notif'] === 1) { //pour eviter les erreurs dans le cas ou il y a pas de notifs
@@ -224,15 +224,15 @@ require('../PHPpure/connexion.php');
                             echo '<p class="text-center">' . date('d/m/Y H:i', strtotime($row['date_debut'])) . ' - ' .
                                 date('d/m/Y H:i', strtotime($row['date_fin'])) . '</p>';
                             if ($status == "En attente") {
-                                echo '<p class="p-2 text-center" style="color: #f9a308; border: 0.15vw solid #f9a308; border-radius:15px;">' . $status . '</p>';
+                                echo '<p class="p-2 text-center" style="height:45%; color: #f9a308; border: 0.15vw solid #f9a308; border-radius:15px;">' . $status . '</p>';
                             } elseif ($status == "Validée") {
-                                echo '<p class="text-center p-2" style="color: #356c25; border: 0.15vw solid #356c25; border-radius:15px;">' . $status . '</p>';
+                                echo '<p class="text-center p-2" style="height:45%; color: #356c25; border: 0.15vw solid #356c25; border-radius:15px;">' . $status . '</p>';
                             } elseif ($status == "Refusé") {
-                                echo '<p class="text-center p-2" style="color: #f9080c; border: 0.15vw solid #f9080c; border-radius:15px;">' . $status . '</p>';
+                                echo '<p class="text-center p-2" style="height:45%; color: #f9080c; border: 0.15vw solid #f9080c; border-radius:15px;">' . $status . '</p>';
                             } elseif ($status == "Terminé") {
-                                echo '<p class="text-center p-2" style="color: #707070; border: 0.15vw solid #4b4b4b; border-radius:15px;">' . $status . '</p>';
+                                echo '<p class="text-center p-2" style="height:45%; color: #707070; border: 0.15vw solid #4b4b4b; border-radius:15px;">' . $status . '</p>';
                             } else {
-                                echo '<p class="text-center  p-2" style="color: #f9080c; border: 0.15vw solid #f9080c; border-radius:15px;">' . $status . '</p>';
+                                echo '<p class="text-center  p-2" style="height:45%; color: #f9080c; border: 0.15vw solid #f9080c; border-radius:15px;">' . $status . '</p>';
                             }
                             echo '<button class="modifier" data-id="' . $row['idR'] . '" 
                                     data-motif="' . htmlspecialchars($row['motif']) . '"

@@ -30,8 +30,8 @@ if (isset($_SESSION['error'])) {
     include("aside.php");
     ?>
 
-    <main>
-        <p>Cliquer sur une image pour entrer en mode VR 360°.</p>
+    <main class="mt-5 mt-md-auto">
+        <p class="mt-5 mt-md-auto">Cliquer sur une image pour entrer en mode 360°.</p>
         <?php if ($_SESSION['user']['role'] == 'Administrateur'): ?>
             <nav class="d-flex justify-content-center mb-3 gap-3">
                 <button
@@ -96,6 +96,8 @@ if (isset($_SESSION['error'])) {
                             <nav class="position-absolute bottom-0 end-0 m-3 z-3">
                                 <button
                                     class="btn btn-sm"
+                                    type="submit"
+                                    name="validajout"
                                     onclick="document.getElementById('ajout').classList.add('d-none');"
                                     style="background-color: #ffd9ec; color: #b30059; border: 1px solid #ff99cc; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
                                     Valider
@@ -183,10 +185,11 @@ if (isset($_SESSION['error'])) {
 
                                 <div class="mb-5">
                                     <label class="form-label" style="font-weight: 600; color: #99004d;">Type d'utilisation</label>
-                                    <input type="text" name="etat" class="form-control-plaintext"
+                                    <input type="text" name="typeUse" class="form-control-plaintext"
                                         value="<?= htmlspecialchars($salle['type'] ?? '') ?>" disabled
                                         style="color: #4d0033; background-color: transparent;">
                                 </div>
+                                <input type="hidden" name="idS" value="<?= htmlspecialchars($salle['idS']) ?>">
                                 <?php if ($_SESSION['user']['role'] == 'Administrateur'): ?>
                                     <nav id="valid" class="d-none position-absolute bottom-0 end-0 m-3 z-3">
                                         <button
