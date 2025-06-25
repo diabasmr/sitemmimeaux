@@ -51,7 +51,7 @@ if (isset($_SESSION['error'])) {
                     $stmt->execute([$idM]);
                     $materiel = $stmt->fetch();
                     ?>
-                    <img src="../materiel/<?php echo $materiel['photo']; ?>" alt="" id="materiel-image">
+                    <img src="../materiel/<?php echo $materiel['photo']; ?>" alt="" id="materiel-image" class="w-50 h-40 mb-3">
                     <h2 id="materiel-title"><?php echo $materiel['designation']; ?></h2>
                     <input type="hidden" name="materiel" value="<?php echo $materiel['idM']; ?>">
 
@@ -144,7 +144,14 @@ if (isset($_SESSION['error'])) {
                     </div>
 
 
-                    <label for="motif">Motif de la réservation</label>
+                    <label for="motif">Motif / Commentaire *</label>
+                    <select id="motif" class="form-select mb-3" name="motif" placeholder="Entrer le motif de votre réservation">
+                        <option value="" selected disabled>Choisir un motif</option>
+                        <option value="Projet">Projet</option>
+                        <option value="Cours">Cours</option>
+                        <option value="Examen">Examen</option>
+                        <option value="Autre">Autre</option>
+                    </select>
                     <textarea id="motif" name="motif" placeholder="Entrer le motif de votre réservation"></textarea>
                 </div>
 
@@ -174,7 +181,7 @@ if (isset($_SESSION['error'])) {
                     </div>
 
                     <div class="who">
-                        <h3>Qui réserve ?</h3>
+                        <h3>Ajouter des participants</h3>
                         <div class="avatars">
                             <div id="avatar-container">
                                 <?php

@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST['modifierSalle'])) {
+if (isset($_POST['validmodifier'])) {
     $idS = $_POST['idS'] ?? null;
     $nb_pc = $_POST['nb_pc'] ?? null;
     $nb_places = $_POST['nb_places'] ?? null;

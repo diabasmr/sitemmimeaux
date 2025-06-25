@@ -123,7 +123,7 @@ if (isset($_SESSION['error'])) {
                 <div class="row g-0 position-relative">
 
                     <!-- Image -->
-                    <div class="imageContainer col-md-6 p-3">
+                    <div class="imageContainer col-md p-3">
                         <img
                             class="img-fluid rounded imageToClick"
                             src="../materiel/<?php echo htmlspecialchars($salle['photo']); ?>"
@@ -135,76 +135,77 @@ if (isset($_SESSION['error'])) {
                             <h5 class="mb-0 fw-semibold">Réservation de la <?php echo htmlspecialchars($salle['nom']); ?></h5>
                             <a href="reservation_salle.php?idS=<?php echo $salle['idS']; ?>">
                                 <button
-                                    class="btn btn-sm <?php echo (strtolower($etat) === 'disponible') ? 'btn-danger' : 'btn-secondary'; ?>"
+                                    class="fs-4 btn btn-sm <?php echo (strtolower($etat) === 'disponible') ? 'btn-danger' : 'btn-secondary'; ?>"
                                     <?php if (strtolower($etat) !== 'disponible') echo "disabled"; ?>>
                                     <?php echo (strtolower($etat) === 'disponible') ? "Réserver" : "Indisponible"; ?>
                                 </button>
                             </a>
                         </div>
                     </div>
+                    <
 
-                    <!-- Infos salle -->
-                    <div class="col-md-6 p-4">
+                        <!-- Infos salle -->
+                        <div class="col-md-6 p-4">
 
-                        <!-- Carte de présentation -->
-                        <div class="infosSalle col-md-6 p-4 position-relative shadow rounded-4">
-                            <nav class="position-absolute top-0 end-0 m-3 z-3">
-                                <button
-                                    class="btn btn-sm mb-2"
-                                    onclick="modifiersalle(this)"
-                                    style="background-color: #ffd9ec; color: #b30059; border: 1px solid #ff99cc; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
-                                    Modifier
-                                </button>
-                            </nav>
-                            <form class="mt-4 salle-form" id="salleDetails" method="POST" action="../PHPpure/modifierSalle.php"
-                                enctype="multipart/form-data">
-                                <h2 class="text-center mb-4"
-                                    style="font-family: 'Segoe UI', sans-serif; font-weight: 600; color: #cc0a74; text-shadow: 0 0 3px #ffcce6;">
-                                    Détails de la salle
-                                </h2>
+                            <!-- Carte de présentation -->
+                            <div class="infosSalle col-md p-4 position-relative shadow rounded-4">
+                                <nav class="position-absolute bottom-0 start-0 m-3 z-3">
+                                    <button
+                                        class="btn btn-sm mb-2"
+                                        onclick="modifiersalle(this)"
+                                        style="background-color: #d31b49; color: white; border: 1px solid #d31b49; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
+                                        Modifier
+                                    </button>
+                                </nav>
+                                <form class="mt-4 salle-form" id="salleDetails" method="POST" action="../PHPpure/modifierSalle.php"
+                                    enctype="multipart/form-data">
+                                    <h2 class="text-center mb-4"
+                                        style="font-family: 'Segoe UI', sans-serif; font-weight: 600; color: #cc0a74; text-shadow: 0 0 3px #ffcce6;">
+                                        Détails de la salle
+                                    </h2>
 
-                                <div class="mb-3">
-                                    <label class="form-label" style="font-weight: 600; color: #99004d;">Nombre de PC</label>
-                                    <input type="number" name="nb_pc" class="form-control-plaintext"
-                                        value="<?= htmlspecialchars($salle['nb_pc'] ?? '') ?>" disabled
-                                        style="color: #4d0033; background-color: transparent;">
-                                </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" style="font-weight: 600; color: #99004d;">Nombre de PC</label>
+                                        <input type="number" name="nb_pc" class="form-control-plaintext"
+                                            value="<?= htmlspecialchars($salle['nb_pc'] ?? '') ?>" disabled
+                                            style="color: #4d0033; background-color: transparent;">
+                                    </div>
 
-                                <div class="mb-3">
-                                    <label class="form-label" style="font-weight: 600; color: #99004d;">Nombre de places</label>
-                                    <input type="number" name="nb_places" class="form-control-plaintext"
-                                        value="<?= htmlspecialchars($salle['capacite'] ?? '') ?>" disabled
-                                        style="color: #4d0033; background-color: transparent;">
-                                </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" style="font-weight: 600; color: #99004d;">Nombre de places</label>
+                                        <input type="number" name="nb_places" class="form-control-plaintext"
+                                            value="<?= htmlspecialchars($salle['capacite'] ?? '') ?>" disabled
+                                            style="color: #4d0033; background-color: transparent;">
+                                    </div>
 
-                                <div class="mb-3">
-                                    <label class="form-label" style="font-weight: 600; color: #99004d;">Description</label>
-                                    <textarea name="description" class="form-control-plaintext" rows="3" disabled
-                                        style="color: #4d0033; background-color: transparent;"><?= htmlspecialchars($salle['description'] ?? '') ?></textarea>
-                                </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" style="font-weight: 600; color: #99004d;">Description</label>
+                                        <textarea name="description" class="form-control-plaintext" rows="3" disabled
+                                            style="color: #4d0033; background-color: transparent;"><?= htmlspecialchars($salle['description'] ?? '') ?></textarea>
+                                    </div>
 
-                                <div class="mb-5">
-                                    <label class="form-label" style="font-weight: 600; color: #99004d;">Type d'utilisation</label>
-                                    <input type="text" name="typeUse" class="form-control-plaintext"
-                                        value="<?= htmlspecialchars($salle['type'] ?? '') ?>" disabled
-                                        style="color: #4d0033; background-color: transparent;">
-                                </div>
-                                <input type="hidden" name="idS" value="<?= htmlspecialchars($salle['idS']) ?>">
-                                <?php if ($_SESSION['user']['role'] == 'Administrateur'): ?>
-                                    <nav id="valid" class="d-none position-absolute bottom-0 end-0 m-3 z-3">
-                                        <button
-                                            class="btn btn-sm"
-                                            type="submit"
-                                            name="validmodifier"
-                                            style="background-color: #ffd9ec; color: #b30059; border: 1px solid #ff99cc; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
-                                            Valider
-                                        </button>
-                                    </nav>
-                                <?php endif; ?>
-                            </form>
+                                    <div class="mb-5">
+                                        <label class="form-label" style="font-weight: 600; color: #99004d;">Type d'utilisation</label>
+                                        <input type="text" name="typeUse" class="form-control-plaintext"
+                                            value="<?= htmlspecialchars($salle['type'] ?? '') ?>" disabled
+                                            style="color: #4d0033; background-color: transparent;">
+                                    </div>
+                                    <input type="hidden" name="idS" value="<?= htmlspecialchars($salle['idS']) ?>">
+                                    <?php if ($_SESSION['user']['role'] == 'Administrateur'): ?>
+                                        <nav id="valid" class="d-none position-absolute bottom-0 end-0 m-3 z-3">
+                                            <button
+                                                class="btn btn-sm"
+                                                type="submit"
+                                                name="validmodifier"
+                                                style="background-color: #ffd9ec; color: #b30059; border: 1px solid #ff99cc; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
+                                                Valider
+                                            </button>
+                                        </nav>
+                                    <?php endif; ?>
+                                </form>
+                            </div>
+
                         </div>
-
-                    </div>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -219,10 +220,13 @@ if (isset($_SESSION['error'])) {
                 <a-entity camera look-controls="reverseMouseDrag: true"></a-entity>
             </a-scene>
 
-            <button id="backButton" style="
+            <button id="backButton" class="text-center" style="
+                height: 60px;
+                width: 100px;
+                font-size: 23px;
                 position: fixed;
-                bottom: 30px;
-                right: 30px;
+                top: 30px;
+                left: 30px;
                 z-index: 9999;
                 padding: 10px 20px;
                 background-color: rgba(211, 27, 74, 0.61);
@@ -230,8 +234,7 @@ if (isset($_SESSION['error'])) {
                 border: none;
                 border-radius: 5px;
                 cursor: pointer;
-                display: none;">
-                Retour
+                display: none;">Retour
             </button>
         </div>
     </main>
