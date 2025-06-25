@@ -66,9 +66,9 @@ require('../PHPpure/connexion.php');
 
         <section class="table mb-5">
             <article class="header_Table">
-                <p>Matériel/Salle</p>
+                <p>Réservation</p>
                 <p>Utilisateur</p>
-                <p>Date de demande</p>
+                <p>Demande</p>
                 <p>Date de réservation</p>
                 <p>Statut</p>
 
@@ -102,8 +102,8 @@ require('../PHPpure/connexion.php');
                 <?php
                 // Récupération des réservations
                 $sql = "SELECT r.*, 
-                        GROUP_CONCAT(DISTINCT CONCAT(m.idM, ':', m.designation, ':', m.refernceM) SEPARATOR '||') as materiels, 
-                        GROUP_CONCAT(DISTINCT CONCAT(s.idS, ':', s.nom, ':', s.type) SEPARATOR '||') as salles,
+                        GROUP_CONCAT(DISTINCT CONCAT(m.idM, ':', m.designation, ':', m.refernceM, ':', m.photo) SEPARATOR '||') as materiels, 
+                        GROUP_CONCAT(DISTINCT CONCAT(s.idS, ':', s.nom, ':', s.type, ':', s.photo) SEPARATOR '||') as salles,
                         GROUP_CONCAT(DISTINCT CONCAT(u.id, ':', u.nom, ':', u.prenom, ':', COALESCE(u.avatar, 'default')) SEPARATOR '||') as users
                         FROM reservations r
                         LEFT JOIN concerne c ON r.idR = c.idR
@@ -149,11 +149,12 @@ require('../PHPpure/connexion.php');
                             if ($row['materiels']) {
                                 $materielsArray = explode('||', $row['materiels']);
                                 foreach ($materielsArray as $materielStr) {
-                                    list($id, $designation, $reference) = explode(':', $materielStr);
+                                    list($id, $designation, $reference, $photo) = explode(':', $materielStr);
                                     $materiels[] = [
                                         'id' => $id,
                                         'designation' => $designation,
-                                        'reference' => $reference
+                                        'reference' => $reference,
+                                        'photo' => $photo
                                     ];
                                 }
                             }
@@ -163,11 +164,12 @@ require('../PHPpure/connexion.php');
                             if ($row['salles']) {
                                 $sallesArray = explode('||', $row['salles']);
                                 foreach ($sallesArray as $salleStr) {
-                                    list($id, $nom, $type) = explode(':', $salleStr);
+                                    list($id, $nom, $type, $photo) = explode(':', $salleStr);
                                     $salles[] = [
                                         'id' => $id,
                                         'nom' => $nom,
-                                        'type' => $type
+                                        'type' => $type,
+                                        'photo' => $photo
                                     ];
                                 }
                             }
@@ -197,10 +199,10 @@ require('../PHPpure/connexion.php');
                                     echo '
                             <div class="d-flex align-items-center mb-2">
                             <span class="rounded-circle me-2 flex-shrink-0" style="width: 16px; height: 16px; background-color: #e4587d; border: 1px solid #e4587d;"></span>
-                            <span>' . htmlspecialchars($salle['nom']) . '</span>
+                            <img title=">' . htmlspecialchars($salle['nom']) . '" src="../materiel/' . htmlspecialchars($salle['photo']) . '" alt="Salle" class="rounded-circle me-2 flex-shrink-0" style="width: 16px; height: 16px; object-fit: cover;">
                             </div>';
                                 } else {
-                                    echo '<p>' . htmlspecialchars($salle['nom']) . '</p>';
+                                    echo '<img title=">' . htmlspecialchars($salle['nom']) . '" src="../materiel/' . htmlspecialchars($salle['photo']) . '" alt="Salle" class="rounded-circle me-2 flex-shrink-0" style="width: 50%; height: auto; object-fit: cover;">';
                                 }
                             } else {
                                 $mater = $materiels[0];
@@ -211,7 +213,7 @@ require('../PHPpure/connexion.php');
                             <span>' . htmlspecialchars($mater['designation']) . '</span>
                             </div>';
                                 } else {
-                                    echo '<p>' . htmlspecialchars($mater['designation']) . '</p>';
+                                    echo '<img title=">' . htmlspecialchars($mater['designation']) . '" src="../materiel/' . htmlspecialchars($mater['photo']) . '" alt="Salle" class="rounded-circle me-2" style="width: 50%; height: auto;">';
                                 }
                             }
                             if (!empty($users)) {
@@ -304,30 +306,29 @@ require('../PHPpure/connexion.php');
                         </div>
                     </div>
                     <div class="button-container">
-                        <button onclick="document.getElementById('SuppressionPopup').style.display='block'">Supprimer</button>
+                        <button type="button" onclick="document.getElementById('SuppressionPopup').style.display = 'block';">Supprimer</button>
                         <button type="submit" name="modifier">Modifier</button>
                     </div>
                 </div>
             </div>
-            <div id="SuppressionPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
-                style="display:none; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+        </form>
+
+        <!--
+        <div id="SuppressionPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050; display:none;">
+            <form action="../PHPpure/reservationValidation.php" method="POST">
                 <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
                     <h5 class="mb-3 fw-semibold text-dark">Supprimer la réservation</h5>
-                    <p class="text-muted mb-4">Êtes-vous sûr de vouloir supprimer cette réservation&nbsp;?</p>
-
-                    <div class="d-flex justify-content-center gap-2">
-                        <button type="button" class="btn text-white" style="background-color: #e47390; width: 120px;"
-                            onclick="document.getElementById('SuppressionPopup').remove()">
-                            Annuler
-                        </button>
-
-                        <button type="submit" name="supprimer" class="btn text-white" style="background-color: #dc3545; width: 120px;">
-                            Supprimer
-                        </button>
-                    </div>
+                    <p class="text-muted mb-4">Êtes-vous sûre de vouloir supprimer cette réservation&nbsp;?</p>
+                    <button type="button" class="btn w-40 text-white" style="background-color: #e47390;" onclick="document.getElementById('SuppressionPopup').style.display = 'none';">Annuler</button>
+                    <button type="submit" name="supprimer" class="w-40 btn text-white"
+                        style="background-color: #dc3545;">
+                        Supprimer
+                    </button>
                 </div>
-            </div>
-        </form>
+                <input type="hidden" name="idR" id="idRToDelete">
+            </form>
+        </div> -->
+
     </main>
     <?php if (!empty($error)) : ?>
         <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">

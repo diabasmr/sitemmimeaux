@@ -1,3 +1,8 @@
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .modifPopupMateriel,
 #ajouterMateriel {
   position: fixed;
@@ -141,6 +146,7 @@
     height: 30px;
     width: auto;
   }
+
   .modifPopupMateriel,
   #ajouterMateriel {
     transform: translate(-50%, -50%);
@@ -152,6 +158,7 @@
     height: auto;
     display: none;
   }
+
   .modifPopupMateriel.active,
   #ajouterMateriel.active {
     transform: translate(-50%, -50%);
@@ -173,6 +180,7 @@
     font-size: 3vw;
     font-weight: 600;
   }
+
   .add {
     width: 6vw;
     height: 5vh;

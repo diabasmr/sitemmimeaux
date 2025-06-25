@@ -32,6 +32,22 @@ if (isset($_SESSION['error'])) {
 
     <main>
         <p>Cliquer sur une image pour entrer en mode VR 360°.</p>
+        <?php if ($_SESSION['user']['role'] == 'Administrateur'): ?>
+            <nav class="d-flex justify-content-center mb-3 gap-3">
+                <button
+                    class="btn btn-sm"
+                    onclick="toggleEdit(this)"
+                    style="background-color: #ffd9ec; color: #b30059; border: 1px solid #ff99cc; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
+                    Ajouter une salle
+                </button>
+                <button
+                    class="btn btn-sm"
+                    onclick="toggleEdit(this)"
+                    style="background-color: #ffd9ec; color: #b30059; border: 1px solid #ff99cc; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
+                    Modifier une salle
+                </button>
+            </nav>
+        <?php endif; ?>
 
         <!-- Image 1 -->
         <?php
@@ -40,28 +56,90 @@ if (isset($_SESSION['error'])) {
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         ?>
-
         <?php foreach ($result as $salle): ?>
             <?php $etat = $salle['etat'] ?? 'Indisponible'; ?>
-            <div class="imageContainer" style="margin-bottom: 20px;">
-                <img
-                    class="imageToClick"
-                    src="../materiel/<?php echo htmlspecialchars($salle['photo']); ?>"
-                    data-src="../materiel/<?php echo htmlspecialchars($salle['photo']); ?>"
-                    alt="Salle <?php echo htmlspecialchars($salle['nom']); ?>"
-                    style="width: 60%; cursor: pointer;">
-                <div style="display: flex; justify-content: space-between; align-items: center; width: 60%; margin-top: 1vh;">
-                    <h3 style="margin: 0;">Réservation de la <?php echo htmlspecialchars($salle['nom']); ?></h3>
-                    <a href="reservation_salle.php?idS=<?php echo $salle['idS']; ?>">
-                        <button
-                            style="background-color: rgba(211, 27, 74, 0.61); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;"
-                            <?php if (strtolower($etat) !== 'disponible') echo "disabled"; ?>>
-                            <?php echo (strtolower($etat) === 'disponible') ? "Réserver" : "Indisponible"; ?>
-                        </button>
-                    </a>
+
+            <div class="mb-5 border-0">
+                <div class="row g-0 position-relative">
+
+                    <!-- Image -->
+                    <div class="imageContainer col-md-6 p-3">
+                        <img
+                            class="img-fluid rounded imageToClick"
+                            src="../materiel/<?php echo htmlspecialchars($salle['photo']); ?>"
+                            data-src="../materiel/<?php echo htmlspecialchars($salle['photo']); ?>"
+                            alt="Salle <?php echo htmlspecialchars($salle['nom']); ?>"
+                            style="cursor: pointer;">
+
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <h5 class="mb-0 fw-semibold">Réservation de la <?php echo htmlspecialchars($salle['nom']); ?></h5>
+                            <a href="reservation_salle.php?idS=<?php echo $salle['idS']; ?>">
+                                <button
+                                    class="btn btn-sm <?php echo (strtolower($etat) === 'disponible') ? 'btn-danger' : 'btn-secondary'; ?>"
+                                    <?php if (strtolower($etat) !== 'disponible') echo "disabled"; ?>>
+                                    <?php echo (strtolower($etat) === 'disponible') ? "Réserver" : "Indisponible"; ?>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Infos salle -->
+                    <div class="col-md-6 p-4">
+
+                        <!-- Carte de présentation -->
+                        <div class="col-md-6 p-4 position-relative shadow rounded-4">
+
+                            <form class="salle-form">
+                                <h2 class="text-center mb-4"
+                                    style="font-family: 'Segoe UI', sans-serif; font-weight: 600; color: #cc0a74; text-shadow: 0 0 3px #ffcce6;">
+                                    Détails de la salle
+                                </h2>
+
+                                <div class="mb-3">
+                                    <label class="form-label" style="font-weight: 600; color: #99004d;">Nombre de PC</label>
+                                    <input type="number" name="nb_pc" class="form-control-plaintext"
+                                        value="<?= htmlspecialchars($salle['nb_pc'] ?? '') ?>" disabled
+                                        style="color: #4d0033; background-color: transparent;">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" style="font-weight: 600; color: #99004d;">Nombre de places</label>
+                                    <input type="number" name="nb_places" class="form-control-plaintext"
+                                        value="<?= htmlspecialchars($salle['nb_places'] ?? '') ?>" disabled
+                                        style="color: #4d0033; background-color: transparent;">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" style="font-weight: 600; color: #99004d;">Description</label>
+                                    <textarea name="description" class="form-control-plaintext" rows="3" disabled
+                                        style="color: #4d0033; background-color: transparent;"><?= htmlspecialchars($salle['description'] ?? '') ?></textarea>
+                                </div>
+
+                                <div class="mb-2">
+                                    <label class="form-label" style="font-weight: 600; color: #99004d;">État</label>
+                                    <input type="text" name="etat" class="form-control-plaintext"
+                                        value="<?= htmlspecialchars($etat) ?>" disabled
+                                        style="color: #4d0033; background-color: transparent;">
+                                </div>
+                                <?php if ($_SESSION['user']['role'] == 'Administrateur'): ?>
+                                    <nav class="position-absolute bottom-0 end-0 m-3 z-3">
+                                        <button
+                                            class="btn btn-sm"
+                                            onclick="toggleEdit(this)"
+                                            style="background-color: #ffd9ec; color: #b30059; border: 1px solid #ff99cc; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
+                                            Valider
+                                        </button>
+                                    </nav>
+                                <?php endif; ?>
+                            </form>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         <?php endforeach; ?>
+
+
 
 
         <!-- Scène VR -->
@@ -98,6 +176,7 @@ if (isset($_SESSION['error'])) {
             </div>
         </div>
     <?php endif; ?>
+
 
     <script src="../JS/sideBarre.js"></script>
 
