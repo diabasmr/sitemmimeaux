@@ -306,28 +306,27 @@ require('../PHPpure/connexion.php');
                         </div>
                     </div>
                     <div class="button-container">
-                        <button type="button" onclick="document.getElementById('SuppressionPopup').style.display = 'block';">Supprimer</button>
+                        <button type="button" onclick="document.getElementById('SuppressionPopup').classList.remove('d-none');document.getElementById('SuppressionPopup').classList.add('d-flex');">Supprimer</button>
                         <button type="submit" name="modifier">Modifier</button>
                     </div>
                 </div>
             </div>
         </form>
 
-        <!--
-        <div id="SuppressionPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050; display:none;">
+        <div id="SuppressionPopup" class="position-fixed top-0 start-0 w-100 h-100 d-none align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
             <form action="../PHPpure/reservationValidation.php" method="POST">
                 <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
                     <h5 class="mb-3 fw-semibold text-dark">Supprimer la réservation</h5>
                     <p class="text-muted mb-4">Êtes-vous sûre de vouloir supprimer cette réservation&nbsp;?</p>
-                    <button type="button" class="btn w-40 text-white" style="background-color: #e47390;" onclick="document.getElementById('SuppressionPopup').style.display = 'none';">Annuler</button>
+                    <button type="button" class="btn w-40 text-white" style="background-color: #e47390;" onclick="document.getElementById('SuppressionPopup').classList.add('d-none');">Annuler</button>
                     <button type="submit" name="supprimer" class="w-40 btn text-white"
                         style="background-color: #dc3545;">
                         Supprimer
                     </button>
                 </div>
-                <input type="hidden" name="idR" id="idRToDelete">
+                <input type="hidden" name="idR" value="<?= $row['idR'] ?>" id="idRToDelete">
             </form>
-        </div> -->
+        </div>
 
     </main>
     <?php if (!empty($error)) : ?>

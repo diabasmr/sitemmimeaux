@@ -40,18 +40,13 @@ if (isset($_SESSION['error'])) {
                     style=" background-color: #ffd9ec; color: #b30059; border: 1px solid #ff99cc; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
                     Ajouter une salle
                 </button>
-                <button
-                    class="btn btn-sm"
-                    onclick="toggleEdit(this)"
-                    style="background-color: #ffd9ec; color: #b30059; border: 1px solid #ff99cc; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
-                    Modifier une salle
-                </button>
             </nav>
             <div id="ajout" class="d-none position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
                 <!-- Carte de présentation -->
                 <div class="col-md-4 p-4 bg-white position-relative shadow rounded-4">
 
-                    <form class="salle-form">
+                    <form class="salle-form" id="salleAjout" method="POST" action="../PHPpure/ajoutSalle.php"
+                        enctype="multipart/form-data">
                         <h2 class="text-center mb-4"
                             style="color: #cc0a74; text-shadow: 0 0 3px #ffcce6;">
                             Détails de la salle
@@ -112,7 +107,7 @@ if (isset($_SESSION['error'])) {
             </div>
         <?php endif; ?>
 
-        <!-- Image 1 -->
+
         <?php
         $sql1 = "SELECT * FROM salle";
         $stmt = $pdo->prepare($sql1);
@@ -150,9 +145,17 @@ if (isset($_SESSION['error'])) {
                     <div class="col-md-6 p-4">
 
                         <!-- Carte de présentation -->
-                        <div class="col-md-6 p-4 position-relative shadow rounded-4">
-
-                            <form class="salle-form">
+                        <div class="infosSalle col-md-6 p-4 position-relative shadow rounded-4">
+                            <nav class="position-absolute top-0 end-0 m-3 z-3">
+                                <button
+                                    class="btn btn-sm mb-2"
+                                    onclick="modifiersalle(this)"
+                                    style="background-color: #ffd9ec; color: #b30059; border: 1px solid #ff99cc; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
+                                    Modifier
+                                </button>
+                            </nav>
+                            <form class="mt-4 salle-form" id="salleDetails" method="POST" action="../PHPpure/modifierSalle.php"
+                                enctype="multipart/form-data">
                                 <h2 class="text-center mb-4"
                                     style="font-family: 'Segoe UI', sans-serif; font-weight: 600; color: #cc0a74; text-shadow: 0 0 3px #ffcce6;">
                                     Détails de la salle
@@ -178,17 +181,18 @@ if (isset($_SESSION['error'])) {
                                         style="color: #4d0033; background-color: transparent;"><?= htmlspecialchars($salle['description'] ?? '') ?></textarea>
                                 </div>
 
-                                <div class="mb-2">
+                                <div class="mb-5">
                                     <label class="form-label" style="font-weight: 600; color: #99004d;">Type d'utilisation</label>
                                     <input type="text" name="etat" class="form-control-plaintext"
                                         value="<?= htmlspecialchars($salle['type'] ?? '') ?>" disabled
                                         style="color: #4d0033; background-color: transparent;">
                                 </div>
                                 <?php if ($_SESSION['user']['role'] == 'Administrateur'): ?>
-                                    <nav class="position-absolute bottom-0 end-0 m-3 z-3">
+                                    <nav id="valid" class="d-none position-absolute bottom-0 end-0 m-3 z-3">
                                         <button
                                             class="btn btn-sm"
-                                            onclick="toggleEdit(this)"
+                                            type="submit"
+                                            name="validmodifier"
                                             style="background-color: #ffd9ec; color: #b30059; border: 1px solid #ff99cc; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
                                             Valider
                                         </button>
@@ -289,6 +293,19 @@ if (isset($_SESSION['error'])) {
         });
 
         backButton.addEventListener('click', exitVR);
+
+        function modifiersalle(button) {
+            const formContainer = button.closest('.infosSalle');
+            if (!formContainer) return;
+
+            formContainer.querySelectorAll('input[disabled], textarea[disabled], select[disabled]').forEach(field => {
+                field.removeAttribute('disabled');
+                field.classList.remove('form-control-plaintext');
+                field.classList.add('form-control');
+            });
+            formContainer.querySelector('#valid').classList.remove('d-none');
+            button.style.display = 'none';
+        }
     </script>
 </body>
 

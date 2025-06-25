@@ -95,7 +95,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //Supprimer la notification pour l'admin
         $requete = $pdo->prepare("DELETE FROM notifications WHERE idR = ?");
         $requete->execute([$idR]);
-    } else if (isset($_POST['supprimer'])) {
+    }
+    if (isset($_POST['supprimer'])) {
         $idR = $_POST['idR'] ?? null;
 
         if (!$idR) {
