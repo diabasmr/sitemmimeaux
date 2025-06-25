@@ -36,8 +36,8 @@ if (isset($_SESSION['error'])) {
             <nav class="d-flex justify-content-center mb-3 gap-3">
                 <button
                     class="btn btn-sm"
-                    onclick="toggleEdit(this)"
-                    style="background-color: #ffd9ec; color: #b30059; border: 1px solid #ff99cc; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
+                    onclick="document.getElementById('ajout').classList.remove('d-none');"
+                    style=" background-color: #ffd9ec; color: #b30059; border: 1px solid #ff99cc; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
                     Ajouter une salle
                 </button>
                 <button
@@ -47,6 +47,69 @@ if (isset($_SESSION['error'])) {
                     Modifier une salle
                 </button>
             </nav>
+            <div id="ajout" class="d-none position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+                <!-- Carte de présentation -->
+                <div class="col-md-4 p-4 bg-white position-relative shadow rounded-4">
+
+                    <form class="salle-form">
+                        <h2 class="text-center mb-4"
+                            style="color: #cc0a74; text-shadow: 0 0 3px #ffcce6;">
+                            Détails de la salle
+                        </h2>
+                        <div class="mb-3">
+                            <label class="form-label" style="font-weight: 600; color: #99004d;">Nom de la salle</label>
+                            <input type="text" name="salle" class="form-control"
+                                placeholder="Entrez le nom de la salle"
+                                style="color: #4d0033; background-color: transparent;">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="font-weight: 600; color: #99004d;">Nombre de PC</label>
+                            <input type="number" name="nb_pc" class="form-control"
+                                placeholder="Entrez le nombre de PC"
+                                style="color: #4d0033; background-color: transparent;">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" style="font-weight: 600; color: #99004d;">Nombre de places</label>
+                            <input type="number" name="nb_places" class="form-control"
+                                placeholder="Entrez le nombre de places"
+                                style="color: #4d0033; background-color: transparent;">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" style="font-weight: 600; color: #99004d;">Description</label>
+                            <textarea name="description" class="form-control" rows="3"
+                                style="color: #4d0033; background-color: transparent;">Entrer une description</textarea>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" style="font-weight: 600; color: #99004d;">Type d'utilisation</label>
+                            <input type="text" name="etat" class="form-control"
+                                placeholder="Entrez le type d'utilisation"
+                                style="color: #4d0033; background-color: transparent;">
+                        </div>
+                        <div class="mb-5">
+                            <label class="form-label" style="font-weight: 600; color: #99004d;">Ajouter une photo</label>
+                            <input
+                                type="file"
+                                name="photo"
+                                accept="image/*"
+                                class="form-control"
+                                style="color: #4d0033; font-weight: 500;">
+                        </div>
+                        <?php if ($_SESSION['user']['role'] == 'Administrateur'): ?>
+                            <nav class="position-absolute bottom-0 end-0 m-3 z-3">
+                                <button
+                                    class="btn btn-sm"
+                                    onclick="document.getElementById('ajout').classList.add('d-none');"
+                                    style="background-color: #ffd9ec; color: #b30059; border: 1px solid #ff99cc; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
+                                    Valider
+                                </button>
+                            </nav>
+                        <?php endif; ?>
+                    </form>
+                </div>
+            </div>
         <?php endif; ?>
 
         <!-- Image 1 -->
@@ -105,7 +168,7 @@ if (isset($_SESSION['error'])) {
                                 <div class="mb-3">
                                     <label class="form-label" style="font-weight: 600; color: #99004d;">Nombre de places</label>
                                     <input type="number" name="nb_places" class="form-control-plaintext"
-                                        value="<?= htmlspecialchars($salle['nb_places'] ?? '') ?>" disabled
+                                        value="<?= htmlspecialchars($salle['capacite'] ?? '') ?>" disabled
                                         style="color: #4d0033; background-color: transparent;">
                                 </div>
 
@@ -116,9 +179,9 @@ if (isset($_SESSION['error'])) {
                                 </div>
 
                                 <div class="mb-2">
-                                    <label class="form-label" style="font-weight: 600; color: #99004d;">État</label>
+                                    <label class="form-label" style="font-weight: 600; color: #99004d;">Type d'utilisation</label>
                                     <input type="text" name="etat" class="form-control-plaintext"
-                                        value="<?= htmlspecialchars($etat) ?>" disabled
+                                        value="<?= htmlspecialchars($salle['type'] ?? '') ?>" disabled
                                         style="color: #4d0033; background-color: transparent;">
                                 </div>
                                 <?php if ($_SESSION['user']['role'] == 'Administrateur'): ?>

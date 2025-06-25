@@ -165,7 +165,6 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
                         <label for="photo">Photo</label>
                         <!-- UPLOAD IMAGES-->
                         <input type="file" name="photo" accept="image/*">
-                        <img src="../materiel/" alt="Photo matériel" style="height:100px; width:100px;"><!--IMAGE RECUPEREE-->
                     </div>
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="date_achat">Date d'achat</label>

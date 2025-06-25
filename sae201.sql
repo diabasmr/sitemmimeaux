@@ -281,6 +281,7 @@ CREATE TABLE `salle` (
   `nom` varchar(100) NOT NULL,
   `type` varchar(50) DEFAULT NULL,
   `capacite` int(11) DEFAULT NULL,
+  `nb_pc` int(11) DEFAULT NULL,
   `photo` varchar(100) DEFAULT NULL,
   `etat` varchar(50) DEFAULT NULL,
   `description` varchar(200) DEFAULT NULL
@@ -290,9 +291,9 @@ CREATE TABLE `salle` (
 -- Déchargement des données de la table `salle`
 --
 
-INSERT INTO `salle` (`idS`, `nom`, `type`, `capacite`, `photo`, `etat`, `description`) VALUES
-(1, 'Salle 138', 'Amphi', 100, 'Salle138.JPG', 'Disponible', 'Grand amphithéâtre'),
-(2, 'Salle 212', 'Réunion', 20, 'Salle212.jpg', 'Disponible', 'Salle de réunion équipée');
+INSERT INTO `salle` (`idS`, `nom`, `type`, `capacite`, `nb_pc`, `photo`, `etat`, `description`) VALUES
+(1, 'Salle 138', 'Projets - Jeux', 6, 2,  'Salle138.JPG', 'Disponible', "Salle réservable pour des projets ou des séance de gaming. Utilisée en fin d'année scolaire par les stagiaires."),
+(2, 'Salle 212', 'VR - Jeux', 16, 8, 'Salle212.jpg', 'Disponible', 'Salle réservable pour des projets de réalité virtuelle ou des séance de gaming');
 
 -- --------------------------------------------------------
 
