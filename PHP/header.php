@@ -10,8 +10,8 @@
 
 <header class="header">
     <div class="logo">
-        <!-- <p>Logo + nom</p> -->
-        <img src="../IMG/logo.png" alt="">
+        <!-- <p>Logo + nom</p> --><img src="../IMG/logo.png" alt="Logo ReZoom" onclick="window.location.href='index.php'" />
+
     </div>
     <?php if (isset($_SESSION['user'])) {
     ?>

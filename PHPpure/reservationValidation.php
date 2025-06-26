@@ -39,8 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $message = "Nous vous informons que votre réservation a été validée.\n\nConsultez le pdf de celle-ci sur votre tableau de bord ReZoom\nNous vous y indiquons les mesures à suivre.";
                     break;
 
-                case 3: // terminé
-                    $message = "Nous vous informons que votre réservation a été marqué comme terminée.\n\nSi vous avez des questions, n'hésitez pas à nous contacter.\n\n";
+                case 3: // expirée
+                    $message = "Nous vous informons que votre réservation a été marqué comme expirée.\n\nSi vous avez des questions, n'hésitez pas à nous contacter.\n\n";
                     break;
 
                 default:

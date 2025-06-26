@@ -37,6 +37,7 @@ use PHPMailer\PHPMailer\Exception;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     $date = $_POST['selected-date'];
+    $date_demande = $_POST['date_demande'];
     $horaireD = $_POST['horaireD'];
     $horaireF = $_POST['horaireF'];
     $motif = $_POST['motif'];
@@ -64,15 +65,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     } //JS
 
     // Vérifie que les champs ne sont pas vides
-    if (empty($date) || empty($horaireD) || empty($horaireF) || empty($motif) || empty($signature)) {
+    if (empty($date) || empty($date_demande) || empty($horaireD) || empty($horaireF) || empty($motif) || empty($signature)) {
         $_SESSION['error'] = "Tous les champs sont requis.";
         header("Location: ../PHP/reservation_salle.php");
         exit();
     }
 
     // Insertion de la réservation
-    $requete = $pdo->prepare("INSERT INTO reservations (date_debut, date_fin, valide, motif, commentaires, signatureElectronique, documentAdministrateur) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $requete->execute([$dateDebut, $dateFin, $valid, $motif, $commentaire, $signature, $document]);
+    $requete = $pdo->prepare("INSERT INTO reservations (date_demande, date_debut, date_fin, valide, motif, commentaires, signatureElectronique, documentAdministrateur) VALUES (?, ?, ?,  ?, ?, ?, ?, ?)");
+    $requete->execute([$date_demande, $dateDebut, $dateFin, $valid, $motif, $commentaire, $signature, $document]);
 
     // Récupérer l'ID de la réservation créée
     $idReservation = $pdo->lastInsertId();

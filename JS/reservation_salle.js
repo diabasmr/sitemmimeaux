@@ -159,6 +159,7 @@ function disableHorairesForDate(selectedDate) {
         const minF = timeToMinutes(heureF[i]);
         if (optMin >= minD && optMin < minF) {
           option.disabled = true;
+          console.log(`Heure de début ${option.value} désactivée pour la date ${selectedDate}`);
           break;
         }
       }
@@ -206,6 +207,10 @@ for (let i = 0; i < ajouterUserButton.length; i++) {
       alert("Cet utilisateur est déjà ajouté !");
       return;
     }
+
+    //probleme de decalage
+    //ajouterUserButton[i].classList.add("good");
+    //ajouterUserButton[i].classList.remove("ajouterUserButton");
 
     // Créer un nouvel élément img
     const newAvatar = document.createElement("img");

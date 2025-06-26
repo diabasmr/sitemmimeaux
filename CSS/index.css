@@ -177,6 +177,7 @@ main .reservation h2 {
   width: 100%;
   border-radius: 1vw;
 }
+
 .table .body_Table .line p:nth-child(1) {
   margin: auto 0;
 }
@@ -234,6 +235,7 @@ main .reservation h2 {
   color: #f9080c;
   border: 0.15vw solid #f9080c;
 }
+
 .table .body_Table .line button.réfusé::after {
   content: "Réfusé";
 }
@@ -242,6 +244,7 @@ main .reservation h2 {
   color: #f9080c;
   border: 0.15vw solid #f9080c;
 }
+
 .table .body_Table .line button.annulé::after {
   content: "Annulé";
 }
@@ -314,8 +317,8 @@ main .reservation h2 {
   display: flex;
 }
 
-.modif > button,
-.ajouterUser > button {
+.modif>button,
+.ajouterUser>button {
   cursor: pointer;
   background-color: transparent;
   border: none;
@@ -329,8 +332,8 @@ main .reservation h2 {
   right: 7vh;
 }
 
-.modif > button img,
-.ajouterUser > button img {
+.modif>button img,
+.ajouterUser>button img {
   width: 100%;
   height: auto;
   object-fit: contain;
@@ -654,16 +657,20 @@ main .reservation h2 {
   .modif form label {
     font-size: 4.2vw;
   }
+
   .modif form input {
     font-size: 4.2vw;
   }
+
   .modif {
     width: 80vw;
     top: 40%;
   }
+
   .modif form .buttonsSubmit button {
     font-size: 3.2vw;
   }
+
   .modif form .role select {
     font-size: 3vw;
   }
@@ -675,9 +682,11 @@ main .reservation h2 {
   .ajouterUser form label {
     font-size: 4.2vw;
   }
+
   .ajouterUser form input {
     font-size: 4.2vw;
   }
+
   .ajouterUser {
     width: 80vw;
     top: 70%;
@@ -691,8 +700,8 @@ main .reservation h2 {
     font-size: 6vw;
   }
 
-  .modif > button img,
-  .ajouterUser > button img {
+  .modif>button img,
+  .ajouterUser>button img {
     width: auto;
     height: 30px;
     object-fit: contain;

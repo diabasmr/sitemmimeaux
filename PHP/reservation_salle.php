@@ -32,6 +32,7 @@ if (isset($_SESSION['error'])) {
 
     <main class="reservation-container mt-5 mb-5 mt-md-auto">
         <form action="../PHPpure/reservation_salle.php" method="post" class="ms-4 ms-md-auto my-5 mt-md-auto">
+            <input type=" hidden" id="date_demande" name="date_demande" value='<?= $datetime = date('Y-m-d H:i:s'); ?>'>
             <h1>Procédure de réservation</h1>
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -55,7 +56,7 @@ if (isset($_SESSION['error'])) {
                     $stmt->execute([$idS]);
                     $salle = $stmt->fetch();
                     ?>
-                    <img src="../materiel/<?php echo $salle['photo']; ?>" alt="" id="salle-image">
+                    <img src="../materiel/<?php echo $salle['photo']; ?>" alt="" id="salle-image" class="w-100 mb-3">
                     <h2 id="salle-title"><?php echo $salle['nom']; ?></h2>
                     <input type="hidden" name="salle" value="<?php echo $salle['idS']; ?>">
 
@@ -83,22 +84,32 @@ if (isset($_SESSION['error'])) {
                     <input type="hidden" id="dateF" value='<?= json_encode($dateF) ?>'>
                     <input type="hidden" id="heureD" value='<?= json_encode($heureD) ?>'>
                     <input type="hidden" id="heureF" value='<?= json_encode($heureF) ?>'>
-
-                    <div class="my-4 d-flex justify-content-around">
+                    <div id="horaire" class="d-flex justify-content-around">
                         <div class="d-flex justify-content-between align-items-baseline">
                             <label for="horaireD" class="form-label me-2"> De: </label>
                             <select name="horaireD" class="form-select" id="horaireD" required>
                                 <option name="horaireD" value="" selected>début</option>
                                 <option name="horaireD" value="08:00">08:00</option>
-                                <option name="horaireD" value="09:00">09:00</option>
-                                <option name="horaireD" value="10:00">10:00</option>
-                                <option name="horaireD" value="11:00">11:00</option>
-                                <option name="horaireD" value="12:00">12:00</option>
-                                <option name="horaireD" value="13:00">13:00</option>
-                                <option name="horaireD" value="14:00">14:00</option>
-                                <option name="horaireD" value="15:00">15:00</option>
-                                <option name="horaireD" value="16:00">16:00</option>
-                                <option name="horaireD" value="17:00">17:00</option>
+                                <option name="horaireF" value="08:30">08:30</option>
+                                <option name="horaireF" value="09:00">09:00</option>
+                                <option name="horaireF" value="09:30">09:30</option>
+                                <option name="horaireF" value="10:00">10:00</option>
+                                <option name="horaireF" value="10:30">10:30</option>
+                                <option name="horaireF" value="11:00">11:00</option>
+                                <option name="horaireF" value="11:30">11:30</option>
+                                <option name="horaireF" value="12:00">12:00</option>
+                                <option name="horaireF" value="12:30">12:30</option>
+                                <option name="horaireF" value="13:00">13:00</option>
+                                <option name="horaireF" value="13:30">13:30</option>
+                                <option name="horaireF" value="14:00">14:00</option>
+                                <option name="horaireF" value="14:30">14:30</option>
+                                <option name="horaireF" value="15:00">15:00</option>
+                                <option name="horaireF" value="15:30">15:30</option>
+                                <option name="horaireF" value="16:00">16:00</option>
+                                <option name="horaireF" value="16:30">16:30</option>
+                                <option name="horaireF" value="17:00">17:00</option>
+                                <option name="horaireF" value="17:30">17:30</option>
+                                <option name="horaireF" value="18:00">18:00</option>
                             </select>
                         </div>
                         <div class="d-flex justify-content-between align-items-baseline">
@@ -106,21 +117,37 @@ if (isset($_SESSION['error'])) {
                             <select name="horaireF" class="form-select" id="horaireF" required>
                                 <option name="horaireD" value="" selected>fin</option>
                                 <option name="horaireF" value="09:00">09:00</option>
+                                <option name="horaireF" value="09:30">09:30</option>
                                 <option name="horaireF" value="10:00">10:00</option>
+                                <option name="horaireF" value="10:30">10:30</option>
                                 <option name="horaireF" value="11:00">11:00</option>
+                                <option name="horaireF" value="11:30">11:30</option>
                                 <option name="horaireF" value="12:00">12:00</option>
+                                <option name="horaireF" value="12:30">12:30</option>
                                 <option name="horaireF" value="13:00">13:00</option>
+                                <option name="horaireF" value="13:30">13:30</option>
                                 <option name="horaireF" value="14:00">14:00</option>
+                                <option name="horaireF" value="14:30">14:30</option>
                                 <option name="horaireF" value="15:00">15:00</option>
+                                <option name="horaireF" value="15:30">15:30</option>
                                 <option name="horaireF" value="16:00">16:00</option>
+                                <option name="horaireF" value="16:30">16:30</option>
                                 <option name="horaireF" value="17:00">17:00</option>
+                                <option name="horaireF" value="17:30">17:30</option>
                                 <option name="horaireF" value="18:00">18:00</option>
                             </select>
                         </div>
                     </div>
 
-                    <label for="motif">Motif de la réservation</label>
-                    <textarea id="motif" name="motif" placeholder="Bonjour ,...."></textarea>
+                    <label for="motif">Motif / Commentaire *</label>
+                    <select id="motif-select" name="motif" class="form-select mb-3" required>
+                        <option value="" selected disabled>Choisir un motif</option>
+                        <option value="Projet">Projet</option>
+                        <option value="Cours">Cours</option>
+                        <option value="Examen">Examen</option>
+                        <option value="Autre">Autre</option>
+                    </select>
+                    <textarea id="motif-commentaire" name="commentaire" placeholder="Entrer un commentaire" required></textarea>
                 </div>
 
                 <!-- Colonne de droite : calendrier et infos utilisateur -->
@@ -149,7 +176,7 @@ if (isset($_SESSION['error'])) {
                     </div>
 
                     <div class="who">
-                        <h3>Qui réserve ?</h3>
+                        <h3>Ajouter des participants</h3>
                         <div class="avatars">
                             <div id="avatar-container">
                                 <?php
@@ -268,8 +295,8 @@ if (isset($_SESSION['error'])) {
                         <input type="hidden" name="signature" id="signature-data">
 
                         <label>
-                            <input type="checkbox" name="acceptation" onclick="document.getElementById('regle').style.display='block'">
-                            Lire et approuver le Règlement de l'Utilisation de la salle.
+                            <a name="acceptation" class="ms-5 underline text-danger" onclick="document.getElementById('regle').style.display='block'">
+                                Lire et approuver le Règlement de l'Utilisation du matériel.</a>
                         </label>
                         <div id="regle"
                             class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-md-65 start-50 translate-middle text-center align-items-center justify-content-center"
@@ -286,18 +313,29 @@ if (isset($_SESSION['error'])) {
 
                             <div class="text-center">
                                 <label>
-                                    <input type="checkbox" name="acceptation" class="fs-6 fs-md-5" onclick="const container = this.closest('.container-sm-6'); container.style.display='none'; document.querySelector('input[name=acceptation]').checked = true; ">
+                                    <input type="checkbox" required name="acceptation" class="fs-6 fs-md-5" onclick="const container = this.closest('.container-sm-6'); container.style.display='none'; document.querySelector('input[name=acceptation]').checked = true; ">
                                     <span class="ms-2">Je certifie avoir lu et approuvé ce règlement</span>
                                 </label>
                             </div>
                         </div>
                     </div>
 
-                    <button class="submit-button" type="submit" name="submit">Soumettre</button>
+                    <button class="submit-button" type="submit" name="submit" id="boutonSoumettre" disabled>Soumettre</button>
                 </div>
             </section>
         </form>
     </main>
+    <div id="alerte" class="position-fixed top-0 start-0 w-100 h-100 align-items-center justify-content-center d-none"
+        style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+        <div class="bg-white rounded-4 shadow p-4 text-center border"
+            style="border-color: #e47390; max-width: 420px; width: 90%;">
+            <h5 class="mb-3 fw-semibold text-dark">Pas si vite</h5>
+            <p class="text-muted mb-4">L'heure de début doit être antérieure à l'heure de fin.</p>
+            <button type="button" class="btn w-50 text-white" style="background-color: #e47390;"
+                onclick="document.getElementById('alerte').classList.add('d-none')">Fermer</button>
+        </div>
+    </div>
+
     <?php if (!empty($error)) : ?>
         <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
             <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
@@ -310,7 +348,7 @@ if (isset($_SESSION['error'])) {
 
     <script src="../JS/sideBarre.js"></script>
     <script src="../JS/reservation_salle.js"></script>
-
+    <script src="../JS/reservation-qtt.js"></script>
 
 </body>
 

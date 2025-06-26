@@ -78,6 +78,11 @@ main .reservation-container {
 
 /* Bloc équipement */
 .equipment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  /*???????????????????????????????*/
   background: #fff;
   padding: 1.2rem;
   border-radius: 20px;
@@ -91,6 +96,14 @@ main .reservation-container {
   margin-bottom: 1rem;
 }
 
+#materiel-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #2c3e50;
+}
+
 .equipment input,
 .equipment textarea {
   width: 100%;
@@ -101,9 +114,115 @@ main .reservation-container {
   font-size: 1rem;
 }
 
+.quantite-wrapper {
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+
+.quantite-btn {
+  border: none;
+  background-color: #e4587d;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+
+.quantite-btn:hover {
+  background-color: rgb(235, 151, 174);
+  color: white;
+}
+
+
+#quantite {
+  width: 60px;
+  font-weight: bold;
+  border: none;
+  background-color: transparent;
+}
+
+
+#qtt {
+  margin-bottom: 1.5rem;
+}
+
+
+#dispo {
+  font-weight: bold;
+  color: #e4587d;
+}
+
+label {
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+#motif-select,
+#motif-commentaire {
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+
+#motif-select:focus,
+#motif-commentaire:focus {
+  border-color: #74b9ff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(116, 185, 255, 0.3);
+}
+
+/*horaire*/
+#horaire {
+  background-color: #fce8ea;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 0;
+}
+
+
+#horaire label {
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #cc617d;
+}
+
+
+#horaire select {
+  border-radius: 12px;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid #cc617d;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  min-width: 130px;
+}
+
+
+#horaire select:focus {
+  border-color: #cc617d;
+  box-shadow: 0 0 0 2px #cc617db2;
+  outline: none;
+}
+
 /* Détails réservation */
 .reservation-details {
   width: 50%;
+  height: 100%;
   min-width: 320px;
   display: flex;
   flex-direction: column;
@@ -349,6 +468,16 @@ main .reservation-container {
   cursor: pointer;
 }
 
+.good {
+  width: 6vw;
+  height: 3vw;
+  border-radius: 0.5vw;
+  background-color: rgb(42, 145, 59);
+  border: 0.15vw solid var(--primary-color);
+  color: white;
+  cursor: pointer;
+}
+
 .who-list-user-container {
   flex-direction: column;
 }
@@ -365,6 +494,37 @@ main .reservation-container {
   width: 50%;
   border: 1px solid #e47390;
   display: none;
+}
+
+/*salle*/
+.image-hover-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.image-hover-container:hover .hover-overlay {
+  opacity: 1;
 }
 
 @media screen and (max-width: 1100px) {
@@ -393,6 +553,16 @@ main .reservation-container {
     cursor: pointer;
   }
 
+  .good {
+    width: 30vw;
+    height: 10vw;
+    border-radius: 0.5vw;
+    background-color: rgb(42, 145, 59);
+    border: 0.15vw solid var(--primary-color);
+    color: white;
+    cursor: pointer;
+  }
+
   .avatarAjouterEtudiant {
     width: 10vw;
     height: 10vw;
@@ -408,19 +578,4 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-.quantite-btn {
-  padding: 6px 12px;
-  font-size: 18px;
-  border: none;
-  background-color: #e4587d;
-  color: white;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: 0.2s;
-}
-
-.quantite-btn:hover {
-  background-color: rgb(235, 151, 174);
 }

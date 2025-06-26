@@ -32,6 +32,7 @@ if (isset($_SESSION['error'])) {
 
     <main class="reservation-container mt-5 mb-5 mt-md-auto">
         <form action="../PHPpure/reservation_materiel.php" method="post" class="ms-4 ms-md-auto my-5 mt-md-auto">
+            <input type="hidden" id="date_demande" name="date_demande" value='<?= $datetime = date('Y-m-d H:i:s'); ?>'>
             <h1>Procédure de réservation</h1>
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -74,13 +75,11 @@ if (isset($_SESSION['error'])) {
                         $heureF[] = $creneau['heure_fin'];
                     }
                     ?>
-
                     <input type="hidden" id="dateD" value='<?= json_encode($dateD) ?>'>
                     <input type="hidden" id="dateF" value='<?= json_encode($dateF) ?>'>
                     <input type="hidden" id="heureD" value='<?= json_encode($heureD) ?>'>
                     <input type="hidden" id="heureF" value='<?= json_encode($heureF) ?>'>
-
-                    <div class="my-4 d-flex justify-content-around">
+                    <div id="horaire" class="d-flex justify-content-around">
                         <div class="d-flex justify-content-between align-items-baseline">
                             <label for="horaireD" class="form-label me-2"> De: </label>
                             <select name="horaireD" class="form-select" id="horaireD" required>
@@ -114,7 +113,6 @@ if (isset($_SESSION['error'])) {
                             </select>
                         </div>
                     </div>
-
                     <div id="qtt" class="d-flex justify-content-center align-items-baseline">
                         <?php
                         $sql2 = "SELECT quantité FROM materiel WHERE idM = ?";
@@ -145,18 +143,18 @@ if (isset($_SESSION['error'])) {
 
 
                     <label for="motif">Motif / Commentaire *</label>
-                    <select id="motif" class="form-select mb-3" name="motif" placeholder="Entrer le motif de votre réservation">
+                    <select id="motif-select" name="motif" class="form-select mb-3" required>
                         <option value="" selected disabled>Choisir un motif</option>
                         <option value="Projet">Projet</option>
                         <option value="Cours">Cours</option>
                         <option value="Examen">Examen</option>
                         <option value="Autre">Autre</option>
                     </select>
-                    <textarea id="motif" name="motif" placeholder="Entrer le motif de votre réservation"></textarea>
+                    <textarea id="motif-commentaire" name="commentaire" placeholder="Entrer un commentaire" required></textarea>
                 </div>
 
                 <!-- Colonne de droite : calendrier et infos utilisateur -->
-                <div class="reservation-details">
+                <div class=" reservation-details">
                     <div class="calendar">
                         <header>
                             <button onclick="changeMonth(-1)" type="button">❮</button>
@@ -296,11 +294,12 @@ if (isset($_SESSION['error'])) {
                         <input type="hidden" name="signature" id="signature-data">
 
                         <label>
-                            <input type="checkbox" name="acceptation" onclick="document.getElementById('regle').style.display='block'">
-                            Lire et approuver le Règlement de l'Utilisation du matériel.
+                            <a name="acceptation" class="ms-5 underline text-danger" onclick="document.getElementById('regle').style.display='block'">
+                                Lire et approuver le Règlement de l'Utilisation du matériel.</a>
                         </label>
                         <div id="regle"
-                            class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-md-65 start-50 translate-middle text-center align-items-center justify-content-center">
+                            class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-md-65 start-50 translate-middle text-center align-items-center justify-content-center"
+                            style="--bs-border-opacity: .5; z-index:10; width: 50%; border: 1px solid #e47390; display:none;">
 
                             <h5 class="mb-4">Règlement d'utilisation</h5>
                             <p class="mb-3">En réservant du matériel ou une salle dans le cadre du BUT MMI, je reconnais avoir pris connaissance du présent règlement :</p>
@@ -313,18 +312,29 @@ if (isset($_SESSION['error'])) {
 
                             <div class="text-center">
                                 <label>
-                                    <input type="checkbox" name="acceptation" class="fs-6 fs-md-5" onclick="const container = this.closest('.container-sm-6'); container.style.display='none'; document.querySelector('input[name=acceptation]').checked = true; ">
+                                    <input type="checkbox" required name="acceptation" class="fs-6 fs-md-5" onclick="const container = this.closest('.container-sm-6'); container.style.display='none'; document.querySelector('input[name=acceptation]').checked = true; ">
                                     <span class="ms-2">Je certifie avoir lu et approuvé ce règlement</span>
                                 </label>
                             </div>
                         </div>
                     </div>
 
-                    <button class="submit-button" type="submit" name="submit">Soumettre</button>
+                    <button class="submit-button" type="submit" name="submit" id="boutonSoumettre" disabled>Soumettre</button>
                 </div>
             </section>
         </form>
     </main>
+    <div id="alerte" class="position-fixed top-0 start-0 w-100 h-100 align-items-center justify-content-center d-none"
+        style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+        <div class="bg-white rounded-4 shadow p-4 text-center border"
+            style="border-color: #e47390; max-width: 420px; width: 90%;">
+            <h5 class="mb-3 fw-semibold text-dark">Pas si vite</h5>
+            <p class="text-muted mb-4">L'heure de début doit être antérieure à l'heure de fin.</p>
+            <button type="button" class="btn w-50 text-white" style="background-color: #e47390;"
+                onclick="document.getElementById('alerte').classList.add('d-none')">Fermer</button>
+        </div>
+    </div>
+
     <?php if (!empty($error)) : ?>
         <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
             <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">

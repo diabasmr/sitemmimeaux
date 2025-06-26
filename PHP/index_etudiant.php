@@ -3,17 +3,17 @@
     <p><?php echo $_SESSION['user']['prenom'] ?></p>
     <div class="cards">
         <div class="card">
-        <h5>Profil</h5>
-        <p></p>
+            <h5>Profil</h5>
+            <p></p>
         </div>
         <div class="card">
             <h5>Prochaine réservation</h5>
             <p style="color:pink;">
-            <?php
-            require "../PHPpure/connexion.php";
+                <?php
+                require "../PHPpure/connexion.php";
 
-            // Préparation de la requête
-            $sql = "
+                // Préparation de la requête
+                $sql = "
                 SELECT r.idR, r.date_debut
                 FROM reservations r
                 JOIN concerne c ON r.idR = c.idR
@@ -23,26 +23,26 @@
                 LIMIT 1
             ";
 
-            $stmt = $pdo->prepare($sql);
+                $stmt = $pdo->prepare($sql);
 
-            // Passage des paramètres
-            $userId = $_SESSION['user']['id'];
-            $today = date('Y-m-d');
+                // Passage des paramètres
+                $userId = $_SESSION['user']['id'];
+                $today = date('Y-m-d');
 
-            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-            $stmt->bindParam(':today', $today);
+                $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+                $stmt->bindParam(':today', $today);
 
-            // Exécution et traitement
-            $stmt->execute();
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                // Exécution et traitement
+                $stmt->execute();
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($row) {
-                echo $row['date_debut'];
-            } else {
-                echo "Aucune réservation à venir.";
-            }
-            ?>
-        </p>
+                if ($row) {
+                    echo $row['date_debut'];
+                } else {
+                    echo "Aucune réservation à venir.";
+                }
+                ?>
+            </p>
         </div>
     </div>
 </section>
@@ -141,7 +141,7 @@
                         $stmt->execute();
                     }
                 } elseif ($end < $now) {
-                    $status = "terminé";
+                    $status = "expirée";
                     $sql = "UPDATE reservations SET valide = 3 WHERE idR = :idR";
                     $stmt = $pdo->prepare($sql);
                     $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
@@ -202,7 +202,7 @@
                         $stmt->execute();
                     }
                 } elseif ($end < $now) {
-                    $status = "terminé";
+                    $status = "expirée";
                     $sql = "UPDATE reservations SET valide = 3 WHERE idR = :idR";
                     $stmt = $pdo->prepare($sql);
                     $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);

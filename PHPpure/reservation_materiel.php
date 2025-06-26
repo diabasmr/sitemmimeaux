@@ -7,13 +7,15 @@ use PHPMailer\PHPMailer\Exception;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $date = $_POST['selected-date'];
+    $date_demande = $_POST['date_demande'];
     $horaireD = $_POST['horaireD'];
     $horaireF = $_POST['horaireF'];
     $motif = $_POST['motif'];
     $signature = $_POST['signature'];
     $userId = $_SESSION["user"]["id"];
     $user_ids = $_POST['user_ids'];
-    $commentaire = "rien";
+    $commentaire = $_POST['commentaire'];
+    $motif = $_POST['motif'];
     $document = "rien";
     $materiel_id = $_POST['materiel'];
     $quantite = abs((int)$_POST['quantite']);
@@ -22,28 +24,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // creer date debut = date + horaire debut et date fin = date + horaire fin
     $dateDebut = $date . " " . $horaireD;
     $dateFin = $date . " " . $horaireF;
-
-    if (!isset($_POST['acceptation'])) {
-        $_SESSION['error'] = "Veuillez accepter les conditions.";
-        header("Location: ../PHP/reservation_materiel.php");
-        exit();
-    }
-    if ($horaireD >= $horaireF) {
-        $_SESSION['error'] = "Veuillez entrer un créneau d'horaire valide.";
-        header("Location: ../PHP/reservation_materiel.php");
-        exit();
-    } //JS
+    //motif
+    $motif = $motif . " - " . $commentaire;
 
     // Vérifie que les champs ne sont pas vides
-    if (empty($quantite) || empty($date) || empty($horaireD) || empty($horaireF)  || empty($motif) || empty($signature)) {
+    if (empty($quantite) || empty($date)  || empty($date_demande) || empty($horaireD) || empty($horaireF)  || empty($motif) || empty($signature)) {
         $_SESSION['error'] = "Tous les champs sont requis.";
         header("Location: ../PHP/reservation_materiel.php");
         exit();
     }
 
     // Insertion de la réservation
-    $requete = $pdo->prepare("INSERT INTO reservations (quantite, date_debut, date_fin, valide, motif, commentaires, signatureElectronique, documentAdministrateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $requete->execute([$quantite, $dateDebut, $dateFin, $valid, $motif, $commentaire, $signature, $document]);
+    $requete = $pdo->prepare("INSERT INTO reservations (quantite, date_demande, date_debut, date_fin, valide, motif, commentaires, signatureElectronique, documentAdministrateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $requete->execute([$quantite, $date_demande, $dateDebut, $dateFin, $valid, $motif, $commentaire, $signature, $document]);
 
     // Récupérer l'ID de la réservation créée
     $idReservation = $pdo->lastInsertId();

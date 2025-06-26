@@ -14,3 +14,23 @@ function changerQuantite(val) {
 
   input.value = valeur;
 }
+
+function verifierHoraires() {
+  const bouton = document.getElementById('boutonSoumettre');
+  const horaireD = document.getElementById('horaireD');
+  const horaireF = document.getElementById('horaireF');
+  const alerte = document.getElementById('alerte');
+
+  if (horaireD.value && horaireF.value && horaireD.value >= horaireF.value) {
+    alerte.classList.add('d-flex');
+    alerte.classList.remove('d-none');
+    bouton.disabled = true;
+  } else {
+    alerte.classList.remove('d-flex');
+    alerte.classList.add('d-none');
+    bouton.disabled = false;
+  }
+}
+
+horaireD.addEventListener('change', verifierHoraires);
+horaireF.addEventListener('change', verifierHoraires);

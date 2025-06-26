@@ -131,7 +131,7 @@ require('../PHPpure/connexion.php');
                                 $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
                                 $stmt->execute();
                             } elseif ($end < $now) {
-                                $status = "Terminé";
+                                $status = "Expirée";
                                 $sql = "UPDATE reservations SET valide = 3 WHERE idR = :idR";
                                 $stmt = $pdo->prepare($sql);
                                 $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
@@ -196,22 +196,26 @@ require('../PHPpure/connexion.php');
                             if (!empty($salles)) {
                                 $salle = $salles[0];
                                 if (is_array($notifications) && isset($notifications['notif']) && (int)$notifications['notif'] === 1) { //pour eviter les erreurs dans le cas ou il y a pas de notifs
-                                    echo '
-                            <div class="d-flex align-items-center mb-2">
-                            <span class="rounded-circle me-2 flex-shrink-0" style="width: 16px; height: 16px; background-color: #e4587d; border: 1px solid #e4587d;"></span>
-                            <img title=">' . htmlspecialchars($salle['nom']) . '" src="../materiel/' . htmlspecialchars($salle['photo']) . '" alt="Salle" class="rounded-circle me-2 flex-shrink-0" style="width: 16px; height: 16px; object-fit: cover;">
-                            </div>';
+                                    echo '<div class="d-flex align-items-center mb-2">
+                                    <img title="' . htmlspecialchars($salle['nom']) . '" 
+                                         src="../materiel/' . htmlspecialchars($salle['photo']) . '" 
+                                         alt="Salle" 
+                                         class="rounded-circle me-2 flex-shrink-0" 
+                                         style="width: 50%; height: auto; object-fit: cover; border: 4px solid #e4587d;">
+                                  </div>';
                                 } else {
                                     echo '<img title=">' . htmlspecialchars($salle['nom']) . '" src="../materiel/' . htmlspecialchars($salle['photo']) . '" alt="Salle" class="rounded-circle me-2 flex-shrink-0" style="width: 50%; height: auto; object-fit: cover;">';
                                 }
                             } else {
                                 $mater = $materiels[0];
                                 if (is_array($notifications) && isset($notifications['notif']) && (int)$notifications['notif'] === 1) { //pour eviter les erreurs dans le cas ou il y a pas de notifs
-                                    echo '
-                            <div class="d-flex align-items-center mb-2">
-                            <span class="rounded-circle me-2 flex-shrink-0" style="width: 16px; height: 16px; background-color: #e4587d; border: 1px solid #e4587d;"></span>
-                            <span>' . htmlspecialchars($mater['designation']) . '</span>
-                            </div>';
+                                    echo '<div class="d-flex align-items-center mb-2">
+                                    <img title="' . htmlspecialchars($mater['designation']) . '" 
+                                         src="../materiel/' . htmlspecialchars($mater['photo']) . '" 
+                                         alt="Salle" 
+                                         class="rounded-circle me-2 flex-shrink-0" 
+                                         style="width: 50%; height: auto; object-fit: cover; border: 4px solid #e4587d;">
+                                  </div>';
                                 } else {
                                     echo '<img title=">' . htmlspecialchars($mater['designation']) . '" src="../materiel/' . htmlspecialchars($mater['photo']) . '" alt="Salle" class="rounded-circle me-2" style="width: 50%; height: auto;">';
                                 }
@@ -229,7 +233,7 @@ require('../PHPpure/connexion.php');
                                 echo '<p class="text-center p-2" style="height:45%; color: #356c25; border: 0.15vw solid #356c25; border-radius:15px;">' . $status . '</p>';
                             } elseif ($status == "Refusé") {
                                 echo '<p class="text-center p-2" style="height:45%; color: #f9080c; border: 0.15vw solid #f9080c; border-radius:15px;">' . $status . '</p>';
-                            } elseif ($status == "Terminé") {
+                            } elseif ($status == "Expirée") {
                                 echo '<p class="text-center p-2" style="height:45%; color: #707070; border: 0.15vw solid #4b4b4b; border-radius:15px;">' . $status . '</p>';
                             } else {
                                 echo '<p class="text-center  p-2" style="height:45%; color: #f9080c; border: 0.15vw solid #f9080c; border-radius:15px;">' . $status . '</p>';
@@ -283,7 +287,6 @@ require('../PHPpure/connexion.php');
                             <option value="0" selected>En attente</option>
                             <option value="1">Validée</option>
                             <option value="2">Refusée</option>
-                            <option value="3">Terminé</option>
                         </select>
                     </div>
                     <div class="modifPopupReservation_content_body_item">

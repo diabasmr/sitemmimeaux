@@ -95,13 +95,6 @@ if (isset($_SESSION['error'])) {
                         echo "<img src='../materiel/" . $row['photo'] . "' alt='materiel' class='w-100 rounded-5 materiel-image'>";
                         echo "<div class='d-flex justify-content-center align-items-center flex-column w-100'>";
                         echo "<p>" . $row['designation'] . "</p></a>";
-                        echo "<button class='btn btn-danger text-white text-center w-80 w-md-50 p-3' onclick='reserverMateriel(" . $row['idM'] . ")'";
-
-                        if ($quantite_dispo == 0) {
-                            echo " disabled";
-                        }
-
-                        echo ">Réserver</button>";
                         echo "</div>";
                         echo "</div>";
                     }
@@ -255,13 +248,6 @@ if (isset($_SESSION['error'])) {
                     echo "<img src='../materiel/" . $materiel['photo'] . "' alt='materiel' class='bg-white rounded-5 materiel-image'>";
                     echo "<div class='d-flex justify-content-center align-items-center flex-column w-100'>";
                     echo "<p>" . $materiel['designation'] . "</p></a>";
-                    echo "<button class='btn btn-danger text-white text-center w-80 w-md-50 p-3' onclick='reserverMateriel(" . $materiel['idM'] . ")'";
-
-                    if ($materiel['quantité'] == 0) {
-                        echo " disabled";
-                    }
-
-                    echo ">Réserver</button>";
                     echo "</div>";
                     echo "</div>";
                     ?>
