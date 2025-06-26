@@ -121,91 +121,6 @@ main .reservation h2 {
   object-fit: contain;
 }
 
-.table {
-  width: 100%;
-  background-color: white;
-  border-radius: 1vw;
-  padding: 2vh 1.5vw;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  gap: 1vh;
-}
-
-.table .header_Table {
-  background-color: #edafbe;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-
-  align-items: center;
-  height: 6vh;
-  border-radius: 1vw;
-  width: 100%;
-  padding: 0 2vw;
-}
-
-.table .header_Table p {
-  font-size: 1vw;
-}
-
-.table .header_Table p:nth-child(2),
-.table .header_Table p:nth-child(3),
-.table .header_Table p:nth-child(4) {
-  margin: 0 auto;
-}
-
-.table .header_Table p:nth-child(5) {
-  margin: 0 2vw 0 auto;
-}
-
-.table .body_Table {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-  height: auto;
-  width: 100%;
-  border-radius: 1vw;
-  padding: 0 2vw;
-  gap: 2vh;
-}
-
-.table .body_Table .line {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  height: 6vh;
-  width: 100%;
-  border-radius: 1vw;
-}
-
-.table .body_Table .line p:nth-child(1) {
-  margin: auto 0;
-}
-
-.table .body_Table .line p:nth-child(2),
-.table .body_Table .line p:nth-child(3),
-.table .body_Table .line p:nth-child(4) {
-  margin: auto;
-}
-
-.table .body_Table .line p {
-  font-size: 1vw;
-}
-
-.table .body_Table .line button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: auto 0 auto auto;
-  width: 6vw;
-  height: 2.7vw;
-  background-color: transparent;
-  border: 0.15vw solid #edafbe;
-  border-radius: 1vw;
-  font-size: 0.7vw;
-  transition: all 0.2s ease-in-out;
-}
-
 .statusButton {
   display: flex;
   justify-content: center;
@@ -213,62 +128,85 @@ main .reservation h2 {
   gap: 1vw;
 }
 
-.table .body_Table .line button.attente {
+button.attente {
   color: #f9a308;
+  background-color: white;
+  border-radius: 15px;
+  padding: 10px;
   border: 0.15vw solid #f9a308;
+  font-size: 1vw;
 }
 
-.table .body_Table .line button.attente::after {
+button.attente::after {
   content: "En attente";
 }
 
-.table .body_Table .line button.accepté {
+button.accepte {
   color: #356c25;
+  background-color: white;
+  border-radius: 15px;
+  padding: 10px;
   border: 0.15vw solid #356c25;
+  font-size: 1vw;
 }
 
-.table .body_Table .line button.accepté::after {
+button.accepte::after {
   content: "Accepté";
 }
 
-.table .body_Table .line button.réfusé {
+button.refuse {
   color: #f9080c;
+  background-color: white;
+  border-radius: 15px;
+  padding: 10px;
   border: 0.15vw solid #f9080c;
+  font-size: 1vw;
 }
 
-.table .body_Table .line button.réfusé::after {
-  content: "Réfusé";
+button.refuse::after {
+  content: "Refusé";
 }
 
-.table .body_Table .line button.annulé {
+button.annule {
   color: #f9080c;
+  background-color: white;
+  border-radius: 15px;
+  padding: 10px;
   border: 0.15vw solid #f9080c;
+  font-size: 1vw;
 }
 
-.table .body_Table .line button.annulé::after {
+button.annule::after {
   content: "Annulé";
 }
 
-.table .body_Table .line button.terminé {
+button.termine {
   color: #707070;
-  border: 0.15vw solid #4b4b4b;
+  background-color: white;
+  border-radius: 15px;
+  padding: 10px;
+  border: 0.15vw solid #707070;
+  font-size: 1vw;
 }
 
-.table .body_Table .line button.terminé::after {
-  content: "Terminé";
+button.termine::after {
+  content: "Expirée";
 }
 
-.table .body_Table .line button.modifier {
+button.modifier {
   color: #edafbe;
+  background-color: white;
+  border-radius: 15px;
+  padding: 10px;
   border: 0.15vw solid #edafbe;
   font-size: 1vw;
 }
 
-.table .body_Table .line button.modifier::after {
+button.modifier::after {
   content: "Modifier";
 }
 
-.table .body_Table .line button.modifier:hover {
+button.modifier:hover {
   background-color: #edafbe;
   color: white;
 }
@@ -589,60 +527,6 @@ main .reservation h2 {
     width: 7vw;
     height: 7vw;
     font-size: 5vw;
-  }
-
-  .table {
-    width: 100%;
-    background-color: white;
-    border-radius: 1vw;
-    padding: 2vh 1.5vw;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 1vh;
-  }
-
-  .table .header_Table {
-    background-color: #edafbe;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    justify-content: space-between;
-    align-items: center;
-
-    height: 6vh;
-    border-radius: 1vw;
-    width: 100%;
-    padding: 0 4vw;
-  }
-
-  .table .header_Table p {
-    font-size: 3vw !important;
-  }
-
-  .table .body_Table {
-    gap: 2vh;
-  }
-
-  .table .body_Table .line {
-    height: 6vh;
-    width: 100%;
-    border-radius: 1vw;
-  }
-
-  .table .body_Table .line p {
-    font-size: 3vw !important;
-  }
-
-  .table .body_Table .line button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 16vw;
-    height: 8vw;
-    background-color: transparent;
-    border: 0.15vw solid var(--tertiary-color);
-    border-radius: 1vw;
-    font-size: 3vw !important;
   }
 
   .add {

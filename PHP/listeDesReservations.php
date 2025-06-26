@@ -64,44 +64,19 @@ require('../PHPpure/connexion.php');
             </div>
         </div>
 
-        <section class="table mb-5">
-            <article class="header_Table">
-                <p>Réservation</p>
-                <p>Utilisateur</p>
-                <p>Demande</p>
-                <p>Date de réservation</p>
-                <p>Statut</p>
+        <section class="container-sm bg-white">
+            <div class="row p-3 fs-5 fw-semibold" style="color:#e4587d; background-color: #edafbe; border-radius: 10px; border: 1px solid #edafbe;">
+                <p class="col-2">Réservation</p>
+                <p class="col-2">Utilisateur</p>
+                <p class="col-2">Demande</p>
+                <p class="col-3">Date de réservation</p>
+                <p class="col-1">Statut</p>
+                <p class="col-2"></p>
+            </div>
 
-            </article>
-            <article id="tab" class="body_Table pb-5">
-                <!-- <div class="line">
-                    <p>Nom de la reservation</p>
-                    <p>07/02/2025</p>
-                    <p>Non défini</p>
-                    <button class="modifier"></button>
-                </div>
-                <div class="line">
-                    <p>Nom de la reservation</p>
-                    <p>07/02/2025</p>
-                    <p>Non défini</p>
-                    <button class="modifier"></button>
-                </div>
-                <div class="line">
-                    <p>Nom de la reservation</p>
-                    <p>07/02/2025</p>
-                    <p>Non défini</p>
-                    <button class="modifier"></button>
-                </div>
-                <div class="line">
-                    <p>Nom de la reservation</p>
-                    <p>07/02/2025</p>
-                    <p>Non défini</p>
-                    <button class="modifier"></button>
-                </div> -->
-                <!-- pareil mais avec les reservations des materiels ou des salles -->
-                <?php
-                // Récupération des réservations
-                $sql = "SELECT r.*, 
+            <?php
+            // Récupération des réservations
+            $sql = "SELECT r.*, 
                         GROUP_CONCAT(DISTINCT CONCAT(m.idM, ':', m.designation, ':', m.refernceM, ':', m.photo) SEPARATOR '||') as materiels, 
                         GROUP_CONCAT(DISTINCT CONCAT(s.idS, ':', s.nom, ':', s.type, ':', s.photo) SEPARATOR '||') as salles,
                         GROUP_CONCAT(DISTINCT CONCAT(u.id, ':', u.nom, ':', u.prenom, ':', COALESCE(u.avatar, 'default')) SEPARATOR '||') as users
@@ -115,130 +90,146 @@ require('../PHPpure/connexion.php');
                         GROUP BY r.idR
                         ORDER BY r.date_demande DESC";
 
-                try {
-                    $stmt = $pdo->prepare($sql);
-                    $stmt->execute();
-                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            try {
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute();
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                    if (count($result) > 0) {
-                        foreach ($result as $row) {
-                            $now = new DateTime();
-                            $end = new DateTime($row['date_fin']);
-                            if ($row['valide'] == 0 && $end < $now) {
-                                $status = "Annulé";
-                                $sql = "UPDATE reservations SET valide = 2 WHERE idR = :idR";
-                                $stmt = $pdo->prepare($sql);
-                                $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
-                                $stmt->execute();
-                            } elseif ($end < $now) {
-                                $status = "Expirée";
-                                $sql = "UPDATE reservations SET valide = 3 WHERE idR = :idR";
-                                $stmt = $pdo->prepare($sql);
-                                $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
-                                $stmt->execute();
-                            } elseif ($row['valide'] == 1) {
-                                $status = "Validée";
-                            } else if ($row['valide'] == 2) {
-                                $status = "Refusée";
-                            } else {
-                                $status = "En attente";
-                            }
+                if (count($result) > 0) {
+                    foreach ($result as $row) {
+                        $now = new DateTime();
+                        $end = new DateTime($row['date_fin']);
+                        if ($row['valide'] == 0 && $end < $now) {
+                            $status = "Annulé";
+                            $sql = "UPDATE reservations SET valide = 2 WHERE idR = :idR";
+                            $stmt = $pdo->prepare($sql);
+                            $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
+                            $stmt->execute();
+                        } elseif ($end < $now) {
+                            $status = "Expirée";
+                            $sql = "UPDATE reservations SET valide = 3 WHERE idR = :idR";
+                            $stmt = $pdo->prepare($sql);
+                            $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
+                            $stmt->execute();
+                        } elseif ($row['valide'] == 1) {
+                            $status = "Validée";
+                        } else if ($row['valide'] == 2) {
+                            $status = "Refusée";
+                        } else {
+                            $status = "En attente";
+                        }
 
-                            // Traitement des matériels
-                            $materiels = [];
-                            if ($row['materiels']) {
-                                $materielsArray = explode('||', $row['materiels']);
-                                foreach ($materielsArray as $materielStr) {
-                                    list($id, $designation, $reference, $photo) = explode(':', $materielStr);
-                                    $materiels[] = [
-                                        'id' => $id,
-                                        'designation' => $designation,
-                                        'reference' => $reference,
-                                        'photo' => $photo
-                                    ];
-                                }
+                        // Traitement des matériels
+                        $materiels = [];
+                        if ($row['materiels']) {
+                            $materielsArray = explode('||', $row['materiels']);
+                            foreach ($materielsArray as $materielStr) {
+                                list($id, $designation, $reference, $photo) = explode(':', $materielStr);
+                                $materiels[] = [
+                                    'id' => $id,
+                                    'designation' => $designation,
+                                    'reference' => $reference,
+                                    'photo' => $photo
+                                ];
                             }
+                        }
 
-                            // Traitement des salles
-                            $salles = [];
-                            if ($row['salles']) {
-                                $sallesArray = explode('||', $row['salles']);
-                                foreach ($sallesArray as $salleStr) {
-                                    list($id, $nom, $type, $photo) = explode(':', $salleStr);
-                                    $salles[] = [
-                                        'id' => $id,
-                                        'nom' => $nom,
-                                        'type' => $type,
-                                        'photo' => $photo
-                                    ];
-                                }
+                        // Traitement des salles
+                        $salles = [];
+                        if ($row['salles']) {
+                            $sallesArray = explode('||', $row['salles']);
+                            foreach ($sallesArray as $salleStr) {
+                                list($id, $nom, $type, $photo) = explode(':', $salleStr);
+                                $salles[] = [
+                                    'id' => $id,
+                                    'nom' => $nom,
+                                    'type' => $type,
+                                    'photo' => $photo
+                                ];
                             }
+                        }
 
-                            // Traitement des utilisateurs
-                            $users = [];
-                            if ($row['users']) {
-                                $usersArray = explode('||', $row['users']);
-                                foreach ($usersArray as $userStr) {
-                                    list($id, $nom, $prenom, $avatar) = explode(':', $userStr);
-                                    $users[] = [
-                                        'id' => $id,
-                                        'nom' => $nom,
-                                        'prenom' => $prenom,
-                                        'avatar' => $avatar === 'default' ? "../uploads/default.png" : $avatar
-                                    ];
-                                }
+                        // Traitement des utilisateurs
+                        $users = [];
+                        if ($row['users']) {
+                            $usersArray = explode('||', $row['users']);
+                            foreach ($usersArray as $userStr) {
+                                list($id, $nom, $prenom, $avatar) = explode(':', $userStr);
+                                $users[] = [
+                                    'id' => $id,
+                                    'nom' => $nom,
+                                    'prenom' => $prenom,
+                                    'avatar' => $avatar === 'default' ? "../uploads/default.png" : $avatar
+                                ];
                             }
-                            $sql2 = "SELECT notif FROM notifications WHERE idR = ?";
-                            $stmt = $pdo->prepare($sql2);
-                            $stmt->execute([$row['idR']]);
-                            $notifications = $stmt->fetch(PDO::FETCH_ASSOC);
-                            echo '<div class="line mb-5">';
-                            if (!empty($salles)) {
-                                $salle = $salles[0];
-                                if (is_array($notifications) && isset($notifications['notif']) && (int)$notifications['notif'] === 1) { //pour eviter les erreurs dans le cas ou il y a pas de notifs
-                                    echo '<div class="d-flex align-items-center mb-2">
+                        }
+                        $sql2 = "SELECT notif FROM notifications WHERE idR = ?";
+                        $stmt = $pdo->prepare($sql2);
+                        $stmt->execute([$row['idR']]);
+                        $notifications = $stmt->fetch(PDO::FETCH_ASSOC);
+                        echo '<div class="row p-3 align-items-center gy-3" style="border-radius:10px; border-bottom: 1px solid rgba(228, 88, 125, 0.2);">';
+                        if (!empty($salles)) {
+                            $salle = $salles[0];
+                            if (is_array($notifications) && isset($notifications['notif']) && (int)$notifications['notif'] === 1) { //pour eviter les erreurs dans le cas ou il y a pas de notifs
+                                echo '<div class="col-2">
                                     <img title="' . htmlspecialchars($salle['nom']) . '" 
                                          src="../materiel/' . htmlspecialchars($salle['photo']) . '" 
                                          alt="Salle" 
                                          class="rounded-circle me-2 flex-shrink-0" 
-                                         style="width: 50%; height: auto; object-fit: cover; border: 4px solid #e4587d;">
+                                         style="width: 50%; height: 50%; object-fit: cover; border: 4px solid #e4587d;">
                                   </div>';
-                                } else {
-                                    echo '<img title=">' . htmlspecialchars($salle['nom']) . '" src="../materiel/' . htmlspecialchars($salle['photo']) . '" alt="Salle" class="rounded-circle me-2 flex-shrink-0" style="width: 50%; height: auto; object-fit: cover;">';
-                                }
                             } else {
-                                $mater = $materiels[0];
-                                if (is_array($notifications) && isset($notifications['notif']) && (int)$notifications['notif'] === 1) { //pour eviter les erreurs dans le cas ou il y a pas de notifs
-                                    echo '<div class="d-flex align-items-center mb-2">
+                                echo '<div class="col-2">';
+                                echo '<img title=">' . htmlspecialchars($salle['nom']) . '" src="../materiel/' . htmlspecialchars($salle['photo']) . '" alt="Salle" class="rounded-circle me-2 flex-shrink-0" style="width: 50%; height: 50%; object-fit: cover;">';
+                                echo '</div>';
+                            }
+                        } else {
+                            $mater = $materiels[0];
+                            if (is_array($notifications) && isset($notifications['notif']) && (int)$notifications['notif'] === 1) { //pour eviter les erreurs dans le cas ou il y a pas de notifs
+                                echo '<div class="col-2">
                                     <img title="' . htmlspecialchars($mater['designation']) . '" 
                                          src="../materiel/' . htmlspecialchars($mater['photo']) . '" 
                                          alt="Salle" 
                                          class="rounded-circle me-2 flex-shrink-0" 
-                                         style="width: 50%; height: auto; object-fit: cover; border: 4px solid #e4587d;">
+                                         style="width: 50%; height: 50%; object-fit: cover; border: 4px solid #e4587d;">
                                   </div>';
-                                } else {
-                                    echo '<img title=">' . htmlspecialchars($mater['designation']) . '" src="../materiel/' . htmlspecialchars($mater['photo']) . '" alt="Salle" class="rounded-circle me-2" style="width: 50%; height: auto;">';
-                                }
-                            }
-                            if (!empty($users)) {
-                                $firstUser = $users[0];
-                                echo '<p>' . htmlspecialchars($firstUser['nom']) . ' ' . htmlspecialchars($firstUser['prenom']) . '</p>';
-                            }
-                            echo '<p class="text-center">' . date('d/m/Y H:i', strtotime($row['date_demande'])) . '</p>';
-                            echo '<p class="text-center">' . date('d/m/Y H:i', strtotime($row['date_debut'])) . ' - ' .
-                                date('d/m/Y H:i', strtotime($row['date_fin'])) . '</p>';
-                            if ($status == "En attente") {
-                                echo '<p class="p-2 text-center" style="height:45%; color: #f9a308; border: 0.15vw solid #f9a308; border-radius:15px;">' . $status . '</p>';
-                            } elseif ($status == "Validée") {
-                                echo '<p class="text-center p-2" style="height:45%; color: #356c25; border: 0.15vw solid #356c25; border-radius:15px;">' . $status . '</p>';
-                            } elseif ($status == "Refusé") {
-                                echo '<p class="text-center p-2" style="height:45%; color: #f9080c; border: 0.15vw solid #f9080c; border-radius:15px;">' . $status . '</p>';
-                            } elseif ($status == "Expirée") {
-                                echo '<p class="text-center p-2" style="height:45%; color: #707070; border: 0.15vw solid #4b4b4b; border-radius:15px;">' . $status . '</p>';
                             } else {
-                                echo '<p class="text-center  p-2" style="height:45%; color: #f9080c; border: 0.15vw solid #f9080c; border-radius:15px;">' . $status . '</p>';
+                                echo '<div class="col-2">';
+                                echo '<img title=">' . htmlspecialchars($mater['designation']) . '" src="../materiel/' . htmlspecialchars($mater['photo']) . '" alt="Salle" class="rounded-circle me-2" style="width: 50%; height: 50%;">';
+                                echo '</div>';
                             }
-                            echo '<button class="modifier" data-id="' . $row['idR'] . '" 
+                        }
+                        if (!empty($users)) {
+                            $firstUser = $users[0];
+                            echo '<div class="col-2">';
+                            echo '<p>' . htmlspecialchars($firstUser['nom']) . ' ' . htmlspecialchars($firstUser['prenom']) . '</p>';
+                            echo '</div>';
+                        }
+                        echo '<div class="col-2">';
+                        echo '<p class="text-center">' . date('d/m/Y H:i', strtotime($row['date_demande'])) . '</p>';
+                        echo '</div>';
+
+                        echo '<div class="col-3">';
+                        echo '<p class="text-center">' . date('d/m/Y H:i', strtotime($row['date_debut'])) . ' - ' .
+                            date('d/m/Y H:i', strtotime($row['date_fin'])) . '</p>';
+                        echo '</div>';
+
+                        echo '<div class="col-1">';
+                        if ($status == "En attente") {
+                            echo '<button class="text-center attente"></button>';
+                        } elseif ($status == "Validée") {
+                            echo '<button class="text-center valide"></button>';
+                        } elseif ($status == "Refusée") {
+                            echo '<button class="text-center refuse"></button>';
+                        } elseif ($status == "Expirée") {
+                            echo '<button class="text-center termine"></button>';
+                        } else {
+                            echo '<button class="text-center annule"></button>';
+                        }
+                        echo '</div>';
+
+                        echo '<div class="col-2">';
+                        echo '<button class="modifier" data-id="' . $row['idR'] . '" 
                                     data-motif="' . htmlspecialchars($row['motif']) . '"
                                     data-date-debut="' . date('Y-m-d\TH:i', strtotime($row['date_debut'])) . '"
                                     data-date-fin="' . date('Y-m-d\TH:i', strtotime($row['date_fin'])) . '"
@@ -246,19 +237,21 @@ require('../PHPpure/connexion.php');
                                     data-materiels=\'' . json_encode($materiels) . '\'
                                     data-salles=\'' . json_encode($salles) . '\'
                                     data-users=\'' . json_encode($users) . '\'></button>';
-                            echo '</div>';
-                        }
-                    } else {
-                        echo '<div class="line"><p>Aucune réservation trouvée</p></div>';
-                    }
-                } catch (PDOException $e) {
-                    echo '<div class="line"><p>Erreur : ' . $e->getMessage() . '</p></div>';
-                }
+                        echo '</div>';
 
-                $pdo = null;
-                ?>
-            </article>
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<div class="line"><p>Aucune réservation trouvée</p></div>';
+                }
+            } catch (PDOException $e) {
+                echo '<div class="line"><p>Erreur : ' . $e->getMessage() . '</p></div>';
+            }
+
+            $pdo = null;
+            ?>
         </section>
+
         <form class="modifPopupReservation" action="../PHPpure/reservationValidation.php" method="POST">
             <div class="modifPopupReservation_content">
                 <div class="modifPopupReservation_content_header">
