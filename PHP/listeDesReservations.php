@@ -64,7 +64,7 @@ require('../PHPpure/connexion.php');
             </div>
         </div>
 
-        <section class="container-sm bg-white">
+        <section class="container-sm bg-white" style="border-radius: 15px;">
             <div class="row p-3 fs-5 fw-semibold" style="color:#e4587d; background-color: #edafbe; border-radius: 10px; border: 1px solid #edafbe;">
                 <p class="col-2">Réservation</p>
                 <p class="col-2">Utilisateur</p>

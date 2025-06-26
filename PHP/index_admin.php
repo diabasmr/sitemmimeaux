@@ -18,50 +18,32 @@ use PHPMailer\PHPMailer\Exception;
             </button>
         </div>
     </div>
-    <section class="table mb-5">
-        <article class="header_Table">
-            <p>Nom d'utilisateur</p>
-            <p>Date d'inscription</p>
-            <p>Statut</p>
+    <section class="container-sm bg-white" style="border-radius: 15px;">
+        <div class="row p-3 fs-5 fw-semibold" style="color:#e4587d; background-color: #edafbe; border-radius: 10px; border: 1px solid #edafbe;">
+            <p class="col-4">Nom d'utilisateur</p>
+            <p class="col-4">Date d'inscription</p>
+            <p class="col-2">Statut</p>
+            <p class="col-2"></p>
+        </div>
+        <?php
+        require_once('../PHPpure/connexion.php');
 
-        </article>
-        <article class="body_Table">
-            <!-- <div class="line">
-                <p>Nom d'utilisateur inscrit</p>
-                <p>07/02/2025</p>
-                <p>Non défini</p>
-                <button class="modifier"></button>
-            </div>
-            <div class="line">
-                <p>Nom d'utilisateur inscrit</p>
-                <p>07/02/2025</p>
-                <p>Non défini</p>
-                <button class="modifier"></button>
-            </div>
-            <div class="line">
-                <p>Nom d'utilisateur inscrit</p>
-                <p>07/02/2025</p>
-                <p>Non défini</p>
-                <button class="modifier"></button>
-            </div>
-            <div class="line">
-                <p>Nom d'utilisateur inscrit</p>
-                <p>07/02/2025</p>
-                <p>Non défini</p>
-                <button class="modifier"></button>
-            </div> -->
-            <?php
-            require_once('../PHPpure/connexion.php');
+        $sql = "SELECT * FROM user_";
+        $stmt = $pdo->query($sql);
 
-            $sql = "SELECT * FROM user_";
-            $stmt = $pdo->query($sql);
-
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                echo '
-                <div class="line" >
-                    <p>' . htmlspecialchars($row['nom']) . ' ' . htmlspecialchars($row['prenom']) . '</p>
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo '
+                <div class="row p-3 align-items-center gy-3" style="border-radius:10px; border-bottom: 1px solid rgba(228, 88, 125, 0.2);">
+                    <div class="col-4">
+                        <p>' . htmlspecialchars($row['nom']) . ' ' . htmlspecialchars($row['prenom']) . '</p>
+                    </div>
+                    <div class="col-4">
                     <p>' . htmlspecialchars($row['date_inscription']) . '</p>
+                    </div>
+                    <div class="col-2">
                     <p>' . statusUser($row['id'], $pdo) . '</p>
+                    </div>
+                    <div class="col-2">
                     <button 
                         class="modifier" 
                         onclick="openModifPopup(
@@ -74,11 +56,11 @@ use PHPMailer\PHPMailer\Exception;
                             \'' . $row['valable'] . '\'
                         )">
                     </button>
+                    </div>
                 </div>';
-            }
-            ?>
-        </article>
-        <button class="add" id="addUser"><img src="../res/add.svg" alt="plus"></button>
+        }
+        ?>
+        <button class="add mb-3" id="addUser"><img src="../res/add.svg" alt="plus"></button>
     </section>
     <div id="modifPopup" class="modif">
         <button id="closeModifPopup"><img src="../res/x.svg" alt=""></button>

@@ -53,77 +53,66 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
                 </div>
             </div>
         </div>
-        <section class="table mb-5">
-            <article class="header_Table">
-                <p>Matériel</p>
-                <p>Nom du matériel</p>
-                <p>Statut</p>
-
+        <section class="container-sm bg-white" style="border-radius: 15px;">
+            <article class="row p-3 fs-5 fw-semibold" style="color:#e4587d; background-color: #edafbe; border-radius: 10px; border: 1px solid #edafbe;">
+                <p class="col-2">Matériel</p>
+                <p class="col-3">Nom du matériel</p>
+                <p class="col-3">Quantité</p>
+                <p class="col-2">Statut</p>
+                <p class="col-2"></p>
             </article>
-            <article id="tab" class="body_Table pb-5">
-                <!-- <div class="line">
-                    <p>Nom de la reservation</p>
-                    <p>07/02/2025</p>
-                    <p>Non défini</p>
-                    <button class="modifier"></button>
-                </div>
-                <div class="line">
-                    <p>Nom de la reservation</p>
-                    <p>07/02/2025</p>
-                    <p>Non défini</p>
-                    <button class="modifier"></button>
-                </div>
-                <div class="line">
-                    <p>Nom de la reservation</p>
-                    <p>07/02/2025</p>
-                    <p>Non défini</p>
-                    <button class="modifier"></button>
-                </div>
-                <div class="line">
-                    <p>Nom de la reservation</p>
-                    <p>07/02/2025</p>
-                    <p>Non défini</p>
-                    <button class="modifier"></button>
-                </div> -->
-                <!-- pareil mais avec les reservations des materiels ou des salles -->
-                <?php
-                require_once('../PHPpure/connexion.php');
+            <?php
+            require_once('../PHPpure/connexion.php');
 
-                // Récupération du matériel
-                $sql = "SELECT * FROM materiel";
+            // Récupération du matériel
+            $sql = "SELECT * FROM materiel";
 
-                try {
-                    $stmt = $pdo->prepare($sql);
-                    $stmt->execute();
-                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            try {
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute();
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                    if (count($result) > 0) {
-                        foreach ($result as $row) {
-                            // si le matériel est disponible ou non
-                            $sql2 = "SELECT quantité FROM materiel WHERE idM = ?";
-                            $stmt2 = $pdo->prepare($sql2);
-                            $stmt2->execute([$row['idM']]);
-                            $quantite_totale = $stmt2->fetch(PDO::FETCH_ASSOC);
+                if (count($result) > 0) {
+                    foreach ($result as $row) {
+                        // si le matériel est disponible ou non
+                        $sql2 = "SELECT quantité FROM materiel WHERE idM = ?";
+                        $stmt2 = $pdo->prepare($sql2);
+                        $stmt2->execute([$row['idM']]);
+                        $quantite_totale = $stmt2->fetch(PDO::FETCH_ASSOC);
 
-                            $sql3 = "SELECT COUNT(r.idR) AS nb_reservations FROM reservations r JOIN concerne c ON r.idR = c.idR WHERE c.idM = ? AND r.valide = 1";
-                            $stmt3 = $pdo->prepare($sql3);
-                            $stmt3->execute([$row['idM']]);
-                            $resas = $stmt3->fetch(PDO::FETCH_ASSOC);
+                        $sql3 = "SELECT COUNT(r.idR) AS nb_reservations FROM reservations r JOIN concerne c ON r.idR = c.idR WHERE c.idM = ? AND r.valide = 1";
+                        $stmt3 = $pdo->prepare($sql3);
+                        $stmt3->execute([$row['idM']]);
+                        $resas = $stmt3->fetch(PDO::FETCH_ASSOC);
 
-                            // Calcul de la quantité restante
-                            $quantite_dispo = $quantite_totale['quantité'] - $resas['nb_reservations'];
-                            if ($quantite_dispo >= 1) {
-                                $status = "Disponible";
-                            } else {
-                                $status = "Indisponible";
-                            }
+                        // Calcul de la quantité restante
+                        $quantite_dispo = $quantite_totale['quantité'] - $resas['nb_reservations'];
+                        if ($quantite_dispo >= 1) {
+                            $status = "Disponible";
+                        } else {
+                            $status = "Indisponible";
+                        }
 
 
-                            echo '<div class="line my-5">';
-                            echo '<a href="produit.php?id=' . $row['idM'] . '"><img src="../materiel/' . htmlspecialchars($row['photo']) . '" alt="Photo matériel" style="height:100px; width:100px;"></a>';
-                            echo '<p class="text-center d-flex flex-column"><a href="produit.php?id=' . $row['idM'] . '">' . htmlspecialchars($row['designation']) . '</a><span>Quantité: ' . htmlspecialchars($row['quantité']) . '</span></p>';
-                            echo '<p>' . $status . '</p>';
-                            echo '<button class="modifier" data-id="' . $row['idM'] . '"
+                        echo '<div class="row p-3 align-items-center gy-3" style="border-radius:10px; border-bottom: 1px solid rgba(228, 88, 125, 0.2);">';
+                        echo '<div class="col-2">';
+                        echo '<a href="produit.php?id=' . $row['idM'] . '"><img src="../materiel/' . htmlspecialchars($row['photo']) . '" alt="Photo matériel" style="height:100%; width:100%;"></a>';
+                        echo '</div>';
+
+                        echo '<div class="col-3">';
+                        echo '<p><a href="produit.php?id=' . $row['idM'] . '">' . htmlspecialchars($row['designation']) . '</a></p>';
+                        echo '</div>';
+
+                        echo '<div class="col-3">';
+                        echo '<p><span>Quantité: ' . htmlspecialchars($row['quantité']) . '</span></p>';
+                        echo '</div>';
+
+                        echo '<div class="col-2">';
+                        echo '<p>' . $status . '</p>';
+                        echo '</div>';
+
+                        echo '<div class="col-2">';
+                        echo '<button class="modifier" data-id="' . $row['idM'] . '"
                                     data-designation="' . htmlspecialchars($row['designation']) . '"
                                     data-photo="' . htmlspecialchars($row['photo']) . '"
                                     data-dateachat="' . date('Y-m-d', strtotime($row['dateAchat'])) . '"
@@ -133,19 +122,19 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
                                     data-etat="' . htmlspecialchars($row['etat']) . '"
                                     data-lien_demo="' . (isset($row['lien_demo']) && !empty($row['lien_demo']) ? htmlspecialchars($row['lien_demo']) : 'lien démonstration') . '">
                                 </button>';
-                            echo '</div>';
-                        }
-                    } else {
-                        echo '<div class="line"><p>Aucun matériel trouvé</p></div>';
+                        echo '</div>';
+                        echo '</div>';
                     }
-                } catch (PDOException $e) {
-                    echo '<div class="line"><p>Erreur : ' . $e->getMessage() . '</p></div>';
+                } else {
+                    echo '<div class="line"><p>Aucun matériel trouvé</p></div>';
                 }
+            } catch (PDOException $e) {
+                echo '<div class="line"><p>Erreur : ' . $e->getMessage() . '</p></div>';
+            }
 
-                $pdo = null;
-                ?>
-            </article>
-            <button class="add" id="addMateriel"><img src="../res/add.svg" alt="plus"></button>
+            $pdo = null;
+            ?>
+            <button class="add mb-3" id="addMateriel"><img src="../res/add.svg" alt="plus"></button>
         </section>
         <form id="upload-form-<?= $index ?>" class="modifPopupMateriel" action="../PHPpure/materielValidation.php" method="POST" enctype="multipart/form-data">
             <div class="modifPopupMateriel_content">
