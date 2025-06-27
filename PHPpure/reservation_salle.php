@@ -136,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     // Insérer la notification pour l'admin
     $requete = $pdo->prepare("INSERT INTO notifications (idR, notif) VALUES (?, 1)");
     $requete->execute([$idReservation]);
-    $_SESSION['error'] = 'Votre réservation a été enregistrée'; // Indiquer que la réservation a été réussie
+    $_SESSION['success'] = 'Votre réservation a été enregistrée'; // Indiquer que la réservation a été réussie
     header("Location: ../PHP/salles.php"); // page de succès
     exit();
 }

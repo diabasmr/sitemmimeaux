@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':lien_demo' => $lien_demo,
             ':idM' => $idM
         ]);
-        $_SESSION['error'] = "Le matériel a été modifié.";
+        $_SESSION['success'] = "Le matériel a été modifié.";
     } else if (isset($_POST['supprimer'])) {
         $idM = $_POST['idM'] ?? null;
 
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([
             ':idM' => $idM
         ]);
-        $_SESSION['error'] = "Le matériel a été supprimé.";
+        $_SESSION['success'] = "Le matériel a été supprimé.";
     }
     header('Location: ../PHP/listeDuMateriel.php'); //pour eviter le reload
     exit;

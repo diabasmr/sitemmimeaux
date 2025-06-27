@@ -46,7 +46,7 @@ if (isset($_POST['validajout'])) {
         ':photo' => $photo
     ]);
 
-    $_SESSION['error'] = "La salle a été ajoutée avec succès.";
+    $_SESSION['success'] = "La salle a été ajoutée avec succès.";
     header("Location: ../PHP/salles.php");
     exit();
 }

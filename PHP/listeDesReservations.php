@@ -9,6 +9,12 @@ if (isset($_SESSION['error'])) {
     $error = $_SESSION['error'];
     unset($_SESSION['error']);
 }
+
+$success = '';
+if (isset($_SESSION['success'])) {
+    $success = $_SESSION['success'];
+    unset($_SESSION['success']);
+}
 require('../PHPpure/connexion.php');
 ?>
 
@@ -223,7 +229,7 @@ require('../PHPpure/connexion.php');
                         if ($status == "En attente") {
                             echo '<button class="text-center attente"></button>';
                         } elseif ($status == "Validée") {
-                            echo '<button class="text-center valide"></button>';
+                            echo '<button class="text-center accepte"></button>';
                         } elseif ($status == "Refusée") {
                             echo '<button class="text-center refuse"></button>';
                         } elseif ($status == "Expirée") {
@@ -234,7 +240,7 @@ require('../PHPpure/connexion.php');
                         echo '</div>';
 
                         echo '<div class="col-2">';
-                        echo '<button onclick="event.stopPropagation()" class="modifier" data-id="' . $row['idR'] . '" 
+                        echo '<button id="donnee" onclick="event.stopPropagation()" class="modifier" data-id="' . $row['idR'] . '" 
                                     data-motif="' . htmlspecialchars($row['motif']) . '"
                                     data-date-debut="' . date('Y-m-d\TH:i', strtotime($row['date_debut'])) . '"
                                     data-date-fin="' . date('Y-m-d\TH:i', strtotime($row['date_fin'])) . '"
@@ -308,7 +314,8 @@ require('../PHPpure/connexion.php');
                         </div>
                     </div>
                     <div class="button-container">
-                        <button type="button" onclick="document.getElementById('SuppressionPopup').classList.remove('d-none');document.getElementById('SuppressionPopup').classList.add('d-flex');">Supprimer</button>
+                        <button type="button" onclick="document.getElementById('SuppressionPopup').classList.remove('d-none');document.getElementById('SuppressionPopup').classList.add('d-flex'); const id = document.getElementById('donnee').dataset.id;
+    document.getElementById('idRSupp').value = id;">Supprimer</button>
                         <button type="submit" name="modifier">Modifier</button>
                     </div>
                 </div>
@@ -316,17 +323,17 @@ require('../PHPpure/connexion.php');
         </form>
 
         <div id="SuppressionPopup" class="position-fixed top-0 start-0 w-100 h-100 d-none align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
-            <form action="../PHPpure/reservationValidation.php" method="POST">
+            <form action="../PHPpure/reservationSuppression.php" method="POST">
                 <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+                    <input type="hidden" name="idR" id="idRSupp">
                     <h5 class="mb-3 fw-semibold text-dark">Supprimer la réservation</h5>
-                    <p class="text-muted mb-4">Êtes-vous sûre de vouloir supprimer cette réservation&nbsp;?</p>
+                    <p class="text-muted mb-4">Êtes-vous sûr(e) de vouloir supprimer cette réservation&nbsp;?</p>
                     <button type="button" class="btn w-40 text-white" style="background-color: #e47390;" onclick="document.getElementById('SuppressionPopup').classList.add('d-none');">Annuler</button>
                     <button type="submit" name="supprimer" class="w-40 btn text-white"
                         style="background-color: #dc3545;">
                         Supprimer
                     </button>
                 </div>
-                <input type="hidden" name="idR" value="<?= $row['idR'] ?>" id="idRToDelete">
             </form>
         </div>
 
@@ -336,6 +343,15 @@ require('../PHPpure/connexion.php');
             <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
                 <h5 class="mb-3 fw-semibold text-dark">Erreur</h5>
                 <p class="mb-1"><?= htmlspecialchars($error) ?></p>
+                <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
+            </div>
+        </div>
+    <?php endif; ?>
+    <?php if (!empty($success)) : ?>
+        <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+            <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+                <h5 class="mb-3 fw-semibold text-dark">Confirmation</h5>
+                <p class="mb-1"><?= htmlspecialchars($success) ?></p>
                 <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
             </div>
         </div>
