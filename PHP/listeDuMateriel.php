@@ -123,7 +123,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
                         echo '</div>';
 
                         echo '<div class="col-2">';
-                        echo '<button class="modifier" type="button" onclick="event.stopPropagation()" 
+                        echo '<button id="donnee" class="modifier" type="button" onclick="event.stopPropagation()" 
         data-id="' . $row['idM'] . '"
         data-designation="' . htmlspecialchars($row['designation']) . '"
         data-photo="' . htmlspecialchars($row['photo']) . '"
@@ -205,12 +205,28 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
                         <input type="text" id="lien_demo" name="lien_demo" placeholder="lien_demo">
                     </div>
                     <div class="button-container">
-                        <button type="button" name="supprimer" class="supprimer">Supprimer</button>
+                        <button type="button" onclick="document.getElementById('SuppressionPopup').classList.remove('d-none');document.getElementById('SuppressionPopup').classList.add('d-flex'); const id = document.getElementById('idM').value;
+    document.getElementById('idMSupp').value = id;">Supprimer</button>
                         <button type="submit" name="submit">Modifier</button>
                     </div>
                 </div>
             </div>
         </form>
+        <!-- CONFIRME SUPPRESSION -->
+        <div id="SuppressionPopup" class="position-fixed top-0 start-0 w-100 h-100 d-none align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+            <form action="../PHPpure/materielSuppression.php" method="POST">
+                <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+                    <input type="hidden" name="idM" id="idMSupp">
+                    <h5 class="mb-3 fw-semibold text-dark">Supprimer la réservation</h5>
+                    <p class="text-muted mb-4">Êtes-vous sûr(e) de vouloir supprimer cette réservation&nbsp;?</p>
+                    <button type="button" class="btn w-40 text-white" style="background-color: #e47390;" onclick="document.getElementById('SuppressionPopup').classList.add('d-none');">Annuler</button>
+                    <button type="submit" name="supprimer" class="w-40 btn text-white"
+                        style="background-color: #dc3545;">
+                        Supprimer
+                    </button>
+                </div>
+            </form>
+        </div>
 
         <!-- AJOUT MATERIEL -->
         <div class="modifPopupMateriel h-30" id="ajouterMateriel">

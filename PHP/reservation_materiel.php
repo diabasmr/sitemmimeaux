@@ -214,6 +214,10 @@ if (isset($_SESSION['success'])) {
                                     <img src="../res/search.svg" alt="">
                                 </button>
                             </div>
+                            <div class="ajoutuser-container w-100">
+                                <input class="fs-3 fs-md-1 border w-80 rounded p-2" type="text" name="search" id="ajoutuser" placeholder="Ajouter manuellement un utilisateur">
+                                <button type="button" class="ajoutuser h-100 w-20 rounded p-2">+</button>
+                            </div>
                             <article
                                 class="d-flex justify-content-start align-items-center flex-column w-100 who-list-user-container"
                                 id="overflowY">

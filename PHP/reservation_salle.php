@@ -37,7 +37,7 @@ if (isset($_SESSION['success'])) {
 
     <main class="reservation-container mt-5 mb-5 mt-md-auto">
         <form action="../PHPpure/reservation_salle.php" method="post" class="ms-4 ms-md-auto my-5 mt-md-auto">
-            <input type=" hidden" id="date_demande" name="date_demande" value='<?= $datetime = date('Y-m-d H:i:s'); ?>'>
+            <input type="hidden" id="date_demande" name="date_demande" value='<?= $datetime = date('Y-m-d H:i:s'); ?>'>
             <h1>Procédure de réservation</h1>
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
