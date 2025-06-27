@@ -53,7 +53,7 @@ if (isset($_GET['idR'])) {
             $pdf->Cell(0, 10, 'Details de la reservation', 0, 1);
             $pdf->SetFont('Arial', '', 12);
 
-            $pdf->Cell(40, 10, 'Motif :', 0);
+            $pdf->Cell(40, 10, 'Motif / Commentaire :', 0);
             $pdf->Cell(0, 10, $reservation['motif'], 0, 1);
 
             $pdf->Cell(40, 10, 'Date de debut :', 0);
@@ -65,12 +65,13 @@ if (isset($_GET['idR'])) {
             $pdf->Cell(40, 10, 'Statut :', 0);
             $pdf->Cell(0, 10, $status, 0, 1);
 
-            $pdf->Ln(5);
-            $pdf->SetFont('Arial', 'B', 12);
-            $pdf->Cell(0, 10, 'Materiel reserve :', 0, 1);
-            $pdf->SetFont('Arial', '', 12);
+
 
             if ($reservation['materiels']) {
+                $pdf->Ln(5);
+                $pdf->SetFont('Arial', 'B', 12);
+                $pdf->Cell(0, 10, 'Materiel reserve :', 0, 1);
+                $pdf->SetFont('Arial', '', 12);
                 $materiels = explode('||', $reservation['materiels']);
                 foreach ($materiels as $materiel) {
                     list($id, $photo, $designation, $reference) = explode(':', $materiel);
@@ -78,22 +79,15 @@ if (isset($_GET['idR'])) {
                     $pdf->Image('../materiel/' . $photo, 115, 50, 50); // X=10mm, Y=50mm, largeur=50mm
                 }
             } else {
-                $pdf->Cell(0, 10, "Aucun materiel reserve", 0, 1);
-            }
-
-            $pdf->Ln(5);
-            $pdf->SetFont('Arial', 'B', 12);
-            $pdf->Cell(0, 10, 'Salle reservee :', 0, 1);
-            $pdf->SetFont('Arial', '', 12);
-
-            if ($reservation['salles']) {
+                $pdf->Ln(5);
+                $pdf->SetFont('Arial', 'B', 12);
+                $pdf->Cell(0, 10, 'Salle reservee :', 0, 1);
+                $pdf->SetFont('Arial', '', 12);
                 $salles = explode('||', $reservation['salles']);
                 foreach ($salles as $salle) {
                     list($id, $nom, $type) = explode(':', $salle);
                     $pdf->Cell(0, 10, "- $nom ($type)", 0, 1);
                 }
-            } else {
-                $pdf->Cell(0, 10, "Aucune salle reservee", 0, 1);
             }
 
             $pdf->Ln(5);

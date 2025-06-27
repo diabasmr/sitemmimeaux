@@ -17,22 +17,6 @@ main .top {
   gap: 1vh;
 }
 
-main .top p:first-child {
-  font-size: 1vw;
-  font-weight: light;
-}
-
-main .top p:nth-child(2) {
-  font-size: 2vw;
-  font-weight: bold;
-}
-
-main .top .cards {
-  display: flex;
-  justify-content: start;
-  gap: 2vw;
-}
-
 main .top .cards .card {
   display: flex;
   justify-content: center;
@@ -49,11 +33,6 @@ main .reservation {
   flex-direction: column;
   width: 100%;
   gap: 1vh;
-}
-
-main .reservation h2 {
-  font-size: 1.5vw;
-  font-weight: bold;
 }
 
 .breadcrumb-item a {
@@ -74,10 +53,6 @@ main .reservation h2 {
   align-items: center;
 }
 
-.search p {
-  font-size: 1vw;
-}
-
 .search .searchContainer {
   display: flex;
   justify-content: start;
@@ -90,7 +65,6 @@ main .reservation h2 {
   background-color: white;
   border: none;
   border-radius: 1cqi;
-  font-size: 1vw;
   border: 0.15vw solid #edafbe;
   padding: 0 1vw;
   display: flex;
@@ -99,7 +73,6 @@ main .reservation h2 {
 }
 
 .searchContainer input::placeholder {
-  font-size: 1vw;
   color: black;
 }
 
@@ -109,7 +82,6 @@ main .reservation h2 {
   background-color: #ffdee4;
   border: 0.15vw solid #edafbe;
   border-radius: 1cqi;
-  font-size: 1vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,7 +99,6 @@ button.attente {
   border-radius: 15px;
   padding: 10px;
   border: 0.15vw solid #f9a308;
-  font-size: 1vw;
 }
 
 button.attente::after {
@@ -140,7 +111,6 @@ button.accepte {
   border-radius: 15px;
   padding: 10px;
   border: 0.15vw solid #356c25;
-  font-size: 1vw;
 }
 
 button.accepte::after {
@@ -153,7 +123,6 @@ button.refuse {
   border-radius: 15px;
   padding: 10px;
   border: 0.15vw solid #f9080c;
-  font-size: 1vw;
 }
 
 button.refuse::after {
@@ -166,7 +135,6 @@ button.annule {
   border-radius: 15px;
   padding: 10px;
   border: 0.15vw solid #f9080c;
-  font-size: 1vw;
 }
 
 button.annule::after {
@@ -179,7 +147,6 @@ button.termine {
   border-radius: 15px;
   padding: 10px;
   border: 0.15vw solid #707070;
-  font-size: 1vw;
 }
 
 button.termine::after {
@@ -193,7 +160,6 @@ button.telecharger {
   border-radius: 15px;
   padding: 10px;
   border: 0.15vw solid #edafbe;
-  font-size: 1vw;
 }
 
 button.modifier::after {
@@ -205,6 +171,17 @@ button.telecharger:hover {
   background-color: #edafbe;
   color: white;
 }
+
+.cliquable {
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.cliquable:hover {
+  background-color: rgba(228, 115, 144, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
 
 .add {
   display: flex;
@@ -226,28 +203,22 @@ button.telecharger:hover {
 
 .modif,
 .ajouterUser {
-  display: none;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-direction: column;
-  width: 40vw;
-  height: 75vh;
-  padding: 10vh 7vw 5vh 7vw;
-  background-color: white;
-  z-index: 3;
-  border: none;
-  border-radius: 3vw;
-  gap: 2vh;
-  position: absolute;
+  font-family: "Apfel Grotezk", sans-serif;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: "Apfel Grotezk", sans-serif;
+  background-color: #fff;
+  padding: 4vh 2vw;
+  border-radius: 0.5vw;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 25vw;
+  display: none;
 }
 
 .modif.active,
 .ajouterUser.active {
-  display: flex;
+  display: block;
 }
 
 .modif>button,
@@ -255,7 +226,7 @@ button.telecharger:hover {
   cursor: pointer;
   background-color: transparent;
   border: none;
-  width: 2vw;
+  width: 30%;
   height: auto;
   display: flex;
   justify-content: center;
@@ -267,18 +238,8 @@ button.telecharger:hover {
 
 .modif>button img,
 .ajouterUser>button img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-}
-
-.modif h3 {
-  font-size: 2vw;
-  font-weight: bold;
-}
-
-.modif p {
-  font-size: 1vw;
+  width: auto;
+  height: 30px;
 }
 
 .modif form {
@@ -308,16 +269,12 @@ button.telecharger:hover {
   flex-direction: column;
 }
 
-.modif form label {
-  font-size: 1.2vw;
-}
 
 .modif form input {
   width: 100%;
   height: 5vh;
   border: 1px solid gray;
   background-color: transparent;
-  font-size: 1vw;
   color: gray;
   border-radius: 0.5vw;
   padding: 0 1vw;
@@ -339,7 +296,6 @@ button.telecharger:hover {
   height: 5vh;
   border: 1px solid gray;
   background-color: transparent;
-  font-size: 1vw;
   color: gray;
   border-radius: 0.5vw;
   padding: 0 1vw;
@@ -350,18 +306,14 @@ button.telecharger:hover {
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  width: 100%;
   gap: 2vw;
 }
 
 .modif form .buttonsSubmit button {
-  width: auto;
-  height: 5vh;
   background-color: #d31b4a;
   border: none;
   border-radius: 0.5vw;
   color: white;
-  font-size: 1vw;
   padding: 0 1vw;
 }
 
@@ -371,15 +323,6 @@ button.telecharger:hover {
 
 #modifierUtilisateur {
   display: none;
-}
-
-.ajouterUser h3 {
-  font-size: 2vw;
-  font-weight: bold;
-}
-
-.ajouterUser p {
-  font-size: 1vw;
 }
 
 .ajouterUser form {
@@ -409,16 +352,11 @@ button.telecharger:hover {
   flex-direction: column;
 }
 
-.ajouterUser form label {
-  font-size: 1vw;
-}
-
 .ajouterUser form input {
   width: 100%;
   height: 5vh;
   border: 1px solid gray;
   background-color: transparent;
-  font-size: 1vw;
   color: gray;
   border-radius: 0.5vw;
   padding: 0 1vw;
@@ -440,7 +378,6 @@ button.telecharger:hover {
   height: 5vh;
   border: 1px solid gray;
   background-color: transparent;
-  font-size: 1vw;
   color: gray;
   border-radius: 0.5vw;
   padding: 0 1vw;
@@ -461,7 +398,6 @@ button.telecharger:hover {
   border: none;
   border-radius: 0.5vw;
   color: white;
-  font-size: 1vw;
   padding: 0 1vw;
 }
 
@@ -476,16 +412,6 @@ button.telecharger:hover {
     gap: 1vh;
   }
 
-  main .top p:first-child {
-    font-size: 4vw;
-    font-weight: light;
-  }
-
-  main .top p:nth-child(2) {
-    font-size: 5vw;
-    font-weight: bold;
-  }
-
   main .top .cards {
     gap: 1vh;
   }
@@ -495,15 +421,6 @@ button.telecharger:hover {
     height: 20vw;
   }
 
-  main .reservation h2 {
-    font-size: 5vw;
-    font-weight: bold;
-  }
-
-  main .reservation div p {
-    font-size: 2.5vw !important;
-  }
-
   .searchContainer {
     gap: 2vw;
   }
@@ -511,17 +428,11 @@ button.telecharger:hover {
   .searchContainer input {
     width: 35vw !important;
     height: 7vw !important;
-    font-size: 4vw !important;
-  }
-
-  .searchContainer input::placeholder {
-    font-size: 4vw;
   }
 
   .searchContainer button {
     width: 7vw;
     height: 7vw;
-    font-size: 5vw;
   }
 
   .add {
@@ -533,50 +444,9 @@ button.telecharger:hover {
     margin: 2vh 2vw 0 auto;
   }
 
-  .modif form label {
-    font-size: 4.2vw;
-  }
-
-  .modif form input {
-    font-size: 4.2vw;
-  }
-
-  .modif {
-    width: 80vw;
-    top: 40%;
-  }
-
-  .modif form .buttonsSubmit button {
-    font-size: 3.2vw;
-  }
-
-  .modif form .role select {
-    font-size: 3vw;
-  }
-
-  .modif h3 {
-    font-size: 6vw;
-  }
-
-  .ajouterUser form label {
-    font-size: 4.2vw;
-  }
-
-  .ajouterUser form input {
-    font-size: 4.2vw;
-  }
-
   .ajouterUser {
     width: 80vw;
     top: 70%;
-  }
-
-  .ajouterUser form .role select {
-    font-size: 3vw;
-  }
-
-  .ajouterUser h3 {
-    font-size: 6vw;
   }
 
   .modif>button img,

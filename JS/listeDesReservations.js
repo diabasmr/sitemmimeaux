@@ -51,8 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const materiels = JSON.parse(button.dataset.materiels);
     const salles = JSON.parse(button.dataset.salles);
     const users = JSON.parse(button.dataset.users);
-    console.log(materiels);
-    console.log(salles);
+    const commentaire = JSON.parse(button.dataset.com);
 
     // Remplir les champs du formulaire
     document.getElementById("idR").value = id;
@@ -60,17 +59,28 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("date_debut").value = dateDebut;
     document.getElementById("date_fin").value = dateFin;
     document.getElementById("status").value = status;
-    // recuperer materiels[designation] et salles[nom]
-    document.getElementById("materiels").value = materiels
-      .map((item) => item.designation)
-      .join(", ");
-    document.getElementById("sallesinput").value = salles
-      .map((item) => item.nom)
-      .join(", ");
-    console.log(
-      document.getElementById("materiels").value,
-      document.getElementById("sallesinput").value
-    );
+    document.getElementById("com").value = commentaire;
+
+    const materielsInput = document.getElementById("materiels");
+    const sallesInput = document.getElementById("sallesinput");
+
+    // Afficher ou cacher le champ matériel selon si y'a du contenu
+    if (materiels.length === 0) {
+      materielsInput.closest('.modifPopupReservation_content_body_item').style.display = 'none';
+      materielsInput.value = ""; // au cas où
+    } else {
+      materielsInput.closest('.modifPopupReservation_content_body_item').style.display = 'block';
+      materielsInput.value = materiels.map((item) => item.designation).join(", ");
+    }
+
+    // Afficher ou cacher le champ salle selon si y'a du contenu
+    if (salles.length === 0) {
+      sallesInput.closest('.modifPopupReservation_content_body_item').style.display = 'none';
+      sallesInput.value = "";
+    } else {
+      sallesInput.closest('.modifPopupReservation_content_body_item').style.display = 'block';
+      sallesInput.value = salles.map((item) => item.nom).join(", ");
+    }
 
     // Mettre à jour les avatars
     const avatarContainer = document.querySelector(".avatar-container_img");

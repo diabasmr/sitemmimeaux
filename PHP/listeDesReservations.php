@@ -172,7 +172,7 @@ require('../PHPpure/connexion.php');
                         $stmt = $pdo->prepare($sql2);
                         $stmt->execute([$row['idR']]);
                         $notifications = $stmt->fetch(PDO::FETCH_ASSOC);
-                        echo '<div class="row p-3 align-items-center gy-3" style="border-radius:10px; border-bottom: 1px solid rgba(228, 88, 125, 0.2);">';
+                        echo '<div onclick="window.open(\'../PHPpure/genererpdf.php?idR=' . $row['idR'] . '\', \'_blank\')" class="cliquable row p-3 align-items-center gy-3 text-dark text-decoration-none" style="border-radius:10px; border-bottom: 1px solid rgba(228, 88, 125, 0.2); cursor: pointer;">';
                         if (!empty($salles)) {
                             $salle = $salles[0];
                             if (is_array($notifications) && isset($notifications['notif']) && (int)$notifications['notif'] === 1) { //pour eviter les erreurs dans le cas ou il y a pas de notifs
@@ -234,14 +234,15 @@ require('../PHPpure/connexion.php');
                         echo '</div>';
 
                         echo '<div class="col-2">';
-                        echo '<button class="modifier" data-id="' . $row['idR'] . '" 
+                        echo '<button onclick="event.stopPropagation()" class="modifier" data-id="' . $row['idR'] . '" 
                                     data-motif="' . htmlspecialchars($row['motif']) . '"
                                     data-date-debut="' . date('Y-m-d\TH:i', strtotime($row['date_debut'])) . '"
                                     data-date-fin="' . date('Y-m-d\TH:i', strtotime($row['date_fin'])) . '"
                                     data-status="' . $row['valide'] . '"
                                     data-materiels=\'' . json_encode($materiels) . '\'
                                     data-salles=\'' . json_encode($salles) . '\'
-                                    data-users=\'' . json_encode($users) . '\'></button>';
+                                    data-users=\'' . json_encode($users) . '\'
+                                    data-com=\'' . json_encode($row['commentaires']) . '\'></button>';
                         echo '</div>';
 
                         echo '</div>';

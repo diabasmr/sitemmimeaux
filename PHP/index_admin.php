@@ -4,10 +4,10 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 ?>
 <section class="top">
-    <p>Bienvenue <?php echo $_SESSION['user']['role'] ?></p>
-    <p><?php echo $_SESSION['user']['prenom'] ?></p>
+    <h1>Bienvenue <?php echo $_SESSION['user']['role'] ?></h1>
+    <p class="fs-2 ms-3 fw-semibold" style="color:#e4587d;"><?php echo $_SESSION['user']['prenom'] ?></p>
 </section>
-<section class="reservation">
+<section class=" reservation">
     <h2>Liste des utilisateurs</h2>
     <div class="search">
         <p>Consulter l'historique</p>
@@ -33,38 +33,38 @@ use PHPMailer\PHPMailer\Exception;
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             echo '
-                <div class="row p-3 align-items-center gy-3" style="border-radius:10px; border-bottom: 1px solid rgba(228, 88, 125, 0.2);">
-                    <div class="col-4">
-                        <p>' . htmlspecialchars($row['nom']) . ' ' . htmlspecialchars($row['prenom']) . '</p>
-                    </div>
-                    <div class="col-4">
-                    <p>' . htmlspecialchars($row['date_inscription']) . '</p>
-                    </div>
-                    <div class="col-2">
-                    <p>' . statusUser($row['id'], $pdo) . '</p>
-                    </div>
-                    <div class="col-2">
-                    <button 
-                        class="modifier" 
-                        onclick="openModifPopup(
-                            \'' . $row['id'] . '\',
-                            \'' . $row['nom'] . '\', 
-                            \'' . $row['prenom'] . '\', 
-                            \'' . $row['email'] . '\', 
-                            \'' . $row['telephone'] . '\', 
-                            \'' . statusUser($row['id'], $pdo) . '\',
-                            \'' . $row['valable'] . '\'
-                        )">
-                    </button>
-                    </div>
-                </div>';
+<div onclick="window.location.href=\'produit.php?id=' . '3' . '\'" class="cliquable row p-3 align-items-center gy-3 text-dark text-decoration-none" style="border-radius:10px; border-bottom: 1px solid rgba(228, 88, 125, 0.2); cursor: pointer;">
+    <div class="col-4">
+        <p>' . htmlspecialchars($row['nom']) . ' ' . htmlspecialchars($row['prenom']) . '</p>
+    </div>
+    <div class="col-4">
+        <p>' . htmlspecialchars($row['date_inscription']) . '</p>
+    </div>
+    <div class="col-2">
+        <p>' . statusUser($row['id'], $pdo) . '</p>
+    </div>
+    <div class="col-2">
+        <button 
+            class="modifier"
+            onclick="event.stopPropagation(); openModifPopup(
+                \'' . $row['id'] . '\',
+                \'' . htmlspecialchars($row['nom'], ENT_QUOTES) . '\', 
+                \'' . htmlspecialchars($row['prenom'], ENT_QUOTES) . '\', 
+                \'' . htmlspecialchars($row['email'], ENT_QUOTES) . '\', 
+                \'' . htmlspecialchars($row['telephone'], ENT_QUOTES) . '\', 
+                \'' . htmlspecialchars(statusUser($row['id'], $pdo), ENT_QUOTES) . '\',
+                \'' . htmlspecialchars($row['valable'], ENT_QUOTES) . '\'
+            )">
+        </button>
+    </div>
+</div>';
         }
         ?>
         <button class="add mb-3" id="addUser"><img src="../res/add.svg" alt="plus"></button>
     </section>
     <div id="modifPopup" class="modif">
         <button id="closeModifPopup"><img src="../res/x.svg" alt=""></button>
-        <h3>Modifier l'utilisateur</h3>
+        <h3 class="fs-3">Modifier l'utilisateur</h3>
         <p>Information <img src="../res/" alt="">
         </p>
         <form action="" method="POST">
@@ -73,27 +73,27 @@ use PHPMailer\PHPMailer\Exception;
             <div class="name">
                 <input type="text" name="id" id="id" style="display: none;">
                 <div class="nom">
-                    <label for="nom">
+                    <label class="fs-6" for="nom">
                         Nom
                     </label>
-                    <input type="text" name="nom" id="nom" placeholder="Nom" disabled>
+                    <input class="fs-6" type="text" name="nom" id="nom" placeholder="Nom" disabled>
                 </div>
                 <div class="prenom">
-                    <label for="prenom">Prénom</label>
-                    <input type="text" name="prenom" id="prenom" placeholder="Prénom" disabled>
+                    <label class="fs-6" for="prenom">Prénom</label>
+                    <input class="fs-6" type="text" name="prenom" id="prenom" placeholder="Prénom" disabled>
                 </div>
             </div>
             <div class="email">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" placeholder="Email" disabled>
+                <label class="fs-6" for="email">Email</label>
+                <input class="fs-6" type="email" name="email" id="email" placeholder="Email" disabled>
             </div>
             <div class="tel">
-                <label for="tel">Téléphone</label>
-                <input type="tel" name="tel" id="tel" placeholder="Téléphone" disabled>
+                <label class="fs-6" for="tel">Téléphone</label>
+                <input class="fs-6" type="tel" name="tel" id="tel" placeholder="Téléphone" disabled>
             </div>
             <div class="role">
-                <label for="role">Définir un statut à l'utilisateur</label>
-                <select name="role" id="role">
+                <label class="fs-6" for="role">Définir un statut à l'utilisateur</label>
+                <select class="fs-6" name="role" id="role">
                     <option value="etudiant">Etudiant</option>
                     <option value="enseignant">Enseignant</option>
                     <option value="administrateur">Administrateur</option>
@@ -106,9 +106,9 @@ use PHPMailer\PHPMailer\Exception;
 
                 <!-- <input type="text" name="id2" id="id2" style="display: none;"> -->
                 <!-- reload la page aprés validation -->
-                <button type="submit" id="validation" name="validation">Valider la connexion</button>
+                <button class="fs-6 p-2" type="submit" id="validation" name="validation">Valider la connexion</button>
                 <!-- reload la page aprés modification -->
-                <button type="submit" id="modifierUtilisateur" name="modifierUtilisateur"
+                <button class="fs-6 p-2" type="submit" id="modifierUtilisateur" name="modifierUtilisateur"
                     onclick="window.location.reload(true);">Modifier
                 </button>
             </div>

@@ -1,6 +1,8 @@
 <section class="top">
-    <p>Bienvenue dans votre espace personnel</p>
-    <p><?php echo $_SESSION['user']['prenom'] ?></p>
+    <section class="top">
+        <h1>Bienvenue dans votre espace personnel</h1>
+        <p class="fs-2 ms-3 fw-semibold" style="color:#e4587d;"><?php echo $_SESSION['user']['prenom'] ?></p>
+    </section>
     <div class="cards">
         <div class="card p-3">
             <h5>Prochaine réservation</h5>

@@ -99,13 +99,13 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
                         }
 
 
-                        echo '<div class="row p-3 align-items-center gy-3" style="border-radius:10px; border-bottom: 1px solid rgba(228, 88, 125, 0.2);">';
+                        echo '<div onclick="window.location.href=\'produit.php?id=' . $row['idM'] . '\'" class="cliquable row p-3 align-items-center gy-3 text-dark text-decoration-none" style="border-radius:10px; border-bottom: 1px solid rgba(228, 88, 125, 0.2); cursor: pointer;">';
                         echo '<div class="col-2">';
-                        echo '<a href="produit.php?id=' . $row['idM'] . '"><img src="../materiel/' . htmlspecialchars($row['photo']) . '" alt="Photo matériel" style="height:100%; width:100%;"></a>';
+                        echo '<img src="../materiel/' . htmlspecialchars($row['photo']) . '" alt="Photo matériel" style="height:100%; width:100%;">';
                         echo '</div>';
 
                         echo '<div class="col-3">';
-                        echo '<p><a href="produit.php?id=' . $row['idM'] . '">' . htmlspecialchars($row['designation']) . '</a></p>';
+                        echo '<p>' . htmlspecialchars($row['designation']) . '</p>';
                         echo '</div>';
 
                         echo '<div class="col-3">';
@@ -117,17 +117,19 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
                         echo '</div>';
 
                         echo '<div class="col-2">';
-                        echo '<button class="modifier" data-id="' . $row['idM'] . '"
-                                    data-designation="' . htmlspecialchars($row['designation']) . '"
-                                    data-photo="' . htmlspecialchars($row['photo']) . '"
-                                    data-dateachat="' . date('Y-m-d', strtotime($row['dateAchat'])) . '"
-                                    data-quantite="' . htmlspecialchars($row['quantité']) . '"
-                                    data-descriptif="' . htmlspecialchars($row['descriptif']) . '"
-                                    data-type="' . htmlspecialchars($row['typeM']) . '"
-                                    data-etat="' . htmlspecialchars($row['etat']) . '"
-                                    data-lien_demo="' . (isset($row['lien_demo']) && !empty($row['lien_demo']) ? htmlspecialchars($row['lien_demo']) : 'lien démonstration') . '">
-                                </button>';
+                        echo '<button class="modifier" type="button" onclick="event.stopPropagation()" 
+        data-id="' . $row['idM'] . '"
+        data-designation="' . htmlspecialchars($row['designation']) . '"
+        data-photo="' . htmlspecialchars($row['photo']) . '"
+        data-dateachat="' . date('Y-m-d', strtotime($row['dateAchat'])) . '"
+        data-quantite="' . htmlspecialchars($row['quantité']) . '"
+        data-descriptif="' . htmlspecialchars($row['descriptif']) . '"
+        data-type="' . htmlspecialchars($row['typeM']) . '"
+        data-etat="' . htmlspecialchars($row['etat']) . '"
+        data-lien_demo="' . (isset($row['lien_demo']) && !empty($row['lien_demo']) ? htmlspecialchars($row['lien_demo']) : 'lien démonstration') . '">
+    </button>';
                         echo '</div>';
+
                         echo '</div>';
                     }
                 } else {
