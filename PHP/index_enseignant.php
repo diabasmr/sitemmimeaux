@@ -2,7 +2,7 @@
     <p>Bienvenue dans votre espace personnel</p>
     <p><?php echo $_SESSION['user']['prenom'] ?></p>
     <div class="cards">
-        <div class="card">
+        <div class="card p-3">
             <h5>Prochaine réservation</h5>
             <p style="color:pink;">
                 <?php
@@ -14,7 +14,7 @@
                 FROM reservations r
                 JOIN concerne c ON r.idR = c.idR
                 JOIN reservation_users ru ON r.idR = ru.idR
-                WHERE ru.id = :user_id AND r.date_debut > :today
+                WHERE ru.id = :user_id AND r.date_debut > :today AND r.valide = 1
                 ORDER BY r.date_debut ASC
                 LIMIT 1
             ";
@@ -55,48 +55,23 @@
             </button>
         </div>
     </div>
-    <section class="table">
+    <section class="container-sm bg-white" style="border-radius: 15px;">
         <!-- utilisateion de bootstrap -->
-        <article class="header_Table">
-            <p>Type de réservation</p>
-            <p>Date de réservation</p>
-            <p>Créneau de réservation</p>
-            <p>Statut</p>
-        </article>
-        <article class="body_Table">
-            <!-- <div class="line">
-                        <p>Réservation de caméra</p>
-                        <p>04/04/2025</p>
-                        <p>12h45 - 13h45</p>
+        <div class="row p-3 fs-5 fw-semibold" style="color:#e4587d; background-color: #edafbe; border-radius: 10px; border: 1px solid #edafbe;">
+            <p class="col-4">Type de réservation</p>
+            <p class="col-2">Date de réservation</p>
+            <p class="col-2">Créneau de réservation</p>
+            <p class="col-2">Statut</p>
+            <p class="col-2"></p>
+        </div>
+        <?php
+        // Assurez-vous que l'utilisateur est connecté et que son ID est disponible dans la session
+        if (isset($_SESSION['user']['id'])) {
+            $userId = $_SESSION['user']['id']; // Récupérer l'ID de l'utilisateur connecté
+        }
 
-                        <button class="attente"></button>
-                    </div>
-                    <div class="line">
-                        <p>Réservation de caméra</p>
-                        <p>04/04/2025</p>
-                        <p>12h45 - 13h45</p>
-                        <button class="accepté"></button>
-                    </div>
-                    <div class="line">
-                        <p>Réservation salle</p>
-                        <p>04/04/2025</p>
-                        <p>12h45 - 13h45</p>
-                        <button class="réfusé"></button>
-                    </div>
-                    <div class="line">
-                        <p>Réservation de caméra</p>
-                        <p>04/04/2025</p>
-                        <p>12h45 - 13h45</p>
-                        <button class="terminé"></button>
-                    </div> -->
-            <?php
-            // Assurez-vous que l'utilisateur est connecté et que son ID est disponible dans la session
-            if (isset($_SESSION['user']['id'])) {
-                $userId = $_SESSION['user']['id']; // Récupérer l'ID de l'utilisateur connecté
-            }
-
-            // Requête SQL pour récupérer les réservations de l'utilisateur
-            $sql = "
+        // Requête SQL pour récupérer les réservations de l'utilisateur
+        $sql = "
                         SELECT 
                             r.idR,
                             r.date_debut,
@@ -111,61 +86,70 @@
                         ORDER BY r.date_debut DESC
                     ";
 
-            // Prépare la requête
-            $stmt = $pdo->prepare($sql);
+        // Prépare la requête
+        $stmt = $pdo->prepare($sql);
 
-            // Lie l'ID de l'utilisateur à la requête SQL
-            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        // Lie l'ID de l'utilisateur à la requête SQL
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
 
-            // Exécute la requête
-            $stmt->execute();
+        // Exécute la requête
+        $stmt->execute();
 
-            // Affichage des résultats
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $date = date("d/m/Y", strtotime($row['date_debut']));
-                $startHour = date("H\hi", strtotime($row['date_debut']));
-                $endHour = date("H\hi", strtotime($row['date_fin']));
+        // Affichage des résultats
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $date = date("d/m/Y", strtotime($row['date_debut']));
+            $startHour = date("H\hi", strtotime($row['date_debut']));
+            $endHour = date("H\hi", strtotime($row['date_fin']));
 
-                // Détermine le statut pour le bouton
-                $now = new DateTime();
-                $end = new DateTime($row['date_fin']);
-                if ($row['valide'] == 0) {
-                    $status = "attente";
-                    if ($end < $now) {
-                        $status = "annulé";
-                        $sql = "UPDATE reservations SET valide = 2 WHERE idR = :idR";
-                        $stmt = $pdo->prepare($sql);
-                        $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
-                        $stmt->execute();
-                    }
-                } elseif ($end < $now) {
-                    $status = "expirée";
-                    $sql = "UPDATE reservations SET valide = 3 WHERE idR = :idR";
+            // Détermine le statut pour le bouton
+            $now = new DateTime();
+            $end = new DateTime($row['date_fin']);
+            if ($row['valide'] == 0) {
+                $status = "attente";
+                if ($end < $now) {
+                    $status = "annule";
+                    $sql = "UPDATE reservations SET valide = 2 WHERE idR = :idR";
                     $stmt = $pdo->prepare($sql);
                     $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
                     $stmt->execute();
-                } else if ($row['valide'] == 1) {
-                    $status = "accepté";
-                } else if ($row['valide'] == 2) {
-                    $status = "refusé";
                 }
+            } elseif ($end < $now) {
+                $status = "termine";
+                $sql = "UPDATE reservations SET valide = 3 WHERE idR = :idR";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
+                $stmt->execute();
+            } else if ($row['valide'] == 1) {
+                $status = "accepte";
+            } else if ($row['valide'] == 2) {
+                $status = "refuse";
+            }
 
-                // Affichage des informations de réservation
-                echo "
-                            <div class='line'>
-                                <p>Réservation de {$row['materiel']}</p>
-                                <p>$date</p>
-                                <p>$startHour - $endHour</p>
-                                <div class='statusButton'>
+            // Affichage des informations de réservation
+            echo "
+                            <div class='row p-3 align-items-center gy-3' style='border-radius:10px; border-bottom: 1px solid rgba(228, 88, 125, 0.2);'>
+                                <div class='col-4'>
+                                    <p>Réservation de {$row['materiel']}</p>
+                                </div>
+                                <div class='col-2'>
+                                    <p>$date</p>
+                                </div>
+                                <div class='col-2'>
+                                    <p>$startHour - $endHour</p>
+                                </div>
+                                <div class='col-2'>
                                     <button class='$status'></button>
+                                </div>
+                                    
+                                <div class='col-2'>
                                     <button class='telecharger' onclick='window.open(\"../PHPpure/genererpdf.php?idR={$row['idR']}\", \"_blank\")'>Télécharger</button>
                                 </div>
                             </div>
                         ";
-            }
+        }
 
-            // Pareil pour les réservations de salle
-            $sql = "
+        // Pareil pour les réservations de salle
+        $sql = "
                         SELECT 
                             r.date_debut,
                             r.date_fin,
@@ -181,52 +165,60 @@
                         ORDER BY r.date_debut DESC
             ";
 
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-            $stmt->execute();
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
 
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $date = date("d/m/Y", strtotime($row['date_debut']));
-                $startHour = date("H\hi", strtotime($row['date_debut']));
-                $endHour = date("H\hi", strtotime($row['date_fin']));
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $date = date("d/m/Y", strtotime($row['date_debut']));
+            $startHour = date("H\hi", strtotime($row['date_debut']));
+            $endHour = date("H\hi", strtotime($row['date_fin']));
 
-                if ($row['valide'] == 0) {
-                    $status = "attente";
-                    if ($end < $now) {
-                        $status = "annulé";
-                        $sql = "UPDATE reservations SET valide = 2 WHERE idR = :idR";
-                        $stmt = $pdo->prepare($sql);
-                        $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
-                        $stmt->execute();
-                    }
-                } elseif ($end < $now) {
-                    $status = "expirée";
-                    $sql = "UPDATE reservations SET valide = 3 WHERE idR = :idR";
+            if ($row['valide'] == 0) {
+                $status = "attente";
+                if ($end < $now) {
+                    $status = "annule";
+                    $sql = "UPDATE reservations SET valide = 2 WHERE idR = :idR";
                     $stmt = $pdo->prepare($sql);
                     $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
                     $stmt->execute();
-                } elseif ($row['valide'] == 1) {
-                    $status = "accepté";
-                } elseif ($row['valide'] == 2) {
-                    $status = "réfusé";
                 }
-                echo "
-                            <div class='line'>  
-                                <p>Réservation de {$row['salle']}</p>
-                                <p>$date</p>
-                                <p>$startHour - $endHour</p>
-                                <div class='statusButton'>
+            } elseif ($end < $now) {
+                $status = "termine";
+                $sql = "UPDATE reservations SET valide = 3 WHERE idR = :idR";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':idR', $row['idR'], PDO::PARAM_INT);
+                $stmt->execute();
+            } elseif ($row['valide'] == 1) {
+                $status = "accepte";
+            } elseif ($row['valide'] == 2) {
+                $status = "refuse";
+            }
+            echo "
+                            <div class='row p-3 align-items-center gy-3' style='border-radius:10px; border-bottom: 1px solid rgba(228, 88, 125, 0.2);'>
+                                <div class='col-4'>
+                                    <p>Réservation de {$row['salle']}</p>
+                                </div>
+                                <div class='col-2'>
+                                    <p>$date</p>
+                                </div>
+                                <div class='col-2'>
+                                    <p>$startHour - $endHour</p>
+                                </div>
+                                <div class='col-2'>
                                     <button class='$status'></button>
+                                </div>
+                                    
+                                <div class='col-2'>
                                     <button class='telecharger' onclick='window.open(\"../PHPpure/genererpdf.php?idR={$row['idR']}\", \"_blank\")'>Télécharger</button>
                                 </div>
                             </div>
                         ";
-            }
+        }
 
-            // ajouter bouton pour telecharger le pdf
+        // ajouter bouton pour telecharger le pdf
 
 
-            ?>
-        </article>
+        ?>
     </section>
 </section>

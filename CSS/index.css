@@ -121,13 +121,6 @@ main .reservation h2 {
   object-fit: contain;
 }
 
-.statusButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1vw;
-}
-
 button.attente {
   color: #f9a308;
   background-color: white;
@@ -193,7 +186,8 @@ button.termine::after {
   content: "Expirée";
 }
 
-button.modifier {
+button.modifier,
+button.telecharger {
   color: #edafbe;
   background-color: white;
   border-radius: 15px;
@@ -206,7 +200,8 @@ button.modifier::after {
   content: "Modifier";
 }
 
-button.modifier:hover {
+button.modifier:hover,
+button.telecharger:hover {
   background-color: #edafbe;
   color: white;
 }
@@ -506,7 +501,7 @@ button.modifier:hover {
   }
 
   main .reservation div p {
-    font-size: 4vw !important;
+    font-size: 2.5vw !important;
   }
 
   .searchContainer {

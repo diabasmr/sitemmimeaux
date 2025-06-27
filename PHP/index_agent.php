@@ -55,8 +55,6 @@
             <p class="col-3">Type de réservation</p>
             <p class="col-3">Date de réservation</p>
             <p class="col-3">Créneau de réservation</p>
-            <p>Créneau de réservation</p>
-            <p>Télécharger le PDF</p>
         </div>
         <?php
         if (isset($_SESSION['user']['id'])) {
