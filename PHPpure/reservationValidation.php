@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('connexion.php');
 // Inclure PHPMailer
 use PHPMailer\PHPMailer\PHPMailer;

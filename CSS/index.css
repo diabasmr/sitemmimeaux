@@ -233,7 +233,7 @@ button.telecharger:hover {
   align-items: center;
   position: absolute;
   top: 4vh;
-  right: 7vh;
+  right: 0vh;
 }
 
 .modif>button img,
@@ -444,9 +444,9 @@ button.telecharger:hover {
     margin: 2vh 2vw 0 auto;
   }
 
+  .modif,
   .ajouterUser {
-    width: 80vw;
-    top: 70%;
+    width: 70%;
   }
 
   .modif>button img,

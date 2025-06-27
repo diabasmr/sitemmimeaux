@@ -59,9 +59,9 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
             </div>
         </div>
         <section class="container-sm bg-white" style="border-radius: 15px;">
-            <article class="row p-3 fs-5 fw-semibold" style="color:#e4587d; background-color: #edafbe; border-radius: 10px; border: 1px solid #edafbe;">
+            <article class="row p-3 fs-6 fs-md-5 fw-semibold gap-2" style="color:#e4587d; background-color: #edafbe; border-radius: 10px; border: 1px solid #edafbe;">
                 <p class="col-2">Matériel</p>
-                <p class="col-3">Nom du matériel</p>
+                <p class="col-3">Désignation</p>
                 <p class="col-3">Quantité</p>
                 <p class="col-2">Statut</p>
                 <p class="col-2"></p>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('connexion.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -57,11 +58,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':lien_demo' => $lien_demo,
             ':idM' => $idM
         ]);
+        $_SESSION['error'] = "Le matériel a été modifié.";
     } else if (isset($_POST['supprimer'])) {
         $idM = $_POST['idM'] ?? null;
 
         if (!$idM) {
-            $_SESSION['error'] = "ID réservation manquant'";
+            $_SESSION['error'] = "ID réservation manquant";
             header("Location: ../PHP/listeDuMateriel.php");
         }
 
@@ -70,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([
             ':idM' => $idM
         ]);
+        $_SESSION['error'] = "Le matériel a été supprimé.";
     }
     header('Location: ../PHP/listeDuMateriel.php'); //pour eviter le reload
     exit;
