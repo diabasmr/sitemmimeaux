@@ -14,13 +14,29 @@ if (isset($_POST['validmodifier'])) {
         exit();
     }
 
+    if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = '../materiel/';
+        $fileName = basename($_FILES['photo']['name']);
+        $targetFile =  $uploadDir . $fileName;
+
+        if (move_uploaded_file($_FILES['photo']['tmp_name'], $targetFile)) {
+            $photo = basename($targetFile); // nom fichier à stocker en BDD
+        } else {
+            // gestion erreur upload
+            $photo = null;
+        }
+    } else {
+        $photo = null;
+    }
+
     // Correction de la requête SQL
     $sql = "UPDATE salle 
             SET nb_pc = :nb_pc, 
                 capacite = :nb_places, 
                 description = :description, 
                 type = :typeUse,
-                etat = :etat
+                etat = :etat,
+                photo = :photo
             WHERE idS = :idS";
 
     $stmt = $pdo->prepare($sql);
@@ -30,6 +46,7 @@ if (isset($_POST['validmodifier'])) {
         ':description' => $description,
         ':typeUse' => $typeUse,
         ':etat' => $etat,
+        ':photo' => $photo,
         ':idS' => $idS
     ]);
 

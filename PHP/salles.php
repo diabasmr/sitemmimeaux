@@ -128,7 +128,7 @@ if (isset($_SESSION['success'])) {
                 <div class="row g-0 position-relative">
 
                     <!-- Image -->
-                    <div class="imageContainer col-md p-3">
+                    <div class="imageContainer col-md-6 p-3">
                         <img
                             class="img-fluid rounded imageToClick"
                             src="../materiel/<?php echo htmlspecialchars($salle['photo']); ?>"
@@ -196,6 +196,7 @@ if (isset($_SESSION['success'])) {
                                             value="<?= htmlspecialchars($salle['type'] ?? '') ?>" disabled
                                             style="color: #4d0033; background-color: transparent;">
                                     </div>
+                                    <input type="file" id="uploadImage" name="photo" accept="image/*" style="display: none;">
                                     <div class="mb-5">
                                         <label class="form-label" style="font-weight: 600; color: #99004d;">Statut</label>
                                         <input type="text" name="etat" class="form-control-plaintext"
@@ -208,16 +209,28 @@ if (isset($_SESSION['success'])) {
                                     <nav id="valid" class="d-none position-absolute bottom-0 end-0 m-3 z-3">
                                         <button
                                             class="btn btn-sm"
+                                            type="button"
+                                            id="triggerUpload"
+                                            style="background-color:light; color: #d31b49; border: 1px solid #d31b49; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
+                                            Image
+                                        </button>
+                                        <script>
+                                            document.getElementById('triggerUpload').addEventListener('click', function() {
+                                                document.getElementById('uploadImage').click();
+                                            });
+                                        </script>
+                                        <button
+                                            class="btn btn-sm"
                                             type="submit"
                                             name="validmodifier"
-                                            style="background-color: #ffd9ec; color: #b30059; border: 1px solid #ff99cc; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
+                                            style="background-color: #d31b49; color: white; border: 1px solid #d31b49; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
                                             Valider
                                         </button>
                                         <button
                                             class="btn btn-sm"
                                             type="submit"
                                             name="supprimersalle"
-                                            style="background-color: #ffd9ec; color: #b30059; border: 1px solid #ff99cc; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
+                                            style="background-color: #d31b49; color: white; border: 1px solid #d31b49; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 153, 204, 0.4); font-weight: bold;">
                                             Supprimer
                                         </button>
                                     </nav>

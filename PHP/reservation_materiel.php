@@ -119,7 +119,7 @@ if (isset($_SESSION['success'])) {
                             </select>
                         </div>
                     </div>
-                    <div id="qtt" class="d-flex justify-content-center align-items-baseline">
+                    <div id="qtt" class="d-flex justify-content-center align-items-center">
                         <?php
                         $sql2 = "SELECT quantité FROM materiel WHERE idM = ?";
                         $stmt2 = $pdo->prepare($sql2);
