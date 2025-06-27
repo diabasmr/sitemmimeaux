@@ -5,7 +5,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['submit'])) {
         $idM = $_POST['idM'] ?? null;
         if (!$idM) {
-            die('ID réservation manquant');
+            $_SESSION['error'] = "ID réservation manquant'";
+            header("Location: ../PHP/listeDuMateriel.php");
         }
 
         // Récupérer l'image actuelle
@@ -60,7 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $idM = $_POST['idM'] ?? null;
 
         if (!$idM) {
-            die('ID réservation manquant');
+            $_SESSION['error'] = "ID réservation manquant'";
+            header("Location: ../PHP/listeDuMateriel.php");
         }
 
         $sql = "DELETE FROM materiel WHERE idM = :idM";

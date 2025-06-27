@@ -3,6 +3,11 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
+$error = '';
+if (isset($_SESSION['error'])) {
+    $error = $_SESSION['error'];
+    unset($_SESSION['error']);
+}
 
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur') {
     header('Location: ../PHP/index.php');
@@ -259,6 +264,15 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
 
         </div>
     </main>
+    <?php if (!empty($error)) : ?>
+        <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+            <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+                <h5 class="mb-3 fw-semibold text-dark">Erreur</h5>
+                <p class="mb-1"><?= htmlspecialchars($error) ?></p>
+                <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
+            </div>
+        </div>
+    <?php endif; ?>
     <script src="../JS/sideBarre.js" defer></script>
     <script src="../JS/listeDuMateriel.js" defer></script>
 </body>

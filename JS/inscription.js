@@ -17,16 +17,13 @@ function nextStep(currentStep, nextStep, requiredFields = []) {
     if (!dateNaissance || !email) {
       const messageDiv = document.createElement("div");
       messageDiv.innerHTML = `
-    <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center"
-         style="--bs-border-opacity: .5; z-index:10; width: 80%; border: 1px solid #e47390;">
-      <p class="mb-2 d-block">Veuillez remplir tous les champs obligatoires.</p>
-      <div class="text-center mt-3">
-        <button onclick="this.closest('.container-sm-6').style.display='none'"
-                style="height: 7vh; width:50%; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;" class="fs-6 fs-md-2">
-          Fermer
-        </button>
-      </div>
-    </div>
+    <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+                        <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+                            <h5 class="mb-3 fw-semibold text-dark">Pas si vite</h5>
+                            <p class="text-muted mb-4">Veuillez remplir tous les champs obligatoires.</p>
+                            <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
+                        </div>
+                    </div>
   `;
       document.body.appendChild(messageDiv);
       return;
@@ -36,16 +33,13 @@ function nextStep(currentStep, nextStep, requiredFields = []) {
     if (email && !emailRegex.test(email)) {
       const messageDiv = document.createElement("div");
       messageDiv.innerHTML = `
-    <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center"
-         style="--bs-border-opacity: .5; z-index:10; width: 80%; border: 1px solid #e47390;">
-      <p class="mb-2 d-block">Veuillez entrer une adresse email valide.</p>
-      <div class="text-center mt-3">
-        <button onclick="this.closest('.container-sm-6').style.display='none'"
-                style="height: 7vh; width:50%; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;" class="fs-6 fs-md-2">
-          Fermer
-        </button>
-      </div>
-    </div>
+    <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+                        <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+                            <h5 class="mb-3 fw-semibold text-dark">Pas si vite</h5>
+                            <p class="text-muted mb-4">Veuillez entrer une adresse email valide.</p>
+                            <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
+                        </div>
+                    </div>
   `;
       document.body.appendChild(messageDiv);
       return;
@@ -100,48 +94,39 @@ function nextStep(currentStep, nextStep, requiredFields = []) {
     if (requiredFields.includes("email")) {
       const messageDiv = document.createElement("div");
       messageDiv.innerHTML = `
-    <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center"
-         style="--bs-border-opacity: .5; z-index:10; width: 80%; border: 1px solid #e47390;">
-      <p class="mb-2 d-block">Veuillez entrer un email valide.</p>
-      <div class="text-center mt-3">
-        <button onclick="this.closest('.container-sm-6').style.display='none'"
-                style="height: 7vh; width:50%; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;" class="fs-6 fs-md-2">
-          Fermer
-        </button>
-      </div>
-    </div>
+    <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+                        <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+                            <h5 class="mb-3 fw-semibold text-dark">Pas si vite</h5>
+                            <p class="text-muted mb-4">Veuillez entrer une adresse email valide.</p>
+                            <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
+                        </div>
+                    </div>
   `;
       document.body.appendChild(messageDiv);
       return;
     } else if (requiredFields.includes("date_naissance")) {
       const messageDiv = document.createElement("div");
       messageDiv.innerHTML = `
-    <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center"
-         style="--bs-border-opacity: .5; z-index:10; width: 80%; border: 1px solid #e47390;">
-      <p class="mb-2 d-block">Veuillez entrer une date de naissance</p>
-      <div class="text-center mt-3">
-        <button onclick="this.closest('.container-sm-6').style.display='none'"
-                style="height: 7vh; width:50%; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;" class="fs-6 fs-md-2">
-          Fermer
-        </button>
-      </div>
-    </div>
+    <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+                        <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+                            <h5 class="mb-3 fw-semibold text-dark">Pas si vite</h5>
+                            <p class="text-muted mb-4">Veuillez entrer une date de naissance.</p>
+                            <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
+                        </div>
+                    </div>
   `;
       document.body.appendChild(messageDiv);
       return;
     } else {
       const messageDiv = document.createElement("div");
       messageDiv.innerHTML = `
-    <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center"
-         style="--bs-border-opacity: .5; z-index:10; width: 80%; border: 1px solid #e47390;">
-      <p class="mb-2 d-block">Veuillez remplir tous les champs obligatoires.</p>
-      <div class="text-center mt-3">
-        <button onclick="this.closest('.container-sm-6').style.display='none'"
-                style="height: 7vh; width:50%; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;" class="fs-6 fs-md-2">
-          Fermer
-        </button>
-      </div>
-    </div>
+    <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+                        <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+                            <h5 class="mb-3 fw-semibold text-dark">Pas si vite</h5>
+                            <p class="text-muted mb-4">Veuillez remplir tous les champs obligatoires.</p>
+                            <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
+                        </div>
+                    </div>
   `;
       document.body.appendChild(messageDiv);
       return;
@@ -157,16 +142,13 @@ function nextStep(currentStep, nextStep, requiredFields = []) {
     if (!mdp || !confirme_mdp) {
       const messageDiv = document.createElement("div");
       messageDiv.innerHTML = `
-    <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center"
-         style="--bs-border-opacity: .5; z-index:10; width: 80%; border: 1px solid #e47390;">
-      <p class="mb-2 d-block">Veuillez remplir tous les champs obligatoires.</p>
-      <div class="text-center mt-3">
-        <button onclick="this.closest('.container-sm-6').style.display='none'"
-                style="height: 7vh; width:50%; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;" class="fs-6 fs-md-2">
-          Fermer
-        </button>
-      </div>
-    </div>
+    <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+                        <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+                            <h5 class="mb-3 fw-semibold text-dark">Pas si vite</h5>
+                            <p class="text-muted mb-4">Veuillez remplir tous les champs obligatoires.</p>
+                            <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
+                        </div>
+                    </div>
   `;
       document.body.appendChild(messageDiv);
       return;
@@ -174,16 +156,13 @@ function nextStep(currentStep, nextStep, requiredFields = []) {
     if (!mdpRegex.test(mdp)) {
       const messageDiv = document.createElement("div");
       messageDiv.innerHTML = `
-    <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center"
-         style="--bs-border-opacity: .5; z-index:10; width: 80%; border: 1px solid #e47390;">
-      <p class="mb-2 d-block">Le mot de passe doit faire au moins 6 caractères et contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial.</p>
-      <div class="text-center mt-3">
-        <button onclick="this.closest('.container-sm-6').style.display='none'"
-                style="height: 7vh; width:50%; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;" class="fs-6 fs-md-2">
-          Fermer
-        </button>
-      </div>
-    </div>
+    <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+                        <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+                            <h5 class="mb-3 fw-semibold text-dark">Pas si vite</h5>
+                            <p class="text-muted mb-4">Le mot de passe doit faire au moins 6 caractères et contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial.</p>
+                            <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
+                        </div>
+                    </div>
   `;
       document.body.appendChild(messageDiv);
       return;
@@ -191,16 +170,13 @@ function nextStep(currentStep, nextStep, requiredFields = []) {
     if (mdp !== confirme_mdp) {
       const messageDiv = document.createElement("div");
       messageDiv.innerHTML = `
-    <div class="container-sm-6 bg-white rounded p-5 position-absolute top-50 start-50 translate-middle text-center align-items-center justify-content-center"
-         style="--bs-border-opacity: .5; z-index:10; width: 80%; border: 1px solid #e47390;">
-      <p class="mb-2 d-block">Les mots de passe ne correspondent pas.</p>
-      <div class="text-center mt-3">
-        <button onclick="this.closest('.container-sm-6').style.display='none'"
-                style="height: 7vh; width:50%; background-color: #e47390; border-radius: 0.5vw; border: none; color: white;" class="fs-6 fs-md-2">
-          Fermer
-        </button>
-      </div>
-    </div>
+    <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
+                        <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
+                            <h5 class="mb-3 fw-semibold text-dark">Pas si vite</h5>
+                            <p class="text-muted mb-4">Les mots de passe ne correspondent pas.</p>
+                            <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
+                        </div>
+                    </div>
   `;
       document.body.appendChild(messageDiv);
       return;

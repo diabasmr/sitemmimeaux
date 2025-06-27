@@ -53,4 +53,3 @@ $pdf->SetFont('Arial', 'I', 10);
 $pdf->MultiCell(0, 10, "Ce document vous sert de preuve de réservation. Merci d’imprimer ce reçu si besoin.");
 
 $pdf->Output("I", "accuse_reservation_{$res['idR']}.pdf");
-?>

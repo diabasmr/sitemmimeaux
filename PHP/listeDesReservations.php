@@ -4,6 +4,11 @@ if ($_SESSION['user']['role'] != 'Administrateur') {
     header('Location: ../PHP/index.php');
     exit();
 }
+$error = '';
+if (isset($_SESSION['error'])) {
+    $error = $_SESSION['error'];
+    unset($_SESSION['error']);
+}
 require('../PHPpure/connexion.php');
 ?>
 
