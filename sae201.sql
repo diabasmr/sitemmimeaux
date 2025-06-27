@@ -1,3 +1,28 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : 127.0.0.1
+-- Généré le : ven. 27 juin 2025 à 16:55
+-- Version du serveur : 10.4.28-MariaDB
+-- Version de PHP : 8.2.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données : `sae201`
+--
+
+-- --------------------------------------------------------
+
 --
 -- Structure de la table `administrateur`
 --
@@ -36,6 +61,27 @@ INSERT INTO `agent` (`id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `commentaires`
+--
+
+CREATE TABLE `commentaires` (
+  `id` int(11) NOT NULL,
+  `date_comment` datetime NOT NULL,
+  `commentaire` varchar(500) DEFAULT NULL,
+  `reaction` int(11) NOT NULL,
+  `idM` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `commentaires`
+--
+
+INSERT INTO `commentaires` (`id`, `date_comment`, `commentaire`, `reaction`, `idM`) VALUES
+(3, '2025-06-27 10:36:00', 'trop cool', 5, '1');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `concerne`
 --
 
@@ -49,14 +95,9 @@ CREATE TABLE `concerne` (
 --
 
 INSERT INTO `concerne` (`idM`, `idR`) VALUES
-(1, 27),
-(1, 32),
-(2, 33),
-(3, 45),
-(5, 29),
+(1, 49),
 (7, 46),
-(7, 47),
-(8, 28);
+(7, 47);
 
 -- --------------------------------------------------------
 
@@ -74,10 +115,8 @@ CREATE TABLE `concerne_salle` (
 --
 
 INSERT INTO `concerne_salle` (`idS`, `idR`) VALUES
-(1, 20),
-(1, 26),
-(1, 43),
-(2, 25);
+(1, 51),
+(2, 50);
 
 -- --------------------------------------------------------
 
@@ -96,6 +135,7 @@ CREATE TABLE `enseignant` (
 INSERT INTO `enseignant` (`id`) VALUES
 (2),
 (3),
+(20),
 (22);
 
 -- --------------------------------------------------------
@@ -122,8 +162,7 @@ INSERT INTO `etudiant` (`id`, `numeroEtudiant`, `grpTP_TD_Promo`, `promotion`, `
 (7, NULL, NULL, 'MMI - 1', 'TD - 2'),
 (8, NULL, NULL, 'MMI - 2', 'TD - 1'),
 (10, NULL, NULL, 'MMI - 2', 'TD - 1'),
-(11, NULL, NULL, 'MMI - 3', 'TD - 2'),
-(20, NULL, NULL, 'MMI - 3', 'TD - 1');
+(11, NULL, NULL, 'MMI - 3', 'TD - 2');
 
 -- --------------------------------------------------------
 
@@ -185,8 +224,18 @@ INSERT INTO `materiel` (`idM`, `refernceM`, `designation`, `photo`, `typeM`, `da
 (14, 'REF014', 'Tablette Graphique Wacom One', 'P1018499.JPG', 'Graphisme', '2023-05-23', 'Très bon état', 2, 'Tablette graphique avec stylet pour illustration.', NULL),
 (15, 'REF015', 'Trépied Mantona SG-350', 'P1018449.JPG', 'Accessoire', '2023-05-24', 'Très bon état', 2, 'Trépied robuste pour photo/vidéo.', NULL),
 (16, 'REF016', 'Vidéoprojecteur EPSON EMP 6110 - XGA', '20230505_104109.jpg', 'Vidéo', '2023-05-25', 'Bon état', 1, 'Vidéoprojecteur XGA performant pour présentations.', NULL),
-(17, 'REF017', 'Câble Vive Pro Link', 'P1018496.JPG', 'Accessoire', '2023-05-25', 'Très bon état', 2, 'Câble officiel pour casque Vive Pro.', NULL),
-(22, 'REF000022', 'Unknown', '20230505_105442.jpg', 'Accessoire', '2025-06-13', 'Très bon état', 3, 'si ça marche cest bien sinon bah', 'rien');
+(17, 'REF017', 'Câble Vive Pro Link', 'P1018496.JPG', 'Accessoire', '2023-05-25', 'Très bon état', 2, 'Câble officiel pour casque Vive Pro.', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `notif` int(11) NOT NULL,
+  `idR` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -212,18 +261,11 @@ CREATE TABLE `reservations` (
 --
 
 INSERT INTO `reservations` (`idR`, `quantite`, `date_demande`, `date_debut`, `date_fin`, `valide`, `motif`, `commentaires`, `signatureElectronique`, `documentAdministrateur`) VALUES
-(20, 1, '2025-06-01 11:16:00', '2025-06-30 14:00:00', '2025-06-30 16:00:00', 3, 'charlytest', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(25, 1, '2025-06-08 14:00:00', '2025-06-22 14:00:00', '2025-06-22 16:00:00', 3, 'essaie de sale212', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(26, 1, '2025-06-09 14:01:00', '2025-07-05 14:00:00', '2025-07-05 16:00:00', 3, 'essaie maison', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(27, 1, '2025-06-09 18:30:00', '2025-06-25 14:00:00', '2025-06-25 16:00:00', 3, ' sfsfddf', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(28, 1, '2025-06-10 20:06:00', '2025-06-25 16:00:00', '2025-06-25 18:00:00', 3, 'manette pour une partie de FC pendant pause', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(29, 1, '2025-06-12 20:07:00', '2025-08-15 16:00:00', '2025-08-15 18:00:00', 3, 'admin', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(32, 1, '2025-06-12 21:46:00', '2025-06-03 12:00:00', '2025-06-03 14:00:00', 3, 'oùpùù', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(33, 1, '2025-06-15 18:07:00', '2025-06-06 12:00:00', '2025-06-06 14:00:00', 3, 'diaba', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYA', 'rien'),
-(43, 1, '2025-06-23 13:36:00', '2025-06-13 08:00:00', '2025-06-13 09:00:00', 3, 'ha ha ha', 'rien', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien'),
-(45, 1, '2025-06-23 10:00:00', '2025-06-18 08:00:00', '2025-06-18 09:00:00', 3, 'MAIL TEST', 'Tu peux récupérer dans la salle 138', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien'),
-(46, 1, '2025-06-23 14:00:00', '2025-06-27 08:00:00', '2025-06-27 09:00:00', 1, 'blocage', '', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien'),
-(47, 1, '2025-06-24 15:00:00', '2025-06-27 14:00:00', '2025-06-27 15:00:00', 1, 'blocbloc', '', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien');
+(46, 1, '2025-06-23 14:00:00', '2025-06-27 08:00:00', '2025-06-27 09:00:00', 3, 'blocage', '', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien'),
+(47, 1, '2025-06-24 15:00:00', '2025-06-27 14:00:00', '2025-06-27 15:00:00', 3, 'blocbloc', '', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien'),
+(49, 1, '2025-06-26 00:00:00', '2025-06-27 08:00:00', '2025-06-27 10:00:00', 3, 'Cours - k,oop', 'A récupérer dans la salle VR', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien'),
+(50, 1, '2025-06-26 00:00:00', '2025-06-29 15:00:00', '2025-06-29 16:30:00', 0, 'Projet', 'remettre tous les éléments', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien'),
+(51, 1, '2025-06-26 14:41:04', '2025-06-28 12:00:00', '2025-06-28 15:00:00', 1, 'Cours', 'Faites attention à remettre la clé en place', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien');
 
 -- --------------------------------------------------------
 
@@ -241,32 +283,9 @@ CREATE TABLE `reservation_users` (
 --
 
 INSERT INTO `reservation_users` (`id`, `idR`) VALUES
-(1, 20),
-(1, 25),
-(1, 26),
-(1, 27),
-(1, 28),
-(1, 29),
-(2, 20),
-(2, 28),
-(2, 29),
-(2, 32),
-(2, 33),
-(3, 25),
-(7, 20),
-(7, 28),
-(8, 27),
-(8, 43),
-(10, 20),
-(10, 29),
-(11, 20),
-(11, 25),
-(11, 27),
-(11, 28),
-(11, 29),
-(20, 27),
-(20, 28),
-(20, 45),
+(3, 49),
+(3, 50),
+(3, 51),
 (20, 46),
 (20, 47);
 
@@ -292,7 +311,7 @@ CREATE TABLE `salle` (
 --
 
 INSERT INTO `salle` (`idS`, `nom`, `type`, `capacite`, `nb_pc`, `photo`, `etat`, `description`) VALUES
-(1, 'Salle 138', 'Projets - Jeux', 6, 2,  'Salle138.JPG', 'Disponible', "Salle réservable pour des projets ou des séance de gaming. Utilisée en fin d'année scolaire par les stagiaires."),
+(1, 'Salle 138', 'Projets - Jeux - Stage -', 6, 2, 'Salle138.JPG', 'Disponible', "Salle réservable pour des projets ou des séance de gaming. Utilisée en fin d'année scolaire par les stagiaires."),
 (2, 'Salle 212', 'VR - Jeux', 16, 8, 'Salle212.jpg', 'Disponible', 'Salle réservable pour des projets de réalité virtuelle ou des séance de gaming');
 
 -- --------------------------------------------------------
@@ -334,30 +353,9 @@ INSERT INTO `user_` (`id`, `email`, `pseudo`, `nom`, `prenom`, `Date_de_naissanc
 (16, 'janviercharlyAZEAZE@gmail.com', 'azeaze.azeaze', 'AZEAZE', 'AZEAZE', '2025-05-25', '2, Allée de la Marne', '$2y$10$KFwvK9AK91Z5s.7b2PkRoO7GHEKgdSStGiOyI/KksdcV8SAl50mw.', NULL, '2025-05-25', 0, NULL),
 (17, 'TEST@test.test', 'test.test', 'TEST', 'TEST', '2025-05-25', '', '$2y$10$GH0H1vsxF0GPxxKzjOgpD.vOnoF6yHQTgwJ9bO3WcQv7yi/Nava3W', NULL, '2025-05-25', 0, NULL),
 (18, 'diabasamoura@gmail.cm', 'marta.stewart', 'Stewart', 'Marta', '2009-06-05', 'ggrr', '$2y$10$IZfJCgd9mjtb8YZT2MwJWeAa2yHiJrnM2ByFdDvwza19t/sHxjrT2', NULL, '2025-06-05', 0, NULL),
-(20, 'diabasamoura@gmail.com', 'diaba.samoura', 'Samoura', 'Diaba', '2009-06-04', 'ggrr', '$2y$10$X61Qjul2osAACQPdSdLbAeZ07IlyU3Fn3Jvb8sqOtWO4kvTClz0aG', NULL, '2025-06-05', 1, NULL),
+(20, 'diabasamoura@gmail.com', 'diaba.samoura', 'Samoura', 'Diaba', '2009-06-04', 'ggrr', '$2y$10$JkwR/kHYvDYo6GTzjhKn7O806zvIDS5rgvc3TvcvXR8Pl3SRb9/dS', NULL, '2025-06-05', 1, NULL),
 (21, 'agent@mail.com', 'agent.agent', 'Agent', 'agent', '1985-02-14', '1 rue du puit', '$2y$10$IKKYOdZW/Tx7859V4km.D.zJ8YxtOZkel8Wn6jHw0q29b3fnZ0Ury', NULL, '2025-06-16', 1, NULL),
 (22, 'diaba.samoura@hotmail.com', 'melodie.Stewart', 'Stewart', 'melodie', NULL, NULL, 'blablabla', NULL, '2025-06-18', 1, NULL);
-
---
--- Structure de la table `commentaires`
---
-
-CREATE TABLE `commentaires` (
-  `id` int(11) NOT NULL,
-  `date_comment` datetime NOT NULL,
-  `commentaire` varchar(500) DEFAULT NULL,
-  `reaction` int(11) NOT NULL,
-  `idM` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Structure de la table `notifications`
---
-
-CREATE TABLE `notifications` (
-  `notif` int(11) NOT NULL,
-  `idR` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Index pour les tables déchargées
@@ -374,6 +372,13 @@ ALTER TABLE `administrateur`
 --
 ALTER TABLE `agent`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `commentaires`
+--
+ALTER TABLE `commentaires`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idM` (`idM`);
 
 --
 -- Index pour la table `concerne`
@@ -415,6 +420,13 @@ ALTER TABLE `materiel`
   ADD PRIMARY KEY (`idM`);
 
 --
+-- Index pour la table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`notif`,`idR`),
+  ADD KEY `idR` (`idR`);
+
+--
 -- Index pour la table `reservations`
 --
 ALTER TABLE `reservations`
@@ -440,20 +452,6 @@ ALTER TABLE `user_`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `commentaires_eleve`
---
-ALTER TABLE `commentaires`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idM` (`idM`);
-
---
--- Index pour la table `notifications`
---
-ALTER TABLE `notifications`
-  ADD PRIMARY KEY (`notif`,`idR`),
-  ADD KEY `idR` (`idR`);
-
---
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
@@ -461,25 +459,25 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT pour la table `materiel`
 --
 ALTER TABLE `materiel`
-  MODIFY `idM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pour la table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `idR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `idR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT pour la table `salle`
 --
 ALTER TABLE `salle`
-  MODIFY `idS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `user_`
 --
 ALTER TABLE `user_`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Contraintes pour les tables déchargées
@@ -535,20 +533,6 @@ ALTER TABLE `favori_materiel`
 --
 ALTER TABLE `reservation_users`
   ADD CONSTRAINT `reservation_users_ibfk_2` FOREIGN KEY (`idR`) REFERENCES `reservations` (`idR`) ON DELETE CASCADE;
-COMMIT;
-
---
--- Contraintes pour la table `commentaires`
---
-ALTER TABLE `commentaires`
-  ADD CONSTRAINT `commentaires_ibfk_2` FOREIGN KEY (`idM`) REFERENCES `materiel` (`idM`);
-COMMIT;
-
---
--- Contraintes pour la table `notifications`
---
-ALTER TABLE `notifications`
-  ADD CONSTRAINT `notifications_ibfk_2` FOREIGN KEY (`idR`) REFERENCES `reservations` (`idR`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
