@@ -106,6 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <link rel="stylesheet" href="../CSS/connexion.css" />
   <link rel="stylesheet" href="../CSS/header.css" />
   <title>Connexion</title>
+  <link rel="icon" type="image/png" href="../IMG/logo.png">
 </head>
 
 <body>

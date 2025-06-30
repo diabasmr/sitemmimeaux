@@ -23,6 +23,7 @@ if (isset($_SESSION['error'])) {
   <link rel="stylesheet" href="../CSS/connexion.css" />
   <link rel="stylesheet" href="../CSS/header.css" />
   <title>Connexion</title>
+  <link rel="icon" type="image/png" href="../IMG/logo.png">
 </head>
 
 <body>
@@ -66,7 +67,7 @@ if (isset($_SESSION['error'])) {
           <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
             <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
               <h5 class="mb-3 fw-semibold text-dark">Pas si vite</h5>
-              <p class="text-muted mb-4"><?= htmlspecialchars($error) ?></p>
+              <p class="text-muted mb-4 fs-6"><?= htmlspecialchars($error) ?></p>
               <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
             </div>
           </div>

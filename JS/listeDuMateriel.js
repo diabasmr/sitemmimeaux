@@ -38,7 +38,6 @@ buttonSearch.addEventListener("click", function () {
 function openPopup(button) {
   const id = button.dataset.id;
   const designation = button.dataset.designation;
-  const dateAchat = button.dataset.dateachat;
   const quantite = button.dataset.quantite;
   const descriptif = button.dataset.descriptif;
   const type = button.dataset.type;
@@ -48,7 +47,6 @@ function openPopup(button) {
   // Remplir les champs du formulaire
   document.getElementById("idM").value = id;
   document.getElementById("designation").value = designation;
-  document.getElementById("date_achat").value = dateAchat;
   document.getElementById("quantite").value = quantite;
   document.getElementById("descriptif").value = descriptif;
   document.getElementById("type").value = type;

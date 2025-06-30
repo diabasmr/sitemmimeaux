@@ -36,6 +36,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
     <link rel="stylesheet" href="../CSS/header.css" />
     <link rel="stylesheet" href="../CSS/modifPopupMateriel.css" />
     <title>Liste du matériel</title>
+    <link rel="icon" type="image/png" href="../IMG/logo.png">
 </head>
 
 <body>
@@ -127,7 +128,6 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
         data-id="' . $row['idM'] . '"
         data-designation="' . htmlspecialchars($row['designation']) . '"
         data-photo="' . htmlspecialchars($row['photo']) . '"
-        data-dateachat="' . date('Y-m-d', strtotime($row['dateAchat'])) . '"
         data-quantite="' . htmlspecialchars($row['quantité']) . '"
         data-descriptif="' . htmlspecialchars($row['descriptif']) . '"
         data-type="' . htmlspecialchars($row['typeM']) . '"
@@ -167,10 +167,6 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'Administrateur')
                         <label for="photo">Photo</label>
                         <!-- UPLOAD IMAGES-->
                         <input type="file" name="photo" accept="image/*">
-                    </div>
-                    <div class="modifPopupMateriel_content_body_item">
-                        <label for="date_achat">Date d'achat</label>
-                        <input type="date" id="date_achat" name="date_achat" placeholder="Date d'achat">
                     </div>
                     <div class="modifPopupMateriel_content_body_item">
                         <label for="quantite">Quantité</label>

@@ -15,6 +15,7 @@ include("../PHPpure/entete.php");
     <link rel="stylesheet" href="../CSS/style.css" />
     <link rel="stylesheet" href="../CSS/index.css" />
     <link rel="stylesheet" href="../CSS/header.css" />
+    <link rel="icon" type="image/png" href="../IMG/logo.png">
     <title>Accueil</title>
 </head>
 
@@ -23,8 +24,8 @@ include("../PHPpure/entete.php");
     include("header.php");
     include("aside.php");
     // Inclure PHPMailer
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
     ?>
     <main>
         <?php

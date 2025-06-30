@@ -15,7 +15,7 @@ include("../PHPpure/entete.php");
 
     <link rel="stylesheet" href="../CSS/header.css" />
     <link rel="stylesheet" href="../CSS/reservation.css" />
-
+    <link rel="icon" type="image/png" href="../IMG/logo.png">
     <title>Réservation</title>
 </head>
 

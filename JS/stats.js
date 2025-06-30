@@ -47,7 +47,7 @@ function showSalles() {
 }
 
 const year = getYearFromPageUrl();
-fetch(`../phpPure/get_stats.php?year=${year}`)
+fetch(`../PHPpure/get_stats.php?year=${year}`)
   .then((response) => response.json())
   .then((reservations) => {
     const ctx = document.getElementById("Reservations").getContext("2d");

@@ -77,7 +77,7 @@ $current_page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
             </ul>
         </nav>
     </article>
-    <article class="autre menu">
+    <article class="autre menu pb-5 pb-md-0">
         <p>Autre</p>
         <nav>
             <ul>
@@ -92,9 +92,9 @@ $current_page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
                 if ($_SESSION['user']['role'] != 'Agent(e)') {
                 ?>
                     <li>
-                        <a href="https://intranet-edu.univ-eiffel.fr/ent" id="ent">
+                        <a href="https://intranet-edu.univ-eiffel.fr/ent" id="ent"> <!--remplacer par le lien et le logo du site-->
                             <img src="../res/univ.svg" alt="" />
-                            Accéder à l'ENT
+                            Site MMI Meaux
                         </a>
                     </li>
                 <?php

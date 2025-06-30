@@ -27,6 +27,7 @@ if (isset($_SESSION['success'])) {
     <link rel="stylesheet" href="../CSS/header.css" />
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <title>Réservation VR </title>
+    <link rel="icon" type="image/png" href="../IMG/logo.png">
 </head>
 
 <body>
@@ -49,6 +50,9 @@ if (isset($_SESSION['success'])) {
             <div id="ajout" class="d-none position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
                 <!-- Carte de présentation -->
                 <div class="col-md-4 p-4 bg-white position-relative shadow rounded-4">
+                    <button class=" close_modifPopupReservation" style="background-color:rgba(255, 255, 255, 0.3); border:none;" onclick="document.getElementById('ajout').classList.add('d-none');">
+                        <img src=" ../res/x.svg" alt="close">
+                    </button>
 
                     <form class="salle-form" id="salleAjout" method="POST" action="../PHPpure/ajoutSalle.php"
                         enctype="multipart/form-data">

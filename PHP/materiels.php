@@ -1,10 +1,10 @@
 <?php
 require("../PHPpure/connexion.php");
 include("../PHPpure/entete.php");
-$error = '';
-if (isset($_SESSION['error'])) {
-    $error = $_SESSION['error'];
-    unset($_SESSION['error']);
+$success = '';
+if (isset($_SESSION['success'])) {
+    $success = $_SESSION['success'];
+    unset($_SESSION['success']);
 }
 ?>
 
@@ -21,6 +21,7 @@ if (isset($_SESSION['error'])) {
     <link rel="stylesheet" href="../CSS/materiels.css" />
     <link rel="stylesheet" href="../CSS/header.css" />
     <title>Matériel</title>
+    <link rel="icon" type="image/png" href="../IMG/logo.png">
 </head>
 
 <body>
@@ -255,11 +256,11 @@ if (isset($_SESSION['error'])) {
             </div>
         </section>
     </main>
-    <?php if (!empty($error)) : ?>
+    <?php if (!empty($success)) : ?>
         <div id="confirmationPopup" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); z-index: 1050;">
             <div class="bg-white rounded-4 shadow p-4 text-center border" style="border-color: #e47390; max-width: 420px; width: 90%;">
                 <h5 class="mb-3 fw-semibold text-dark">Confirmation</h5>
-                <p class="mb-1"><?= htmlspecialchars($error) ?></p>
+                <p class="mb-1"><?= htmlspecialchars($success) ?></p>
                 <p class="text-muted mb-4">Un mail de confirmation vous sera envoyé lors de sa validation.</p>
                 <button type="button" class="btn w-50 text-white" style="background-color: #e47390;" onclick="document.getElementById('confirmationPopup').remove()">Fermer</button>
             </div>

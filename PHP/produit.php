@@ -53,6 +53,7 @@ if (isset($_GET['id'])) {
   <link rel="stylesheet" href="../CSS/index.css" />
   <link rel="stylesheet" href="../CSS/header.css" />
   <link rel="stylesheet" href="../CSS/reservation_salle.css" />
+  <link rel="icon" type="image/png" href="../IMG/logo.png">
 </head>
 
 <body>

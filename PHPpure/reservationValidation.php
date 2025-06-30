@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     break;
 
                 default:
-                    $message = "Nous vous informons que votre réservation a été refusée ou marquée en attente.\n\nLes raisons possibles peuvent être :\n- Indisponibilité du matériel\n- Demande d’annulation de votre part\n- Autres contraintes organisationnelles\n\nSi vous avez des questions, n'hésitez pas à nous contacter.";
+                    $message = "Nous vous informons que votre réservation a été refusée ou marquée en attente.\n\nLes raisons possibles peuvent être :\n- Indisponibilité du matériel\n- Demande d’annulation de votre part\n- Autres contraintes organisationnelles\n\nL'Administrateur vous informe du message suivant: \n\n$comment\n\nSi vous avez des questions, n'hésitez pas à nous contacter.";
                     break;
             }
         }

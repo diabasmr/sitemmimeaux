@@ -18,6 +18,7 @@ use PHPMailer\PHPMailer\Exception; ?>
     <link rel="stylesheet" href="../CSS/header.css" />
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <title>Support et conditions</title>
+    <link rel="icon" type="image/png" href="../IMG/logo.png">
 </head>
 
 <body>

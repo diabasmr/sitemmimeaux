@@ -331,8 +331,6 @@ label {
   border: 1px dashed #ccc;
   border-radius: 10px;
   background-color: #f9f9f9;
-  width: 85%;
-  height: 100px;
 }
 
 .signature-box img {
@@ -379,7 +377,7 @@ label {
   flex-direction: column;
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 40%;
   transform: translate(-50%, -50%);
   width: 35%;
   height: 55%;
@@ -529,6 +527,7 @@ label {
   .who-list-user {
     width: 95%;
     height: 55%;
+    left: 50%;
   }
 
   .who-list-user .search-container #search {
@@ -567,8 +566,16 @@ label {
   }
 
   #regle {
-    width: 90%;
+    width: 90% !important;
     margin-top: 90%;
+  }
+
+  #signature-canvas {
+    border: 1px dashed #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    width: 100%;
+    height: 100px;
   }
 }
 

@@ -1,5 +1,6 @@
 <?php
 include("../PHPpure/entete.php");
+include("../PHPpure/connexion.php");
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +16,7 @@ include("../PHPpure/entete.php");
 
     <link rel="stylesheet" href="../CSS/header.css" />
     <link rel="stylesheet" href="../CSS/reservation.css" />
-
+    <link rel="icon" type="image/png" href="../IMG/logo.png">
     <title>Statistiques</title>
 </head>
 
@@ -25,24 +26,24 @@ include("../PHPpure/entete.php");
     include("aside.php");
     ?>
     <main class="mt-5 mt-md-auto">
-    <section class="d-flex flex-column flex-md-row justify-content-between align-items-baseline col-12 mt-5 mt-md-auto rounded bg-white p-3 gap-3">
-        <article class="left">
-            <h2>Statistiques</h2>
-        </article>
+        <section class="d-flex flex-column flex-md-row justify-content-between align-items-baseline col-12 mt-5 mt-md-auto rounded bg-white p-3 gap-3">
+            <article class="left">
+                <h2>Statistiques</h2>
+            </article>
 
-        <article class="annee d-flex align-items-center gap-5">
-            <button id="left" class="fs-md-3 fs-6">←</button>
-            <h4 id="headerDate" class="m-0">2025</h4>
-            <button id="right" class="fs-md-3 fs-6">→</button>
-        </article>
+            <article class="annee d-flex align-items-center gap-5">
+                <button id="left" class="fs-md-3 fs-6">←</button>
+                <h4 id="headerDate" class="m-0">2025</h4>
+                <button id="right" class="fs-md-3 fs-6">→</button>
+            </article>
 
-        <div class="d-flex gap-2 flex-wrap">
-            <button class="salles rounded p-2 text-white" style="background-color:#e4587d; border:none;" onclick="showResas()">Réservations</button>
-            <button class="materiel rounded p-2 text-white" style="background-color:#e4587d; border:none;" onclick="showMateriel()">Matériel</button>
-            <button class="salles rounded p-2 text-white" style="background-color:#e4587d; border:none;" onclick="showSalles()">Salles</button>
-        </div>
-    </section>
-  
+            <div class="d-flex gap-2 flex-wrap">
+                <button class="salles rounded p-2 text-white" style="background-color:#e4587d; border:none;" onclick="showResas()">Réservations</button>
+                <button class="materiel rounded p-2 text-white" style="background-color:#e4587d; border:none;" onclick="showMateriel()">Matériel</button>
+                <button class="salles rounded p-2 text-white" style="background-color:#e4587d; border:none;" onclick="showSalles()">Salles</button>
+            </div>
+        </section>
+
         <section id="stats-resa" style="width:100%;">
             <canvas id="Reservations"></canvas>
             <button class="salles rounded p-2 text-white mt-2" style="background-color:#e4587d; border:none;" onclick="exportChartToCSV('Reservations')">Télécharger en CSV</button>
@@ -54,7 +55,7 @@ include("../PHPpure/entete.php");
                 </div>
             </div>
         </section>
-  
+
         <section id="stats-materiel" style="display:none; width:100%;">
             <canvas id="Materiel"></canvas>
             <button class="salles rounded p-2 text-white mt-2" style="background-color:#e4587d; border:none;" onclick="exportChartToCSV('Materiel');">Télécharger en CSV</button>
@@ -89,7 +90,7 @@ include("../PHPpure/entete.php");
                     <button class="salles rounded p-2 mt-2 text-white" style="background-color:#e4587d; border:none;" onclick="exportChartToCSV('Temporalite5');">Télécharger en CSV</button>
                 </div>
         </section>
-</main>
+    </main>
     <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
     <script src="../JS/sideBarre.js"></script>

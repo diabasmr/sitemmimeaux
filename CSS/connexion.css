@@ -47,7 +47,7 @@ main section .formContainer {
   gap: 2vh;
 }
 
-main section form .passwordContainer {
+.passwordContainer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,7 +58,7 @@ main section form .passwordContainer {
   position: relative;
 }
 
-main section form .showPassword {
+.showPassword {
   position: absolute;
   right: 1vw;
   top: 50%;
@@ -73,7 +73,7 @@ main section form .showPassword {
   transition: all 0.2s ease-in-out;
 }
 
-main section form .showPassword:hover {
+.showPassword:hover {
   transform: translateY(-50%) scale(1.1);
 }
 
@@ -139,7 +139,7 @@ main section form .remember .souvenir {
 }
 
 /* coche affichée quand coché */
-.souvenir input[type="checkbox"]:checked + label::after {
+.souvenir input[type="checkbox"]:checked+label::after {
   content: "";
   position: absolute;
   left: 0.32vw;
@@ -187,7 +187,7 @@ main section .formContainer p {
   text-align: center;
 }
 
-main section .formContainer p a{
+main section .formContainer p a {
   color: #d72f59;
   text-decoration: none;
   cursor: pointer;

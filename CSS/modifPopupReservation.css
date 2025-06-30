@@ -148,11 +148,18 @@
   border: none;
 }
 
+.imgResa {
+  width: 50%;
+  height: 50%;
+  object-fit: cover;
+}
+
 @media screen and (max-width: 1100px) {
   .close_modifPopupReservation img {
     height: 30px;
     width: auto;
   }
+
   .modifPopupReservation {
     transform: translate(-50%, -50%);
     background-color: #fff;
@@ -171,5 +178,10 @@
   .modifPopupReservation_content_body_item label {
     font-size: 3vw;
     font-weight: 600;
+  }
+
+  .imgResa {
+    width: 100%;
+    height: 100%;
   }
 }

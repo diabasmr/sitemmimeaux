@@ -33,7 +33,7 @@ use PHPMailer\PHPMailer\Exception;
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             echo '
-<div onclick="window.location.href=\'produit.php?id=' . '3' . '\'" class="cliquable row p-3 align-items-center gy-3 text-dark text-decoration-none" style="border-radius:10px; border-bottom: 1px solid rgba(228, 88, 125, 0.2); cursor: pointer;">
+<div class="cliquable row p-3 align-items-center gy-3 text-dark text-decoration-none" style="border-radius:10px; border-bottom: 1px solid rgba(228, 88, 125, 0.2); cursor: pointer;">
     <div class="col-4">
         <p>' . htmlspecialchars($row['nom']) . ' ' . htmlspecialchars($row['prenom']) . '</p>
     </div>

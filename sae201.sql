@@ -196,7 +196,6 @@ CREATE TABLE `materiel` (
   `designation` varchar(50) DEFAULT NULL,
   `photo` varchar(100) DEFAULT NULL,
   `typeM` varchar(50) DEFAULT NULL,
-  `dateAchat` date DEFAULT NULL,
   `etat` varchar(50) DEFAULT NULL,
   `quantité` int(11) DEFAULT NULL,
   `descriptif` varchar(200) DEFAULT NULL,
@@ -207,24 +206,24 @@ CREATE TABLE `materiel` (
 -- Déchargement des données de la table `materiel`
 --
 
-INSERT INTO `materiel` (`idM`, `refernceM`, `designation`, `photo`, `typeM`, `dateAchat`, `etat`, `quantité`, `descriptif`, `lien_demo`) VALUES
-(1, 'REF001', 'Trépied Benro Kit', '20230505_110146.jpg', 'Accessoire', '0000-00-00', 'Bon état', 1, 'Trépied léger et stable pour prises de vue pro.', 'rien'),
-(2, 'REF002', 'Caméra 360° Ricoh Theta M15', 'P1018481.JPG', 'Vidéo', '2023-02-01', 'Bon état', 2, 'Caméra 360° compacte pour vidéo immersive.', NULL),
-(3, 'REF003', 'Casque SteelSeries Arctis Pro', 'P1018474.JPG', 'Audio', '2023-03-05', 'Très bon état', 4, 'Casque gaming de haute qualité.', NULL),
-(4, 'REF004', 'Drone DJI Tello', 'P1018445.JPG', 'Drone', '2023-03-15', 'Très bon état', 2, 'Mini drone idéal pour débutants.', NULL),
-(5, 'REF005', 'GoPro Max', '20230505_105927.jpg', 'Vidéo', '2023-04-01', 'Très bon état', 1, 'Caméra 360° GoPro pour captations immersives.', NULL),
-(6, 'REF006', 'HTC Vive Focus 3 - Casque + Manettes', 'P1018553.JPG', 'VR', '2023-04-20', 'Excellent état', 2, 'Casque VR pro avec manettes incluses.', NULL),
-(7, 'REF007', 'Webcam Logitech BRIO 4K', 'P1018493.JPG', 'Vidéo', '2023-05-01', 'Très bon état', 3, 'Webcam 4K pour streaming ou visio.', NULL),
-(8, 'REF008', 'Manette MSI Force GC30 V2', 'P1018509.JPG', 'Accessoire', '2023-05-10', 'Bon état', 5, 'Manette sans fil pour gaming.', NULL),
-(9, 'REF009', 'Meta Quest 2 - Casque + Manettes + Câble', 'IMG_0007.JPG', 'Accessoire', '2025-06-06', 'Bon état', 2, 'Pack VR complet avec casque, manettes et câble Link.', 'rien'),
-(10, 'REF010', 'Micro HyperX QuadCast', '20230505_100306.jpg', 'Audio', '2023-05-17', 'Très bon état', 3, 'Micro USB de qualité studio avec support intégré.', NULL),
-(11, 'REF011', 'Microsoft Hololens 2', 'P1018521.JPG', 'AR/VR', '2023-05-20', 'Très bon état', 1, 'Casque de réalité mixte autonome.', NULL),
-(12, 'REF012', 'Samsung Galaxy Tab A', 'P1018472.JPG', 'Tablette', '2023-05-22', 'Bon état', 3, 'Tablette polyvalente pour navigation et app.', NULL),
-(13, 'REF013', 'Support Tablette', 'P1018485.JPG', 'Accessoire', '2023-05-23', 'Bon état', 4, 'Support ajustable compatible avec toutes tablettes.', NULL),
-(14, 'REF014', 'Tablette Graphique Wacom One', 'P1018499.JPG', 'Graphisme', '2023-05-23', 'Très bon état', 2, 'Tablette graphique avec stylet pour illustration.', NULL),
-(15, 'REF015', 'Trépied Mantona SG-350', 'P1018449.JPG', 'Accessoire', '2023-05-24', 'Très bon état', 2, 'Trépied robuste pour photo/vidéo.', NULL),
-(16, 'REF016', 'Vidéoprojecteur EPSON EMP 6110 - XGA', '20230505_104109.jpg', 'Vidéo', '2023-05-25', 'Bon état', 1, 'Vidéoprojecteur XGA performant pour présentations.', NULL),
-(17, 'REF017', 'Câble Vive Pro Link', 'P1018496.JPG', 'Accessoire', '2023-05-25', 'Très bon état', 2, 'Câble officiel pour casque Vive Pro.', NULL);
+INSERT INTO `materiel` (`idM`, `refernceM`, `designation`, `photo`, `typeM`, `etat`, `quantité`, `descriptif`, `lien_demo`) VALUES
+(1, 'REF001', 'Trépied Benro Kit', '20230505_110146.jpg', 'Accessoire', 'Bon état', 1, 'Trépied léger et stable pour prises de vue pro.', 'rien'),
+(2, 'REF002', 'Caméra 360° Ricoh Theta M15', 'P1018481.JPG', 'Vidéo', 'Bon état', 2, 'Caméra 360° compacte pour vidéo immersive.', NULL),
+(3, 'REF003', 'Casque SteelSeries Arctis Pro', 'P1018474.JPG', 'Audio', 'Très bon état', 4, 'Casque gaming de haute qualité.', NULL),
+(4, 'REF004', 'Drone DJI Tello', 'P1018445.JPG', 'Drone', 'Très bon état', 2, 'Mini drone idéal pour débutants.', NULL),
+(5, 'REF005', 'GoPro Max', '20230505_105927.jpg', 'Vidéo', 'Très bon état', 1, 'Caméra 360° GoPro pour captations immersives.', NULL),
+(6, 'REF006', 'HTC Vive Focus 3 - Casque + Manettes', 'P1018553.JPG', 'VR', 'Excellent état', 2, 'Casque VR pro avec manettes incluses.', NULL),
+(7, 'REF007', 'Webcam Logitech BRIO 4K', 'P1018493.JPG', 'Vidéo', 'Très bon état', 3, 'Webcam 4K pour streaming ou visio.', NULL),
+(8, 'REF008', 'Manette MSI Force GC30 V2', 'P1018509.JPG', 'Accessoire', 'Bon état', 5, 'Manette sans fil pour gaming.', NULL),
+(9, 'REF009', 'Meta Quest 2 - Casque + Manettes + Câble', 'IMG_0007.JPG', 'Accessoire', 'Bon état', 2, 'Pack VR complet avec casque, manettes et câble Link.', 'rien'),
+(10, 'REF010', 'Micro HyperX QuadCast', '20230505_100306.jpg', 'Audio', 'Très bon état', 3, 'Micro USB de qualité studio avec support intégré.', NULL),
+(11, 'REF011', 'Microsoft Hololens 2', 'P1018521.JPG', 'AR/VR', 'Très bon état', 1, 'Casque de réalité mixte autonome.', NULL),
+(12, 'REF012', 'Samsung Galaxy Tab A', 'P1018472.JPG', 'Tablette', 'Bon état', 3, 'Tablette polyvalente pour navigation et app.', NULL),
+(13, 'REF013', 'Support Tablette', 'P1018485.JPG', 'Accessoire', 'Bon état', 4, 'Support ajustable compatible avec toutes tablettes.', NULL),
+(14, 'REF014', 'Tablette Graphique Wacom One', 'P1018499.JPG', 'Graphisme', 'Très bon état', 2, 'Tablette graphique avec stylet pour illustration.', NULL),
+(15, 'REF015', 'Trépied Mantona SG-350', 'P1018449.JPG', 'Accessoire', 'Très bon état', 2, 'Trépied robuste pour photo/vidéo.', NULL),
+(16, 'REF016', 'Vidéoprojecteur EPSON EMP 6110 - XGA', '20230505_104109.jpg', 'Vidéo', 'Bon état', 1, 'Vidéoprojecteur XGA performant pour présentations.', NULL),
+(17, 'REF017', 'Câble Vive Pro Link', 'P1018496.JPG', 'Accessoire', 'Très bon état', 2, 'Câble officiel pour casque Vive Pro.', NULL);
 
 -- --------------------------------------------------------
 

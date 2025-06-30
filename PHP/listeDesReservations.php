@@ -30,10 +30,10 @@ require('../PHPpure/connexion.php');
         integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <link rel="stylesheet" href="../CSS/style.css" />
     <link rel="stylesheet" href="../CSS/index.css" />
-    <link rel="stylesheet" href="../CSS/tabReservation.css" />
     <link rel="stylesheet" href="../CSS/header.css" />
     <link rel="stylesheet" href="../CSS/modifPopupReservation.css" />
     <title>Liste des réservations</title>
+    <link rel="icon" type="image/png" href="../IMG/logo.png">
 </head>
 
 <body>
@@ -75,7 +75,7 @@ require('../PHPpure/connexion.php');
             </div>
         </div>
 
-        <section class="container-sm bg-white" style="border-radius: 15px;">
+        <section class="container-sm bg-white mb-5" style="border-radius: 15px;">
             <div class="row p-3 fs-5 fw-semibold" style="color:#e4587d; background-color: #edafbe; border-radius: 10px; border: 1px solid #edafbe;">
                 <p class="col-2">Réservation</p>
                 <p class="col-2">Utilisateur</p>
@@ -186,12 +186,12 @@ require('../PHPpure/connexion.php');
                                     <img title="' . htmlspecialchars($salle['nom']) . '" 
                                          src="../materiel/' . htmlspecialchars($salle['photo']) . '" 
                                          alt="Salle" 
-                                         class="rounded-circle me-2 flex-shrink-0" 
-                                         style="width: 50%; height: 50%; object-fit: cover; border: 4px solid #e4587d;">
+                                         class="rounded me-2 flex-shrink-0 imgResa" 
+                                         style="border: 4px solid #e4587d;">
                                   </div>';
                             } else {
                                 echo '<div class="col-2">';
-                                echo '<img title=">' . htmlspecialchars($salle['nom']) . '" src="../materiel/' . htmlspecialchars($salle['photo']) . '" alt="Salle" class="rounded-circle me-2 flex-shrink-0" style="width: 50%; height: 50%; object-fit: cover;">';
+                                echo '<img title=">' . htmlspecialchars($salle['nom']) . '" src="../materiel/' . htmlspecialchars($salle['photo']) . '" alt="Salle" class="rounded me-2 flex-shrink-0 imgResa">';
                                 echo '</div>';
                             }
                         } else {
@@ -201,12 +201,12 @@ require('../PHPpure/connexion.php');
                                     <img title="' . htmlspecialchars($mater['designation']) . '" 
                                          src="../materiel/' . htmlspecialchars($mater['photo']) . '" 
                                          alt="Salle" 
-                                         class="rounded-circle me-2 flex-shrink-0" 
-                                         style="width: 50%; height: 50%; object-fit: cover; border: 4px solid #e4587d;">
+                                         class="rounded-circle me-2 flex-shrink-0 imgResa" 
+                                         style="border: 4px solid #e4587d;">
                                   </div>';
                             } else {
                                 echo '<div class="col-2">';
-                                echo '<img title=">' . htmlspecialchars($mater['designation']) . '" src="../materiel/' . htmlspecialchars($mater['photo']) . '" alt="Salle" class="rounded-circle me-2" style="width: 50%; height: 50%;">';
+                                echo '<img title=">' . htmlspecialchars($mater['designation']) . '" src="../materiel/' . htmlspecialchars($mater['photo']) . '" alt="Salle" class="rounded-circle me-2 imgResa">';
                                 echo '</div>';
                             }
                         }

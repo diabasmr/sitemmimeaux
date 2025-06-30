@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../CSS/header.css" />
     <!-- bootstrap -->
     <title>Profil</title>
+    <link rel="icon" type="image/png" href="../IMG/logo.png">
 </head>
 
 <body>

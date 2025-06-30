@@ -16,6 +16,7 @@ $il_y_a_100_ans = date("Y-m-d", $dt - 31536000 * 100);
     <link rel="stylesheet" href="../CSS/inscription.css">
     <!-- <link rel="stylesheet" href="../CSS/header.css"> -->
     <title>Inscription</title>
+    <link rel="icon" type="image/png" href="../IMG/logo.png">
 </head>
 
 <body>
