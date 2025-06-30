@@ -93,7 +93,7 @@ $current_page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
                 ?>
                     <li>
                         <a href="../../index.html" id="Site MMI Meaux"> <!--remplacer par le lien et le logo du site-->
-                            <img src="../../IMG/logo.png" style="height: 50px; width:50px;" alt="Logo" />
+                            <img src="../../ressoures/logo.png" style="height: 50px; width:50px;" alt="Logo" />
                             Site MMI Meaux
                         </a>
                     </li>
