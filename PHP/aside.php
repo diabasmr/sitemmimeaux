@@ -92,8 +92,8 @@ $current_page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
                 if ($_SESSION['user']['role'] != 'Agent(e)') {
                 ?>
                     <li>
-                        <a href="https://intranet-edu.univ-eiffel.fr/ent" id="ent"> <!--remplacer par le lien et le logo du site-->
-                            <img src="../res/univ.svg" alt="" />
+                        <a href="../../index.html" id="Site MMI Meaux"> <!--remplacer par le lien et le logo du site-->
+                            <img src="../../IMG/logo.png" style="height: 50px; width:50px;" alt="Logo" />
                             Site MMI Meaux
                         </a>
                     </li>
