@@ -31,7 +31,7 @@ closeModifPopup.addEventListener("click", function () {
 	modifierUtilisateur.style.display = "none";
 });
 
-function openModifPopup(nb, nom, prenom, email, tel, role, valable) {
+function openModifPopup(nb, nom, prenom, email, tel, Date_de_naissance, promotion, td, valable) {
 	modifPopup.classList.add("active");
 	modifPopup.id = nb;
 
@@ -40,7 +40,9 @@ function openModifPopup(nb, nom, prenom, email, tel, role, valable) {
 	document.getElementById("prenom").value = prenom;
 	document.getElementById("email").value = email;
 	document.getElementById("tel").value = tel;
-	document.getElementById("role").value = role;
+	document.getElementById("naissance").value = Date_de_naissance;
+	document.getElementById("promotion").value = promotion;
+	document.getElementById("td").value = td;
 	if (valable == 0) {
 		validation.style.backgroundColor = "green";
 		console.log(valable);

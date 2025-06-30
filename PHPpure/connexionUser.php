@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ../PHP/connexion-compte.php');
         exit();
     } else {
-        $stmt = $pdo->prepare("SELECT * FROM user_ WHERE pseudo = :pseudo");
+        $stmt = $pdo->prepare("SELECT * FROM user_ WHERE pseudo = :pseudo OR email = :pseudo");
         $stmt->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -68,4 +68,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-?>

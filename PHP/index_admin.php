@@ -28,7 +28,7 @@ use PHPMailer\PHPMailer\Exception;
         <?php
         require_once('../PHPpure/connexion.php');
 
-        $sql = "SELECT * FROM user_";
+        $sql = "SELECT u.*, e.promotion, e.td FROM user_ u LEFT JOIN etudiant e ON e.id = u.id;";
         $stmt = $pdo->query($sql);
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -52,6 +52,9 @@ use PHPMailer\PHPMailer\Exception;
                 \'' . htmlspecialchars($row['prenom'], ENT_QUOTES) . '\', 
                 \'' . htmlspecialchars($row['email'], ENT_QUOTES) . '\', 
                 \'' . htmlspecialchars($row['telephone'], ENT_QUOTES) . '\', 
+                \'' . htmlspecialchars($row['Date_de_naissance'], ENT_QUOTES) . '\', 
+                \'' . htmlspecialchars($row['promotion'], ENT_QUOTES) . '\', 
+                \'' . htmlspecialchars($row['td'], ENT_QUOTES) . '\', 
                 \'' . htmlspecialchars(statusUser($row['id'], $pdo), ENT_QUOTES) . '\',
                 \'' . htmlspecialchars($row['valable'], ENT_QUOTES) . '\'
             )">
@@ -90,6 +93,22 @@ use PHPMailer\PHPMailer\Exception;
             <div class="tel">
                 <label class="fs-6" for="tel">Téléphone</label>
                 <input class="fs-6" type="tel" name="tel" id="tel" placeholder="Téléphone" disabled>
+            </div>
+            <div class="naissance">
+                <label class="fs-6" for="tel">Date de naissance</label>
+                <input class="fs-6" type="text" name="naissance" id="naissance" placeholder="00-00-00" disabled>
+            </div>
+            <div>
+                <div class="promo">
+                    <label class="fs-6" for="promo">
+                        Promotion
+                    </label>
+                    <input class="fs-6" type="text" name="promotion" id="promotion" placeholder="PROMOTION" disabled>
+                </div>
+                <div class="td">
+                    <label class="fs-6" for="td">TD</label>
+                    <input class="fs-6" type="text" name="td" id="td" placeholder="TD" disabled>
+                </div>
             </div>
             <div class="role">
                 <label class="fs-6" for="role">Définir un statut à l'utilisateur</label>

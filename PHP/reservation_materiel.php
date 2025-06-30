@@ -205,7 +205,7 @@ if (isset($_SESSION['success'])) {
                             <button class="add-avatar" id="add-avatar" type="button">+</button>
                         </div>
                         <section class="who-list-user" id="who-list-user">
-                            <button type="button" class="close-user-list" id="close-user-list">
+                            <button type="button" class="close-user-list" id="close-user-list" style="background-color:rgba(255, 255, 255, 0.3); border:none;">
                                 <img src="../res/x.svg" alt="">
                             </button>
                             <h3>Chercher un étudiant</h3>
