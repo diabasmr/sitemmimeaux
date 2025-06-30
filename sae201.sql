@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : ven. 27 juin 2025 à 16:55
--- Version du serveur : 10.4.28-MariaDB
--- Version de PHP : 8.2.4
+-- Hôte : localhost:3306
+-- Généré le : lun. 30 juin 2025 à 16:46
+-- Version du serveur : 11.4.7-MariaDB
+-- Version de PHP : 8.3.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `sae201`
+-- Base de données : `sc1fase4345_bdd`
 --
 
 -- --------------------------------------------------------
@@ -37,7 +37,9 @@ CREATE TABLE `administrateur` (
 
 INSERT INTO `administrateur` (`id`) VALUES
 (3),
-(6);
+(6),
+(23),
+(24);
 
 -- --------------------------------------------------------
 
@@ -95,9 +97,12 @@ CREATE TABLE `concerne` (
 --
 
 INSERT INTO `concerne` (`idM`, `idR`) VALUES
-(1, 49),
 (7, 46),
-(7, 47);
+(7, 47),
+(1, 49),
+(1, 59),
+(1, 60),
+(1, 61);
 
 -- --------------------------------------------------------
 
@@ -115,8 +120,8 @@ CREATE TABLE `concerne_salle` (
 --
 
 INSERT INTO `concerne_salle` (`idS`, `idR`) VALUES
-(1, 51),
-(2, 50);
+(2, 50),
+(1, 51);
 
 -- --------------------------------------------------------
 
@@ -181,7 +186,6 @@ CREATE TABLE `favori_materiel` (
 
 INSERT INTO `favori_materiel` (`id`, `idM`) VALUES
 (1, 1),
-(3, 1),
 (20, 7);
 
 -- --------------------------------------------------------
@@ -236,6 +240,15 @@ CREATE TABLE `notifications` (
   `idR` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `notifications`
+--
+
+INSERT INTO `notifications` (`notif`, `idR`) VALUES
+(1, 59),
+(1, 60),
+(1, 61);
+
 -- --------------------------------------------------------
 
 --
@@ -263,8 +276,11 @@ INSERT INTO `reservations` (`idR`, `quantite`, `date_demande`, `date_debut`, `da
 (46, 1, '2025-06-23 14:00:00', '2025-06-27 08:00:00', '2025-06-27 09:00:00', 3, 'blocage', '', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien'),
 (47, 1, '2025-06-24 15:00:00', '2025-06-27 14:00:00', '2025-06-27 15:00:00', 3, 'blocbloc', '', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien'),
 (49, 1, '2025-06-26 00:00:00', '2025-06-27 08:00:00', '2025-06-27 10:00:00', 3, 'Cours - k,oop', 'A récupérer dans la salle VR', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien'),
-(50, 1, '2025-06-26 00:00:00', '2025-06-29 15:00:00', '2025-06-29 16:30:00', 0, 'Projet', 'remettre tous les éléments', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien'),
-(51, 1, '2025-06-26 14:41:04', '2025-06-28 12:00:00', '2025-06-28 15:00:00', 1, 'Cours', 'Faites attention à remettre la clé en place', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien');
+(50, 1, '2025-06-26 00:00:00', '2025-06-29 15:00:00', '2025-06-29 16:30:00', 3, 'Projet', 'remettre tous les éléments', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien'),
+(51, 1, '2025-06-26 14:41:04', '2025-06-28 12:00:00', '2025-06-28 15:00:00', 3, 'Cours', 'Faites attention à remettre la clé en place', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4A', 'rien'),
+(59, 1, '2025-06-30 12:18:39', '2025-07-01 10:00:00', '2025-07-01 16:00:00', 0, 'Cours - test contournement d\'horaire', 'test contournement d\'horaire', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien'),
+(60, 1, '2025-06-30 12:19:38', '2025-07-01 08:00:00', '2025-07-01 17:00:00', 0, 'Projet - Test contournement horaire 2', 'Test contournement horaire 2', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien'),
+(61, 1, '2025-06-30 15:41:10', '2025-06-30 14:00:00', '2025-06-30 18:00:00', 0, 'Autre - Participants:\r\nFares\r\nFares2', 'Participants:\r\nFares\r\nFares2', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwA', 'rien');
 
 -- --------------------------------------------------------
 
@@ -282,11 +298,18 @@ CREATE TABLE `reservation_users` (
 --
 
 INSERT INTO `reservation_users` (`id`, `idR`) VALUES
+(20, 46),
+(20, 47),
 (3, 49),
 (3, 50),
 (3, 51),
-(20, 46),
-(20, 47);
+(3, 59),
+(3, 60),
+(1, 61),
+(2, 61),
+(3, 61),
+(6, 61),
+(7, 61);
 
 -- --------------------------------------------------------
 
@@ -354,7 +377,9 @@ INSERT INTO `user_` (`id`, `email`, `pseudo`, `nom`, `prenom`, `Date_de_naissanc
 (18, 'diabasamoura@gmail.cm', 'marta.stewart', 'Stewart', 'Marta', '2009-06-05', 'ggrr', '$2y$10$IZfJCgd9mjtb8YZT2MwJWeAa2yHiJrnM2ByFdDvwza19t/sHxjrT2', NULL, '2025-06-05', 0, NULL),
 (20, 'diabasamoura@gmail.com', 'diaba.samoura', 'Samoura', 'Diaba', '2009-06-04', 'ggrr', '$2y$10$JkwR/kHYvDYo6GTzjhKn7O806zvIDS5rgvc3TvcvXR8Pl3SRb9/dS', NULL, '2025-06-05', 1, NULL),
 (21, 'agent@mail.com', 'agent.agent', 'Agent', 'agent', '1985-02-14', '1 rue du puit', '$2y$10$IKKYOdZW/Tx7859V4km.D.zJ8YxtOZkel8Wn6jHw0q29b3fnZ0Ury', NULL, '2025-06-16', 1, NULL),
-(22, 'diaba.samoura@hotmail.com', 'melodie.Stewart', 'Stewart', 'melodie', NULL, NULL, 'blablabla', NULL, '2025-06-18', 1, NULL);
+(22, 'diaba.samoura@hotmail.com', 'melodie.Stewart', 'Stewart', 'melodie', NULL, NULL, 'blablabla', NULL, '2025-06-18', 1, NULL),
+(23, 'fares.zaidi@univ-eiffel.fr', 'Fares.ZAIDI', 'ZAIDI', 'Fares', NULL, NULL, '$2y$10$zSB36e3JpTvyhzcBnsuEJ.3rQo8JDbV837V/AqmK63UA1RkW1sIn2', '../uploads/avatars/23.png', '2025-06-30', 1, NULL),
+(24, 'diaba.samoura@hotmail', 'Clara.Diaba', 'Diaba', 'Clara', NULL, NULL, 'Diaba3456', NULL, '2025-06-30', 1, NULL);
 
 --
 -- Index pour les tables déchargées
@@ -464,7 +489,7 @@ ALTER TABLE `materiel`
 -- AUTO_INCREMENT pour la table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `idR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `idR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT pour la table `salle`
@@ -476,7 +501,7 @@ ALTER TABLE `salle`
 -- AUTO_INCREMENT pour la table `user_`
 --
 ALTER TABLE `user_`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Contraintes pour les tables déchargées
