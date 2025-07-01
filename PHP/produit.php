@@ -1,10 +1,6 @@
 <?php
 include("../PHPpure/entete.php");
 require('../PHPpure/connexion.php');
-if ($_SESSION['user']['role'] != 'Administrateur') {
-  header('Location: ../PHP/index.php');
-  exit();
-}
 
 // Vérifie si l'ID du produit est bien passé dans l'URL
 if (isset($_GET['id'])) {

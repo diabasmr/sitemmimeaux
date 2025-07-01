@@ -5,21 +5,12 @@ require_once('connexion.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupération des données du formulaire
     $nom = trim($_POST['nom']);
-    echo $nom;
     $prenom = trim($_POST['prenom']);
-    echo $prenom;
     $pseudo = trim($_POST['pseudo']);
-    echo $pseudo;
     $date_naissance = trim($_POST['date_naissance']);
-    echo $date_naissance;
-    $adresse = trim($_POST['adresse']);
-    echo $adresse;
     $email = trim($_POST['email']);
-    echo $email;
     $mdp = trim($_POST['mdp']);
-    echo $mdp;
     $confirme_mdp = trim($_POST['confirme_mdp']);
-    echo $confirme_mdp;
 
 
     // Date d'inscription
@@ -60,8 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdo->beginTransaction();
 
         // Insertion dans la table user_
-        $sql = "INSERT INTO user_ (nom, prenom, pseudo, email, mot_de_passe,   valable, date_de_naissance, adresse) 
-                VALUES (:nom, :prenom, :pseudo, :email, :mot_de_passe,  :valable, :date_de_naissance, :adresse)";
+        $sql = "INSERT INTO user_ (nom, prenom, pseudo, email, mot_de_passe, valable, date_de_naissance, adresse) 
+                VALUES (:nom, :prenom, :pseudo, :email, :mot_de_passe, :valable, :date_de_naissance, :adresse)";
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
@@ -80,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Validation de la transaction
         $pdo->commit();
+        header('Location: ../PHP/inscription_confirme.html');
         header('Location: ../PHP/inscription_confirme.html');
         exit();
     } catch (Exception $e) {

@@ -3,7 +3,6 @@ session_start();
 require_once('connexion.php');
 if (isset($_POST['supprimer'])) {
     $idM = $_POST['idM'] ?? null;
-    echo $idM;
 
     if (!$idM) {
         $_SESSION['error'] = "ID réservation manquant";
