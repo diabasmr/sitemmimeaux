@@ -92,8 +92,8 @@ $current_page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
                 if ($_SESSION['user']['role'] != 'Agent(e)') {
                 ?>
                     <li>
-                        <a href="../../index.html" id="Site MMI Meaux"> <!--remplacer par le lien et le logo du site-->
-                            <img src="../../ressources/logo.png" style="height: 50px; width:50px;" alt="Logo" />
+                        <a href="../../index.html" id="Site MMI Meaux"> <!--remplacer par le logo du site-->
+                            <img src="../res/univ.svg" alt="Logo" />
                             Site MMI Meaux
                         </a>
                     </li>

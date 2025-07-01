@@ -43,6 +43,15 @@ function openModifPopup(nb, nom, prenom, email, tel, Date_de_naissance, promotio
 	document.getElementById("naissance").value = Date_de_naissance;
 	document.getElementById("promotion").value = promotion;
 	document.getElementById("td").value = td;
+
+	// Affichage ou non de la div
+	const etudiantInfoDiv = document.querySelector(".etudiantinfo");
+	if (!promotion.trim() && !td.trim()) {
+		etudiantInfoDiv.style.display = "none";
+	} else {
+		etudiantInfoDiv.style.display = "block";
+	}
+
 	if (valable == 0) {
 		validation.style.backgroundColor = "green";
 		console.log(valable);

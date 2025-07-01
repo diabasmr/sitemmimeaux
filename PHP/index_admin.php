@@ -98,7 +98,7 @@ use PHPMailer\PHPMailer\Exception;
                 <label class="fs-6" for="tel">Date de naissance</label>
                 <input class="fs-6" type="text" name="naissance" id="naissance" placeholder="00-00-00" disabled>
             </div>
-            <div>
+            <div class="etudiantinfo">
                 <div class="promo">
                     <label class="fs-6" for="promo">
                         Promotion
